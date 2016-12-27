@@ -1,0 +1,30 @@
+{
+  "name": "team-188-website-2016",
+  "version": "1.0.0",
+  "description": "Our team website",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "build-css": "./bin/build-css",
+    "watch-css": "./bin/watch-css",
+    "start": "npm run build-css & node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "6.1.0"
+  },
+  "author": "Vanshil Shah",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "moment": "^2.16.0",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "node-sass": "^4.1.1",
+    "nodemon": "^1.11.0"
+  }
+}

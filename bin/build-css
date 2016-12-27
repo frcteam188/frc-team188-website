@@ -1,0 +1,1 @@
+node-sass --include-path scss public/assets/scss/stylesheet.scss public/assets/generated-css/stylesheet.css
