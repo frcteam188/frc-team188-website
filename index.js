@@ -3,9 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
-var data = require("./data.json");
 var moment = require('moment');
-console.log(data);
 // Set server port
 var port = process.env.PORT || 3001;
 
