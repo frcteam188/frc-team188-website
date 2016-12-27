@@ -5,7 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "node index",
+    "build-css": "./bin/build-css",
+    "watch-css": "./bin/watch-css",
+    "start": "npm run build-css & node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -20,5 +22,9 @@
     "jade": "^1.11.0",
     "moment": "^2.16.0",
     "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "node-sass": "^4.1.1",
+    "nodemon": "^1.11.0"
   }
 }

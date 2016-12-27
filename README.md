@@ -11,5 +11,5 @@ Install the dependencies and devDependencies and start the server.
 The entire setup is not described yet...
 ```sh
 $ npm install
-$ node index
+$ npm start
 ```
