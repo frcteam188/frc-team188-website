@@ -5,7 +5,7 @@ var app = express();
 var path = require('path');
 var moment = require('moment');
 // Set server port
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);

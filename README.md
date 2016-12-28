@@ -26,4 +26,4 @@ $ npm install -d
 $ npm start
 ```
 
-#### Open browser and website will be at [localhost:3001](localhost:3001)
+#### Open browser and website will be at [localhost:3001](localhost:3000)
