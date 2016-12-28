@@ -1,6 +1,12 @@
-$primaryColor : #ed1c34;
 
-body{
-  background: $primaryColor;
-  background-color: $primaryColor;
+$mdc-theme-primary: #DD2C00;
+$mdc-theme-accent: #40C4FF;
+$mdc-theme-background: #fff;
+
+@import "node_modules/material-components-web/dist/material-components-web";
+
+:root {
+  --mdc-theme-primary: $mdc-theme-primary;
+  --mdc-theme-accent: $mdc-theme-accent;
+  --mdc-theme-background: $mdc-theme-background;
 }
