@@ -10338,6 +10338,326 @@ fieldset:disabled .mdc-radio__native-control + .mdc-radio__background .mdc-radio
   margin: -0.5rem 0 1rem -0.04em; }
 
 :root {
-  --mdc-theme-primary: #DD2C00;
-  --mdc-theme-accent: #40C4FF;
-  --mdc-theme-background: #fff; }
+  --mdc-theme-primary: #F44336;
+  --mdc-theme-accent: #B71C1C;
+  --mdc-theme-background: #fff;
+  --mdc-theme-text-primary-on-primary: white;
+  --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-accent: white;
+  --mdc-theme-text-secondary-on-accent: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5); }
+
+.navbar {
+  padding: 0;
+  display: flex;
+  width: 600px;
+  height: 48px;
+  background: #fff;
+  margin: auto;
+  align-items: center; }
+
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+  Precomputed linear color channel values, for use in contrast calculations.
+  See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+
+  Algorithm, for c in 0 to 255:
+  f(c) {
+    c = c / 255;
+    return c < 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  }
+
+  This lookup table is needed since there is no `pow` in SASS.
+*/
+/* All variables are local, so disable pattern checking. */
+/* stylelint-disable scss/dollar-variable-pattern */
+/**
+ * Calculate the luminance for a color.
+ * See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ */
+/**
+ * Calculate the contrast ratio between two colors.
+ * See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ */
+/**
+ * Determine whether to use dark or light text on top of given color.
+ * Returns "dark" for dark text and "light" for light text.
+ */
+/* stylelint-enable scss/dollar-variable-pattern */
+/*
+  Main theme colors.
+  If you're a user customizing your color scheme in SASS, these are probably the only variables you need to change.
+*/
+/* Indigo 500 */
+/* Pink A200 */
+/* White */
+/* Which set of text colors to use for each main theme color (light or dark) */
+/* Text colors according to light vs dark and text type */
+/* Primary text colors for each of the theme colors */
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/** MDC Ripple keyframes are split into their own file so that _mixins.scss can rely on them. */
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+@keyframes mdc-ripple-fg-radius-in {
+  from {
+    transform: scale(0);
+    animation-timing-function: cubic-bezier(0.157, 0.72, 0.386, 0.987); }
+  to {
+    transform: scale(1.5); } }
+
+@keyframes mdc-ripple-fg-opacity-out {
+  from {
+    opacity: 1;
+    animation-timing-function: linear; }
+  to {
+    opacity: 0; } }
+
+@keyframes mdc-ripple-fg-unbounded-opacity-deactivate {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@keyframes mdc-ripple-fg-unbounded-transform-deactivate {
+  from {
+    transform: var(--mdc-ripple-fg-approx-xf); }
+  to {
+    transform: scale(1.01); } }
+
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+.navbar-item {
+  --mdc-ripple-left: 0;
+  --mdc-ripple-top: 0;
+  --mdc-ripple-fg-size: 0;
+  --mdc-ripple-surface-height: 0;
+  --mdc-ripple-surface-width: 0;
+  --mdc-ripple-fg-unbounded-transform-duration: 0ms;
+  --mdc-ripple-xfo-x: center;
+  --mdc-ripple-xfo-y: center;
+  --mdc-ripple-fg-unbounded-opacity-duration: 0ms;
+  --mdc-ripple-fg-unbounded-transform-duration: 0ms;
+  --mdc-ripple-fg-approx-xf: 0;
+  will-change: transition, opacity;
+  -webkit-tap-highlight-color: transparent;
+  /* stylelint-disable scss/dollar-variable-pattern */
+  /* stylelint-enable scss/dollar-variable-pattern */
+  /* stylelint-disable at-rule-empty-line-before, block-closing-brace-newline-after */
+  /* stylelint-enable at-rule-empty-line-before, block-closing-brace-newline-after */
+  /* stylelint-disable scss/dollar-variable-pattern */
+  /* stylelint-enable scss/dollar-variable-pattern */
+  /* stylelint-disable at-rule-empty-line-before, block-closing-brace-newline-after */
+  /* stylelint-enable at-rule-empty-line-before, block-closing-brace-newline-after */
+  flex: 1; }
+  .navbar-item::before {
+    /* stylelint-disable scss/dollar-variable-pattern */
+    /* stylelint-enable scss/dollar-variable-pattern */
+    /* stylelint-disable scss/dollar-variable-pattern */
+    /* stylelint-disable at-rule-empty-line-before, block-closing-brace-newline-after */
+    background-color: rgba(0, 0, 0, 0.06);
+    /* stylelint-enable at-rule-empty-line-before, block-closing-brace-newline-after */
+    position: absolute;
+    top: calc(50% - 100%);
+    left: calc(50% - 100%);
+    width: 200%;
+    height: 200%;
+    transform: scale(1);
+    transition: opacity 200ms linear;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    content: ""; }
+  .navbar-item.mdc-ripple-upgraded--background-active::before {
+    opacity: .99999; }
+  .navbar-item.mdc-ripple-upgraded--background-active:active::before {
+    transition-duration: 600ms; }
+  .navbar-item.mdc-ripple-upgraded--background-bounded-active-fill::before {
+    transition-duration: 120ms;
+    opacity: 1; }
+  .navbar-item.mdc-ripple-upgraded--unbounded::before {
+    top: var(--mdc-ripple-top);
+    left: var(--mdc-ripple-left);
+    width: var(--mdc-ripple-fg-size);
+    height: var(--mdc-ripple-fg-size); }
+  .navbar-item::after {
+    /* stylelint-disable scss/dollar-variable-pattern */
+    /* stylelint-disable at-rule-empty-line-before, block-closing-brace-newline-after */
+    background-color: rgba(0, 0, 0, 0.06);
+    /* stylelint-enable at-rule-empty-line-before, block-closing-brace-newline-after */
+    position: absolute;
+    width: var(--mdc-ripple-fg-size);
+    height: var(--mdc-ripple-fg-size);
+    transform: scale(0);
+    transform-origin: center center;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    content: ""; }
+  .navbar-item:not(.mdc-ripple-upgraded--unbounded)::after {
+    top: calc(var(--mdc-ripple-top) - var(--mdc-ripple-fg-size) / 2);
+    left: calc(var(--mdc-ripple-left) - var(--mdc-ripple-fg-size) / 2);
+    transform-origin: center center; }
+  .navbar-item.mdc-ripple-upgraded--unbounded::after {
+    top: var(--mdc-ripple-top);
+    left: var(--mdc-ripple-left);
+    transform-origin: var(--mdc-ripple-xfo-x) var(--mdc-ripple-xfo-y); }
+  .navbar-item.mdc-ripple-upgraded--foreground-bounded-active-fill::after {
+    animation-fill-mode: forwards;
+    animation: 800ms mdc-ripple-fg-radius-in, 400ms mdc-ripple-fg-opacity-out; }
+  .navbar-item.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded--foreground-unbounded-activation::after {
+    transform: scale(1);
+    transition: opacity 110ms linear, transform var(--mdc-ripple-fg-unbounded-transform-duration) linear 80ms;
+    opacity: 1; }
+  .navbar-item.mdc-ripple-upgraded--unbounded.mdc-ripple-upgraded--foreground-unbounded-deactivation::after {
+    animation: mdc-ripple-fg-unbounded-opacity-deactivate var(--mdc-ripple-fg-unbounded-opacity-duration) linear, mdc-ripple-fg-unbounded-transform-deactivate var(--mdc-ripple-fg-unbounded-transform-duration) cubic-bezier(0.157, 0.72, 0.386, 0.987); }
+
+.page {
+  width: 600px;
+  margin: auto; }
+
+.no-decor {
+  text-decoration: none; }
+
+.fill {
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%; }
+
+.fill-w {
+  width: 100%; }
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto auto; }
+
+.none {
+  margin: 0;
+  padding: 0; }
+
+.left {
+  float: left; }
+
+.clear {
+  clear: both; }

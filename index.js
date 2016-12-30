@@ -4,9 +4,60 @@ var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
 var moment = require('moment');
+var menu = [
+  {
+    'name' : 'Home',
+    'url' : '/'
+  },
+  {
+    'name' : 'About',
+    'url' : '/about'
+  },
+  {
+    'name' : 'Mentors',
+    'url' : '/mentors'
+  },
+  {
+    'name' : 'FLL',
+    'url' : '/fll'
+  },
+  {
+    'name' : 'VEX',
+    'url' : '/vex'
+  },
+  {
+    'name' : 'FRC',
+    'url' : '/frc',
+    'options' : [
+      {
+        'name' : '2016',
+        'url' : '/2016'
+      },
+      {
+        'name' : '2015',
+        'url' : '/2015'
+      },
+      {
+        'name' : '2014',
+        'url' : '/2014'
+      },
+      {
+        'name' : '2012',
+        'url' : '/2012'
+      },
+      {
+        'name' : '2011',
+        'url' : '/2011'
+      }
+    ]
+  }
+];
+var data = {
+  'menu': menu
+};
 // Set server port
 var port = process.env.PORT || 3000;
-
+app.use('/scripts', express.static(__dirname + '/node_modules/material-components-web/dist/'));
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
@@ -22,5 +73,5 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function(req, res) {
-  res.render('index');
+  res.render('index', data);
 });

@@ -1,7 +1,10 @@
 
-$mdc-theme-primary: #DD2C00;
-$mdc-theme-accent: #40C4FF;
+$mdc-theme-primary: #F44336;
+$mdc-theme-accent: #B71C1C;
 $mdc-theme-background: #fff;
+
+$navbar-height: 48px;
+$page-width: 600px;
 
 @import "node_modules/material-components-web/dist/material-components-web";
 
@@ -9,4 +12,100 @@ $mdc-theme-background: #fff;
   --mdc-theme-primary: $mdc-theme-primary;
   --mdc-theme-accent: $mdc-theme-accent;
   --mdc-theme-background: $mdc-theme-background;
+  --mdc-theme-text-primary-on-primary: white;
+  --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-accent: white;
+  --mdc-theme-text-secondary-on-accent: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}
+
+.navbar{
+  padding: 0;
+  display: flex;
+  width: $page-width;
+
+  height: $navbar-height;
+  background: $mdc-theme-background;
+  margin: auto;
+  align-items: center;
+}
+
+@import "node_modules/@material/ripple/_mixins.scss";
+
+.navbar-item{
+  @include mdc-ripple-base;
+  @include mdc-ripple-bg((pseudo: "::before"));
+  @include mdc-ripple-fg((pseudo: "::after"));
+  flex: 1;
+}
+.page{
+  width: $page-width;
+  
+  margin: auto;
+}
+
+.no-decor{
+  text-decoration: none;
+}
+
+.fill{
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.fill-w{
+  width: 100%;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto auto;
+}
+
+// .divider-v{
+//   width: 1px;
+//   height: $navbar-height - 8;
+//   margin: 0 4px 0 4px;
+//   background-color: $mdc-theme-accent;
+// }
+// .divider-h{
+//   width: 95%;
+//   height: 1px;
+//   background-color: $mdc-theme-accent;
+// }
+.none{
+  margin: 0;
+  padding: 0;
+}
+
+.left{
+  float:left;
+}
+
+.clear{
+  clear: both;
 }

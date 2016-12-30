@@ -3,11 +3,26 @@ html
   head
     title Team 188
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
-    script(src='/javascripts/jquery-3.0.0')
-  body(style='font-family: "Slabo", "sans-serif";')
-    h1.mdc-theme--primary.mdc-typography--display2 Team 188 website test
-    h1.mdc-theme--primary.mdc-typography--display1 Hello, World!
-    button.mdc-button.mdc-button--raised.mdc-button--primary(type='button')
-      Press Me
-    div.mdc-card.mdc-theme--primary-bg
-      h1 adkjasldkjaslkdjaslkdj
+    script(src='/javascripts/jquery-3.0.0.min.js')
+  body.none.fill
+    div.mdc-card.mdc-theme--primary-bg.none.fill-w
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.left.mdc-theme--primary-bg.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    div.page.mdc-card
+      p hello
+
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()
+//-
+//- h1.mdc-theme--primary.mdc-typography--display2 Team 188 website test
+//- h1.mdc-theme--primary.mdc-typography--display1 Hello, World!
+//- button.mdc-button.mdc-button--raised.mdc-button--primary(type='button')
+//-   Press Me
+//-
+//- div.mdc-card.mdc-theme--primary-bg(style="color: #000;")
+//-   h1 adkjasldkjaslkdjaslkdj
+//-
