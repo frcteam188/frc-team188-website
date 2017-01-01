@@ -1,6 +1,285 @@
-$primaryColor : #ed1c34;
+$primary: #B71C1C;
+$accent: #F44336;
+$background: #fff;
+$text-on-primary: white;
+
+$padding-b: 25px;
+$padding-m: 15px;
+$padding-s: 5px;
+
+$margin-b: 25px;
+$margin-m: 15px;
+$margin-s: 5px;
+
+$navbar-height: 30px;
+$page-width: 900px;
+
+$grid-columns: 3;
+$grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns;
+
+
+@import "node_modules/material-components-web/dist/material-components-web";
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px|Voces');
+
+:root {
+  --mdc-theme-primary: $primary;
+  --mdc-theme-accent: $accent;
+  --mdc-theme-background: $background;
+  --mdc-theme-text-primary-on-primary: $text-on-primary;
+  --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-primary: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-accent: white;
+  --mdc-theme-text-secondary-on-accent: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-accent: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-background: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-light: rgba(0, 0, 0, 0.87);
+  --mdc-theme-text-secondary-on-light: rgba(0, 0, 0, 0.54);
+  --mdc-theme-text-hint-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-disabled-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-icon-on-light: rgba(0, 0, 0, 0.38);
+  --mdc-theme-text-primary-on-dark: white;
+  --mdc-theme-text-secondary-on-dark: rgba(255, 255, 255, 0.7);
+  --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
+  --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
+}
 
 body{
-  background: $primaryColor;
-  background-color: $primaryColor;
+  font-family: 'Slabo 27px', serif;
+}
+
+h1{
+  font-family: 'Voces', serif;
+}
+
+h2{
+  font-family: 'Voces', serif;
+}
+
+h3{
+  font-family: 'Voces', serif;
+}
+
+h4{
+  font-family: 'Voces', serif;
+}
+
+h5{
+  font-family: 'Voces', serif;
+}
+
+a{
+  color: $accent;
+}
+.navbar-container{
+  background-color: $primary;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.navbar{
+  background-color: $primary;
+  padding: 0;
+  display: flex;
+  width: $page-width;
+  height: $navbar-height;
+  background: $background;
+  margin: auto;
+  align-items: center;
+}
+
+@import "node_modules/@material/ripple/_mixins.scss";
+
+.navbar-item{
+  background-color: $primary;
+  font-family: 'Voces', serif;
+  flex: 1;
+  height: 100%;
+  transition-duration: 0.5s;
+}
+
+.navbar-item:hover{
+  background-color: $accent;
+}
+
+.page{
+  // padding-top: $navbar-height;
+  width: $page-width;
+  margin: auto;
+  background: $background;
+}
+
+.feature-pic{
+  height: 250px;
+  width: $page-width;
+  background-position: center;
+}
+
+.feature-text{
+  color: $text-on-primary;
+  //background: $primary; /* For browsers that do not support gradients */
+  // background: -webkit-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Safari 5.1 to 6.0 */
+  // background: -o-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Opera 11.1 to 12.0 */
+  // background: -moz-linear-gradient(rgba(255, 255, 255, 0.25), $primary); /* For Firefox 3.6 to 15 */
+  // background: linear-gradient(rgba(0, 0, 0, 0.25), $primary); /* Standard syntax */
+}
+
+.grid-container{
+  width: $page-width;
+}
+.grid-m{
+  margin-left: $margin-b;
+}
+.grid-button{
+  float: left;
+  position: relative;
+  background-position: center;
+  width: $grid-button-size;
+  height: $grid-button-size;
+  background: #fff;
+}
+.grid-button-foreground{
+  opacity: 0;
+  background: $primary;
+  color: $text-on-primary;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $padding-b;
+  transition-duration: 0.25s;
+}
+.grid-button-foreground:hover{
+  opacity: 0.5;
+}
+
+//~~~~~~~~HELPER CLASSES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.padding-b{
+  padding: $padding-b;
+}
+.padding-m{
+  padding: $padding-m;
+}
+.padding-s{
+  padding: $padding-s;
+}
+
+.margin-b{
+  margin: $margin-b;
+}
+.margin-m{
+  margin: $margin-m;
+}
+.margin-s{
+  margin: $margin-s;
+}
+
+.margin-v-b{
+  margin: $margin-b auto;
+}
+.margin-v-m{
+  margin: $margin-m auto;
+}
+.margin-v-s{
+  margin: $margin-s auto;
+}
+
+.no-decor{
+  text-decoration: none;
+}
+
+.fill{
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.fill-w{
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.fill-v{
+  height: 100%;
+  top: 0;
+  bottom: 0;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto auto;
+}
+
+.circle{
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.opacity-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-hover:hover{
+  opacity: 0.25;
+}
+
+.none{
+  margin: 0;
+  border: none;
+  padding: 0;
+  outline:none;
+}
+
+.none-m{
+  margin: 0;
+}
+
+
+.f-left{
+  float: left;
+}
+.f-right{
+  float: right;
+}
+.top{
+  top: 0;
+}
+.bottom{
+  bottom: 0;
+}
+.left{
+  left: 0;
+}
+.right{
+  right: 0;
+}
+.clear{
+  clear: both;
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
 }
