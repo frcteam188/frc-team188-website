@@ -58,7 +58,7 @@ var data = {
 
 };
 // Set server port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 app.use('/scripts', express.static(__dirname + '/node_modules/material-components-web/dist/'));
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);

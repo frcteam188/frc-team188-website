@@ -10608,19 +10608,20 @@ a {
   float: left;
   position: relative;
   background-position: center;
-  width: 283.33333px;
-  height: 283.33333px;
+  width: 206.25px;
+  height: 206.25px;
   background: #fff; }
 
 .grid-button-foreground {
   opacity: 0;
-  background: #B71C1C;
+  background: #333;
   color: white;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  text-align: center;
   padding: 25px;
   transition-duration: 0.25s; }
 

@@ -14,7 +14,7 @@ $margin-s: 5px;
 $navbar-height: 30px;
 $page-width: 900px;
 
-$grid-columns: 3;
+$grid-columns: 4;
 $grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns;
 
 
@@ -150,13 +150,14 @@ a{
 }
 .grid-button-foreground{
   opacity: 0;
-  background: $primary;
+  background: #333;
   color: $text-on-primary;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  text-align: center;
   padding: $padding-b;
   transition-duration: 0.25s;
 }
