@@ -3,26 +3,44 @@ html
   head
     title Team 188
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill
-    div.mdc-card.mdc-theme--primary-bg.none.fill-w
+  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+    div.page.mdc-card.margin-v-b
+      div.relative.top.feature-pic(style='background-image: url(' + '/assets/pictures/188-logo.png' + ');')
+        div.absolute.fill
+          button.fill-v.none.material-icons.f-left.mdc-theme--primary-bg.opacity-hover() keyboard_arrow_left
+          button.fill-v.none.material-icons.f-right.mdc-theme--primary-bg.opacity-hover() keyboard_arrow_right
+          .clear
+        div.absolute.bottom.fill-w
+          .padding-b.feature-text
+            h2.none hello
+
+    div.page.mdc-card.margin-v-b.padding-b
+      p.none-m=description
+      a(href='/about') Find out more
+
+
+    div.grid-container.margin-v-b
+      a.grid-button.mdc-card(
+        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+        href='/')
+        h1.none.grid-button-foreground Hello
+      a.grid-button.mdc-card.grid-m(
+        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+        href='/')
+        p.none Hello
+      a.grid-button.mdc-card.grid-m(
+        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+        href='/')
+        p.none Hello
+
+    div.mdc-card.navbar-container
       ul.mdc-list.navbar
         each item in menu
-          li.mdc-list-item.left.mdc-theme--primary-bg.navbar-item
+          li.mdc-list-item.f-left.navbar-item
             a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
       .clear
-    div.page.mdc-card
-      p hello
-
     script(src='scripts/material-components-web.js')
     script.
       mdc.autoInit()
-//-
-//- h1.mdc-theme--primary.mdc-typography--display2 Team 188 website test
-//- h1.mdc-theme--primary.mdc-typography--display1 Hello, World!
-//- button.mdc-button.mdc-button--raised.mdc-button--primary(type='button')
-//-   Press Me
-//-
-//- div.mdc-card.mdc-theme--primary-bg(style="color: #000;")
-//-   h1 adkjasldkjaslkdjaslkdj
-//-

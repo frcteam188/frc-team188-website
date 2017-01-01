@@ -53,7 +53,9 @@ var menu = [
   }
 ];
 var data = {
-  'menu': menu
+  'menu': menu,
+  'description': 'We are Team 188, a hichschool robotics team based out of Scarborough Ontario'
+
 };
 // Set server port
 var port = process.env.PORT || 3000;
