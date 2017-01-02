@@ -78,10 +78,10 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
   res.render('index', data);
 });
 
-app.get('/about', function(req, res) {
+app.get('/about', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
   res.render('about', data);
 });
