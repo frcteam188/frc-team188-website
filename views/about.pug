@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title About
+    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+    div.page.mdc-card.margin-v-b.padding-b
+      h1.none.primary About Us
+
+      p.margin-b Woburn Robotics is an extracurricular high school team based at Woburn Collegiate Institute in Toronto, Canada, which gathers every year to take part in the FIRST  FIRST Robotics Competition, an international contest that teams students up with engineers and sponsors from local businesses to develop skills in science, technology, marketing, and leadership. In six intense weeks the team brainstorms, designs, constructs, and tests its 120-pound robot for the competition, whose objective is different every year. The robots are then immediately shipped off to compete in enormous tournaments (including the Greater Toronto Regional).
+
+      h1.none.primary About Us
+
+      p.margin-b Woburn Robotics is an extracurricular high school team based at Woburn Collegiate Institute in Toronto, Canada, which gathers every year to take part in the FIRST  FIRST Robotics Competition, an international contest that teams students up with engineers and sponsors from local businesses to develop skills in science, technology, marketing, and leadership. In six intense weeks the team brainstorms, designs, constructs, and tests its 120-pound robot for the competition, whose objective is different every year. The robots are then immediately shipped off to compete in enormous tournaments (including the Greater Toronto Regional).
+
+      h1.none.primary About Us
+
+      p.margin-b Woburn Robotics is an extracurricular high school team based at Woburn Collegiate Institute in Toronto, Canada, which gathers every year to take part in the FIRST  FIRST Robotics Competition, an international contest that teams students up with engineers and sponsors from local businesses to develop skills in science, technology, marketing, and leadership. In six intense weeks the team brainstorms, designs, constructs, and tests its 120-pound robot for the competition, whose objective is different every year. The robots are then immediately shipped off to compete in enormous tournaments (including the Greater Toronto Regional).
+
+    div.footer.page.mdc-card
+      div.right(style='background-position: center; background-image: url(assets/pictures/188-logo-white.png); width: 100px; height: 100px;')
+
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

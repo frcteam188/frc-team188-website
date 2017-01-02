@@ -14,8 +14,8 @@ var menu = [
     'url' : '/about'
   },
   {
-    'name' : 'Mentors',
-    'url' : '/mentors'
+    'name' : 'Team',
+    'url' : '/team'
   },
   {
     'name' : 'FLL',
@@ -50,11 +50,15 @@ var menu = [
         'url' : '/2011'
       }
     ]
+  },
+  {
+    'name' : 'Sponsors',
+    'url' : '/sponsors'
   }
 ];
 var data = {
   'menu': menu,
-  'description': 'We are Team 188, a hichschool robotics team based out of Scarborough Ontario'
+  'description': 'We are Team 188, a hichschool robotics team based out of Scarborough, Ontario. We were the first-ever canadian FRC team and strive to make a positive impact in our school and our community'
 
 };
 // Set server port
@@ -76,4 +80,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.get('/', function(req, res) {
   res.render('index', data);
+});
+
+app.get('/about', function(req, res) {
+  res.render('about', data);
 });

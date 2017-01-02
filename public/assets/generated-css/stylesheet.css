@@ -10591,7 +10591,7 @@ a {
   background: #fff; }
 
 .feature-pic {
-  height: 250px;
+  height: 300px;
   width: 900px;
   background-position: center; }
 
@@ -10621,12 +10621,32 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
+  line-height: 206.25px;
+  padding-left: 25px;
+  padding-right: 25px;
   text-align: center;
-  padding: 25px;
+  overflow: hidden;
   transition-duration: 0.25s; }
 
 .grid-button-foreground:hover {
   opacity: 0.5; }
+
+.footer {
+  color: white;
+  background: #B71C1C;
+  padding: 25px; }
+
+.primary {
+  color: #B71C1C; }
+
+.primary-bg {
+  background: #B71C1C; }
+
+.accent {
+  color: #F44336; }
+
+.accent-bg {
+  background: #F44336; }
 
 .padding-b {
   padding: 25px; }

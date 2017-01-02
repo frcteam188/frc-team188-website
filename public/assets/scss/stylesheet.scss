@@ -120,7 +120,7 @@ a{
 }
 
 .feature-pic{
-  height: 250px;
+  height: 300px;
   width: $page-width;
   background-position: center;
 }
@@ -157,15 +157,40 @@ a{
   bottom: 0;
   left: 0;
   right: 0;
+  line-height: $grid-button-size;
+  padding-left: $padding-b;
+  padding-right: $padding-b;
   text-align: center;
-  padding: $padding-b;
+  overflow: hidden;
   transition-duration: 0.25s;
 }
 .grid-button-foreground:hover{
   opacity: 0.5;
 }
 
+.footer{
+  color: $text-on-primary;
+  background: $primary;
+  padding: $padding-b;
+}
+
 //~~~~~~~~HELPER CLASSES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.primary{
+  color: $primary;
+}
+
+.primary-bg{
+  background: $primary;
+}
+
+.accent{
+  color: $accent;
+}
+
+.accent-bg{
+  background: $accent;
+}
 
 .padding-b{
   padding: $padding-b;
