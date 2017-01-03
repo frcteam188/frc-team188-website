@@ -5,8 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build-css": "./bin/build-css",
-    "watch-css": "./bin/watch-css",
+    "build-css": "node-sass --include-path scss public/assets/scss/stylesheet.scss public/assets/generated-css/stylesheet.css",
+    "watch-css": "nodemon -e scss -x npm run build-css",
     "start": "npm run build-css & node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

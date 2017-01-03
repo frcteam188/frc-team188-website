@@ -18,8 +18,8 @@ var menu = [
     'url' : '/team'
   },
   {
-    'name' : 'FLL',
-    'url' : '/fll'
+    'name' : 'Community',
+    'url' : '/community'
   },
   {
     'name' : 'VEX',
@@ -84,4 +84,8 @@ app.get('/', function(req, res) {//this block defines what our server will do wh
 
 app.get('/about', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
   res.render('about', data);
+});
+
+app.get('/community', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/community
+    res.render('community', data);
 });
