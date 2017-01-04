@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title Community
+    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+
+    div.page.mdc-card.margin-v-b.padding-b
+        h1.none.primary Upcoming
+        div.blog.mdc-card.margin-v-b.padding-b
+            h2.none.primary FLL
+            p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
+
+    div.page.mdc-card.margin-v-b.padding-b
+            h1.none.primary Past Events
+            div.blog.mdc-card.margin-v-b.padding-b
+                h2.none.primary FLL
+                p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
+
+            div.blog.mdc-card.margin-v-b.padding-b
+                h2.none.primary FLL
+                p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
+
+    div.footer.page.mdc-card
+      div.right(style='background-position: center; background-image: url(assets/pictures/188-logo-white.png); width: 100px; height: 100px;')
+
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

@@ -10421,6 +10421,10 @@ a {
   margin: auto;
   background: #fff; }
 
+.blog {
+  width: 850px;
+  background: #e7e7e7; }
+
 .feature-pic {
   height: 300px;
   width: 900px;

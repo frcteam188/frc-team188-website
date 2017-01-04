@@ -2,6 +2,7 @@ $primary: #B71C1C;
 $accent: #F44336;
 $background: #fff;
 $text-on-primary: white;
+$blog-color: #e7e7e7;
 
 $padding-b: 25px;
 $padding-m: 15px;
@@ -13,6 +14,7 @@ $margin-s: 5px;
 
 $navbar-height: 30px;
 $page-width: 900px;
+$blog-width: $page-width - 50px;
 
 $grid-columns: 4;
 $grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns;
@@ -115,6 +117,13 @@ a{
   width: $page-width;
   margin: auto;
   background: $background;
+}
+
+.blog{
+  // padding-top: $navbar-height;
+  width: $blog-width;
+  //margin: auto;
+  background: $blog-color;
 }
 
 .feature-pic{
