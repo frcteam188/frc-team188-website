@@ -121,5 +121,5 @@ app.get('/about', function(req, res) {//this block defines what our server will 
 });
 
 app.get('/community', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/community
-    res.render('community', data);
+    res.render('community', home);
 });
