@@ -98,8 +98,6 @@ a{
   align-items: center;
 }
 
-@import "node_modules/@material/ripple/_mixins.scss";
-
 .navbar-item{
   background-color: $primary;
   font-family: 'Voces', serif;
@@ -169,9 +167,30 @@ a{
 }
 
 .footer{
+  display: flex;
   color: $text-on-primary;
   background: $primary;
-  padding: $padding-b;
+}
+
+.footer-links{
+  width: 100%;
+}
+
+.footer-link{
+  width: 25%;
+  float: left;
+  margin: auto;
+  color: $text-on-primary;
+  text-decoration: none;
+}
+.footer-link:hover{
+  text-decoration: underline;
+}
+
+.footer-image{
+  display: block;
+  float: right;
+  width: 25%;
 }
 
 //~~~~~~~~HELPER CLASSES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -190,6 +209,10 @@ a{
 
 .accent-bg{
   background: $accent;
+}
+
+.text-on-primary{
+  color: $text-on-primary;
 }
 
 .padding-b{

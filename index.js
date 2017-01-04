@@ -54,13 +54,47 @@ var menu = [
   {
     'name' : 'Sponsors',
     'url' : '/sponsors'
-  }
+   }
 ];
-var data = {
-  'menu': menu,
-  'description': 'We are Team 188, a hichschool robotics team based out of Scarborough, Ontario. We were the first-ever canadian FRC team and strive to make a positive impact in our school and our community'
 
+var routes = [
+  {'name': 'Home',
+   'url': '/'},
+  {'name': 'About',
+   'url': '/about'},
+  {'name': 'Team',
+  'url': '/team'},
+  {'name': 'FIRST',
+   'url': '/first'},
+  {'name': 'FLL',
+   'url': '/fll'},
+  {'name': 'Vex',
+  'url': '/vex'},
+  {'name': 'Sponsors',
+   'url': '/sponsors'},
+  {'name': '2016',
+    'url': '/first/2016'}
+];
+
+var home = {
+  'menu': menu,
+  'description': 'We are Team 188, a high school robotics team based out of Scarborough, Ontario. We were the first-ever canadian FRC team and strive to make a positive impact in our school and our community',
+  'routes' : routes
 };
+
+var about = {
+  'menu' : menu,
+  'paragraphs' : [
+    {'title' : 'About Us',
+     'para' : 'Woburn Robotics is an extracurricular high school robotics team based at Woburn Collegiate Institute in Toronto, Canada, which gathers every year to take part in the FIRST FIRST Robotics Competition, an international contest that teams students up with engineers and sponsors from local businesses to develop skills in science, technology, marketing, and leadership. In six intense weeks the team brainstorms, designs, constructs, and tests its 120-pound robot for the competition, whose objective is different every year. The robots are then immediately shipped off to compete in enormous tournaments (including the Greater Toronto Regional).'
+   },
+   {'title' : 'Outreach',
+    'para' : 'This is where we can talk about our outreach and blah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blahblah blah blah'
+   }
+ ],
+  'routes' : routes
+}
+
 // Set server port
 var port = process.env.PORT || 3001;
 app.use('/scripts', express.static(__dirname + '/node_modules/material-components-web/dist/'));
@@ -79,9 +113,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/
-  res.render('index', data);
+  res.render('index', home);
 });
 
 app.get('/about', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
-  res.render('about', data);
+  res.render('about', about);
 });

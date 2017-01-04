@@ -6,6 +6,8 @@ html
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
   body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+
+    //The header image
     div.page.mdc-card.margin-v-b
       div.relative.top.feature-pic(style='background-image: url(' + '/assets/pictures/188-logo.png' + ');')
         div.absolute.fill
@@ -16,10 +18,12 @@ html
           .padding-b.feature-text
             h2.none hello
 
+    //short description
     div.page.mdc-card.margin-v-b.padding-b
       h3.none-m=description
       a(href='/about') Find out more
 
+    //past year robots buttons
     div.grid-container.margin-v-b
       a.grid-button.mdc-card(
         style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
@@ -34,14 +38,20 @@ html
 
       .clear
 
-    div.footer.page.mdc-card
-      div.right(style='background-position: center; background-image: url(assets/pictures/188-logo-white.png); width: 100px; height: 100px;')
+    //footer
+    div.footer.page.mdc-card.padding-b
+      div.footer-links
+        each index in routes
+          a.footer-link(href=index.url)=index.name
+        .clear
 
+
+    //navbar
     div.mdc-card.navbar-container
       ul.mdc-list.navbar
         each item in menu
           li.mdc-list-item.f-left.navbar-item
-            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+            a.center.fill.no-decor.text-on-primary(href=item.url)=item.name
       .clear
     script(src='scripts/material-components-web.js')
     script.
