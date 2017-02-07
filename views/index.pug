@@ -3,24 +3,45 @@ html
   head
     title Team 188
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    //link(rel='import', href='views/robot.pug')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+    script(src='/javascripts/home.js')
+
+  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')#body
 
     //The header image
-    div.page.mdc-card.margin-v-b
-      div.relative.top.feature-pic(style='background-image: url(' + '/assets/pictures/188-logo.png' + ');')
+    div.page.mdc-card.margin-v-b.relative
+        div.top.feature-pic#feature-pic.relative
         div.absolute.fill
-          button.fill-v.none.material-icons.f-left.mdc-theme--primary-bg.opacity-hover() keyboard_arrow_left
-          button.fill-v.none.material-icons.f-right.mdc-theme--primary-bg.opacity-hover() keyboard_arrow_right
+          a(href="/first").absolute.fill.opacity-half-hover.grey-bg
+            div.absolute.top.left
+              .feature-text
+                h1.margin-b.padding-b hello
+          button.fill-v.none.material-icons.f-left.accent-bg.opacity-hover.text-on-primary(onclick= 'prev();') keyboard_arrow_left
+          button.fill-v.none.material-icons.f-right.accent-bg.opacity-hover.text-on-primary(onclick= 'next();')  keyboard_arrow_right
           .clear
-        div.absolute.bottom.fill-w
-          .padding-b.feature-text
-            h2.none hello
+
 
     //short description
     div.page.mdc-card.margin-v-b.padding-b
-      h3.none-m=description
+      p.none-m=description
+      a(href='/about') Find out more
+    //short description
+    div.page.mdc-card.margin-v-b.padding-b
+      p.none-m=description
+      a(href='/about') Find out more
+    //short description
+    div.page.mdc-card.margin-v-b.padding-b
+      p.none-m=description
+      a(href='/about') Find out more
+    //short description
+    div.page.mdc-card.margin-v-b.padding-b
+      p.none-m=description
+      a(href='/about') Find out more
+    //short description
+    div.page.mdc-card.margin-v-b.padding-b
+      p.none-m=description
       a(href='/about') Find out more
 
     //past year robots buttons
@@ -44,10 +65,14 @@ html
         each index in routes
           a.footer-link(href=index.url)=index.name
         .clear
+    //- div.center
+    //-   p.margin-s Team 188	&copy 2017
+    //- div.absolute.top
+    //-   div.feature-pic(style='background-image: url(assets/pictures/188-logo.png);')
+    //- //navbar
+    //div.navbar-pic(style='background-image: url(assets/pictures/188-logo.png);')
 
-
-    //navbar
-    div.mdc-card.navbar-container
+    div.mdc-card.navbar-container#navbar-container
       ul.mdc-list.navbar
         each item in menu
           li.mdc-list-item.f-left.navbar-item

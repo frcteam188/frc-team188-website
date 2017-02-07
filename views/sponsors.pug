@@ -11,13 +11,21 @@ html
         h1.none.primary=index.title
         p.margin-b=index.para
 
-    //footer
-    div.footer.page.mdc-card.padding-b
-      div.footer-links
-        div.footer-image(style='background-image: url(assets/pictures/188-logo.png);')
-        each index in routes
-          a.footer-link(href=index.url)=index.name
-        .clear
+  //sponsor buttons
+  div.mdc-card.grid-container.margin-v-b.page
+    each index in [0, 1, 3, 4, 5]
+      a.sponsor-img(
+        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+        href='/')
+        h1.none-m.grid-button-foreground TDSB
+    .clear
+
+  //footer
+  div.footer.page.mdc-card.padding-b
+    div.footer-links
+      each index in routes
+        a.footer-link(href=index.url)=index.name
+      .clear
 
     div.mdc-card.navbar-container
       ul.mdc-list.navbar

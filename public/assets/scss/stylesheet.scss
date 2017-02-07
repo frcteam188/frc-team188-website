@@ -14,11 +14,13 @@ $margin-s: 5px;
 
 $navbar-height: 30px;
 $page-width: 900px;
+
 $blog-width: $page-width - 50px;
 
 $grid-columns: 4;
 $grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns;
 
+$navbar-pic-height: 250px;
 
 @import "node_modules/material-components-web/dist/material-components-web";
 @import url('https://fonts.googleapis.com/css?family=Slabo+27px|Voces');
@@ -55,38 +57,50 @@ $grid-button-size: ($page-width - $margin-b * ($grid-columns - 1))/$grid-columns
 }
 
 body{
-  font-family: 'Slabo 27px', serif;
+  font-family: 'Slabo 27px', sans-serif;
 }
 
 h1{
-  font-family: 'Voces', serif;
+  font-family: 'Voces', sans-serif;
 }
 
 h2{
-  font-family: 'Voces', serif;
+  font-family: 'Voces', sans-serif;
 }
 
 h3{
-  font-family: 'Voces', serif;
+  font-family: 'Voces', sans-serif;
 }
 
 h4{
-  font-family: 'Voces', serif;
+  font-family: 'Voces', sans-serif;
 }
 
 h5{
-  font-family: 'Voces', serif;
+  font-family: 'Voces', sans-serif;
 }
 
 a{
   color: $accent;
 }
-.navbar-container{
-  background-color: $primary;
-  position: fixed;
+.navbar-pic{
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
+  height: $navbar-pic-height;
+}
+.navbar-container{
+  background-color: $primary;
+  position: absolute;
+  //position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  // .navbar-container-fixed & {
+  //   position: fixed;
+  //   top: 0;
+  // }
 }
 
 .navbar{
@@ -101,7 +115,7 @@ a{
 }
 
 .navbar-item{
-  background-color: $primary;
+  background: $primary;
   font-family: 'Voces', serif;
   flex: 1;
   height: 100%;
@@ -113,18 +127,47 @@ a{
 }
 
 .page{
-  // padding-top: $navbar-height;
   width: $page-width;
   margin: auto;
   background: $background;
 }
 
 .blog{
-  // padding-top: $navbar-height;
   width: $blog-width;
-  //margin: auto;
   background: $blog-color;
 }
+
+.footer{
+  display: flex;
+  color: $text-on-primary;
+  background: $primary;
+}
+
+.footer-links{
+  width: 100%;
+}
+
+.footer-link{
+  width: 20%;
+  float: left;
+  margin: auto;
+  color: $text-on-primary;
+  text-decoration: none;
+}
+.footer-link:hover{
+  text-decoration: underline;
+}
+
+.footer-image{
+  float: right;
+  width: $page-width * .05;
+  height: $page-width * .05;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+//~~~~~~~~INDEX.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .feature-pic{
   height: 300px;
@@ -143,6 +186,8 @@ a{
 
 .grid-container{
   width: $page-width;
+  display: block;
+  justify-content: center;
 }
 .grid-m{
   margin-left: $margin-b;
@@ -169,37 +214,55 @@ a{
   padding-right: $padding-b;
   text-align: center;
   overflow: hidden;
-  transition-duration: 0.25s;
+  transition-duration: 0.5s;
 }
 .grid-button-foreground:hover{
   opacity: 0.5;
 }
 
-.footer{
-  display: flex;
-  color: $text-on-primary;
-  background: $primary;
-}
+//~~~~~~~~~~~ROBOT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.footer-links{
+$robot-button-size: 30px;
+
+.robot{
+  position: relative;
   width: 100%;
 }
 
-.footer-link{
-  width: 25%;
+.robot-pic{
   float: left;
-  margin: auto;
-  color: $text-on-primary;
-  text-decoration: none;
-}
-.footer-link:hover{
-  text-decoration: underline;
+  margin: $margin-m;
+  width: $page-width * 0.55;
+  height: $page-width * 0.5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
 }
 
-.footer-image{
-  display: block;
-  float: right;
-  width: 25%;
+.robot-info{
+  float: left;
+  width: $page-width * 0.25;
+}
+
+.robot-button{
+  width: $robot-button-size;
+  height: $robot-button-size;
+  border-radius: $robot-button-size/2;
+  background: $primary;
+}
+//~~~~~~~~SPONSORS.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.sponsor-img{
+  width: $page-width/3;
+  height: $page-width/3;
+  //padding: $padding-m;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  float: left;
+  transition-duration: .5s;
 }
 
 //~~~~~~~~HELPER CLASSES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -219,7 +282,12 @@ a{
 .accent-bg{
   background: $accent;
 }
-
+.grey{
+  color: #333;
+}
+.grey-bg{
+  background: #333;
+}
 .text-on-primary{
   color: $text-on-primary;
 }
@@ -288,9 +356,23 @@ a{
   margin: auto auto;
 }
 
+.center-text{
+  text-align: center;
+  line-height: 1;
+}
+
 .circle{
   padding: 10px;
   border-radius: 50%;
+}
+
+.opacity-half-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-half-hover:hover{
+  opacity: 0.5;
 }
 
 .opacity-hover{
@@ -299,7 +381,7 @@ a{
 }
 
 .opacity-hover:hover{
-  opacity: 0.25;
+  opacity: 1;
 }
 
 .none{
@@ -312,7 +394,6 @@ a{
 .none-m{
   margin: 0;
 }
-
 
 .f-left{
   float: left;
@@ -340,4 +421,9 @@ a{
 }
 .absolute{
   position: absolute;
+}
+.show-border{
+  border-color: #000;
+  border-width: medium;
+  border-style: dashed;
 }
