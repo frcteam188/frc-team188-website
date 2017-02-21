@@ -210,7 +210,7 @@ app.post('/scouting/api/sendData', function(req, res){
     if (req.body.form){
     postgres.submitForm(req.body.form);
     }
-    res.send('success');
+    res.send();
   });
 });
 
