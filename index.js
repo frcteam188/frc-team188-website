@@ -4,11 +4,13 @@ var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
 var moment = require('moment');
+var postgres = require('./sql/postgres_client.js');
+var jwt = require('jsonwebtoken');
 
 var menu = [
   {
     'name' : 'Home',
-    'url' : '/'
+    'url' :  '/'
   },
   {
     'name' : 'About',
@@ -166,13 +168,47 @@ app.get('/vex', function(req, res) {//this block defines what our server will do
 
 app.get('/sponsors', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/community
     res.render('sponsors', sponsors);
-    //res.send(req.query.team);
-    //res.json({'name' : 'hi'});
 });
-app.post('/posttest', function(req, res){
-  //res.json({'name' : req.name});
-  console.log(req.body);
-  res.send();
-  // res.json();
-  //res.render('sponsors', sponsors);
+
+/*{
+  'form_id': 5,
+  'teamNumber' : 188,
+  'matchNumber' : 2,
+  'startingPos' : 0,
+  'mobility' : true,
+  'autoBallPickup' : true,
+  'autoHigh' : 0,
+  'autoLow' : true,
+  'autoGearPickup' : 0,
+  'autoPrefLift' : 0
+}*/
+
+var scouting_secret = "SutharIsMY5orite";
+
+app.post('/scouting/api/signIn', function(req, res){
+  jwt.sign(req.body, scouting_secret, {'expiresIn': '12h'}, function(err, token) {
+    if (err){
+      console.log(err);
+      res.json({'err' : err})
+    }
+    res.json({'token' : token});
+  });
+});
+
+app.post('/scouting/api/sendData', function(req, res){
+  jwt.verify(req.query.token, scouting_secret, function(err, res){
+    if (err){
+      res.send(err);
+      return
+    }
+    postgres.submitAuto(req.body.auto);
+    postgres.submitTele(req.body.tele);
+    postgres.submitForm(req.body.form);
+    res.send('success');
+  });
+});
+
+app.get('/scouting/api/getMatch', function(req, res){
+  if(req.query.matchNumber != undefined && req.query.station != undefined)
+  postgres.getMatch(req.query.matchNumber, req.query.station, res);
 });
