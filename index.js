@@ -201,14 +201,28 @@ app.post('/scouting/api/sendData', function(req, res){
       res.send(err);
       return
     }
+    if (req.body.auto){
     postgres.submitAuto(req.body.auto);
-    postgres.submitTele(req.body.tele);
+    }
+    if (req.body.tele){
+      postgres.submitTele(req.body.tele);
+    }
+    if (req.body.form){
     postgres.submitForm(req.body.form);
+    }
     res.send('success');
   });
 });
 
 app.get('/scouting/api/getMatch', function(req, res){
-  if(req.query.matchNumber != undefined && req.query.station != undefined)
-  postgres.getMatch(req.query.matchNumber, req.query.station, res);
+  jwt.verify(req.query.token, scouting_secret, function(err, res){
+    if (err){
+      res.send(err);
+      return
+    }
+    if(req.query.matchNumber != undefined && req.query.station != undefined){
+      postgres.getMatch(req.query.matchNumber, req.query.station, res);
+    }
+  });
+
 });
