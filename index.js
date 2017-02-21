@@ -195,12 +195,14 @@ app.post('/scouting/api/signIn', function(req, res){
   });
 });
 
-app.post('/scouting/api/sendData', function(req, res){
-  jwt.verify(req.query.token, scouting_secret, function(err, res){
-    if (err){
-      res.send(err);
-      return
-    }
+app.post('/scouting/api/sendData', function(req, response){
+  //console.log(req.query.token);
+  //jwt.verify(req.query.token, scouting_secret, function(err, res){
+    // if (err){
+    //   console.log(err);
+    //   res.send(err);
+    //   return
+    // }
     if (req.body.auto){
     postgres.submitAuto(req.body.auto);
     }
@@ -210,8 +212,8 @@ app.post('/scouting/api/sendData', function(req, res){
     if (req.body.form){
     postgres.submitForm(req.body.form);
     }
-    res.send();
-  });
+    response.send('success');
+  //});
 });
 
 app.get('/scouting/api/getMatch', function(req, res){
