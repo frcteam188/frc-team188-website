@@ -183,6 +183,10 @@ app.get('/sponsors', function(req, res) {//this block defines what our server wi
   'autoPrefLift' : 0
 }*/
 
+app.get('/scouting', function(req, res){
+  res.render('scouting');
+});
+
 var scouting_secret = "SutharIsMY5orite";
 
 app.post('/scouting/api/signIn', function(req, res){

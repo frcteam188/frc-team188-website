@@ -1,0 +1,212 @@
+body{
+  background-image: url("../pictures/scouting.png");
+  background-repeat: no-repeat;
+}
+.btn{
+  background-color: #dddddd;
+  border: red;
+  color: black;
+  padding: 3px 3px;
+  display: inline;
+  font-size: 16px;
+  margin: 5px 4px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0.2;
+}
+.startingPos{
+  display: block;
+  text-align: center;
+  height: 95px;
+  width: 95px;
+  left: 35px;
+}
+.mobility{
+  text-align: justify;
+  height: 520px;
+  width: 150px;
+  left: 200px;
+  top: 35px;
+}
+.pickup{
+  height: 50px;
+  width: 50px;
+}
+.port{
+  height: 50px;
+  width: 100px;
+}
+.boiler{
+  height: 50px;
+  width: 50px;
+  top: 500px;
+}
+.davit{
+    width: 50px;
+    height: 50px;
+    background-color: #000;
+    border: solid 1px #000;
+    border-radius: 50%
+}
+#highGoal{
+  left: 35px;
+}
+#lowGoal{
+  left: 100px;
+}
+#port1{
+  -webkit-transform: rotate(-30deg);
+  top: 165px;
+  left: 180px;
+}
+#port2{
+  -webkit-transform: rotate(-90deg);
+  top: 265px;
+  left: 120px;
+}
+#port3{
+  -webkit-transform: rotate(30deg);
+  left: 170px;
+  top: 365px;
+}
+#gearGroundField{
+  height: 150px;
+  width: 150px;
+  top: 350px;
+  left: 400px;
+}
+#ballGroundField{
+  height: 150px;
+  width: 150px;
+  top: 100px;
+  left: 400px;
+}
+#gearHumanLoad{
+  top: 50px;
+  left: 635px;
+}
+#ballHumanLoad{
+  top: 50px;
+  left: 690px;
+}
+#loadPos{
+  top: 130px;
+}
+#middlePos{
+  top: 230px;
+}
+#boilerPos{
+  top: 330px;
+}
+#info{
+  position: absolute;
+  width: 100px;
+  top: 150px;
+  left: 800px;
+}
+#stationInfo{
+  position: absolute;
+  padding-left: 15px;
+  width: 140px;
+  height: 120px;
+  left: 785px;
+  top: 0px;
+  margin: 10px;
+  background-color: red;
+}
+#submitauto{
+  width: 50px;
+  height: 50px;
+  top: 500px;
+  left: 700px;
+}
+#submittele{
+  width: 50px;
+  height: 50px;
+  top: 500px;
+  left: 700px;
+}
+#davit1{
+  top: 180px;
+  left: 310px;
+}
+#davit2{
+  top: 270px;
+  left: 350px;
+}
+#davit3{
+  top: 360px;
+  left: 310px;
+}
+#hangSuccessbtn{
+  display: block;
+  height: 50px;
+  width: 70px;
+  top: 315px;
+  left: 700px;
+}
+#hangEndbtn{
+  height: 50px;
+  width: 70px;
+  top: 250px;
+  left: 700px;
+}
+#stationInfo {
+  display: block;
+}
+#startingPosdic{
+  display: block;
+}
+#ballScore{
+  display: none;
+}
+#autoBallScore{
+  display: block;
+}
+#pickup{
+  display: none;
+}
+#autoPickupdiv{
+  display: block;
+}
+#port{
+  display: none;
+}
+#autoport{
+  display: block;
+}
+#mobilitydiv{
+  display: block;
+}
+#autobtn{
+  display: block;
+}
+#telebtn{
+  display: none;
+}
+#endgame{
+  display: none;
+}
+#scoreAuto{
+  display: block;
+}
+#misc{
+  position: absolute;
+  display: none;
+  width: 150px;
+  top: 200px;
+  left: 400px;
+}
+#submitform{
+  opacity: 1;
+  background-color: #00ff12;
+}
+#next{
+  display: none;
+}
+#nextmatch{
+  top: 400px;
+  left: 400px;
+  opacity: 1;
+  background-color: #2196F3;
+}

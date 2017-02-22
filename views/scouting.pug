@@ -1,0 +1,129 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+
+    meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no')
+
+    link(rel='stylesheet', href='assets/generated-css/scouting.css')
+
+    title 188 Scout
+  script(src='/javascripts/scouting.js')
+
+  body
+    #stationInfo
+      p="Station:"
+        span#stationlbl
+
+      p="Team:"
+        span#teamNumberlbl
+
+      p="Match Number:"
+        span#matchNumberlbl
+
+    #startingPosdiv
+      button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
+
+      button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
+
+      button#boilerPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
+
+    #ballScore
+      button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High
+
+      button#lowGoal.boiler.btn(type='button', value='low', onclick='scoreLow()')  Low
+
+    #autoBallScore
+      button#highGoal.boiler.btn(type='button', value='high', onclick='autoScoreHigh()')  High
+
+      button#lowGoal.boiler.btn(type='button', value='low', onclick='autoScoreLow()')  Low
+
+    #pickup
+      button#gearGroundField.pickup.btn(type='button', value='true', onclick='gearField()') GEAR
+
+      button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField()') BALL
+
+      button#gearHumanLoad.pickup.btn(type='button', value='true', onclick='gearLoad()') GEAR
+
+      button#ballHumanLoad.pickup.btn(type='button', value='true', onclick='ballLoad()') BALL
+
+    #autoPickupdiv
+      button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
+
+      button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField()') BALL
+
+    #port
+      button#port1.port.btn(type='button', value='true', onclick='port1()')
+
+      button#port2.port.btn(type='button', value='true', onclick='port2()')
+
+      button#port3.port.btn(type='button', value='true', onclick='port3()')
+
+    #autoport
+      button#port1.port.btn(type='button', value='true', onclick='autoport1()')
+
+      button#port2.port.btn(type='button', value='true', onclick='autoport2()')
+
+      button#port3.port.btn(type='button', value='true', onclick='autoport3()')
+
+    #mobilitydiv
+      button#mobizone.mobility.btn(type='button', value='true', onclick='autoMobility()') MOBILITY YES
+
+    #submition
+      #telebtn
+        button#submittele.btn(type='button', value='true', onclick='scoreTele()') Tele
+
+      #autobtn
+        button#submitauto.btn(type='button', value='true', onclick='scoreAuto()') Auto
+
+    #endgame
+      button#davit1.davit.btn(type='button', value='true', onclick='hang1()')
+
+      button#davit2.davit.btn(type='button', value='true', onclick='hang2()')
+
+      button#davit3.davit.btn(type='button', value='true', onclick='hang3()')
+
+      button#hangEndbtn.btn(type='button', value='true', onclick='hangtime()') Hang End
+
+      button#hangSuccessbtn.btn(type='button', value='true', onclick='hangSuccess()') Hang Success
+
+    #misc
+      span  Gear Bot
+
+      input#gearBot(type='range', min='0', max='3', step='1', onchange='updategearlbl()')
+
+      span#gearlbl
+
+      span  Gear Bot
+
+      input#shotBot(type='range', min='0', max='3', step='1', onchange='updateshotlbl()')
+
+      span#shotlbl
+
+      span  Gear Bot
+
+      input#defendBot(type='range', min='0', max='5', step='1', onchange='updatedeflbl()')
+
+      span#defendlbl
+
+      span  Comments
+
+      input#commentsinput(type='text')
+
+      button#submitform.btn(type='button', value='true', onclick='scoreForm()') Sumbit Form
+
+    #next
+      button#nextmatch.btn(type='button', value='true', onclick='nextMatch()') Next Match
+
+    #info
+      p="Gears Pickup Total:"
+        span#gearsAcquiredlbl
+
+      p="Gears Scored Total:"
+        span#gearsScoredlbl
+
+      p="Pressure:"
+        span#pressurelbl
+
+      p="Total Balls Scored:"
+        span#ballScoredlbl
