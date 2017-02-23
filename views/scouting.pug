@@ -12,14 +12,14 @@ html
 
   body
     #stationInfo
-      p="Station:"
-        span#stationlbl
+      p="Station: "
+        span#stationlbl=station
 
-      p="Team:"
-        span#teamNumberlbl
+      p="Team: "
+        span#teamNumberlbl=teamNumber
 
-      p="Match Number:"
-        span#matchNumberlbl
+      p="Match Number: "
+        span#matchNumberlbl=matchNumber
 
     #startingPosdiv
       button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD

@@ -12,11 +12,16 @@ window.onload = function(){
 
 
 
-  document.getElementById("stationlbl").innerHTML = "Red 1";
-  document.getElementById("teamNumberlbl").innerHTML = "188";
-  document.getElementById("matchNumberlbl").innerHTML = "7";
+//  document.getElementById("stationlbl").innerHTML = "Red 1";
+//  document.getElementById("teamNumberlbl").innerHTML = "188";
+//  document.getElementById("matchNumberlbl").innerHTML = "7";
   station = "r1";
 
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', "", true);
+  xhr.send();
+
+  xhr.onreadystatechange = processRequest;
 
 /*  hideDiv(endgame);
   hideDiv(telebtn);
@@ -24,7 +29,12 @@ window.onload = function(){
   hideDiv(pickup);
   hideDiv(ballscore);
 */}
-
+function processRequest(e) {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var response = JSON.parse(xhr.responseText);
+        alert(response.ip);
+    }
+}
 function hidePos(){
 var empty = "";
 document.getElementById("startingPosdiv").innerHTML = " ";
