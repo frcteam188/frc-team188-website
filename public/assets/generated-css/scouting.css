@@ -12,22 +12,16 @@ body{
   margin: 5px 4px;
   cursor: pointer;
   position: absolute;
-  opacity: 0.2;
+  opacity: 0.8;
 }
 .startingPos{
   display: block;
   text-align: center;
-  height: 95px;
+  height: 50px;
   width: 95px;
   left: 35px;
 }
-.mobility{
-  text-align: justify;
-  height: 520px;
-  width: 150px;
-  left: 200px;
-  top: 35px;
-}
+
 .pickup{
   height: 50px;
   width: 50px;
@@ -47,6 +41,20 @@ body{
     background-color: #000;
     border: solid 1px #000;
     border-radius: 50%
+}
+#mobizone{
+  text-align: left;
+  height: 520px;
+  width: 150px;
+  left: 200px;
+  top: 35px;
+}
+#mobismall{
+  height: 50px;
+  width: 100px;
+  display: none;
+  top: 35px;
+  left: 200px;
 }
 #highGoal{
   left: 35px;
@@ -70,16 +78,16 @@ body{
   top: 365px;
 }
 #gearGroundField{
-  height: 150px;
-  width: 150px;
+  height: 50px;
+  width: 100px;
   top: 350px;
-  left: 400px;
+  left: 450px;
 }
 #ballGroundField{
-  height: 150px;
-  width: 150px;
-  top: 100px;
-  left: 400px;
+  height: 50px;
+  width: 100px;
+  top: 150px;
+  left: 450px;
 }
 #gearHumanLoad{
   top: 50px;
@@ -90,13 +98,13 @@ body{
   left: 690px;
 }
 #loadPos{
-  top: 130px;
+  top: 180px;
 }
 #middlePos{
-  top: 230px;
+  top: 240px;
 }
 #boilerPos{
-  top: 330px;
+  top: 300px;
 }
 #info{
   position: absolute;
@@ -114,17 +122,30 @@ body{
   margin: 10px;
   background-color: red;
 }
-#submitauto{
+#showauto{
   width: 50px;
   height: 50px;
   top: 500px;
-  left: 700px;
+  left: 620px;
 }
-#submittele{
+#showtele{
   width: 50px;
   height: 50px;
   top: 500px;
-  left: 700px;
+  left: 680px;
+}
+#showform{
+  width: 50px;
+  height: 50px;
+  top: 500px;
+  left: 740px;
+}
+#submit{
+  width: 100px;
+  height: 50px;
+  top: 500px;
+  left: 800px;
+  background-color: #ff12aa
 }
 #davit1{
   top: 180px;
@@ -151,45 +172,7 @@ body{
   top: 250px;
   left: 700px;
 }
-#stationInfo {
-  display: block;
-}
-#startingPosdic{
-  display: block;
-}
-#ballScore{
-  display: none;
-}
-#autoBallScore{
-  display: block;
-}
-#pickup{
-  display: none;
-}
-#autoPickupdiv{
-  display: block;
-}
-#port{
-  display: none;
-}
-#autoport{
-  display: block;
-}
-#mobilitydiv{
-  display: block;
-}
-#autobtn{
-  display: block;
-}
-#telebtn{
-  display: none;
-}
-#endgame{
-  display: none;
-}
-#scoreAuto{
-  display: block;
-}
+
 #misc{
   position: absolute;
   display: none;
@@ -204,9 +187,21 @@ body{
 #next{
   display: none;
 }
+#autodiv{
+  display: block;
+}
+#telediv{
+  display: none;
+}
+#submitiondiv{
+  display: block;
+}
+#miscdiv{
+  display: none;
+}
 #nextmatch{
   top: 400px;
   left: 400px;
-  opacity: 1;
-  background-color: #2196F3;
+  opacity: 0.8;
+  background-color: #ddd;
 }

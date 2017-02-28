@@ -188,9 +188,10 @@ app.get('/sponsors', function(req, res) {//this block defines what our server wi
 }*/
 
 app.get('/scouting', function(req, res){
-  res.render('scouting',scouting);
+  if(req.query.matchNumber != undefined && req.query.station != undefined){
+    postgres.getMatch(req.query.matchNumber, req.query.station, res);
+  }
 });
-
 var scouting_secret = "SutharIsMY5orite";
 
 app.post('/scouting/api/signIn', function(req, res){
