@@ -21,7 +21,6 @@ body{
   width: 95px;
   left: 35px;
 }
-
 .pickup{
   height: 50px;
   width: 50px;
@@ -29,6 +28,13 @@ body{
 .port{
   height: 30px;
   width: 75px;
+}
+#modelbl{
+  position: absolute;
+  top: -25px;
+  left: 400px;
+  font-size: 30px;
+  background-color: #F44336;
 }
 #port1{
   -webkit-transform: rotate(-30deg);
@@ -68,7 +74,7 @@ body{
 .davit{
     width: 50px;
     height: 50px;
-    background-color: #000;
+    background: #000;
     border: solid 1px #000;
     border-radius: 50%
 }
@@ -173,7 +179,7 @@ body{
 
 }
 #mobizone{
-  text-align: left;
+  text-align: center;
   height: 520px;
   width: 150px;
   left: 200px;
@@ -255,12 +261,13 @@ body{
   top: 500px;
   left: 740px;
 }
-#submit{
+#submitbtn{
   width: 100px;
   height: 50px;
   top: 500px;
   left: 800px;
-  background-color: #ff12aa
+  background-color: #ff12aa;
+  display: none;
 }
 #davit1{
   top: 180px;

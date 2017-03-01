@@ -34,6 +34,9 @@ html
           span#ballScoredlbl
     script(type='text/javascript').
       updateStation(station);
+
+    p#modelbl
+      | AUTO MODE
     #autodiv
       #startingPosdiv
         button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
@@ -44,7 +47,7 @@ html
         button#lowGoal.boiler.btn(type='button', value='low', onclick='autoScoreLow()')  Low
       #autoPickupdiv
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField()') BALL
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') BALL
       #autoport
         button#autoport1.port.btn(type='button', value='true', onclick='autoport1()')
         button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
@@ -57,7 +60,7 @@ html
         button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High
       #pickup
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='gearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField()') BALL
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField(ballGroundField)') BALL
         button#gearHumanLoad.pickup.btn(type='button', value='true', onclick='gearLoad()') GEAR
         button#ballHumanLoad.pickup.btn(type='button', value='true', onclick='ballLoad()') BALL
       #port
@@ -65,11 +68,9 @@ html
         button#port2.port.btn(type='button', value='true', onclick='port2()')
         button#port3.port.btn(type='button', value='true', onclick='port3()')
       #endgame
-        button#davit1.davit.btn(type='button', value='true', onclick='hang1()')
-        button#davit2.davit.btn(type='button', value='true', onclick='hang2()')
-        button#davit3.davit.btn(type='button', value='true', onclick='hang3()')
-        button#hangEndbtn.btn(type='button', value='true', onclick='hangtime()') Hang End
-        button#hangSuccessbtn.btn(type='button', value='true', onclick='hangSuccess()') Hang Success
+        button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
+        button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')
+        button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
     #submitiondiv
       #telebtn
         button#showtele.btn(type='button', value='true', onclick='showTele()') Tele
@@ -77,8 +78,8 @@ html
         button#showauto.btn(type='button', value='true', onclick='showAuto()') Auto
       #miscbtn
         button#showform.btn(type='button', value='true', onclick='showForm()') Misc
-      #miscbtn
-        button#submit.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
+      #submitdiv
+        button#submitbtn.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
     #miscdiv
       span#gearlbl  Gear Bot
       #gearbotbtn

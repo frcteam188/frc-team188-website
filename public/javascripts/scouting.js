@@ -2,7 +2,7 @@ var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballFiel
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
     teleGearsScored = 0, station, matchNumber=0, teamNumber=0, TeleForm = {} , hangDavit=1, timestamp, timeEnd, FormForm ={}, submit = {},
     ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0, gearAttempt1 = 0, gearAttempt2 = 0 , gearAttempt3 = 0,
-    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0,
+    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0;
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
 
 function updateStation(st) {
@@ -112,6 +112,7 @@ console.log("mobility = " + mobility);
 }
 function gearField(){
   resetPorts();
+  resetDavit();
 groundPickup = true;
 teleGearsAcquired++;
 gearsAcquired++;
@@ -119,10 +120,12 @@ holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear field");
 }
-function ballField(){
+function ballField(btn){
   resetPorts();
-groundPickup = true;
-console.log("ball field");
+  resetDavit();
+  btn.style.background = statecol;
+  groundPickup = true;
+  console.log("ball field");
 }
 function autogearField(){
   if(autoGearPickup < 2){
@@ -135,13 +138,15 @@ function autogearField(){
     console.log("auto gear field");
   }
 }
-function autoballField(){
+function autoballField(btn){
   resetPorts();
-autoPickup = true;
-console.log("auto ball field");
+  btn.style.background = statecol;
+  autoPickup = true;
+  console.log("auto ball field");
 }
 function gearLoad(){
   resetPorts();
+  resetDavit();
 teleGearsAcquired++;
 gearsAcquired++;
 holdingGear=true;
@@ -151,6 +156,7 @@ console.log("gear HUMAN");
 
 function ballLoad(){
   resetPorts();
+  resetDavit();
 console.log("balls HUMAN");
 }
 function autoport1(){
@@ -220,12 +226,14 @@ function port1(){
 if(holdingGear){
   if (gearAttempt1 == 0) {
     resetPorts();
+    resetDavit();
     gearAttempt1 = 1;
     document.getElementById("port1").style.background = '#FFEB3B';
     document.getElementById("port1").innerHTML = "Attempt";
     console.log("attmpted port 1");
   } else if (gearAttempt1 == 1) {
     resetPorts();
+    resetDavit();
     document.getElementById("port1").style.background = statecol;
     document.getElementById("port1").innerHTML = "Scored";
     teleGearsScored++;
@@ -240,12 +248,14 @@ function port2(){
 if(holdingGear){
   if (gearAttempt2 == 0) {
     resetPorts();
+    resetDavit();
     gearAttempt2 = 1;
     document.getElementById("port2").style.background = '#FFEB3B';
     document.getElementById("port2").innerHTML = "Attempt";
     console.log("attmpted port 2");
   } else if (gearAttempt2 == 1) {
     resetPorts();
+    resetDavit();
     document.getElementById("port2").style.background = statecol;
     document.getElementById("port2").innerHTML = "Scored";
     teleGearsScored++;
@@ -261,12 +271,14 @@ function port3(){
 if(holdingGear){
   if (gearAttempt3 == 0) {
     resetPorts();
+    resetDavit();
     gearAttempt3 = 1;
     document.getElementById("port3").style.background = '#FFEB3B';
     document.getElementById("port3").innerHTML = "Attempt";
     console.log("attmpted port 3");
   } else if (gearAttempt3 == 1) {
     resetPorts();
+    resetDavit();
     document.getElementById("port3").style.background = statecol;
     document.getElementById("port3").innerHTML = "Scored";
     teleGearsScored++;
@@ -299,18 +311,11 @@ function resetPorts() {
 }
 function scoreHigh(){
   resetPorts();
+  resetDavit();
 console.log("Scored 3 High");
 ballsScored+= 3;
 teleHigh+= 3;
 pressure ++;
-document.getElementById("ballScoredlbl").innerHTML = ballsScored;
-document.getElementById("pressurelbl").innerHTML = pressure;
-}
-function scoreLow(){
-console.log("Scored 5 Low");
-ballsScored += 5;
-teleLow += 5;
-pressure += 5/9;
 document.getElementById("ballScoredlbl").innerHTML = ballsScored;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
@@ -335,30 +340,95 @@ document.getElementById("ballScoredlbl").innerHTML = ballsScored;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 
-function hangtime() {
-  timeEnd = new Date()
-  hangDuration = (timeEnd - timestamp)/1000;
-  console.log("hang ended " + hangDuration);
+function hang1(davit) {
+  resetPorts();
+  if (davit1State == 0) {
+    resetDavit();
+    davit1State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit1State == 1) {
+    resetDavit();
+    davit1State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 1;
+    console.log("successful hang on" + hangDavit);
+  }
 }
-function hangSuccess() {
-  hang = true;
-  console.log("successful hang");
+function hang2(davit) {
+  resetPorts();
+  if (davit2State == 0) {
+    resetDavit();
+    davit2State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit2State == 1) {
+    resetDavit();
+    davit2State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration + "  "+davit2State);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 2;
+    console.log("successful hang on "+hangDavit);
+  }
 }
-
-function hang1() {
-  timestamp = new Date()
-  console.log(timestamp+"hangstarted");
+function hang3(davit) {
+  resetPorts();
+  if (davit3State == 0) {
+    resetDavit();
+    davit3State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit3State == 1) {
+    resetDavit();
+    davit3State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 3;
+    console.log("successful hang on " + hangDavit);
+  }
 }
-function hang2() {
-  timestamp = new Date()
-  console.log( timestamp +"hangstarted");
+function resetDavit() {
+  davit1State = 0;
+  davit2State = 0;
+  davit3State = 0;
+  document.getElementById("davit1").style.background = '#000';
+  document.getElementById("davit1").innerHTML = "";
+  document.getElementById("davit2").style.background = '#000';
+  document.getElementById("davit2").innerHTML = "";
+  document.getElementById("davit3").style.background = '#000';
+  document.getElementById("davit3").innerHTML = "";
 }
-function hang3() {
-  hang = true;
-  timestamp = new Date()
-  console.log( timestamp +"hangstarted");
-}
-
 function getformid(){
 return ((matchNumber-1) * 6) + getStation();
 }
@@ -408,6 +478,8 @@ function showAuto() {
   document.getElementById("autodiv").style.display = 'block';
   document.getElementById("telediv").style.display = 'none';
   document.getElementById("miscdiv").style.display = 'none';
+  document.getElementById("submitbtn").style.display = 'none';
+  document.getElementById("modelbl").innerHTML = "AUTO MODE";
 }
 function scoreAuto(){
 
@@ -431,7 +503,9 @@ function showTele() {
     document.getElementById("autodiv").style.display = 'none';
     document.getElementById("telediv").style.display = 'block';
     document.getElementById("miscdiv").style.display = 'none';
-
+    document.getElementById("submitbtn").style.display = 'none';
+    document.getElementById("modelbl").innerHTML = "TELE MODE";
+    scoreAuto();
 }
 function scoreTele(){
 
@@ -458,6 +532,9 @@ function showForm() {
   document.getElementById("autodiv").style.display = 'none';
   document.getElementById("telediv").style.display = 'none';
   document.getElementById("miscdiv").style.display = 'block';
+  document.getElementById("submitbtn").style.display = 'block';
+  document.getElementById("modelbl").innerHTML = "MISC MODE";
+
   scoreTele();
 }
 function scoreForm(){
