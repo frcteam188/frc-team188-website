@@ -11,13 +11,13 @@ html
     #sidebar
       #stationInfo
         p
-          | Station:
+          strong Station:
           span#stationlbl=station
         p
-          | Team:
+          strong Team:
           span#teamNumberlbl=teamNumber
         p
-          | Match Number:
+          strong Match:
           span#matchNumberlbl=matchNumber
       #info
         p
@@ -30,13 +30,19 @@ html
           | Pressure:
           span#pressurelbl
         p
-          | Total Balls Scored:
+          | High Balls Scored:
           span#ballScoredlbl
+        p#LowBall
+          | Low Balls Scored:
+          span#ballScoredLowlbl
     script(type='text/javascript').
       updateStation(station);
 
     p#modelbl
       | AUTO MODE
+
+    p#modebtmlbl
+
     #autodiv
       #startingPosdiv
         button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
@@ -47,20 +53,19 @@ html
         button#lowGoal.boiler.btn(type='button', value='low', onclick='autoScoreLow()')  Low
       #autoPickupdiv
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') BALL
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') HOPPER
       #autoport
         button#autoport1.port.btn(type='button', value='true', onclick='autoport1()')
         button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
         button#autoport3.port.btn(type='button', value='true', onclick='autoport3()')
       #mobilitydiv
-        button#mobizone.mobility.btn(type='button', value='true', onclick='autoMobility()') MOBILITY
-        button#mobismall.mobility.btn(type='button', value='true', onclick='changeMobility()')
+        button#mobismall.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
     #telediv
       #ballScore
         button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High
       #pickup
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='gearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField(ballGroundField)') BALL
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField()') BALL
         button#gearHumanLoad.pickup.btn(type='button', value='true', onclick='gearLoad()') GEAR
         button#ballHumanLoad.pickup.btn(type='button', value='true', onclick='ballLoad()') BALL
       #port
@@ -73,11 +78,11 @@ html
         button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
     #submitiondiv
       #telebtn
-        button#showtele.btn(type='button', value='true', onclick='showTele()') Tele
+        button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
       #autobtn
-        button#showauto.btn(type='button', value='true', onclick='showAuto()') Auto
+        button#showauto.btn(type='button', value='true', onclick='showAuto()') AUTO
       #miscbtn
-        button#showform.btn(type='button', value='true', onclick='showForm()') Misc
+        button#showform.btn(type='button', value='true', onclick='showForm()') MISC
       #submitdiv
         button#submitbtn.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
     #miscdiv

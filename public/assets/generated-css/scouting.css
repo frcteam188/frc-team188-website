@@ -1,6 +1,7 @@
 body{
   background-image: url("../pictures/scouting.png");
   background-repeat: no-repeat;
+  font-family: Roboto, sans-serif;
 }
 .btn{
   background-color: #dddddd;
@@ -31,10 +32,26 @@ body{
 }
 #modelbl{
   position: absolute;
-  top: -25px;
-  left: 400px;
+  top: 0px;
+  left: 0px;
   font-size: 30px;
-  background-color: #F44336;
+  background-color: #FFD600;
+  width: 786px;
+  margin: 0px;
+  color: white;
+  text-align: center;
+}
+#modebtmlbl{
+  position: absolute;
+  top: 567px;
+  left: 0px;
+  font-size: 30px;
+  background-color: #FFD600;
+  width: 786px;
+  height: 34px;
+  margin: 0px;
+  color: white;
+  text-align: center;
 }
 #port1{
   -webkit-transform: rotate(-30deg);
@@ -161,36 +178,42 @@ body{
   left: 150px;
 }
 #gearlbl{
-
+  position: absolute;
+  top: -15px;
 }
 #shotlbl{
-
+  position: absolute;
+  top: 60px;
 }
 #lowGoallbl{
-
+  position: absolute;
+  top: 135px;
 }
 #defendlbl{
-
+  position: absolute;
+  top: 210px;
 }
 #commentslbl{
-
+  position: absolute;
+  top: 275px;
 }
 #commentsinput{
-
+  position: absolute;
+  top: 295px;
+  height: 80px;
 }
-#mobizone{
-  text-align: center;
-  height: 520px;
-  width: 150px;
-  left: 200px;
-  top: 35px;
+#ballScoredLowlbl{
+  display: block;
+}
+#LowBall{
+  display: block;
 }
 #mobismall{
   height: 50px;
   width: 100px;
-  display: none;
-  top: 35px;
-  left: 200px;
+  display: block;
+  top: 50px;
+  left: 215px;
 }
 #highGoal{
   left: 35px;
@@ -203,6 +226,7 @@ body{
   width: 100px;
   top: 350px;
   left: 450px;
+  background: #ddd;
 }
 #ballGroundField{
   height: 50px;
@@ -237,38 +261,60 @@ body{
   position: absolute;
   padding-left: 15px;
   width: 140px;
-  height: 120px;
+  height: 130px;
   left: 785px;
   top: 0px;
   margin: 10px;
-  background-color: red;
-}
-#showauto{
-  width: 50px;
-  height: 50px;
-  top: 500px;
-  left: 620px;
-}
-#showtele{
-  width: 50px;
-  height: 50px;
-  top: 500px;
-  left: 680px;
-}
-#showform{
-  width: 50px;
-  height: 50px;
-  top: 500px;
-  left: 740px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #d50000;
 }
 #submitbtn{
-  width: 100px;
-  height: 50px;
-  top: 500px;
-  left: 800px;
-  background-color: #ff12aa;
+  width: 155px;
+  height: 85px;
+  top: 495px;
+  left: 785px;
+  margin: 10px;
+  background-color: #333;
   display: none;
+  color: white;
+  font-size: 30px;
 }
+#showauto{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 790px;
+  background-color: #ffd600;
+  border: 10px;
+  border-color: white;
+  color: white;
+}
+#showtele{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 842.5px;
+  background-color: #00c853;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+#showform{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 895px;
+  background-color: #d50000;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+
 #davit1{
   top: 180px;
   left: 310px;
@@ -280,19 +326,6 @@ body{
 #davit3{
   top: 360px;
   left: 310px;
-}
-#hangSuccessbtn{
-  display: block;
-  height: 50px;
-  width: 70px;
-  top: 315px;
-  left: 700px;
-}
-#hangEndbtn{
-  height: 50px;
-  width: 70px;
-  top: 250px;
-  left: 700px;
 }
 
 #miscdiv{
@@ -321,10 +354,4 @@ body{
 }
 #miscdiv{
   display: none;
-}
-#nextmatch{
-  top: 400px;
-  left: 400px;
-  opacity: 0.8;
-  background-color: #ddd;
 }
