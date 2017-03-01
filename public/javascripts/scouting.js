@@ -1,8 +1,9 @@
 var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballField, ballLoad, auto=0, AutoForm = {},
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
     teleGearsScored = 0, station, matchNumber=0, teamNumber=0, TeleForm = {} , hangDavit=1, timestamp, timeEnd, FormForm ={}, submit = {},
-    ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0,
-    autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd";
+    ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0, gearAttempt1 = 0, gearAttempt2 = 0 , gearAttempt3 = 0,
+    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0,
+    autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
 
 function updateStation(st) {
   station = st;
@@ -18,6 +19,33 @@ window.onload = function(){
   matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
 }
 
+function setValue(b0,b1,b2,b3,x) {
+  b0.style.background = statecol;
+  b1.style.background = defcol;
+  b2.style.background = defcol;
+  b3.style.background = defcol;
+  if(x=="gear"){
+    gearBot = b0.value;
+    console.log(gearBot);
+  } else if (x=="shot") {
+    shotBot = b0.value;
+    console.log(shotBot);
+  } else if (x=="low") {
+    teleLow = b0.value;
+    console.log(teleLow);
+  }
+}
+function setDefValue(b0,b1,b2,b3,b4,b5) {
+  b0.style.background = statecol;
+  b1.style.background = defcol;
+  b2.style.background = defcol;
+  b3.style.background = defcol;
+  b4.style.background = defcol;
+  b5.style.background = defcol;
+
+  defendBot = b0.value;
+  console.log(defendBot);
+}
 
 function startLoad(){
 if(startingPos == false){
@@ -60,6 +88,7 @@ if(startingPos == false){
 }
 
 function autoMobility(){
+resetPorts();
 mobility = true;
 document.getElementById("mobizone").style.display = 'none';
 document.getElementById("mobismall").style.display = 'block';
@@ -69,6 +98,7 @@ document.getElementById("mobismall").innerHTML = 'Mobility True';
 console.log("mobility = " + mobility);
 }
 function changeMobility(){
+  resetPorts();
   if(mobility){
     mobility = false;
     document.getElementById("mobismall").style.background = defcol;
@@ -81,92 +111,194 @@ function changeMobility(){
 console.log("mobility = " + mobility);
 }
 function gearField(){
+  resetPorts();
 groundPickup = true;
 teleGearsAcquired++;
 gearsAcquired++;
+holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear field");
 }
 function ballField(){
+  resetPorts();
 groundPickup = true;
 console.log("ball field");
 }
 function autogearField(){
-autoGearPickup ++;
-teleGearsAcquired++;
-gearsAcquired++;
-document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
-console.log("auto gear field");
+  if(autoGearPickup < 2){
+    resetPorts();
+    autoGearPickup ++;
+    teleGearsAcquired++;
+    gearsAcquired++;
+    holdingGear=true;
+    document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
+    console.log("auto gear field");
+  }
 }
 function autoballField(){
+  resetPorts();
 autoPickup = true;
 console.log("auto ball field");
 }
 function gearLoad(){
+  resetPorts();
 teleGearsAcquired++;
 gearsAcquired++;
+holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear HUMAN");
 }
 
 function ballLoad(){
+  resetPorts();
 console.log("balls HUMAN");
 }
 function autoport1(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port1");
+if(holdingGear){
+  if (gearAttempt1 == 0) {
+    resetPorts();
+    gearAttempt1 = 1;
+    document.getElementById("autoport1").style.background = '#FFEB3B';
+    document.getElementById("autoport1").innerHTML = "Attempt";
+    console.log("attmpted port 1");
+  } else if (gearAttempt1 == 1) {
+    resetPorts();
+    document.getElementById("autoport1").style.background = statecol;
+    document.getElementById("autoport1").innerHTML = "Scored";
     autoGear++;
     gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
     autoprefLift = "port1";
+    holdingGear=false;
+    console.log("gear scored port1");
+  }
 }
 }
 function autoport2(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port2");
-    autoGear++;
-    gearsScored++;
-    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-    autoprefLift = "port2";
+if(holdingGear){
+    if (gearAttempt2 == 0) {
+      resetPorts();
+      gearAttempt2 = 1;
+      document.getElementById("autoport2").style.background = '#FFEB3B';
+      document.getElementById("autoport2").innerHTML = "Attempt";
+      console.log("attmpted port 2");
+    } else if (gearAttempt2 == 1) {
+      resetPorts();
+      document.getElementById("autoport2").style.background = statecol;
+      document.getElementById("autoport2").innerHTML = "Scored";
+      autoGear++;
+      gearsScored++;
+      document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+      autoprefLift = "port2";
+      holdingGear=false;
+      console.log("gear scored port2");
+    }
 }
 }
 function autoport3(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port3");
+if(holdingGear){
+  if (gearAttempt3 == 0) {
+    resetPorts();
+    gearAttempt3 = 1;
+    document.getElementById("autoport3").style.background = '#FFEB3B';
+    document.getElementById("autoport3").innerHTML = "Attempt";
+    console.log("attmpted port 3");
+  } else if (gearAttempt3 == 1) {
+    resetPorts();
+    document.getElementById("autoport3").style.background = statecol;
+    document.getElementById("autoport3").innerHTML = "Scored";
     autoGear++;
     gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
     autoprefLift = "port3";
+    holdingGear=false;
+    console.log("gear scored port3");
+  }
 }
 }
 function port1(){
-if(teleGearsAcquired >= teleGearsScored){
-    console.log("gear scored port1");
-    gearsScored++;
+if(holdingGear){
+  if (gearAttempt1 == 0) {
+    resetPorts();
+    gearAttempt1 = 1;
+    document.getElementById("port1").style.background = '#FFEB3B';
+    document.getElementById("port1").innerHTML = "Attempt";
+    console.log("attmpted port 1");
+  } else if (gearAttempt1 == 1) {
+    resetPorts();
+    document.getElementById("port1").style.background = statecol;
+    document.getElementById("port1").innerHTML = "Scored";
     teleGearsScored++;
+    gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-    prefport1++;
+    holdingGear=false;
+    console.log("gear scored port1");
+  }
 }
 }
 function port2(){
-if(teleGearsAcquired >= teleGearsScored){
-  console.log("gear scored port2");
-  gearsScored++;
-  teleGearsScored++;
-  document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-  prefport2++;
+if(holdingGear){
+  if (gearAttempt2 == 0) {
+    resetPorts();
+    gearAttempt2 = 1;
+    document.getElementById("port2").style.background = '#FFEB3B';
+    document.getElementById("port2").innerHTML = "Attempt";
+    console.log("attmpted port 2");
+  } else if (gearAttempt2 == 1) {
+    resetPorts();
+    document.getElementById("port2").style.background = statecol;
+    document.getElementById("port2").innerHTML = "Scored";
+    teleGearsScored++;
+    gearsScored++;
+    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+    autoprefLift = "port2";
+    holdingGear=false;
+    console.log("gear scored port2");
+  }
 }
 }
 function port3(){
-if(teleGearsAcquired >= teleGearsScored){
-  console.log("gear scored port3");
-  gearsScored++;
-  teleGearsScored++;
-  document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-  prefport3++;
+if(holdingGear){
+  if (gearAttempt3 == 0) {
+    resetPorts();
+    gearAttempt3 = 1;
+    document.getElementById("port3").style.background = '#FFEB3B';
+    document.getElementById("port3").innerHTML = "Attempt";
+    console.log("attmpted port 3");
+  } else if (gearAttempt3 == 1) {
+    resetPorts();
+    document.getElementById("port3").style.background = statecol;
+    document.getElementById("port3").innerHTML = "Scored";
+    teleGearsScored++;
+    gearsScored++;
+    prefport3++;
+    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+    autoprefLift = "port3";
+    holdingGear=false;
+    console.log("gear scored port3");
+  }
 }
+}
+function resetPorts() {
+  gearAttempt3 = 0;
+  gearAttempt2 = 0;
+  gearAttempt1 = 0;
+  document.getElementById("port1").style.background = defcol;
+  document.getElementById("port1").innerHTML = "";
+  document.getElementById("port2").style.background = defcol;
+  document.getElementById("port2").innerHTML = "";
+  document.getElementById("port3").style.background = defcol;
+  document.getElementById("port3").innerHTML = "";
+  document.getElementById("autoport1").style.background = defcol;
+  document.getElementById("autoport1").innerHTML = "";
+  document.getElementById("autoport2").style.background = defcol;
+  document.getElementById("autoport2").innerHTML = "";
+  document.getElementById("autoport3").style.background = defcol;
+  document.getElementById("autoport3").innerHTML = "";
+
 }
 function scoreHigh(){
+  resetPorts();
 console.log("Scored 3 High");
 ballsScored+= 3;
 teleHigh+= 3;
@@ -183,6 +315,8 @@ document.getElementById("ballScoredlbl").innerHTML = ballsScored;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 function autoScoreHigh(){
+  resetPorts();
+
 console.log("Scored 1 High");
 ballsScored+= 1;
 autoHigh+= 1;
@@ -191,6 +325,8 @@ document.getElementById("ballScoredlbl").innerHTML = ballsScored;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 function autoScoreLow(){
+  resetPorts();
+
 console.log("Scored 5 Low");
 ballsScored += 1;
 autoLow += 5;
@@ -266,16 +402,6 @@ function getPrefLift() {
   else {
     return 0;
   }
-}
-
-function updategearlbl(){
-  document.getElementById("gearlbl").innerHTML = document.getElementById("gearBot").value;
-}
-function updateshotlbl(){
-  document.getElementById("shotlbl").innerHTML = document.getElementById("shotBot").value;
-}
-function updatedeflbl(){
-  document.getElementById("defendlbl").innerHTML = document.getElementById("defendBot").value;
 }
 
 function showAuto() {

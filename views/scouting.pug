@@ -46,9 +46,9 @@ html
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
         button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField()') BALL
       #autoport
-        button#port1.port.btn(type='button', value='true', onclick='autoport1()')
-        button#port2.port.btn(type='button', value='true', onclick='autoport2()')
-        button#port3.port.btn(type='button', value='true', onclick='autoport3()')
+        button#autoport1.port.btn(type='button', value='true', onclick='autoport1()')
+        button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
+        button#autoport3.port.btn(type='button', value='true', onclick='autoport3()')
       #mobilitydiv
         button#mobizone.mobility.btn(type='button', value='true', onclick='autoMobility()') MOBILITY
         button#mobismall.mobility.btn(type='button', value='true', onclick='changeMobility()')
@@ -80,16 +80,35 @@ html
       #miscbtn
         button#submit.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
     #miscdiv
-      span  Gear Bot
-      input#gearBot(type='range', min='0', max='3', step='1', onchange='updategearlbl()')
-      span#gearlbl
-      span  Shot Bot
-      input#shotBot(type='range', min='0', max='3', step='1', onchange='updateshotlbl()')
-      span#shotlbl
-      span  Defend Bot
-      input#defendBot(type='range', min='0', max='5', step='1', onchange='updatedeflbl()')
-      span#defendlbl
-      span  Comments
+      span#gearlbl  Gear Bot
+      #gearbotbtn
+        button#gb0.gearbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,gb3,"gear")') 0
+        button#gb1.gearbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,gb3,"gear")') 1
+        button#gb2.gearbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,gb3,"gear")') 2
+        button#gb3.gearbot.btn(type='button', value='3', onclick='setValue(gb3,gb0,gb1,gb2,"gear")') 3
+
+      span#shotlbl  Shot Bot
+      #shotbotbtn
+        button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,sb3,"shot")') 0
+        button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,sb3,"shot")') 1
+        button#sb2.shotbot.btn(type='button', value='2', onclick='setValue(sb2,sb0,sb1,sb3,"shot")') 2
+        button#sb3.shotbot.btn(type='button', value='3', onclick='setValue(sb3,sb0,sb1,sb2,"shot")') 3
+
+      span#lowGoallbl  Low Goal Bot
+      #lowbotbtn
+        button#lb0.lowbot.btn(type='button', value='0', onclick='setValue(lb0,lb1,lb2,lb3,"low")') 0
+        button#lb1.lowbot.btn(type='button', value='1', onclick='setValue(lb1,lb0,lb2,lb3,"low")') 1
+        button#lb2.lowbot.btn(type='button', value='2', onclick='setValue(lb2,lb0,lb1,lb3,"low")') 2
+        button#lb3.lowbot.btn(type='button', value='3', onclick='setValue(lb3,lb0,lb1,lb2,"low")') 3
+
+      span#defendlbl  Defend Bot
+      #defendbotbtn
+        button#db0.defendbot.btn(type='button', value='0', onclick='setDefValue(db0,db1,db2,db3,db4,db5)') 0
+        button#db1.defendbot.btn(type='button', value='1', onclick='setDefValue(db1,db0,db2,db3,db4,db5)') 1
+        button#db2.defendbot.btn(type='button', value='2', onclick='setDefValue(db2,db0,db1,db3,db4,db5)') 2
+        button#db3.defendbot.btn(type='button', value='3', onclick='setDefValue(db3,db0,db1,db2,db4,db5)') 3
+        button#db4.defendbot.btn(type='button', value='4', onclick='setDefValue(db4,db0,db1,db2,db3,db5)') 4
+        button#db5.defendbot.btn(type='button', value='5', onclick='setDefValue(db5,db0,db1,db2,db3,db4)') 5
+
+      span#commentslbl  Comments
       input#commentsinput(type='text')
-    #next
-      button#nextmatch.btn(type='button', value='true', onclick='nextMatch()') Next Match

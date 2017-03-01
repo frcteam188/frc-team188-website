@@ -27,8 +27,38 @@ body{
   width: 50px;
 }
 .port{
-  height: 50px;
-  width: 100px;
+  height: 30px;
+  width: 75px;
+}
+#port1{
+  -webkit-transform: rotate(-30deg);
+  top: 190px;
+  left: 190px;
+}
+#port2{
+  -webkit-transform: rotate(-90deg);
+  top: 275px;
+  left: 130px;
+}
+#port3{
+  -webkit-transform: rotate(30deg);
+  left: 190px;
+  top: 370px;
+}
+#autoport1{
+  -webkit-transform: rotate(-30deg);
+  top: 190px;
+  left: 190px;
+}
+#autoport2{
+  -webkit-transform: rotate(-90deg);
+  top: 275px;
+  left: 130px;
+}
+#autoport3{
+  -webkit-transform: rotate(30deg);
+  left: 190px;
+  top: 370px;
 }
 .boiler{
   height: 50px;
@@ -41,6 +71,106 @@ body{
     background-color: #000;
     border: solid 1px #000;
     border-radius: 50%
+}
+.gearbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 0px;
+}
+#gb0{
+  left: 0px;
+  background: #00ff12;
+}
+#gb1{
+  left: 30px;
+}
+#gb2{
+  left: 60px;
+}
+#gb3{
+  left: 90px;
+}
+.shotbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 75px;
+}
+#sb0{
+  left: 0px;
+  background: #00ff12;
+}
+#sb1{
+  left: 30px;
+}
+#sb2{
+  left: 60px;
+}
+#sb3{
+  left: 90px;
+}
+.lowbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 150px;
+}
+#lb0{
+  left: 0px;
+  background: #00ff12;
+}
+#lb1{
+  left: 30px;
+}
+#lb2{
+  left: 60px;
+}
+#lb3{
+  left: 90px;
+}
+.defendbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 225px;
+}
+#db0{
+  left: 0px;
+  background: #00ff12;
+}
+#db1{
+  left: 30px;
+}
+#db2{
+  left: 60px;
+}
+#db3{
+  left: 90px;
+}
+#db4{
+  left: 120px;
+}
+#db5{
+  left: 150px;
+}
+#gearlbl{
+
+}
+#shotlbl{
+
+}
+#lowGoallbl{
+
+}
+#defendlbl{
+
+}
+#commentslbl{
+
+}
+#commentsinput{
+
 }
 #mobizone{
   text-align: left;
@@ -61,21 +191,6 @@ body{
 }
 #lowGoal{
   left: 100px;
-}
-#port1{
-  -webkit-transform: rotate(-30deg);
-  top: 165px;
-  left: 180px;
-}
-#port2{
-  -webkit-transform: rotate(-90deg);
-  top: 265px;
-  left: 120px;
-}
-#port3{
-  -webkit-transform: rotate(30deg);
-  left: 170px;
-  top: 365px;
 }
 #gearGroundField{
   height: 50px;
@@ -173,12 +288,13 @@ body{
   left: 700px;
 }
 
-#misc{
+#miscdiv{
   position: absolute;
   display: none;
   width: 150px;
-  top: 200px;
+  top: 100px;
   left: 400px;
+  color: #fff;
 }
 #submitform{
   opacity: 1;
