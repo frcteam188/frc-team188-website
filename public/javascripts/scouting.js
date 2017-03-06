@@ -8,7 +8,7 @@ var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballFiel
 function updateStation(st) {
   station = st;
   station = document.getElementById("stationlbl").textContent;
-  console.log(station);
+  console.log(station.charAt(0));
 }
 window.onload = function(){
   document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
@@ -17,6 +17,9 @@ window.onload = function(){
   document.getElementById("ballScoredlbl").innerHTML = autoHigh;
   document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 
+  if(station.charAt(0) == 'b'){
+    document.getElementById("pagestyle").setAttribute("href", "../assets/generated-css/scoutingblue.css");
+  }
 
   matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
 }
