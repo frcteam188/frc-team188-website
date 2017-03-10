@@ -36,13 +36,12 @@ exports.getMatch = function(matchNumber, station, response){
       response.send(err);
       return
     }
-    response.json({
+    console.log('sdasasdasd');
+    response.render('scouting',{
       'teamNumber': res.rows[0][station],
       'matchNumber' : res.rows[0]['match_number'],
-      'station': station});
-  });
+      'station': station} );});
 }
-
 exports.submitAuto = function(auto){
   console.log("Submiting Auto");
   var values = Object.keys(auto).map(key => auto[key])
@@ -68,10 +67,10 @@ exports.submitTele = function(tele){
 };
 
 exports.submitForm = function(form){
-  console.log("Submiting Tele");
-  var values = Object.keys(tele).map(key => tele[key])
+  console.log("Submiting form");
+  var values = Object.keys(form).map(key => form[key])
 
-  var query = "INSERT INTO public.\"teleData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
+  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);

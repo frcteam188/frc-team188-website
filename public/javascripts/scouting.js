@@ -1,225 +1,433 @@
 var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballField, ballLoad, auto=0, AutoForm = {},
+<<<<<<< HEAD
     autoprefLift, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
     teleGearsScored = 0, station=r1, matchNumber=0, teamNumber=188, TeleForm = {} , hangDavit, timestamp, timeEnd, FormForm ={}, submit = {},
     ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0,
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration, hang = false;
+=======
+    autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
+    teleGearsScored = 0, station, matchNumber=0, teamNumber=0, TeleForm = {} , hangDavit=1, timestamp, timeEnd, FormForm ={}, submit = {},
+    ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0, gearAttempt1 = 0, gearAttempt2 = 0 , gearAttempt3 = 0,
+    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0;
+    autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
+>>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
 
+function updateStation(st) {
+  station = st;
+  station = document.getElementById("stationlbl").textContent;
+  console.log(station.charAt(0));
+}
 window.onload = function(){
   document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
   document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
   document.getElementById("pressurelbl").innerHTML = pressure;
-  document.getElementById("ballScoredlbl").innerHTML = ballsScored;
+  document.getElementById("ballScoredlbl").innerHTML = autoHigh;
+  document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 
+  if(station.charAt(0) == 'b'){
+    document.getElementById("pagestyle").setAttribute("href", "../assets/generated-css/scoutingblue.css");
+  }
 
+  matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
+}
 
-  document.getElementById("stationlbl").innerHTML = "Red 1";
-  document.getElementById("teamNumberlbl").innerHTML = "188";
-  document.getElementById("matchNumberlbl").innerHTML = "7";
-  station = "r1";
+function setValue(b0,b1,b2,b3,x) {
+  b0.style.background = statecol;
+  b1.style.background = defcol;
+  b2.style.background = defcol;
+  b3.style.background = defcol;
+  if(x=="gear"){
+    gearBot = b0.value;
+    console.log(gearBot);
+  } else if (x=="shot") {
+    shotBot = b0.value;
+    console.log(shotBot);
+  } else if (x=="low") {
+    teleLow = b0.value;
+    console.log(teleLow);
+  }
+}
+function setDefValue(b0,b1,b2,b3,b4,b5) {
+  b0.style.background = statecol;
+  b1.style.background = defcol;
+  b2.style.background = defcol;
+  b3.style.background = defcol;
+  b4.style.background = defcol;
+  b5.style.background = defcol;
 
-
-/*  hideDiv(endgame);
-  hideDiv(telebtn);
-  hideDiv(port);
-  hideDiv(pickup);
-  hideDiv(ballscore);
-*/}
-
-function hidePos(){
-var empty = "";
-document.getElementById("startingPosdiv").innerHTML = " ";
-auto++;
+  defendBot = b0.value;
+  console.log(defendBot);
 }
 
 function startLoad(){
 if(startingPos == false){
   startingPos = document.getElementById("loadPos").value;
   console.log(startingPos);
-  document.getElementById("loadPos").style.background = '#00ff12';
+  document.getElementById("loadPos").style.background = statecol;
 } else{
   startingPos = document.getElementById("loadPos").value;
   console.log(startingPos);
-  document.getElementById("loadPos").style.background = '#00ff12';
-  document.getElementById("middlePos").style.background = '#dddddd';
-  document.getElementById("boilerPos").style.background = '#dddddd';
+  document.getElementById("loadPos").style.background = statecol;
+  document.getElementById("middlePos").style.background = defcol;
+  document.getElementById("boilerPos").style.background = defcol;
 }
 }
 function startMid(){
 if(startingPos == false){
   startingPos = document.getElementById("middlePos").value;
   console.log(startingPos);
-  document.getElementById("middlePos").style.background = '#00ff12';
+  document.getElementById("middlePos").style.background = statecol;
 }else {
   startingPos = document.getElementById("middlePos").value;
   console.log(startingPos);
-  document.getElementById("middlePos").style.background = '#00ff12';
-  document.getElementById("loadPos").style.background = '#dddddd';
-  document.getElementById("boilerPos").style.background = '#dddddd';
+  document.getElementById("middlePos").style.background = statecol;
+  document.getElementById("loadPos").style.background = defcol;
+  document.getElementById("boilerPos").style.background = defcol;
 }
 }
 function startBoiler(){
 if(startingPos == false){
   startingPos = document.getElementById("boilerPos").value;
   console.log(startingPos);
-  document.getElementById("boilerPos").style.background = '#00ff12';
+  document.getElementById("boilerPos").style.background = statecol;
 }else {
   startingPos = document.getElementById("boilerPos").value;
   console.log(startingPos);
-  document.getElementById("boilerPos").style.background = '#00ff12';
-  document.getElementById("loadPos").style.background = '#dddddd';
-  document.getElementById("middlePos").style.background = '#dddddd';
+  document.getElementById("boilerPos").style.background = statecol;
+  document.getElementById("loadPos").style.background = defcol;
+  document.getElementById("middlePos").style.background = defcol;
 }
 }
 
-function autoMobility(){
-mobility = true;
-document.getElementById("mobilitydiv").style.display = 'none';
+
+function changeMobility(){
+  resetPorts();
+  if(mobility){
+    mobility = false;
+    document.getElementById("mobismall").style.background = defcol;
+  } else {
+    mobility = true;
+    document.getElementById("mobismall").style.background = statecol;
+  }
 console.log("mobility = " + mobility);
-auto++;
 }
 function gearField(){
+  resetPorts();
+  resetDavit();
 groundPickup = true;
 teleGearsAcquired++;
 gearsAcquired++;
+holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear field");
 }
-function ballField(){
-groundPickup = true;
-console.log("ball field");
+function ballField(btn){
+  resetPorts();
+  resetDavit();
+  btn.style.background = statecol;
+  groundPickup = true;
+  console.log("ball field");
 }
 function autogearField(){
-autoGearPickup ++;
-teleGearsAcquired++;
-gearsAcquired++;
-document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
-console.log("auto gear field");
+  if(autoGearPickup < 2){
+    resetPorts();
+    autoGearPickup ++;
+    teleGearsAcquired++;
+    gearsAcquired++;
+    holdingGear=true;
+    document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
+    console.log("auto gear field");
+  }
 }
-function autoballField(){
-autoPickup = true;
-console.log("auto ball field");
+function autoballField(btn){
+  resetPorts();
+  document.getElementById("ballGroundField").style.background = statecol;
+  autoPickup = true;
+  console.log("auto ball field");
 }
 function gearLoad(){
+  resetPorts();
+  resetDavit();
 teleGearsAcquired++;
 gearsAcquired++;
+holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear HUMAN");
 }
 
 function ballLoad(){
+  resetPorts();
+  resetDavit();
 console.log("balls HUMAN");
 }
 function autoport1(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port1");
+if(holdingGear){
+  if (gearAttempt1 == 0) {
+    resetPorts();
+    gearAttempt1 = 1;
+    document.getElementById("autoport1").style.background = '#FFEB3B';
+    document.getElementById("autoport1").innerHTML = "Attempt";
+    console.log("attmpted port 1");
+  } else if (gearAttempt1 == 1) {
+    resetPorts();
+    document.getElementById("autoport1").style.background = statecol;
+    document.getElementById("autoport1").innerHTML = "Scored";
     autoGear++;
     gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
     autoprefLift = "port1";
+    holdingGear=false;
+    console.log("gear scored port1");
+  }
 }
 }
 function autoport2(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port2");
-    autoGear++;
-    gearsScored++;
-    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-    autoprefLift = "port2";
+if(holdingGear){
+    if (gearAttempt2 == 0) {
+      resetPorts();
+      gearAttempt2 = 1;
+      document.getElementById("autoport2").style.background = '#FFEB3B';
+      document.getElementById("autoport2").innerHTML = "Attempt";
+      console.log("attmpted port 2");
+    } else if (gearAttempt2 == 1) {
+      resetPorts();
+      document.getElementById("autoport2").style.background = statecol;
+      document.getElementById("autoport2").innerHTML = "Scored";
+      autoGear++;
+      gearsScored++;
+      document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+      autoprefLift = "port2";
+      holdingGear=false;
+      console.log("gear scored port2");
+    }
 }
 }
 function autoport3(){
-if(gearsAcquired >= gearsScored){
-    console.log("gear scored port3");
+if(holdingGear){
+  if (gearAttempt3 == 0) {
+    resetPorts();
+    gearAttempt3 = 1;
+    document.getElementById("autoport3").style.background = '#FFEB3B';
+    document.getElementById("autoport3").innerHTML = "Attempt";
+    console.log("attmpted port 3");
+  } else if (gearAttempt3 == 1) {
+    resetPorts();
+    document.getElementById("autoport3").style.background = statecol;
+    document.getElementById("autoport3").innerHTML = "Scored";
     autoGear++;
     gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
     autoprefLift = "port3";
+    holdingGear=false;
+    console.log("gear scored port3");
+  }
 }
 }
 function port1(){
-if(teleGearsAcquired >= teleGearsScored){
-    console.log("gear scored port1");
-    gearsScored++;
+if(holdingGear){
+  if (gearAttempt1 == 0) {
+    resetPorts();
+    resetDavit();
+    gearAttempt1 = 1;
+    document.getElementById("port1").style.background = '#FFEB3B';
+    document.getElementById("port1").innerHTML = "Attempt";
+    console.log("attmpted port 1");
+  } else if (gearAttempt1 == 1) {
+    resetPorts();
+    resetDavit();
+    document.getElementById("port1").style.background = statecol;
+    document.getElementById("port1").innerHTML = "Scored";
     teleGearsScored++;
+    gearsScored++;
     document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-    prefport1++;
+    holdingGear=false;
+    console.log("gear scored port1");
+  }
 }
 }
 function port2(){
-if(teleGearsAcquired >= teleGearsScored){
-  console.log("gear scored port2");
-  gearsScored++;
-  teleGearsScored++;
-  document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-  prefport2++;
+if(holdingGear){
+  if (gearAttempt2 == 0) {
+    resetPorts();
+    resetDavit();
+    gearAttempt2 = 1;
+    document.getElementById("port2").style.background = '#FFEB3B';
+    document.getElementById("port2").innerHTML = "Attempt";
+    console.log("attmpted port 2");
+  } else if (gearAttempt2 == 1) {
+    resetPorts();
+    resetDavit();
+    document.getElementById("port2").style.background = statecol;
+    document.getElementById("port2").innerHTML = "Scored";
+    teleGearsScored++;
+    gearsScored++;
+    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+    autoprefLift = "port2";
+    holdingGear=false;
+    console.log("gear scored port2");
+  }
 }
 }
 function port3(){
-if(teleGearsAcquired >= teleGearsScored){
-  console.log("gear scored port3");
-  gearsScored++;
-  teleGearsScored++;
-  document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-  prefport3++;
+if(holdingGear){
+  if (gearAttempt3 == 0) {
+    resetPorts();
+    resetDavit();
+    gearAttempt3 = 1;
+    document.getElementById("port3").style.background = '#FFEB3B';
+    document.getElementById("port3").innerHTML = "Attempt";
+    console.log("attmpted port 3");
+  } else if (gearAttempt3 == 1) {
+    resetPorts();
+    resetDavit();
+    document.getElementById("port3").style.background = statecol;
+    document.getElementById("port3").innerHTML = "Scored";
+    teleGearsScored++;
+    gearsScored++;
+    prefport3++;
+    document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
+    autoprefLift = "port3";
+    holdingGear=false;
+    console.log("gear scored port3");
+  }
 }
+}
+function resetPorts() {
+  gearAttempt3 = 0;
+  gearAttempt2 = 0;
+  gearAttempt1 = 0;
+  document.getElementById("port1").style.background = defcol;
+  document.getElementById("port1").innerHTML = "";
+  document.getElementById("port2").style.background = defcol;
+  document.getElementById("port2").innerHTML = "";
+  document.getElementById("port3").style.background = defcol;
+  document.getElementById("port3").innerHTML = "";
+  document.getElementById("autoport1").style.background = defcol;
+  document.getElementById("autoport1").innerHTML = "";
+  document.getElementById("autoport2").style.background = defcol;
+  document.getElementById("autoport2").innerHTML = "";
+  document.getElementById("autoport3").style.background = defcol;
+  document.getElementById("autoport3").innerHTML = "";
+
 }
 function scoreHigh(){
+  resetPorts();
+  resetDavit();
 console.log("Scored 3 High");
-ballsScored+= 3;
 teleHigh+= 3;
 pressure ++;
-document.getElementById("ballScoredlbl").innerHTML = ballsScored;
-document.getElementById("pressurelbl").innerHTML = pressure;
-}
-function scoreLow(){
-console.log("Scored 5 Low");
-ballsScored += 5;
-teleLow += 5;
-pressure += 5/9;
-document.getElementById("ballScoredlbl").innerHTML = ballsScored;
+document.getElementById("ballScoredlbl").innerHTML = teleHigh;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 function autoScoreHigh(){
+  resetPorts();
+
 console.log("Scored 1 High");
-ballsScored+= 1;
-autoHigh+= 1;
+autoHigh ++;
 pressure ++;
-document.getElementById("ballScoredlbl").innerHTML = ballsScored;
+document.getElementById("ballScoredlbl").innerHTML = autoHigh;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 function autoScoreLow(){
-console.log("Scored 5 Low");
-ballsScored += 1;
-autoLow += 5;
-pressure += 5/3;
-document.getElementById("ballScoredlbl").innerHTML = ballsScored;
+  resetPorts();
+
+console.log("Scored 3 Low");
+ballsScored += 3;
+autoLow += 3;
+pressure += 1;
+document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 document.getElementById("pressurelbl").innerHTML = pressure;
 }
 
-function hangtime() {
-  timeEnd = new Date()
-  hangDuration = (timeEnd - timestamp)/1000;
-  console.log("hang ended " + hangDuration);
+function hang1(davit) {
+  resetPorts();
+  if (davit1State == 0) {
+    resetDavit();
+    davit1State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit1State == 1) {
+    resetDavit();
+    davit1State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 1;
+    console.log("successful hang on" + hangDavit);
+  }
 }
-function hangSuccess() {
-  hang = true;
-  console.log("successful hang");
+function hang2(davit) {
+  resetPorts();
+  if (davit2State == 0) {
+    resetDavit();
+    davit2State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit2State == 1) {
+    resetDavit();
+    davit2State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration + "  "+davit2State);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 2;
+    console.log("successful hang on "+hangDavit);
+  }
 }
-
-function hang1() {
-  timestamp = new Date()
-  console.log(timestamp+"hangstarted");
+function hang3(davit) {
+  resetPorts();
+  if (davit3State == 0) {
+    resetDavit();
+    davit3State = 1;
+    davit.style.background = '#FFEB3B';
+    davit.innerHTML = "St";
+    timestamp = new Date()
+    console.log(timestamp+"hangstarted");
+  }else if (davit3State == 1) {
+    resetDavit();
+    davit3State = 2;
+    davit.style.background = '#EF5350';
+    davit.innerHTML = "End";
+    timeEnd = new Date()
+    hangDuration = (timeEnd - timestamp)/1000;
+    console.log("hang ended " + hangDuration);
+  } else {
+    resetDavit();
+    davit.style.background = statecol;
+    davit.innerHTML = "OK";
+    hang = true;
+    hangDavit = 3;
+    console.log("successful hang on " + hangDavit);
+  }
 }
-function hang2() {
-  timestamp = new Date()
-  console.log( timestamp +"hangstarted");
+function resetDavit() {
+  davit1State = 0;
+  davit2State = 0;
+  davit3State = 0;
+  document.getElementById("davit1").style.background = '#000';
+  document.getElementById("davit1").innerHTML = "";
+  document.getElementById("davit2").style.background = '#000';
+  document.getElementById("davit2").innerHTML = "";
+  document.getElementById("davit3").style.background = '#000';
+  document.getElementById("davit3").innerHTML = "";
 }
-function hang3() {
-  hang = true;
-  timestamp = new Date()
-  console.log( timestamp +"hangstarted");
-}
-
 function getformid(){
 return ((matchNumber-1) * 6) + getStation();
 }
@@ -265,133 +473,149 @@ function getPrefLift() {
   }
 }
 
-function updategearlbl(){
-  document.getElementById("gearlbl").innerHTML = document.getElementById("gearBot").value;
-}
-function updateshotlbl(){
-  document.getElementById("shotlbl").innerHTML = document.getElementById("shotBot").value;
-}
-function updatedeflbl(){
-  document.getElementById("defendlbl").innerHTML = document.getElementById("defendBot").value;
-}
+function showAuto() {
+  document.getElementById("autodiv").style.display = 'block';
+  document.getElementById("telediv").style.display = 'none';
+  document.getElementById("miscdiv").style.display = 'none';
+  document.getElementById("submitbtn").style.display = 'none';
+  document.getElementById("modelbl").innerHTML = "AUTO MODE";
+  document.getElementById("modelbl").style.background = "#FFD600";
+  document.getElementById("modebtmlbl").style.background = "#FFD600";
+  document.getElementById("ballScoredlbl").innerHTML = autoHigh;
+  document.getElementById("ballScoredLowlbl").style.display = 'block';
+  document.getElementById("LowBall").style.display = 'block';
+  document.getElementById("showauto").style.border = '2px';
+  document.getElementById("showtele").style.border = '0px';
+  document.getElementById("showform").style.border = '0px';
 
-/*function hideDiv(divId) {
-  document.getElementById(divId).style.display = none;
 }
-function showDiv(divId) {
-  document.getElementById(divId).style.display = block;
-}*/
 function scoreAuto(){
 
-  document.getElementById("endgame").style.display = 'block';
-  document.getElementById("telebtn").style.display = 'block';
-  document.getElementById("port").style.display = 'block';
-  document.getElementById("pickup").style.display = 'block';
-  document.getElementById("ballScore").style.display = 'block';
-
-
-  document.getElementById("mobilitydiv").style.display = 'none';
-  document.getElementById("startingPosdiv").style.display = 'none';
-  document.getElementById("autoBallScore").style.display = 'none';
-  document.getElementById("autoPickupdiv").style.display = 'none';
-  document.getElementById("autoport").style.display = 'none';
-  document.getElementById("autobtn").style.display = 'none';
-
-/*  showDiv(endgame);
-  showDiv(telebtn);
-  showDiv(port);
-  showDiv(pickup);
-  showDiv(ballscore);
-
-  hideDiv(mobilitydiv);
-  hideDiv(startingPosdiv);
-  hideDiv(autoBallScore);
-  hideDiv(autoPickupdiv);
-  hideDiv(autoport);
-  hideDiv(autobtn);
-*/
   AutoForm["form_id"] = getformid();
   AutoForm["team_number"] = teamNumber;
   AutoForm["match_number"] = matchNumber;
-  //document.getElementById("autoBallScore").innerHTML = "";
-//  document.getElementById("autoPickupdiv").innerHTML = "";
-  //document.getElementById("autoport").innerHTML = "";
-//  document.getElementById("mobilitydiv").innerHTML = "";
-  //document.getElementById("autobtn").innerHTML = "";
+
   AutoForm["starting_pos"] = startingPos;
-  AutoForm["auto_mobility"] = mobility;
+  AutoForm["mobility"] = mobility;
   AutoForm["auto_ball_pickup"] = autoPickup;
   AutoForm["auto_high"] = autoHigh;
   AutoForm["auto_low"] = autoLow;
-  AutoForm["auto_gear"] = autoGear;
+//  AutoForm["auto_gear"] = autoGear;
   AutoForm["auto_gear_pickup"] = autoGearPickup;
   AutoForm["auto_pref_lift"] = autoprefLift;
   console.log(AutoForm);
   window.sessionStorage.setItem("autoForm", JSON.stringify(AutoForm));
-
 }
-
+function showTele() {
+    scoreAuto();
+    document.getElementById("autodiv").style.display = 'none';
+    document.getElementById("telediv").style.display = 'block';
+    document.getElementById("miscdiv").style.display = 'none';
+    document.getElementById("submitbtn").style.display = 'none';
+    document.getElementById("modelbl").innerHTML = "TELE MODE";
+    document.getElementById("modelbl").style.background = "#00c853";
+    document.getElementById("modebtmlbl").style.background = "#00c853";
+    document.getElementById("ballScoredlbl").innerHTML = teleHigh;
+    document.getElementById("ballScoredLowlbl").style.display = 'none';
+    document.getElementById("LowBall").style.display = 'none';
+    scoreAuto();
+    document.getElementById("showauto").style.border = '0px';
+    document.getElementById("showtele").style.border = '2px';
+    document.getElementById("showform").style.border = '0px';
+}
 function scoreTele(){
-  document.getElementById("endgame").style.display = 'none';
-  document.getElementById("telebtn").style.display = 'none';
-  document.getElementById("port").style.display = 'none';
-  document.getElementById("pickup").style.display = 'none';
-  document.getElementById("ballScore").style.display = 'none';
 
-  document.getElementById("misc").style.display = 'block';
 
   TeleForm["form_id"] = getformid();
   TeleForm["team_number"] = teamNumber;
   TeleForm["match_number"] = matchNumber;
 
   TeleForm["pressure"] = pressure;
-  TeleForm["tele_high"] = teleHigh;
   TeleForm["ground_pickup"] = groundPickup;
+  TeleForm["tele_high"] = teleHigh;
   TeleForm["tele_low"] = teleLow;
   TeleForm["gears_acquired"] = teleGearsAcquired;
   TeleForm["gears_scored"] = teleGearsScored;
   TeleForm["pref_lift"] = getPrefLift();
-  TeleForm["hang_duration"] = hangDuration;
   TeleForm["hang"] = hang;
+  TeleForm["hang_duration"] = hangDuration;
   TeleForm["hang_davit"]=hangDavit;
 
   console.log(TeleForm);
   window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
 }
+function showForm() {
+  document.getElementById("autodiv").style.display = 'none';
+  document.getElementById("telediv").style.display = 'none';
+  document.getElementById("miscdiv").style.display = 'block';
+  document.getElementById("submitbtn").style.display = 'block';
+  document.getElementById("modelbl").innerHTML = "MISC MODE";
+  document.getElementById("modelbl").style.background = "#d50000";
+  document.getElementById("modebtmlbl").style.background = "#d50000";
+  document.getElementById("showauto").style.border = '0px';
+  document.getElementById("showtele").style.border = '0px';
+  document.getElementById("showform").style.border = '2px';
 
+
+
+  scoreTele();
+}
 function scoreForm(){
 
   FormForm["form_id"] = getformid();
   FormForm["team_number"] = teamNumber;
   FormForm["match_number"] = matchNumber;
 
-  FormForm["gear_bot"] = document.getElementById("gearBot").value;
-  FormForm["shot_bot"] = document.getElementById("shotBot").value;
-  FormForm["defend_bot"] = document.getElementById("defendBot").value;
-  FormForm["comments"] = document.getElementById("commentsinput").value;
+  FormForm["gear_bot"] = gearBot;
+  FormForm["shot_bot"] = shotBot;
+  FormForm["defend_bot"] = defendBot;
+//  FormForm["comments"] = document.getElementById("commentsinput").value;
 
   console.log(TeleForm);
   window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
 
-  document.getElementById("misc").style.display = 'none';
-
-  document.getElementById("next").style.display = 'block';
-
   sendData();
+}
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+         }
+    }
+    document.body.appendChild(form);
+    form.submit();
 }
 function sendData() {
   prepData();
+<<<<<<< HEAD
   post('/api/sendData', submit);
   //post request here
+=======
+  $.post("scouting/api/sendData",submit);
+  nextMatch();
+>>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
 }
 
 
 function prepData() {
-  submit["auto"] = AutoForm;
-  submit["tele"] = TeleForm;
-  submit["form"] = FormForm;
+  submit.auto = AutoForm;
+  submit.tele = TeleForm;
+  submit.form = FormForm;
+  window.sessionStorage.setItem("submit", JSON.stringify(submit));
+  console.log(submit);
 }
 function nextMatch() {
+<<<<<<< HEAD
   // get('api/getMatch', function(res){
   //   document.getElementById("stationlbl").innerHTML = res.station;
   //   document.getElementById("teamNumberlbl").innerHTML = res.teamNumber;
@@ -399,6 +623,11 @@ function nextMatch() {
   // });
   window.location.replace('/?matchNumber=' + matchNumber++ + '&station=' + station);
   //server request for math number ++
+=======
+  matchNumber++;
+  var url = 'scouting?matchNumber='+matchNumber+'&station='+station;
+  window.location.href=url;
+>>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
 }
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.

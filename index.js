@@ -129,7 +129,11 @@ var sponsors = {
   'routes' : routes
 };
 
-
+var scouting = {
+  'matchNumber' : 1,
+  'station' : 'r1',
+  'teamNumber' : '1241'
+}
 // Set server port
 var port = process.env.PORT || 3001;
 app.use('/scripts', express.static(__dirname + '/node_modules/material-components-web/dist/'));
@@ -184,12 +188,12 @@ app.get('/sponsors', function(req, res) {//this block defines what our server wi
 }*/
 
 app.get('/scouting', function(req, res){
-  res.render('scouting');
+
+//  res.render('scouting');
   if(req.query.matchNumber != undefined && req.query.station != undefined){
     postgres.getMatch(req.query.matchNumber, req.query.station, res);
   }
 });
-
 var scouting_secret = "SutharIsMY5orite";
 
 app.post('/scouting/api/signIn', function(req, res){
