@@ -598,6 +598,7 @@ function prepData() {
   submit.tele = TeleForm;
   submit.form = FormForm;
   window.sessionStorage.setItem("submit", JSON.stringify(submit));
+  window.localStorage.setItem(getformid(),submit);
   console.log(submit);
 }
 function nextMatch() {
