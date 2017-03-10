@@ -117,10 +117,10 @@ holdingGear=true;
 document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
 console.log("gear field");
 }
-function ballField(btn){
+function ballField(){
   resetPorts();
   resetDavit();
-  btn.style.background = statecol;
+  //btn.style.background = statecol;
   groundPickup = true;
   console.log("ball field");
 }
