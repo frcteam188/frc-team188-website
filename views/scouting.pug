@@ -1,0 +1,120 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no')
+    link#pagestyle(rel='stylesheet', href='../assets/generated-css/scouting.css')
+    title 188 Scout
+  script(src='/javascripts/scouting.js')
+  script(src='/javascripts/jquery-3.0.0.min.js')
+  body
+    #sidebar
+      #stationInfo
+        p
+          strong Station:
+          span#stationlbl=station
+        p
+          strong Team:
+          span#teamNumberlbl=teamNumber
+        p
+          strong Match:
+          span#matchNumberlbl=matchNumber
+      #info
+        p
+          | Gears Pickup Total:
+          span#gearsAcquiredlbl
+        p
+          | Gears Scored Total:
+          span#gearsScoredlbl
+        p
+          | Pressure:
+          span#pressurelbl
+        p
+          | High Balls Scored:
+          span#ballScoredlbl
+        p#LowBall
+          | Low Balls Scored:
+          span#ballScoredLowlbl
+    script(type='text/javascript').
+      updateStation(station);
+
+    p#modelbl
+      | AUTO MODE
+
+    p#modebtmlbl
+
+    #autodiv
+      #startingPosdiv
+        button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
+        button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
+        button#boilerPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
+      #autoBallScore
+        button#highGoal.boiler.btn(type='button', value='high', onclick='autoScoreHigh()')  High
+        button#lowGoal.boiler.btn(type='button', value='low', onclick='autoScoreLow()')  Low
+      #autoPickupdiv
+        button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') HOPPER
+      #autoport
+        button#autoport1.port.btn(type='button', value='true', onclick='autoport1()')
+        button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
+        button#autoport3.port.btn(type='button', value='true', onclick='autoport3()')
+      #mobilitydiv
+        button#mobismall.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
+    #telediv
+      #ballScore
+        button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High
+      #pickup
+        button#gearGroundField.pickup.btn(type='button', value='true', onclick='gearField()') GEAR
+        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField()') BALL
+        button#gearHumanLoad.pickup.btn(type='button', value='true', onclick='gearLoad()') GEAR
+        button#ballHumanLoad.pickup.btn(type='button', value='true', onclick='ballLoad()') BALL
+      #port
+        button#port1.port.btn(type='button', value='true', onclick='port1()')
+        button#port2.port.btn(type='button', value='true', onclick='port2()')
+        button#port3.port.btn(type='button', value='true', onclick='port3()')
+      #endgame
+        button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
+        button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')
+        button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
+    #submitiondiv
+      #telebtn
+        button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
+      #autobtn
+        button#showauto.btn(type='button', value='true', onclick='showAuto()') AUTO
+      #miscbtn
+        button#showform.btn(type='button', value='true', onclick='showForm()') MISC
+      #submitdiv
+        button#submitbtn.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
+    #miscdiv
+      span#gearlbl  Gear Bot
+      #gearbotbtn
+        button#gb0.gearbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,gb3,"gear")') 0
+        button#gb1.gearbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,gb3,"gear")') 1
+        button#gb2.gearbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,gb3,"gear")') 2
+        button#gb3.gearbot.btn(type='button', value='3', onclick='setValue(gb3,gb0,gb1,gb2,"gear")') 3
+
+      span#shotlbl  Shot Bot
+      #shotbotbtn
+        button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,sb3,"shot")') 0
+        button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,sb3,"shot")') 1
+        button#sb2.shotbot.btn(type='button', value='2', onclick='setValue(sb2,sb0,sb1,sb3,"shot")') 2
+        button#sb3.shotbot.btn(type='button', value='3', onclick='setValue(sb3,sb0,sb1,sb2,"shot")') 3
+
+      span#lowGoallbl  Low Goal Bot
+      #lowbotbtn
+        button#lb0.lowbot.btn(type='button', value='0', onclick='setValue(lb0,lb1,lb2,lb3,"low")') 0
+        button#lb1.lowbot.btn(type='button', value='1', onclick='setValue(lb1,lb0,lb2,lb3,"low")') 1
+        button#lb2.lowbot.btn(type='button', value='2', onclick='setValue(lb2,lb0,lb1,lb3,"low")') 2
+        button#lb3.lowbot.btn(type='button', value='3', onclick='setValue(lb3,lb0,lb1,lb2,"low")') 3
+
+      span#defendlbl  Defend Bot
+      #defendbotbtn
+        button#db0.defendbot.btn(type='button', value='0', onclick='setDefValue(db0,db1,db2,db3,db4,db5)') 0
+        button#db1.defendbot.btn(type='button', value='1', onclick='setDefValue(db1,db0,db2,db3,db4,db5)') 1
+        button#db2.defendbot.btn(type='button', value='2', onclick='setDefValue(db2,db0,db1,db3,db4,db5)') 2
+        button#db3.defendbot.btn(type='button', value='3', onclick='setDefValue(db3,db0,db1,db2,db4,db5)') 3
+        button#db4.defendbot.btn(type='button', value='4', onclick='setDefValue(db4,db0,db1,db2,db3,db5)') 4
+        button#db5.defendbot.btn(type='button', value='5', onclick='setDefValue(db5,db0,db1,db2,db3,db4)') 5
+
+      span#commentslbl  Comments
+      input#commentsinput(type='text')

@@ -1,0 +1,357 @@
+body{
+  background-image: url("../pictures/scoutingblue.png");
+  background-repeat: no-repeat;
+  font-family: Roboto, sans-serif;
+}
+.btn{
+  background-color: #dddddd;
+  border: red;
+  color: black;
+  padding: 3px 3px;
+  display: inline;
+  font-size: 16px;
+  margin: 5px 4px;
+  cursor: pointer;
+  position: absolute;
+  opacity: 0.8;
+}
+.startingPos{
+  display: block;
+  text-align: center;
+  height: 50px;
+  width: 95px;
+  right: 209px;
+}
+.pickup{
+  height: 50px;
+  width: 50px;
+}
+.port{
+  height: 30px;
+  width: 75px;
+}
+#modelbl{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 30px;
+  background-color: #FFD600;
+  width: 787px;
+  margin: 0px;
+  color: white;
+  text-align: center;
+}
+#modebtmlbl{
+  position: absolute;
+  top: 567px;
+  left: 0px;
+  font-size: 30px;
+  background-color: #FFD600;
+  width: 786px;
+  height: 34px;
+  margin: 0px;
+  color: white;
+  text-align: center;
+}
+#port1{
+  -webkit-transform: rotate(30deg);
+  top: 190px;
+  right:  364px;
+}
+#port2{
+  -webkit-transform: rotate(90deg);
+  top: 275px;
+  right: 304px;
+}
+#port3{
+  -webkit-transform: rotate(-30deg);
+  right: 364px;
+  top: 370px;
+}
+#autoport1{
+  -webkit-transform: rotate(30deg);
+  top: 190px;
+  right: 364px;
+}
+#autoport2{
+  -webkit-transform: rotate(90deg);
+  top: 275px;
+  right: 304px;
+}
+#autoport3{
+  -webkit-transform: rotate(-30deg);
+  right: 364px;
+  top: 370px;
+}
+.boiler{
+  height: 50px;
+  width: 50px;
+  top: 500px;
+}
+.davit{
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border: solid 1px #000;
+    border-radius: 50%
+}
+.gearbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 0px;
+}
+#gb0{
+  left: 0px;
+  background: #00ff12;
+}
+#gb1{
+  left: 30px;
+}
+#gb2{
+  left: 60px;
+}
+#gb3{
+  left: 90px;
+}
+.shotbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 75px;
+}
+#sb0{
+  left: 0px;
+  background: #00ff12;
+}
+#sb1{
+  left: 30px;
+}
+#sb2{
+  left: 60px;
+}
+#sb3{
+  left: 90px;
+}
+.lowbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 150px;
+}
+#lb0{
+  left: 0px;
+  background: #00ff12;
+}
+#lb1{
+  left: 30px;
+}
+#lb2{
+  left: 60px;
+}
+#lb3{
+  left: 90px;
+}
+.defendbot{
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  top: 225px;
+}
+#db0{
+  left: 0px;
+  background: #00ff12;
+}
+#db1{
+  left: 30px;
+}
+#db2{
+  left: 60px;
+}
+#db3{
+  left: 90px;
+}
+#db4{
+  left: 120px;
+}
+#db5{
+  left: 150px;
+}
+#gearlbl{
+  position: absolute;
+  top: -15px;
+}
+#shotlbl{
+  position: absolute;
+  top: 60px;
+}
+#lowGoallbl{
+  position: absolute;
+  top: 135px;
+}
+#defendlbl{
+  position: absolute;
+  top: 210px;
+}
+#commentslbl{
+  position: absolute;
+  top: 275px;
+}
+#commentsinput{
+  position: absolute;
+  top: 295px;
+  height: 80px;
+}
+#ballScoredLowlbl{
+  display: block;
+}
+#LowBall{
+  display: block;
+}
+#mobismall{
+  height: 50px;
+  width: 100px;
+  display: block;
+  top: 50px;
+  right: 389px;
+}
+#highGoal{
+  right:  209px;
+}
+#lowGoal{
+  right: 274px;
+}
+#gearGroundField{
+  height: 50px;
+  width: 100px;
+  top: 350px;
+  right: 624px;
+  background: #ddd;
+}
+#ballGroundField{
+  height: 50px;
+  width: 100px;
+  top: 150px;
+  right: 624px;
+}
+#gearHumanLoad{
+  top: 50px;
+  right: 809px;
+}
+#ballHumanLoad{
+  top: 50px;
+  right: 864px;
+}
+#loadPos{
+  top: 180px;
+}
+#middlePos{
+  top: 240px;
+}
+#boilerPos{
+  top: 300px;
+}
+#info{
+  position: absolute;
+  width: 100px;
+  top: 150px;
+  left: 800px;
+}
+#stationInfo{
+  position: absolute;
+  padding-left: 15px;
+  width: 140px;
+  height: 130px;
+  left: 785px;
+  top: 0px;
+  margin: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #2962FF;
+}
+#submitbtn{
+  width: 155px;
+  height: 85px;
+  top: 495px;
+  left: 785px;
+  margin: 10px;
+  background-color: #333;
+  display: none;
+  color: white;
+  font-size: 30px;
+}
+#showauto{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 790px;
+  background-color: #ffd600;
+  border: 10px;
+  border-color: white;
+  color: white;
+}
+#showtele{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 842.5px;
+  background-color: #00c853;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+#showform{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 440px;
+  left: 895px;
+  background-color: #d50000;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+
+#davit1{
+  top: 180px;
+  right: 484px;
+}
+#davit2{
+  top: 270px;
+  right: 524px;
+}
+#davit3{
+  top: 360px;
+  right: 484px;
+}
+
+#miscdiv{
+  position: absolute;
+  display: none;
+  width: 150px;
+  top: 100px;
+  right: 574px;
+  color: #fff;
+}
+#submitform{
+  opacity: 1;
+  background-color: #00ff12;
+}
+#next{
+  display: none;
+}
+#autodiv{
+  display: block;
+}
+#telediv{
+  display: none;
+}
+#submitiondiv{
+  display: block;
+}
+#miscdiv{
+  display: none;
+}

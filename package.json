@@ -5,9 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build-css": "./bin/build-css",
-    "watch-css": "./bin/watch-css",
-    "start": "npm run build-css & node index",
+    "build-css": "node-sass --include-path scss public/assets/scss/stylesheet.scss public/assets/generated-css/stylesheet.css",
+    "watch-css": "nodemon -e scss -x npm run build-css",
+    "start": "npm run watch-css & node index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -20,8 +20,10 @@
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^7.3.0",
     "material-components-web": "^0.1.1",
     "moment": "^2.16.0",
+    "pg": "6.1.2",
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {

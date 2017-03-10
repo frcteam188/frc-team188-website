@@ -1,0 +1,51 @@
+doctype html
+html
+  head
+    title Team 188
+    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(rel='import', href='component.html')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+    script(src='/javascripts/robot.js')
+  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+
+
+    div.page.mdc-card.margin-v-b.relative
+      div.robot#robot
+        div.robot-pic(style='background-image: url(assets/pictures/188-logo.png);')
+        div.robot-info
+          h1.primary.margin-v-b='Blizzard XIV (' + robotYear + ')'
+          h2.accent.none Spec 1
+            h4.primary.f-left.margin-s detail 1
+            h4.primary.f-left.margin-s  detail 2
+            h4.primary.f-left.margin-s  detail 1
+            h4.primary.f-left.margin-s  detail 2
+            h4.primary.f-left.margin-s  detail 1
+            h4.primary.f-left.margin-s  detail 2
+            .clear
+
+        div.absolute.fill
+          button.fill-v.none.material-icons.f-left.accent-bg.opacity-hover.text-on-primary(onclick = 'prev();') keyboard_arrow_left
+          button.fill-v.none.material-icons.f-right.accent-bg.opacity-hover.text-on-primary(onclick = 'next();') keyboard_arrow_right
+          .clear
+
+    //footer
+    div.footer.page.mdc-card.padding-b
+      div.footer-links
+        each index in routes
+          a.footer-link(href=index.url)=index.name
+        .clear
+    //- div.center
+    //-   p.margin-s Team 188	&copy 2017
+
+    //navbar
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.text-on-primary(href=item.url)=item.name
+      .clear
+
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()
