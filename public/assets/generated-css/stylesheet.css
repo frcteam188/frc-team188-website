@@ -10615,6 +10615,9 @@ a {
   text-align: center;
   line-height: 1; }
 
+.center-items {
+  align-items: center; }
+
 .circle {
   padding: 10px;
   border-radius: 50%; }

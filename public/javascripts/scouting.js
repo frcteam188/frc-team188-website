@@ -1,6 +1,6 @@
 var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballField, ballLoad, auto=0, AutoForm = {},
     autoprefLift, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
-    teleGearsScored = 0, station=4, matchNumber=7, teamNumber=188, TeleForm = {} , hangDavit, timestamp, timeEnd, FormForm ={}, submit = {},
+    teleGearsScored = 0, station=r1, matchNumber=0, teamNumber=188, TeleForm = {} , hangDavit, timestamp, timeEnd, FormForm ={}, submit = {},
     ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0,
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration, hang = false;
 
@@ -381,13 +381,55 @@ function scoreForm(){
 }
 function sendData() {
   prepData();
+  post('/api/sendData', submit);
   //post request here
 }
+
+
 function prepData() {
   submit["auto"] = AutoForm;
   submit["tele"] = TeleForm;
   submit["form"] = FormForm;
 }
 function nextMatch() {
+  // get('api/getMatch', function(res){
+  //   document.getElementById("stationlbl").innerHTML = res.station;
+  //   document.getElementById("teamNumberlbl").innerHTML = res.teamNumber;
+  //   document.getElementById("matchNumberlbl").innerHTML = res.matchNumber;
+  // });
+  window.location.replace('/?matchNumber=' + matchNumber++ + '&station=' + station);
   //server request for math number ++
+}
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+function get(path, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
 }

@@ -185,6 +185,9 @@ app.get('/sponsors', function(req, res) {//this block defines what our server wi
 
 app.get('/scouting', function(req, res){
   res.render('scouting');
+  if(req.query.matchNumber != undefined && req.query.station != undefined){
+    postgres.getMatch(req.query.matchNumber, req.query.station, res);
+  }
 });
 
 var scouting_secret = "SutharIsMY5orite";
@@ -221,14 +224,12 @@ app.post('/scouting/api/sendData', function(req, response){
 });
 
 app.get('/scouting/api/getMatch', function(req, res){
-  jwt.verify(req.query.token, scouting_secret, function(err, res){
-    if (err){
-      res.send(err);
-      return
-    }
-    if(req.query.matchNumber != undefined && req.query.station != undefined){
-      postgres.getMatch(req.query.matchNumber, req.query.station, res);
-    }
-  });
+  // jwt.verify(req.query.token, scouting_secret, function(err, res){
+  //   if (err){
+  //     res.send(err);
+  //     return
+  //   }
+
+//  });
 
 });
