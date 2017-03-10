@@ -237,3 +237,19 @@ app.get('/scouting/api/getMatch', function(req, res){
 //  });
 
 });
+app.get('/scouting/pitStrat', function(req, res){
+  // jwt.verify(req.query.token, scouting_secret, function(err, res){
+  //   if (err){
+  //     res.send(err);
+  //     return
+  //   }
+
+//  });
+  if(req.query.matchNumber != undefined){
+    postgres.getPitMatch(req.query.matchNumber, res);
+  }
+  else{
+    res.send('missing query: matchNumber');
+  }
+
+});

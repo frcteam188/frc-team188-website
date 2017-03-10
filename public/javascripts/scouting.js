@@ -1,16 +1,10 @@
 var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballField, ballLoad, auto=0, AutoForm = {},
-<<<<<<< HEAD
-    autoprefLift, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
-    teleGearsScored = 0, station=r1, matchNumber=0, teamNumber=188, TeleForm = {} , hangDavit, timestamp, timeEnd, FormForm ={}, submit = {},
-    ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0,
-    autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration, hang = false;
-=======
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
     teleGearsScored = 0, station, matchNumber=0, teamNumber=0, TeleForm = {} , hangDavit=1, timestamp, timeEnd, FormForm ={}, submit = {},
     ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0, gearAttempt1 = 0, gearAttempt2 = 0 , gearAttempt3 = 0,
     port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0;
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
->>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
+
 
 function updateStation(st) {
   station = st;
@@ -29,6 +23,8 @@ window.onload = function(){
   }
 
   matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
+  teamNumber = parseInt(document.getElementById("teamNumberlbl").textContent);
+
 }
 
 function setValue(b0,b1,b2,b3,x) {
@@ -597,15 +593,9 @@ function post(path, params, method) {
 }
 function sendData() {
   prepData();
-<<<<<<< HEAD
-  post('/api/sendData', submit);
-  //post request here
-=======
   $.post("scouting/api/sendData",submit);
   nextMatch();
->>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
 }
-
 
 function prepData() {
   submit.auto = AutoForm;
@@ -615,19 +605,10 @@ function prepData() {
   console.log(submit);
 }
 function nextMatch() {
-<<<<<<< HEAD
-  // get('api/getMatch', function(res){
-  //   document.getElementById("stationlbl").innerHTML = res.station;
-  //   document.getElementById("teamNumberlbl").innerHTML = res.teamNumber;
-  //   document.getElementById("matchNumberlbl").innerHTML = res.matchNumber;
-  // });
-  window.location.replace('/?matchNumber=' + matchNumber++ + '&station=' + station);
-  //server request for math number ++
-=======
   matchNumber++;
   var url = 'scouting?matchNumber='+matchNumber+'&station='+station;
   window.location.href=url;
->>>>>>> decd072fa15447d7006c789a5d050c8171b21f6c
+
 }
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.
