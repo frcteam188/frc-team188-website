@@ -5,6 +5,7 @@ var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballFiel
     port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0;
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = false, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
 
+
 function updateStation(st) {
   station = st;
   station = document.getElementById("stationlbl").textContent;
@@ -22,6 +23,8 @@ window.onload = function(){
   }
 
   matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
+  teamNumber = parseInt(document.getElementById("teamNumberlbl").textContent);
+
 }
 
 function setValue(b0,b1,b2,b3,x) {
@@ -593,6 +596,7 @@ function sendData() {
   $.post("scouting/api/sendData",submit);
   nextMatch();
 }
+
 function prepData() {
   submit.auto = AutoForm;
   submit.tele = TeleForm;
@@ -605,4 +609,38 @@ function nextMatch() {
   matchNumber++;
   var url = 'scouting?matchNumber='+matchNumber+'&station='+station;
   window.location.href=url;
+
+}
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+function get(path, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous
+    xmlHttp.send(null);
 }

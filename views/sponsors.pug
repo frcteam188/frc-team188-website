@@ -12,12 +12,12 @@ html
         p.margin-b=index.para
 
   //sponsor buttons
-  div.mdc-card.grid-container.margin-v-b.page
-    each index in [0, 1, 3, 4, 5]
-      a.sponsor-img(
-        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
-        href='/')
-        h1.none-m.grid-button-foreground TDSB
+  div.mdc-card.grid-container.margin-v-b.page.center-items
+    each index in [0, 1, 2, 3, 4]
+        a.sponsor-img(
+          style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+          href='/')
+          h1.none-m.grid-button-foreground TDSB
     .clear
 
   //footer

@@ -37,15 +37,56 @@ exports.getMatch = function(matchNumber, station, response){
       return
     }
     console.log('sdasasdasd');
+
     response.render('scouting',{
       'teamNumber': res.rows[0][station],
       'matchNumber' : res.rows[0]['match_number'],
-      'station': station} );});
+      'station': station
+      });
+
+    });
 }
+
+exports.getPitMatch = function(matchNumber, response){
+  console.log("Getting pit data for match: " + matchNumber);
+  var values = [parseInt(matchNumber)];
+
+  var query = "SELECT * FROM public.\"matchSchedule\" WHERE match_number = $1";
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
+    var teamNumbers = [];
+    console.log(res.rows[0]);
+
+    for(var station in stations){
+      teamNumbers.push(res.rows[0][stations[station]]);
+    }
+    var data = getTeamData(teamNumbers, response)
+    response.json(data);
+    //response.render('pitstrat',{});
+  });
+};
+
+function getTeamData(teamNumbers, response){
+  var query = "SELECT * FROM public.\"autoData\" WHERE team_number = $1 OR team_number = $2 OR team_number = $3 OR team_number = $4 OR team_number = $5 OR team_number = $6";
+  pool.query(query, teamNumbers, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    console.log(res);
+    return res;
+  });
+}
+
 exports.submitAuto = function(auto){
   console.log("Submiting Auto");
   var values = Object.keys(auto).map(key => auto[key])
-
   var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear_pickup, auto_pref_lift) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);";
   pool.query(query, values, function (err, res) {
     if (err){
