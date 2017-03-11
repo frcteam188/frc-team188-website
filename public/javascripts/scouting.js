@@ -496,7 +496,7 @@ function scoreAuto(){
   AutoForm["auto_ball_pickup"] = autoPickup;
   AutoForm["auto_high"] = autoHigh;
   AutoForm["auto_low"] = autoLow;
-//  AutoForm["auto_gear"] = autoGear;
+  AutoForm["auto_gear"] = autoGear;
   AutoForm["auto_gear_pickup"] = autoGearPickup;
   AutoForm["auto_pref_lift"] = autoprefLift;
   console.log(AutoForm);
@@ -565,7 +565,7 @@ function scoreForm(){
   FormForm["gear_bot"] = gearBot;
   FormForm["shot_bot"] = shotBot;
   FormForm["defend_bot"] = defendBot;
-//  FormForm["comments"] = document.getElementById("commentsinput").value;
+  FormForm["comments"] = document.getElementById("commentsinput").value;
 
   console.log(TeleForm);
   window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
