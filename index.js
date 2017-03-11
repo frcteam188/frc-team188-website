@@ -192,6 +192,8 @@ app.get('/scouting', function(req, res){
 //  res.render('scouting');
   if(req.query.matchNumber != undefined && req.query.station != undefined){
     postgres.getMatch(req.query.matchNumber, req.query.station, res);
+  }else{
+    res.send('missing query: matchNumber');
   }
 });
 var scouting_secret = "SutharIsMY5orite";
