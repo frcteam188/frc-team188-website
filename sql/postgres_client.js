@@ -73,7 +73,7 @@ function getTeamData(teamNumbers, response){
   var summary = {};
   for(team in teamNumbers){
     teamSummary = {
-      'matchesPlayed' = 0,
+      'matchesPlayed' : 0,
       'mobility' : 0,
       'autoGear' : 0,
       'autoGearPickup' : 0,
@@ -98,8 +98,10 @@ function getTeamData(teamNumbers, response){
     //response.render('pitstrat',{});
     for(row in res.rows){
       team = row['teamNumber'];
-      summary[team][matchesPlayed]++;
-      summary[team][mobility] += (row[mobility]*1);
+      summary[team]['matchesPlayed']++;
+      summary[team]['mobility'] += (row['mobility']*1);
+      summary[team]['autoGear'] += row['auto_gear'];
+      summary[team]['autoGearPickup'] += row[auto];
     }
   });
   var query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1 OR team_number = $2 OR team_number = $3 OR team_number = $4 OR team_number = $5 OR team_number = $6";
@@ -110,7 +112,6 @@ function getTeamData(teamNumbers, response){
       return
     }
     //console.log(res);
-
     for(row in res.rows){
       team = row['teamNumber'];
       summary[team][matchesPlayed]++;
