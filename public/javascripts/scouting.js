@@ -496,9 +496,9 @@ function scoreAuto(){
   AutoForm["auto_ball_pickup"] = autoPickup;
   AutoForm["auto_high"] = autoHigh;
   AutoForm["auto_low"] = autoLow;
-  AutoForm["auto_gear"] = autoGear;
   AutoForm["auto_gear_pickup"] = autoGearPickup;
   AutoForm["auto_pref_lift"] = autoprefLift;
+  AutoForm["auto_gear"] = autoGear;
   console.log(AutoForm);
   window.sessionStorage.setItem("autoForm", JSON.stringify(AutoForm));
 }
