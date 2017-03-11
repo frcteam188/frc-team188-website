@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title Pit Strat
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+
+  body.none.fill
+    //(style='background-image: url(assets/pictures/circuit.png);')#body
+    
+    div.f-left(style='width:12%;')
+      each team, teamNumber in summary
+        .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+          
+    div.f-left(style='width: 88%')
+      each team, teamNumber in summary
+        .no-decor.grid-height.padding-s
+          each val, field in team
+            if(field!='color')
+              .no-decor.f-left.center.grid-item=val+''
+        .clear
+          
+    .clear
+    
+    style(type='text/css').
+      .grid-width{
+        width: 8%;
+      }
+      .grid-height{
+        height: 40px;
+      }
+      .grid-item{
+        width: 8%;
+        height: 40px;
+      }
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

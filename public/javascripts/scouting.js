@@ -2,7 +2,8 @@ var startingPos=false, mobility=false, gearField, gearLoad, gearGround, ballFiel
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0, autoGearPickup = 0, autoPickup=false, teleGearsAcquired = 0,
     teleGearsScored = 0, station, matchNumber=0, teamNumber=0, TeleForm = {} , hangDavit=1, timestamp, timeEnd, FormForm ={}, submit = {},
     ballGround, pressure = 0 , groundPickup = false, gearsAcquired = 0, gearsScored = 0, prefLift, ballsScored =0, gearAttempt1 = 0, gearAttempt2 = 0 , gearAttempt3 = 0,
-    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0;
+    port1State = 0, port2State = 0, port3State = 0, davit1State = 0, davit2State = 0, davit3State = 0, hangDavit = 0,
+    gearBot =0, shotBot =0, defendBot =0,
     autoHigh = 0, autoLow = 0, autoGear = 0, teleHigh = 0, teleLow = 0, hangDuration=0, hang = false, statecol = "#00ff12" , defcol  = "#ddd", holdingGear=true;
 
 
@@ -16,7 +17,7 @@ window.onload = function(){
   document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
   document.getElementById("pressurelbl").innerHTML = pressure;
   document.getElementById("ballScoredlbl").innerHTML = autoHigh;
-  document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
+  //document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 
   if(station.charAt(0) == 'b'){
     document.getElementById("pagestyle").setAttribute("href", "../assets/generated-css/scoutingblue.css");
@@ -27,11 +28,10 @@ window.onload = function(){
 
 }
 
-function setValue(b0,b1,b2,b3,x) {
+function setValue(b0,b1,b2,x) {
   b0.style.background = statecol;
   b1.style.background = defcol;
   b2.style.background = defcol;
-  b3.style.background = defcol;
   if(x=="gear"){
     gearBot = b0.value;
     console.log(gearBot);
@@ -478,8 +478,8 @@ function showAuto() {
   document.getElementById("modelbl").style.background = "#FFD600";
   document.getElementById("modebtmlbl").style.background = "#FFD600";
   document.getElementById("ballScoredlbl").innerHTML = autoHigh;
-  document.getElementById("ballScoredLowlbl").style.display = 'block';
-  document.getElementById("LowBall").style.display = 'block';
+  //document.getElementById("ballScoredLowlbl").style.display = 'block';
+  //document.getElementById("LowBall").style.display = 'block';
   document.getElementById("showauto").style.border = '2px';
   document.getElementById("showtele").style.border = '0px';
   document.getElementById("showform").style.border = '0px';
@@ -512,8 +512,8 @@ function showTele() {
     document.getElementById("modelbl").style.background = "#00c853";
     document.getElementById("modebtmlbl").style.background = "#00c853";
     document.getElementById("ballScoredlbl").innerHTML = teleHigh;
-    document.getElementById("ballScoredLowlbl").style.display = 'none';
-    document.getElementById("LowBall").style.display = 'none';
+    //document.getElementById("ballScoredLowlbl").style.display = 'none';
+    //document.getElementById("LowBall").style.display = 'none';
     scoreAuto();
     document.getElementById("showauto").style.border = '0px';
     document.getElementById("showtele").style.border = '2px';
@@ -565,7 +565,7 @@ function scoreForm(){
   FormForm["gear_bot"] = gearBot;
   FormForm["shot_bot"] = shotBot;
   FormForm["defend_bot"] = defendBot;
-//  FormForm["comments"] = document.getElementById("commentsinput").value;
+  FormForm["comments"] = document.getElementById("commentsinput").value;
 
   console.log(TeleForm);
   window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
