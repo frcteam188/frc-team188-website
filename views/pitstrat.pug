@@ -8,8 +8,8 @@ html
 
   body.none.fill
     //(style='background-image: url(assets/pictures/circuit.png);')#body
-    
-  
+
+
     div.f-left(style='width:10%;')
       .grid-item
       each team, teamNumber in summary
@@ -28,7 +28,7 @@ html
             p.grid-width.f-left(style='background: yellow')=title
           if (i >= 6)
             p.grid-width.f-left(style='background: green')=title
-            
+
         .clear
         each team, teamNumber in summary
           if (team.color == '#ba3248')
@@ -44,21 +44,32 @@ html
                 if(field!='color')
                   .no-decor.f-left.center.grid-item=val+''
         .clear
-          
+
     .clear
-    div  
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Previous Match
-    
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Match
-    
+    div
+      button.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+        Previous Match Prev
+
+      button.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+        Next Match Next
+
     style(type='text/css').
       .grid-width{
         width: 9%;
       }
       .grid-height{
         height: 40px;
+      }
+      button{
+        background-color: #dddddd;
+        border: red;
+        height: 100px;
+        width: 150px;
+        padding: 3px 3px;
+        display: inline;
+        font-size: 16px;
+        margin: 5px 4px;
+        cursor: pointer;
       }
       .grid-item{
         width: 9%;
