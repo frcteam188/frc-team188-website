@@ -1,6 +1,6 @@
 import httplib
 
-conn = httplib.HTTPConnection("https://frc-team188-website.herokuapp.com/")
+conn = httplib.HTTPConnection("frc-team188-website.herokuapp.com")
 
 with open('schedule.csv') as f:
     lines = f.readlines()
