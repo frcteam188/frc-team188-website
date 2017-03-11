@@ -9,29 +9,53 @@ html
   body.none.fill
     //(style='background-image: url(assets/pictures/circuit.png);')#body
     
-    div.f-left(style='width:12%;')
+  
+    div.f-left(style='width:10%;')
+      .grid-item
       each team, teamNumber in summary
-        .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
-          
-    div.f-left(style='width: 88%')
+        if (team.color == '#ba3248')
+          .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
       each team, teamNumber in summary
-        .no-decor.grid-height.padding-s
-          each val, field in team
-            if(field!='color')
-              .no-decor.f-left.center.grid-item=val+''
+        if (team.color == '#4286f4')
+          .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+
+    div.f-left(style='width: 90%')
+      div
+        each title, i in ['mPlayed', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']
+          if (i == 0)
+            p.grid-width.f-left(style='background: orange')=title
+          if (i > 0 && i < 6)
+            p.grid-width.f-left(style='background: yellow')=title
+          if (i >= 6)
+            p.grid-width.f-left(style='background: green')=title
+            
+        .clear
+        each team, teamNumber in summary
+          if (team.color == '#ba3248')
+            .no-decor.grid-height.padding-s
+              each val, field in team
+                if(field!='color')
+                  .no-decor.f-left.center.grid-item=val+''
+        .clear
+        each team, teamNumber in summary
+          if (team.color == '#4286f4')
+            .no-decor.grid-height.padding-s
+              each val, field in team
+                if(field!='color')
+                  .no-decor.f-left.center.grid-item=val+''
         .clear
           
     .clear
     
     style(type='text/css').
       .grid-width{
-        width: 8%;
+        width: 9%;
       }
       .grid-height{
         height: 40px;
       }
       .grid-item{
-        width: 8%;
+        width: 9%;
         height: 40px;
       }
     script(src='scripts/material-components-web.js')

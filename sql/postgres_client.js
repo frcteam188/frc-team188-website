@@ -71,19 +71,6 @@ exports.getPitMatch = function(matchNumber, response){
 function getTeamData(teamNumbers, response){
   var summary = {};
 
-  summary[0] = {
-    'mPlayed':0,
-    'Mobility':0,
-    'aGear':0,
-    'aGearPickup':0,
-    'autoBallPickup':0,
-    'aHigh':0,
-    'tGear':0,
-    'tGearPickup':0,
-    'tHigh':0,
-    'hangSucc':0,
-    'hagDur':0}
-
   for(i in teamNumbers){
     team = teamNumbers[i] + '';
     color = i<3?'#ba3248':'#4286f4';
