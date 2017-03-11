@@ -70,12 +70,13 @@ exports.getPitMatch = function(matchNumber, response){
 
 function getTeamData(teamNumbers, response, matchNumber){
   var summary = {};
-
+  var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
   for(i in teamNumbers){
     team = teamNumbers[i] + '';
     color = i<3?'#ba3248':'#4286f4';
     teamSummary = {
       'color' : color,
+      'station' : stations[i],
       'matchesPlayed' : 0,
       'mobility' : 0,
       'autoGear' : 0,
@@ -154,7 +155,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
       }
       for(key in summary[team]){
         if(key != 'hangDuration' && key != 'hangSuccess'
-          && key != 'matchesPlayed' && key!='color'){
+          && key != 'matchesPlayed' && key!='color' && key != 'station'){
           summary[team][key] = (summary[team][key]/summary[team]['matchesPlayed']).toFixed(2);
         }
       }

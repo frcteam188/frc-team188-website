@@ -21,12 +21,12 @@ html
 
     div.f-left(style='width: 90%')
       div
-        each title, i in ['mPlayed', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']
-          if (i == 0)
+        each title, i in ['Station', 'mPlayed', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']
+          if (i <= 1)
             p.grid-width.f-left(style='background: orange')=title
-          if (i > 0 && i < 6)
+          if (i > 1 && i < 7)
             p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 6)
+          if (i >= 7)
             p.grid-width.f-left(style='background: green')=title
 
         .clear
@@ -46,18 +46,47 @@ html
         .clear
 
     .clear
-    div
+    div.margin-b
       a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Previous Match Prev
+        Prev Prev Match
 
       a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Match Next
+        Next Next Match 
+        
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=3')
+        Match 3
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=13')
+        Match 13    
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=16')
+        Match 16
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=23')
+        Match 23
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=29')
+        Match 29
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=37')
+        Match 37
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=40')
+        Match 40
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=52')
+        Match 52
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=58')
+        Match 58
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=61')
+        Match 61
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=66')
+        Match 66
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=72')
+        Match 72
 
     style(type='text/css').
       .grid-width{
-        width: 9%;
+        width: 8%;
       }
       .grid-height{
+        height: 40px;
+      }
+      .grid-item{
+        width: 8%;
         height: 40px;
       }
       a{
@@ -70,10 +99,6 @@ html
         font-size: 16px;
         margin: 5px 4px;
         cursor: pointer;
-      }
-      .grid-item{
-        width: 9%;
-        height: 40px;
       }
     script(src='scripts/material-components-web.js')
     script.
