@@ -71,7 +71,7 @@ exports.getPitMatch = function(matchNumber, response){
 function getTeamData(teamNumbers, response){
   var summary = {};
 
-  summary['titles'] = {
+  summary[0] = {
     'mPlayed':0,
     'Mobility':0,
     'aGear':0,
