@@ -32,9 +32,7 @@ html
         p
           | High Balls Scored:
           span#ballScoredlbl
-        p#LowBall
-          | Low Balls Scored:
-          span#ballScoredLowlbl
+      
     script(type='text/javascript').
       updateStation(station);
 
@@ -50,7 +48,6 @@ html
         button#boilerPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
       #autoBallScore
         button#highGoal.boiler.btn(type='button', value='high', onclick='autoScoreHigh()')  High
-        button#lowGoal.boiler.btn(type='button', value='low', onclick='autoScoreLow()')  Low
       #autoPickupdiv
         button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
         button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') HOPPER
@@ -88,24 +85,21 @@ html
     #miscdiv
       span#gearlbl  Gear Bot
       #gearbotbtn
-        button#gb0.gearbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,gb3,"gear")') 0
-        button#gb1.gearbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,gb3,"gear")') 1
-        button#gb2.gearbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,gb3,"gear")') 2
-        button#gb3.gearbot.btn(type='button', value='3', onclick='setValue(gb3,gb0,gb1,gb2,"gear")') 3
+        button#gb0.gearbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,"gear")') 0
+        button#gb1.gearbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,"gear")') 1
+        button#gb2.gearbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,"gear")') 2
 
       span#shotlbl  Shot Bot
       #shotbotbtn
-        button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,sb3,"shot")') 0
-        button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,sb3,"shot")') 1
-        button#sb2.shotbot.btn(type='button', value='2', onclick='setValue(sb2,sb0,sb1,sb3,"shot")') 2
-        button#sb3.shotbot.btn(type='button', value='3', onclick='setValue(sb3,sb0,sb1,sb2,"shot")') 3
+        button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,"shot")') 0
+        button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,"shot")') 1
+        button#sb2.shotbot.btn(type='button', value='2', onclick='setValue(sb2,sb0,sb1,"shot")') 2
 
       span#lowGoallbl  Low Goal Bot
       #lowbotbtn
-        button#lb0.lowbot.btn(type='button', value='0', onclick='setValue(lb0,lb1,lb2,lb3,"low")') 0
-        button#lb1.lowbot.btn(type='button', value='1', onclick='setValue(lb1,lb0,lb2,lb3,"low")') 1
-        button#lb2.lowbot.btn(type='button', value='2', onclick='setValue(lb2,lb0,lb1,lb3,"low")') 2
-        button#lb3.lowbot.btn(type='button', value='3', onclick='setValue(lb3,lb0,lb1,lb2,"low")') 3
+        button#lb0.lowbot.btn(type='button', value='0', onclick='setValue(lb0,lb1,lb2,"low")') 0
+        button#lb1.lowbot.btn(type='button', value='1', onclick='setValue(lb1,lb0,lb2,"low")') 1
+        button#lb2.lowbot.btn(type='button', value='2', onclick='setValue(lb2,lb0,lb1,"low")') 2
 
       span#defendlbl  Defend Bot
       #defendbotbtn
