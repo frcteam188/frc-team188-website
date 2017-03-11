@@ -64,11 +64,11 @@ exports.getPitMatch = function(matchNumber, response){
     for(var station in stations){
       teamNumbers.push(res.rows[0][stations[station]]);
     }
-    getTeamData(teamNumbers, response);
+    getTeamData(teamNumbers, response, matchNumber);
   });
 };
 
-function getTeamData(teamNumbers, response){
+function getTeamData(teamNumbers, response, matchNumber){
   var summary = {};
 
   for(i in teamNumbers){
@@ -116,7 +116,7 @@ function getTeamData(teamNumbers, response){
       summary[team]['autoHigh'] += row['auto_high'];
     }
     doneQueries[0] = true;
-    if(sendWhenDone(doneQueries, summary, response)){
+    if(sendWhenDone(doneQueries, summary, response, matchNumber)){
       return
     }
   });
@@ -138,7 +138,7 @@ function getTeamData(teamNumbers, response){
       summary[team]['hangDuration'] += row['hang_duration'];
     }
     doneQueries[1] = true;
-    if(sendWhenDone(doneQueries, summary, response)){
+    if(sendWhenDone(doneQueries, summary, response, matchNumber)){
       return
     }
   });
@@ -146,7 +146,7 @@ function getTeamData(teamNumbers, response){
 
 
 }
-function sendWhenDone(doneQueries, summary, response){
+function sendWhenDone(doneQueries, summary, response, matchNumber){
   if(doneQueries[0] && doneQueries[1]){
     for(team in summary){
       if(summary[team]['matchesPlayed'] == 0){
@@ -164,7 +164,7 @@ function sendWhenDone(doneQueries, summary, response){
       }
     }
     //response.json(summary);
-    response.render('pitstrat', {'summary' : summary});
+    response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber)});
     console.log('sent pit data');
     return true;
   }

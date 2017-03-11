@@ -46,6 +46,12 @@ html
         .clear
           
     .clear
+    div  
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+        Previous Match
+    
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+        Next Match
     
     style(type='text/css').
       .grid-width{
