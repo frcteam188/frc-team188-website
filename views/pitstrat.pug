@@ -47,10 +47,10 @@ html
 
     .clear
     div
-      button.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
         Previous Match Prev
 
-      button.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
         Next Match Next
 
     style(type='text/css').
@@ -60,7 +60,7 @@ html
       .grid-height{
         height: 40px;
       }
-      button{
+      a{
         background-color: #dddddd;
         border: red;
         height: 100px;
