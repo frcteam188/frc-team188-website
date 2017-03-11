@@ -87,7 +87,7 @@ function getTeamData(teamNumbers, response){
 exports.submitAuto = function(auto){
   console.log("Submiting Auto");
   var values = Object.keys(auto).map(key => auto[key])
-  var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear_pickup, auto_pref_lift) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);";
+  var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear ,auto_gear_pickup, auto_pref_lift) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);
@@ -111,7 +111,7 @@ exports.submitForm = function(form){
   console.log("Submiting form");
   var values = Object.keys(form).map(key => form[key])
 
-  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
+  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot, comments) VALUES ($1, $2, $3, $4, $5, $6, $7);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);
