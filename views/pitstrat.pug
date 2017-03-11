@@ -11,7 +11,7 @@ html
 
 
     div.f-left(style='width:10%;')
-      p.grid-item=match_number
+      p.grid-width=('#' + matchNumber)
       each team, teamNumber in summary
         if (team.color == '#ba3248')
           .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
