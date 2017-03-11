@@ -181,6 +181,16 @@ exports.submitAuto = function(auto){
   });
 };
 
+exports.insertMatch = function(match){
+  var values = Object.keys(match).map(key => match[key])
+  var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+    }
+  });
+}
+
 exports.submitTele = function(tele){
   console.log("Submiting Tele");
   var values = Object.keys(tele).map(key => tele[key])

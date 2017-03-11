@@ -253,5 +253,13 @@ app.get('/scouting/pitStrat', function(req, res){
   else{
     res.send('missing query: matchNumber');
   }
+});
 
+app.post('/scouting/api/insertMatch', function(req, res){
+  match = req.body;
+  if(match != undefined){
+    postgres.insertMatch(match);
+    res.send('worked');
+  }
+  res.send('not worked');
 });
