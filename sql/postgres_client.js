@@ -207,7 +207,7 @@ exports.submitForm = function(form){
   console.log("Submiting form");
   var values = Object.keys(form).map(key => form[key]);
 
-  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot, commments) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);

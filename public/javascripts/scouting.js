@@ -565,7 +565,7 @@ function scoreForm(){
   FormForm["gear_bot"] = gearBot;
   FormForm["shot_bot"] = shotBot;
   FormForm["defend_bot"] = defendBot;
-  FormForm["comments"] = document.getElementById("commentsinput").value;
+  //FormForm["comments"] = document.getElementById("commentsinput").value;
 
   console.log(TeleForm);
   window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
