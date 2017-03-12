@@ -33,15 +33,15 @@ html
         each team, teamNumber in summary
           if (team.color == '#ba3248')
             .no-decor.grid-height.padding-s
-              each val, field in team
-                if(field!='color')
-                  .no-decor.f-left.center.grid-item=val+''
+            each val, field in team
+              if(field!='color')
+                .no-decor.f-left.center.grid-item=val+''
         .clear
         each team, teamNumber in summary
           if (team.color == '#4286f4')
             .no-decor.grid-height.padding-s
               each val, field in team
-                if(field!='color')
+                if (field!='color')
                   .no-decor.f-left.center.grid-item=val+''
         .clear
 
@@ -77,6 +77,10 @@ html
         Match 66
       a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=72')
         Match 72
+      
+    div
+      p.padding-b=('RED:' +  red)
+      p.padding-b=('BLUE:' + blue)
 
     style(type='text/css').
       .grid-width{

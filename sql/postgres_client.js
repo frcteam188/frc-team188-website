@@ -165,10 +165,142 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
       }
     }
     //response.json(summary);
-    response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber)});
+    scores = {
+      'blue' : {
+        'autoGear' : 0,
+        'teleGear' : 0,
+        'autoKpa' : 0,
+        'teleKpa' : 0,
+        'hang' : 0,
+        'score' : 0
+      },
+      'red' : {
+        'autoGear' : 0,
+        'teleGear' : 0,
+        'autoKpa' : 0,
+        'teleKpa' : 0,
+        'hang' : 0,
+        'score' : 0
+      }
+    }
+
+
+
+    for(i in summary){
+      team = summary[i]
+      color = team['color'] == '#ba3248'? 'red' : 'blue';
+
+      scores[color]['autoGear'] += parseFloat(team['autoGear']);
+      scores[color]['teleGear'] += parseFloat(team['teleGear']);
+      scores[color]['autoKpa'] += parseFloat(team['autoHigh']);
+      scores[color]['teleKpa'] += parseFloat(team['teleHigh']);
+      scores[color]['hang'] += parseFloat(team['hangSuccess']);
+
+      console.log(color + 'a: ' + scores[color]['autoGear']);
+
+    }
+    for(color in scores){
+      if(scores[color]['autoGear'] >= 1){
+        scores[color]['score'] += 20;
+        console.log(color + ': ' + scores[color]['score']);
+      }
+      if(scores[color]['autoGear'] >= 3){
+          scores[color]['score'] += 20;
+        //  console.log(color + ': ' + scores[color]['score']);
+      }
+
+      gears = scores[color]['autoGear'] + scores[color]['teleGear'];
+
+      if(gears >= 1){
+        scores[color]['score'] += 40;
+        //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 3){
+          scores[color]['score'] += 40;
+          //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 6){
+          scores[color]['score'] += 40;
+          //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 12){
+          scores[color]['score'] += 40;
+        //  console.log(color + ': ' + scores[color]['score']);
+      }
+      scores[color]['score'] += scores[color]['autoKpa'] + scores[color]['teleKpa'];
+      scores[color]['score'] += scores[color]['hang']*50.0;
+      //console.log(color + ': ' + scores[color]['score']);
+    }
+
+
+    response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
     console.log('sent pit data');
     return true;
   }
+}
+
+exports.viewTeam = function(teamNumber, response){
+  console.log('getting team data for: ' + teamNumber);
+  var values = [parseInt(teamNumber)];
+  var doneQueries = [false, false];
+
+  var query = "SELECT * FROM public.\"autoData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    //console.log('got auto');
+    doneQueries[0] = true;
+
+    sendTeamData(res, response, true, doneQueries);
+  });
+
+  var query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    //console.log('got tele');
+    doneQueries[1] = true;
+
+    sendTeamData(res, response, false, doneQueries);
+  });
+};
+
+function sendTeamData(teamData, response, auto, doneQueries){
+  summary = {}
+  for(i in teamData.rows){
+    row = teamData.rows[i];
+    summary[i] = {}
+    if(auto){
+      summary[i]['matchNumber'] = row['match_number'];
+      summary[i]['mobility'] = (row['mobility']*1);
+      summary[i]['autoGear'] = row['auto_gear'];
+      summary[i]['autoGearPickup'] = row['auto_gear_pickup'];
+      summary[i]['autoBallPickup'] = (row['auto_ball_pickup']*1);
+      summary[i]['autoHigh'] = row['auto_high'];
+    }
+    else{
+      summary[i]['teleGear'] = row['gears_scored'];
+      summary[i]['teleGearPickup'] = row['gears_acquired'];
+      summary[i]['teleHigh'] = row['tele_high'];
+      summary[i]['hangSuccess'] = (row['hang']*1);
+      summary[i]['hangDuration'] = row['hang_duration'];
+    }
+  }
+  if(doneQueries[0] == true && doneQueries[1] == true){
+    response.render('teamview', {'summmary' : summary});
+    console.log('sent data for team');
+  }
+
+  //console.log(summary);
+//  response.send();
 }
 
 exports.submitAuto = function(auto){

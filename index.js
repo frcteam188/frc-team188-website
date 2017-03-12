@@ -249,11 +249,31 @@ app.get('/scouting/pitStrat', function(req, res){
 //  });
   if(req.query.matchNumber != undefined){
     postgres.getPitMatch(req.query.matchNumber, res);
+    //postgres.viewTeam(188, res);
   }
   else{
     res.send('missing query: matchNumber');
   }
 });
+
+app.get('/scouting/viewTeam', function(req, res){
+  // jwt.verify(req.query.token, scouting_secret, function(err, res){
+  //   if (err){
+  //     res.send(err);
+  //     return
+  //   }
+
+//  });
+  if(req.query.teamNumber != undefined){
+    postgres.viewTeam(req.query.teamNumber, res);
+  }
+  else{
+    res.send('missing query: matchNumber');
+  }
+});
+
+
+
 
 app.post('/scouting/api/insertMatch', function(req, res){
   match = req.body;
