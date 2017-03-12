@@ -12,6 +12,7 @@ html
 
     div.f-left(style='width:10%;')
       p.grid-width=('#' + matchNumber)
+      p.grid-height.none=''
       each team, teamNumber in summary
         if (team.color == '#ba3248')
           .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
@@ -28,7 +29,7 @@ html
             p.grid-width.f-left(style='background: yellow')=title
           if (i >= 7)
             p.grid-width.f-left(style='background: green')=title
-
+            
         .clear
         each team, teamNumber in summary
           if (team.color == '#ba3248')
@@ -80,7 +81,8 @@ html
       
     div
       p.padding-b=('RED:' +  red)
-      p.padding-b=('BLUE:' + blue)
+      p.f-left.padding-b=('BLUE:' + blue) 
+      .clear
 
     style(type='text/css').
       .grid-width{

@@ -188,7 +188,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
 
     for(i in summary){
       team = summary[i]
-      color = team['color'] == '#ba3248'? 'red' : 'blue';
+      var color = team['color'] == '#ba3248'? 'red' : 'blue';
 
       scores[color]['autoGear'] += parseFloat(team['autoGear']);
       scores[color]['teleGear'] += parseFloat(team['teleGear']);
