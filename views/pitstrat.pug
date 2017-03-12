@@ -48,36 +48,36 @@ html
 
     .clear
     div.margin-b
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Prev Prev Match
-
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Next Match 
+      //- a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+      //-   Prev Prev Match
+      //- 
+      //- a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+      //-   Next Next Match 
+      div(style='background: yellow')  
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=108')
+          Match 1x8
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=207')
+          Match 2x7
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=306')
+          Match 3x6 
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=405')
+          Match 4x5     
+          
+      div(style='background: orange')
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=105')
+          Match 1x5
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=104')
+          Match 1x4   
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=203')
+          Match 2x3
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=307')
+          Match 3x7
+    
+          
+      div(style='background: green')
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=103')
+        Match 1x3
         
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=3')
-        Match 3
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=13')
-        Match 13    
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=16')
-        Match 16
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=23')
-        Match 23
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=29')
-        Match 29
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=37')
-        Match 37
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=40')
-        Match 40
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=52')
-        Match 52
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=58')
-        Match 58
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=61')
-        Match 61
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=66')
-        Match 66
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=72')
-        Match 72
       
     div
       p.padding-b=('RED:' +  red)
