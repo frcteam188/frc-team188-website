@@ -12,13 +12,13 @@ html
 
     div.f-left(style='width:10%;')
       p.grid-width=('#' + matchNumber)
-      p.grid-height.none=''
+      p.grid-height.none='Click below to visit Team'
       each team, teamNumber in summary
         if (team.color == '#ba3248')
-          .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
       each team, teamNumber in summary
         if (team.color == '#4286f4')
-          .no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';')=teamNumber
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
 
     div.f-left(style='width: 90%')
       div

@@ -243,6 +243,7 @@ exports.viewTeam = function(teamNumber, response){
   console.log('getting team data for: ' + teamNumber);
   var values = [parseInt(teamNumber)];
   var doneQueries = [false, false];
+  var summary = {};
 
   var query = "SELECT * FROM public.\"autoData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
 
@@ -254,11 +255,12 @@ exports.viewTeam = function(teamNumber, response){
     }
     //console.log('got auto');
     doneQueries[0] = true;
-
-    sendTeamData(res, response, true, doneQueries);
+    if(sendTeamData(res, response, true, doneQueries, summary)){
+      return
+    }
   });
 
-  var query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+  query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
 
   pool.query(query, values, function (err, res) {
     if (err){
@@ -268,16 +270,18 @@ exports.viewTeam = function(teamNumber, response){
     }
     //console.log('got tele');
     doneQueries[1] = true;
-
-    sendTeamData(res, response, false, doneQueries);
+    if(sendTeamData(res, response, false, doneQueries, summary)){
+      return
+    }
   });
 };
 
-function sendTeamData(teamData, response, auto, doneQueries){
-  summary = {}
+function sendTeamData(teamData, response, auto, doneQueries, summary){
   for(i in teamData.rows){
     row = teamData.rows[i];
-    summary[i] = {}
+    if(!summary[i]){
+      summary[i] = {}
+    }
     if(auto){
       summary[i]['matchNumber'] = row['match_number'];
       summary[i]['mobility'] = (row['mobility']*1);
@@ -294,10 +298,14 @@ function sendTeamData(teamData, response, auto, doneQueries){
       summary[i]['hangDuration'] = row['hang_duration'];
     }
   }
-  if(doneQueries[0] == true && doneQueries[1] == true){
-    response.render('teamview', {'summmary' : summary});
+  console.log(doneQueries[0] + ': ' + doneQueries[1]);
+  if(doneQueries[0] && doneQueries[1]){
+    console.log(summary);
+    response.render('teamview', {'summary' : summary});
     console.log('sent data for team');
+    return true;
   }
+  return false;
 
   //console.log(summary);
 //  response.send();

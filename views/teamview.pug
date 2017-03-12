@@ -35,7 +35,9 @@ html
           //if (team.color == '#ba3248')
           .no-decor.grid-height.padding-s
             each val, field in match
-              if (field!='color')
+              if (field === 'matchNumber')
+                a.no-decor.f-left.center.grid-item(href='/scouting/pitStrat?matchNumber=' + val)=val+''
+              else if (field!='color')
                 .no-decor.f-left.center.grid-item=val+''
         .clear
       
