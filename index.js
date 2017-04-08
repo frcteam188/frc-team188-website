@@ -281,5 +281,7 @@ app.post('/scouting/api/insertMatch', function(req, res){
     postgres.insertMatch(match);
     res.send('worked');
   }
-  res.send('not worked');
+  else{
+    res.send('not worked');
+  }
 });
