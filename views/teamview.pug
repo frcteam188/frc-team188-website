@@ -11,7 +11,7 @@ html
 
 
     div.f-left(style='width:10%;')
-      p.grid-width
+      p.grid-width=('#' + teamNumber)
         //=('#' + matchNumber)
       //each team, teamNumber in summary
         if (team.color == '#ba3248')
@@ -44,13 +44,13 @@ html
         .clear
 
     .clear
-    div.margin-b
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Prev Prev Match
-
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Next Match 
-        
+    //- div.margin-b
+    //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+    //-     Prev Prev Match
+    //- 
+    //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+    //-     Next Next Match 
+    //-     
       
 
     style(type='text/css').

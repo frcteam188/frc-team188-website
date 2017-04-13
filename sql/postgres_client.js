@@ -255,7 +255,7 @@ exports.viewTeam = function(teamNumber, response){
     }
     //console.log('got auto');
     doneQueries[0] = true;
-    if(sendTeamData(res, response, true, doneQueries, summary)){
+    if(sendTeamData(res, response, true, doneQueries, summary, teamNumber)){
       return
     }
   });
@@ -270,13 +270,13 @@ exports.viewTeam = function(teamNumber, response){
     }
     //console.log('got tele');
     doneQueries[1] = true;
-    if(sendTeamData(res, response, false, doneQueries, summary)){
+    if(sendTeamData(res, response, false, doneQueries, summary, teamNumber)){
       return
     }
   });
 };
 
-function sendTeamData(teamData, response, auto, doneQueries, summary){
+function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber){
   for(i in teamData.rows){
     row = teamData.rows[i];
     if(!summary[i]){
@@ -301,7 +301,7 @@ function sendTeamData(teamData, response, auto, doneQueries, summary){
   console.log(doneQueries[0] + ': ' + doneQueries[1]);
   if(doneQueries[0] && doneQueries[1]){
     console.log(summary);
-    response.render('teamview', {'summary' : summary});
+    response.render('teamview', {'summary' : summary, 'teamNumber' : teamNumber});
     console.log('sent data for team');
     return true;
   }
