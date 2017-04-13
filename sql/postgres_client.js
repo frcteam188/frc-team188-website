@@ -136,7 +136,7 @@ function getTeamData(teamNumbers, response, matchNumber){
       summary[team]['teleGearPickup'] += row['gears_acquired'];
       summary[team]['teleHigh'] += row['tele_high'];
       summary[team]['hangSuccess'] += (row['hang']*1);
-      summary[team]['hangDuration'] += row['hang_duration'];
+      summary[team]['hangDuration'] += row['hang_duration']*(row['hang']*1);
     }
     doneQueries[1] = true;
     if(sendWhenDone(doneQueries, summary, response, matchNumber)){
