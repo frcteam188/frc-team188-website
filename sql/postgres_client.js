@@ -78,14 +78,14 @@ function getTeamData(teamNumbers, response, matchNumber){
       'color' : color,
       'station' : stations[i],
       'matchesPlayed' : 0,
-      'mobility' : 0,
+      //'mobility' : 0,
       'autoGear' : 0,
       'autoGearPickup' : 0,
       'autoBallPickup' : 0,
       'autoHigh' : 0,
       'teleGear': 0,
       'teleGearPickup' : 0,
-      'teleHigh' : 0,
+    //  'teleHigh' : 0,
       'hangSuccess': 0,
       'hangDuration' : 0
     };
@@ -110,7 +110,7 @@ function getTeamData(teamNumbers, response, matchNumber){
       team = row['team_number'];
       //console.log('reading data for team: ' + team + ' in match: ' + row['match_number']);
       summary[team]['matchesPlayed']++;
-      summary[team]['mobility'] += (row['mobility']*1);
+      //summary[team]['mobility'] += (row['mobility']*1);
       summary[team]['autoGear'] += row['auto_gear'];
       summary[team]['autoGearPickup'] += row['auto_gear_pickup'];
       summary[team]['autoBallPickup'] += (row['auto_ball_pickup']*1);
@@ -134,7 +134,7 @@ function getTeamData(teamNumbers, response, matchNumber){
       team = row['team_number'];
       summary[team]['teleGear'] += row['gears_scored'];
       summary[team]['teleGearPickup'] += row['gears_acquired'];
-      summary[team]['teleHigh'] += row['tele_high'];
+      //summary[team]['teleHigh'] += row['tele_high'];
       summary[team]['hangSuccess'] += (row['hang']*1);
       summary[team]['hangDuration'] += row['hang_duration']*(row['hang']*1);
     }
