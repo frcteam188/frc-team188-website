@@ -36,7 +36,6 @@ exports.getMatch = function(matchNumber, station, response){
       response.send(err);
       return
     }
-    console.log('sdasasdasd');
 
     response.render('scouting',{
       'teamNumber': res.rows[0][station],
@@ -60,33 +59,45 @@ exports.getPitMatch = function(matchNumber, response){
     }
     var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
     var teamNumbers = [];
-    console.log(res.rows[0]);
+    //console.log(res.rows[0]);
 
     for(var station in stations){
       teamNumbers.push(res.rows[0][stations[station]]);
     }
-    getTeamData(teamNumbers, response);
+    getTeamData(teamNumbers, response, matchNumber);
   });
 };
 
-function getTeamData(teamNumbers, response){
+function getTeamData(teamNumbers, response, matchNumber){
   var summary = {};
-  for(team in teamNumbers){
+  var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
+  for(i in teamNumbers){
+    team = teamNumbers[i] + '';
+    color = i<3?'#ba3248':'#4286f4';
     teamSummary = {
-      'matchesPlayed' = 0,
-      'mobility' : 0,
+      'color' : color,
+      'station' : stations[i],
+      'matchesPlayed' : 0,
+      //'mobility' : 0,
       'autoGear' : 0,
+      'load' : 0,
+      'middle' : 0,
+      'boiler' : 0,
       'autoGearPickup' : 0,
       'autoBallPickup' : 0,
       'autoHigh' : 0,
       'teleGear': 0,
       'teleGearPickup' : 0,
+    //  'teleHigh' : 0,
       'hangSuccess': 0,
       'hangDuration' : 0
     };
-    result[teamNumbers] = teamSummary;
+    summary[team] = teamSummary;
   }
+  //summary['teamNumbers'] = teamNumbers;
 
+  //console.log(summary);
+  var doneQueries = [false, false];
   var query = "SELECT * FROM public.\"autoData\" WHERE team_number = $1 OR team_number = $2 OR team_number = $3 OR team_number = $4 OR team_number = $5 OR team_number = $6";
   pool.query(query, teamNumbers, function (err, res) {
     if (err){
@@ -96,12 +107,51 @@ function getTeamData(teamNumbers, response){
     }
     //console.log(res);
     //response.render('pitstrat',{});
-    for(row in res.rows){
-      team = row['teamNumber'];
-      summary[team][matchesPlayed]++;
-      summary[team][mobility] += (row[mobility]*1);
+    for(i in res.rows){
+      row = res.rows[i];
+      //console.log(row);
+      team = row['team_number'];
+      //console.log('reading data for team: ' + team + ' in match: ' + row['match_number']);
+      summary[team]['matchesPlayed']++;
+      //summary[team]['mobility'] += (row['mobility']*1);
+      summary[team]['autoGear'] += row['auto_gear'];
+      summary[team]['autoGearPickup'] += row['auto_gear_pickup'];
+      summary[team]['autoBallPickup'] += (row['auto_ball_pickup']*1);
+      summary[team]['autoHigh'] += row['auto_high'];
+    }
+    doneQueries[0] = true;
+    if(sendWhenDone(doneQueries, summary, response, matchNumber)){
+      return
     }
   });
+  var doneQueries = [false, false];
+  var query = "SELECT count(CASE WHEN auto_pref_lift = 'port1' THEN 1 END),count(CASE WHEN auto_pref_lift = 'port2' THEN 1 END),count(CASE WHEN auto_pref_lift = 'port3' THEN 1 END)  FROM public.\"autoData\" WHERE team_number = $1 OR team_number = $2 OR team_number = $3 OR team_number = $4 OR team_number = $5 OR team_number = $6";
+  pool.query(query, teamNumbers, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    //console.log(res);
+    //response.render('pitstrat',{});
+    for(i in res.rows){
+      row = res.rows[i];
+      //console.log(row);
+      team = row['team_number'];
+      //console.log('reading data for team: ' + team + ' in match: ' + row['match_number']);
+      summary[team]['matchesPlayed']++;
+      //summary[team]['mobility'] += (row['mobility']*1);
+      summary[team]['autoGear'] += row['auto_gear'];
+      summary[team]['autoGearPickup'] += row['auto_gear_pickup'];
+      summary[team]['autoBallPickup'] += (row['auto_ball_pickup']*1);
+      summary[team]['autoHigh'] += row['auto_high'];
+    }
+    doneQueries[0] = true;
+    if(sendWhenDone(doneQueries, summary, response, matchNumber)){
+      return
+    }
+  });
+
   var query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1 OR team_number = $2 OR team_number = $3 OR team_number = $4 OR team_number = $5 OR team_number = $6";
   pool.query(query, teamNumbers, function (err, res) {
     if (err){
@@ -110,31 +160,208 @@ function getTeamData(teamNumbers, response){
       return
     }
     //console.log(res);
-
-    for(row in res.rows){
-      team = row['teamNumber'];
-      summary[team][matchesPlayed]++;
-      summary[team][mobility] += (row[mobility]*1);
+    for(i in res.rows){
+      row = res.rows[i];
+      team = row['team_number'];
+      summary[team]['teleGear'] += row['gears_scored'];
+      summary[team]['teleGearPickup'] += row['gears_acquired'];
+      //summary[team]['teleHigh'] += row['tele_high'];
+      summary[team]['hangSuccess'] += (row['hang']*1);
+      summary[team]['hangDuration'] += row['hang_duration']*(row['hang']*1);
+    }
+    doneQueries[1] = true;
+    if(sendWhenDone(doneQueries, summary, response, matchNumber)){
+      return
     }
   });
 
-  response.json(result);
-  console.log('sent pit data');
-  return
+
+
+}
+function sendWhenDone(doneQueries, summary, response, matchNumber){
+  if(doneQueries[0] && doneQueries[1]){
+    for(team in summary){
+      if(summary[team]['matchesPlayed'] == 0){
+        continue;
+      }
+      for(key in summary[team]){
+        if(key != 'hangDuration' && key != 'hangSuccess'
+          && key != 'matchesPlayed' && key!='color' && key != 'station'){
+          summary[team][key] = (summary[team][key]/summary[team]['matchesPlayed']).toFixed(2);
+        }
+      }
+      if(summary[team]['hangSuccess'] > 0){
+        summary[team]['hangDuration'] = (summary[team]['hangDuration']/summary[team]['hangSuccess']).toFixed(2);
+        summary[team]['hangSuccess'] = (summary[team]['hangSuccess']/summary[team]['matchesPlayed']).toFixed(2);
+      }
+    }
+    //response.json(summary);
+    scores = {
+      'blue' : {
+        'autoGear' : 0,
+        'teleGear' : 0,
+        'autoKpa' : 0,
+        'teleKpa' : 0,
+        'hang' : 0,
+        'score' : 0
+      },
+      'red' : {
+        'autoGear' : 0,
+        'teleGear' : 0,
+        'autoKpa' : 0,
+        'teleKpa' : 0,
+        'hang' : 0,
+        'score' : 0
+      }
+    }
+
+
+
+    for(i in summary){
+      team = summary[i]
+      var color = team['color'] == '#ba3248'? 'red' : 'blue';
+
+      scores[color]['autoGear'] += parseFloat(team['autoGear']);
+      scores[color]['teleGear'] += parseFloat(team['teleGear']);
+      scores[color]['autoKpa'] += parseFloat(team['autoHigh']);
+      scores[color]['teleKpa'] += parseFloat(team['teleHigh']);
+      scores[color]['hang'] += parseFloat(team['hangSuccess']);
+
+      console.log(color + 'a: ' + scores[color]['autoGear']);
+
+    }
+    for(color in scores){
+      if(scores[color]['autoGear'] >= 1){
+        scores[color]['score'] += 20;
+        console.log(color + ': ' + scores[color]['score']);
+      }
+      if(scores[color]['autoGear'] >= 3){
+          scores[color]['score'] += 20;
+        //  console.log(color + ': ' + scores[color]['score']);
+      }
+
+      gears = scores[color]['autoGear'] + scores[color]['teleGear'];
+
+      if(gears >= 1){
+        scores[color]['score'] += 40;
+        //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 3){
+          scores[color]['score'] += 40;
+          //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 6){
+          scores[color]['score'] += 40;
+          //console.log(color + ': ' + scores[color]['score']);
+      }
+      if(gears >= 12){
+          scores[color]['score'] += 40;
+        //  console.log(color + ': ' + scores[color]['score']);
+      }
+      scores[color]['score'] += scores[color]['autoKpa'] + scores[color]['teleKpa'];
+      scores[color]['score'] += scores[color]['hang']*50.0;
+      //console.log(color + ': ' + scores[color]['score']);
+    }
+
+
+    response.render('pitstrat', {'summary' : summary, 'matchNumber' : parseInt(matchNumber), 'red' : scores['red']['score'], 'blue' : scores['blue']['score']});
+    console.log('sent pit data');
+    return true;
+  }
+}
+
+exports.viewTeam = function(teamNumber, response){
+  console.log('getting team data for: ' + teamNumber);
+  var values = [parseInt(teamNumber)];
+  var doneQueries = [false, false];
+  var summary = {};
+
+  var query = "SELECT * FROM public.\"autoData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    //console.log('got auto');
+    doneQueries[0] = true;
+    if(sendTeamData(res, response, true, doneQueries, summary, teamNumber)){
+      return
+    }
+  });
+
+  query = "SELECT * FROM public.\"teleData\" WHERE team_number = $1";//, public.\"teleData\" WHERE team_number = $1";
+
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+    //console.log('got tele');
+    doneQueries[1] = true;
+    if(sendTeamData(res, response, false, doneQueries, summary, teamNumber)){
+      return
+    }
+  });
+};
+
+function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber){
+  for(i in teamData.rows){
+    row = teamData.rows[i];
+    if(!summary[i]){
+      summary[i] = {}
+    }
+    if(auto){
+      summary[i]['matchNumber'] = row['match_number'];
+      summary[i]['mobility'] = (row['mobility']*1);
+      summary[i]['autoGear'] = row['auto_gear'];
+      summary[i]['autoGearPickup'] = row['auto_gear_pickup'];
+      summary[i]['autoBallPickup'] = (row['auto_ball_pickup']*1);
+      summary[i]['autoHigh'] = row['auto_high'];
+    }
+    else{
+      summary[i]['teleGear'] = row['gears_scored'];
+      summary[i]['teleGearPickup'] = row['gears_acquired'];
+      summary[i]['teleHigh'] = row['tele_high'];
+      summary[i]['hangSuccess'] = (row['hang']*1);
+      summary[i]['hangDuration'] = row['hang_duration'];
+    }
+  }
+  console.log(doneQueries[0] + ': ' + doneQueries[1]);
+  if(doneQueries[0] && doneQueries[1]){
+    console.log(summary);
+    response.render('teamview', {'summary' : summary, 'teamNumber' : teamNumber});
+    console.log('sent data for team');
+    return true;
+  }
+  return false;
+
+  //console.log(summary);
+//  response.send();
 }
 
 exports.submitAuto = function(auto){
   console.log("Submiting Auto");
   var values = Object.keys(auto).map(key => auto[key])
-
-  var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear ,auto_gear_pickup, auto_pref_lift) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);";
-
+  var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear_pickup, auto_pref_lift, auto_gear) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);
     }
   });
 };
+
+exports.insertMatch = function(match){
+  var values = Object.keys(match).map(key => match[key])
+  var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+    }
+  });
+}
 
 exports.submitTele = function(tele){
   console.log("Submiting Tele");
@@ -152,7 +379,7 @@ exports.submitForm = function(form){
   console.log("Submiting form");
   var values = Object.keys(form).map(key => form[key]);
 
-  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot, comments) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);
