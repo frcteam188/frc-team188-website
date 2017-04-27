@@ -593,8 +593,10 @@ function post(path, params, method) {
 }
 function sendData() {
   prepData();
-  $.post("scouting/api/sendData",submit);
-  nextMatch();
+  $.post("scouting/api/sendData",submit, function(data, textStat, jqXHR){
+    console.log(data);
+    nextMatch();
+  });
 }
 
 function prepData() {
