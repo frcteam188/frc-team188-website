@@ -80,6 +80,7 @@ function getTeamData(teamNumbers, response, matchNumber){
       'matchesPlayed' : 0,
       //'mobility' : 0,
       'autoGear' : 0,
+      'autoSidePeg' : 0,
       'autoGearPickup' : 0,
       'autoBallPickup' : 0,
       'autoHigh' : 0,
@@ -111,6 +112,9 @@ function getTeamData(teamNumbers, response, matchNumber){
       //console.log('reading data for team: ' + team + ' in match: ' + row['match_number']);
       summary[team]['matchesPlayed']++;
       //summary[team]['mobility'] += (row['mobility']*1);
+      if (row['auto_gear'] === 1 && row['auto_pref_lift'] !== "port2") {
+        summary[team]['autoSidePeg'] += 1;
+      }
       summary[team]['autoGear'] += row['auto_gear'];
       summary[team]['autoGearPickup'] += row['auto_gear_pickup'];
       summary[team]['autoBallPickup'] += (row['auto_ball_pickup']*1);
@@ -153,9 +157,15 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
       if(summary[team]['matchesPlayed'] == 0){
         continue;
       }
+
+      if(summary[team]['autoGear'] > 0){
+        summary[team]['autoSidePeg']= (summary[team]['autoSidePeg']/summary[team]['autoGear']).toFixed(2);
+      }
+
       for(key in summary[team]){
         if(key != 'hangDuration' && key != 'hangSuccess'
-          && key != 'matchesPlayed' && key!='color' && key != 'station'){
+          && key != 'matchesPlayed' && key!='color' && key != 'station'
+          && key != 'autoSidePeg'){
           summary[team][key] = (summary[team][key]/summary[team]['matchesPlayed']).toFixed(2);
         }
       }
@@ -163,6 +173,7 @@ function sendWhenDone(doneQueries, summary, response, matchNumber){
         summary[team]['hangDuration'] = (summary[team]['hangDuration']/summary[team]['hangSuccess']).toFixed(2);
         summary[team]['hangSuccess'] = (summary[team]['hangSuccess']/summary[team]['matchesPlayed']).toFixed(2);
       }
+
     }
     //response.json(summary);
     scores = {

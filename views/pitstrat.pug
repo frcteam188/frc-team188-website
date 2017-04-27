@@ -22,12 +22,12 @@ html
 
     div.f-left(style='width: 90%')
       div
-        each title, i in ['Station', 'mPlayed', 'aGear','aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']
+        each title, i in ['Station', 'mPlayed', 'aGear', 'aSide', 'aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']
           if (i <= 1)
             p.grid-width.f-left(style='background: orange')=title
-          if (i > 1 && i < 6)
+          if (i > 1 && i < 7)
             p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 6)
+          if (i >= 7)
             p.grid-width.f-left(style='background: green')=title
 
         .clear
