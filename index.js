@@ -273,7 +273,14 @@ app.get('/scouting/viewTeam', function(req, res){
 });
 
 
-
+app.get('/scouting/api/query', function(req, res){
+  if(req.query.q){
+    postgres.query(req.query.q, res);
+  }
+  else{
+    res.render('query', {'names' : [], 'rows' : [], 'query' : ''});
+  }
+});
 
 app.post('/scouting/api/insertMatch', function(req, res){
   match = req.body;

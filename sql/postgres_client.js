@@ -355,6 +355,23 @@ exports.submitTele = function(tele){
   });
 };
 
+exports.query = function(query, response){
+  console.log("TRYING QUERY : " + query);
+  pool.query(query, function (err, res) {
+    if (err){
+      console.log(err);
+    }
+    else{
+      names = [];
+      for(index in res.fields){
+        names.push(res.fields[index].name);
+      }
+      response.render('query', {"names":names, "rows": res.rows, 'query' : query});
+      console.log(res);
+    }
+  });
+}
+
 exports.submitForm = function(form){
   console.log("Submiting form");
   var values = Object.keys(form).map(key => form[key]);
