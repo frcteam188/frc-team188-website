@@ -29,9 +29,12 @@ html
           //-   p.grid-width.f-left(style='background: yellow')=title
           //- if (i >= 7)
           p.grid-width.f-left(style='background: green')=title
+      .clear
+      div
         each row, rowNumber in rows
           each val, index in row
            .no-decor.f-left.center.grid-item=val+''
+          .clear
         .clear
       
       
