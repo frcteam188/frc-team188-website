@@ -1,11 +1,19 @@
 var feature;
 var index = 0;
-var imgurls  = ['assets/pictures/circuit.png', 'assets/pictures/188-logo.png'];
+var imgurls  = [
+  'https://imgur.com/yOyiT3I.jpg',
+  'https://imgur.com/oBTNqst.jpg',
+  'https://imgur.com/kGVRzns.jpg',
+  'https://imgur.com/DjZ3OJd.jpg'];
 var navbarPic;
 $(document).ready(function() {
+
   feature = $('#feature-pic');
   next();
 });
+
+
+
 
 function prev(){
   index = (index === 0) ? imgurls.length - 1 : index - 1;

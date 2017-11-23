@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
     div.page.mdc-card.margin-v-b.padding-b
       each index in paras
         h1.none.primary=index.title
@@ -13,19 +13,13 @@ html
 
   //sponsor buttons
   div.mdc-card.grid-container.margin-v-b.page.center-items
-    each index in [0, 1, 2, 3, 4]
+    each item in sponsors
         a.sponsor-img(
-          style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+          style='background-image: url(' + item.image + ')'
           href='/')
-          h1.none-m.grid-button-foreground TDSB
+          h1.none-m.grid-button-foreground #{item.name}
     .clear
 
-  //footer
-  div.footer.page.mdc-card.padding-b
-    div.footer-links
-      each index in routes
-        a.footer-link(href=index.url)=index.name
-      .clear
 
     div.mdc-card.navbar-container
       ul.mdc-list.navbar

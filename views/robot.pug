@@ -7,7 +7,7 @@ html
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
     script(src='/javascripts/robot.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+      body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
 
 
     div.page.mdc-card.margin-v-b.relative
@@ -28,13 +28,7 @@ html
           button.fill-v.none.material-icons.f-left.accent-bg.opacity-hover.text-on-primary(onclick = 'prev();') keyboard_arrow_left
           button.fill-v.none.material-icons.f-right.accent-bg.opacity-hover.text-on-primary(onclick = 'next();') keyboard_arrow_right
           .clear
-
-    //footer
-    div.footer.page.mdc-card.padding-b
-      div.footer-links
-        each index in routes
-          a.footer-link(href=index.url)=index.name
-        .clear
+            
     //- div.center
     //-   p.margin-s Team 188	&copy 2017
 

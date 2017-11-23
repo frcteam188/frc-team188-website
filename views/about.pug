@@ -5,19 +5,19 @@ html
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
-    div.page.mdc-card.margin-v-b.padding-b
+    
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+  
+    div.page.mdc-card.padding-b
       each index in paras
-        h1.none.primary=index.title
-        p.margin-b=index.para
-
-    //footer
-    div.footer.page.mdc-card.padding-b
-      div.footer-links
-        div.footer-image(style='background-image: url(assets/pictures/188-logo.png);')
-        each index in routes
-          a.footer-link(href=index.url)=index.name
-        .clear
+        .margin-v-m
+        h1.primary.none=index.title
+        .margin-v-s
+        each line in index.para  
+          if (line == '\n')
+            .margin-v-s
+          else
+            p.none-m=line
 
     div.mdc-card.navbar-container
       ul.mdc-list.navbar

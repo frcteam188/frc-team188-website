@@ -1,33 +1,23 @@
 doctype html
 html
   head
-    title Community
+    title Events
     link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
+    
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
 
     div.page.mdc-card.margin-v-b.padding-b
         h1.none.primary Upcoming
-        div.blog.mdc-card.margin-v-b.padding-b
+        div.blog.margin-v-b
+            h2.none.primary VEX
+            p.margin-b Vex Robotics Competition - 8:00am - 8:00pm Saturday, November 25, 2017
+        div.blog.margin-v-b
             h2.none.primary FLL
-            p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
-
-    div.page.mdc-card.margin-v-b.padding-b
-            h1.none.primary Past Events
-            div.blog.mdc-card.margin-v-b.padding-b
-                h2.none.primary FLL
-                p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
-
-            div.blog.mdc-card.margin-v-b.padding-b
-                h2.none.primary FLL
-                p.margin-b Every year, Woburn CI hosts a TDSB FLL Qualifier.
-
-    div.footer.page.mdc-card.padding-b
-      div.footer-links
-        each index in routes
-          a.footer-link(href=index.url)=index.name
-        .clear
+            p.margin-b TDSB First Lego League Qualifier (TDSB Schools Only) - 8:00am - 6:00pm Saturday, December 2, 2017
+            
+        
     div.mdc-card.navbar-container
       ul.mdc-list.navbar
         each item in menu

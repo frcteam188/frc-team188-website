@@ -2,7 +2,7 @@ $primary: #B71C1C;
 $accent: #F44336;
 $background: #fff;
 $text-on-primary: white;
-$blog-color: #e7e7e7;
+$blog-color: white;
 
 $padding-b: 25px;
 $padding-m: 15px;
@@ -170,9 +170,11 @@ a{
 //~~~~~~~~INDEX.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .feature-pic{
-  height: 300px;
+  height: 400px;
   width: $page-width;
-  background-position: center;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .feature-text{
@@ -368,6 +370,16 @@ $robot-button-size: 30px;
   padding: 10px;
   border-radius: 50%;
 }
+
+.opacity-quarter-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-quarter-hover:hover{
+  opacity: 0.25;
+}
+
 
 .opacity-half-hover{
   opacity: 0;

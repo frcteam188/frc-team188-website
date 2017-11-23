@@ -10430,7 +10430,7 @@ a {
 
 .blog {
   width: 850px;
-  background: #e7e7e7; }
+  background: white; }
 
 .footer {
   display: flex;
@@ -10459,9 +10459,11 @@ a {
   background-repeat: no-repeat; }
 
 .feature-pic {
-  height: 300px;
+  height: 400px;
   width: 900px;
-  background-position: center; }
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 .feature-text {
   color: white; }
@@ -10621,6 +10623,13 @@ a {
 .circle {
   padding: 10px;
   border-radius: 50%; }
+
+.opacity-quarter-hover {
+  opacity: 0;
+  transition-duration: 1s; }
+
+.opacity-quarter-hover:hover {
+  opacity: 0.25; }
 
 .opacity-half-hover {
   opacity: 0;
