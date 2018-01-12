@@ -29,8 +29,15 @@ app.get('/', function(req, res) {//this block defines what our server will do wh
   res.render('index', content.home);
 });
 
-app.get('/about', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
-  res.render('about', content.about);
+app.get('/about', function(req, res){
+  var new_about = content.about
+  new_about.pageindex = 0;
+  res.render('about', new_about);
+});
+app.get('/about/:pageindex', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
+  var new_about = content.about
+  new_about.pageindex = req.params.pageindex;
+  res.render('about', new_about);
 });
 
 app.get('/first', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about

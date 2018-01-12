@@ -2,6 +2,7 @@ var feature;
 var index = 0;
 var imgurls  = [
   'https://imgur.com/yOyiT3I.jpg',
+  'https://imgur.com/8wOW3da.jpg',
   'https://imgur.com/oBTNqst.jpg',
   'https://imgur.com/kGVRzns.jpg',
   'https://imgur.com/DjZ3OJd.jpg'];

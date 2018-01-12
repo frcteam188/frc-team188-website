@@ -12,6 +12,10 @@
   "url" : "/events"
 },
 {
+  "name" : "FRC",
+  "url" : "/frc"
+},
+{
   "name" : "Sponsors",
   "url" : "/sponsors"
  }
