@@ -12,6 +12,7 @@ var content = require('./content/content.js').content();
 // Set server port
 var port = process.env.PORT || 3001;
 app.use('/scripts', express.static(__dirname + '/node_modules/material-components-web/dist/'));
+
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
@@ -31,17 +32,17 @@ app.get('/', function(req, res) {//this block defines what our server will do wh
 
 app.get('/about', function(req, res){
   var new_about = content.about
-  new_about.pageindex = 0;
+  new_about.pagename = '';
   res.render('about', new_about);
 });
-app.get('/about/:pageindex', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
+app.get('/about/:pagename', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
   var new_about = content.about
-  new_about.pageindex = req.params.pageindex;
+  new_about.pagename = req.params.pagename;
   res.render('about', new_about);
 });
 
-app.get('/first', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
-  res.render('robot', content.first);
+app.get('/frc', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/about
+  res.render('robot', content.frc);
 });
 
 app.get('/events', function(req, res) {//this block defines what our server will do when it receives a request at the url: team188.com/community
@@ -172,4 +173,19 @@ app.post('/scouting/api/insertMatch', function(req, res){
   else{
     res.send('not worked');
   }
+});
+
+app.use(function(req, res, next){
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('404', content.home);
+    return;
+  }
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+  res.type('txt').send('Not found');
 });

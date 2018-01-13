@@ -2,8 +2,8 @@ doctype html
 html
   head
     title Team 188
-    link(rel='shortcut icon', href='assets/pictures/188favicon.png')
-    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
     //link(rel='import', href='views/robot.pug')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
@@ -15,7 +15,9 @@ html
     div.page.mdc-card.margin-v-b.relative
         div.top.feature-pic#feature-pic.relative
         div.absolute.fill
-          a().absolute.fill.opacity-half-hover.grey-bg
+          //- .grey-bg
+          a().absolute.fill.opacity-half-hover 
+          
             div.absolute.top.left
               .feature-text#feature-text
                 h1.margin-b.padding-b
@@ -34,13 +36,13 @@ html
     //- //past year robots buttons
     //- div.grid-container.margin-v-b
     //-   a.grid-button.mdc-card(
-    //-     style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+    //-     style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
     //-     href='/')
     //-     h1.none-m.grid-button-foreground 2016
     //- 
     //-   each index in [2015, 2014, '...']
     //-     a.grid-button.mdc-card.grid-m(
-    //-       style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
+    //-       style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
     //-       href='/')
     //-       h1.none-m.grid-button-foreground=index
     //- 

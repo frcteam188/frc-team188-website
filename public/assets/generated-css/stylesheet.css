@@ -10461,6 +10461,7 @@ a {
 .feature-pic {
   height: 400px;
   width: 900px;
+  background-color: #B71C1C;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
@@ -10503,6 +10504,9 @@ a {
 .grid-button-foreground:hover {
   opacity: 0.5; }
 
+.about-nav-button {
+  width: 250px; }
+
 .robot {
   position: relative;
   width: 100%; }
@@ -10518,7 +10522,14 @@ a {
 
 .robot-info {
   float: left;
-  width: 225px; }
+  width: 315px; }
+
+.robot-detail {
+  background: #B71C1C;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  font-weight: 100; }
 
 .robot-button {
   width: 30px;
@@ -10556,6 +10567,9 @@ a {
 
 .text-on-primary {
   color: white; }
+
+.text-right {
+  text-align: right; }
 
 .padding-b {
   padding: 25px; }

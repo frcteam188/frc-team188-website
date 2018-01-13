@@ -1,11 +1,11 @@
 var feature;
 var index = 0;
 var imgurls  = [
-  'https://imgur.com/yOyiT3I.jpg',
-  'https://imgur.com/8wOW3da.jpg',
-  'https://imgur.com/oBTNqst.jpg',
-  'https://imgur.com/kGVRzns.jpg',
-  'https://imgur.com/DjZ3OJd.jpg'];
+  'https://i.imgur.com/yOyiT3I.jpg',
+  'https://i.imgur.com/8Acd1if.png',
+  'https://i.imgur.com/oBTNqst.jpg',
+  'https://i.imgur.com/kGVRzns.jpg',
+  'https://i.imgur.com/DjZ3OJd.jpg'];
 var navbarPic;
 $(document).ready(function() {
 

@@ -172,9 +172,10 @@ a{
 .feature-pic{
   height: 400px;
   width: $page-width;
+  background-color: $primary;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;
 }
 
 .feature-text{
@@ -222,6 +223,13 @@ a{
   opacity: 0.5;
 }
 
+//~~~~~~~~~~~ABOUT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.about-nav-button{
+    width: 250px;
+}
+
 //~~~~~~~~~~~ROBOT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 $robot-button-size: 30px;
@@ -244,7 +252,15 @@ $robot-button-size: 30px;
 
 .robot-info{
   float: left;
-  width: $page-width * 0.25;
+  width: $page-width * 0.35;
+}
+
+.robot-detail{
+  background: $primary;
+  border-radius: 5px;
+  color : $text-on-primary;
+  font-size : 13px;
+  font-weight: 100;
 }
 
 .robot-button{
@@ -292,6 +308,10 @@ $robot-button-size: 30px;
 }
 .text-on-primary{
   color: $text-on-primary;
+}
+
+.text-right{
+  text-align: right;
 }
 
 .padding-b{

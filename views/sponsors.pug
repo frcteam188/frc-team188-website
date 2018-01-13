@@ -2,8 +2,8 @@ doctype html
 html
   head
     title About
-    link(rel='shortcut icon', href='assets/pictures/188favicon.png')
-    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
   body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
@@ -17,7 +17,7 @@ html
     each item in sponsors
         a.sponsor-img(
           style='background-image: url(' + item.image + ')'
-          href='/')
+          href=item.url)
           h1.none-m.grid-button-foreground #{item.name}
     .clear
 

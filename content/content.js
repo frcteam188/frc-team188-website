@@ -18,6 +18,7 @@ var content = (function(){
       "menu" : menu,
       "paras" : [
         {"title" : "About Us",
+         "url" : "",
          "para" : [
            "Team 188 Woburn Robotics was established in 1995 through the work of a group of passionate teachers, community members and students.",
            "\n",
@@ -36,6 +37,7 @@ var content = (function(){
         ]
        },
        {"title" : "Outreach",
+        "url" : "outreach",
         "para" : [
           "Even with these honours, Team 188 has always strived to further FIRST in Canada, by mentoring local schools and creating new teams in Toronto.",
           "\n",
@@ -48,6 +50,7 @@ var content = (function(){
       },
        {
          "title" :  "Team Structure ",
+         "url" : "team",
          "para" : [
            "Woburn Robotics is composed of approximately 50 student members, 15 university and adult mentors, a team of 4 teachers, and all of our family, friends, and sponsors.",
            "The team comes together at the end of every build season to celebrate the accomplishments of the students and the contributions of our sponsors."
@@ -55,6 +58,7 @@ var content = (function(){
       },
        {
          "title" : "FIRST",
+         "url" : "first",
          "para" : [
            "FIRST was founded in 1989 by inventor Dean Kamen to inspire young people’s interest and participation in science and technology. Based in Manchester, N.H., the 501 (c) 3 not-for-profit organization designs accessible, innovative programs to build self-confidence, knowledge, and life skills while motivating young people to pursue opportunities in science, technology, engineering, and math.",
            "\n",
@@ -64,17 +68,103 @@ var content = (function(){
            "\n",
            "FIRST LEGO League introduces 9 to 14 year-olds (9 to 16 outside North America) to the fun and experience of solving real-world problems by applying math, science, and technology. FIRST LEGO League is an international program for children created in a partnership between FIRST and the LEGO Group in 1998. Each September, FLL announces the annual Challenge to teams, which engages them in authentic scientific research and hands-on robotics design using LEGO MINDSTORMS and NXT technologies. After 8 intense weeks, the FLL season culminates at high-energy, sports-like tournaments. Woburn is proud to host FLL Qualifiers for local FLL teams for the past decade."
           ]
+        },
+        {
+          "title" : "Achievements",
+          "url" : "achievements",
+          "para" : [
+            "ACCOMPLISHMENTS",
+            "\n",
+            "• 1st Canadian Team (1998)",
+            "• 1st Canadian Team Student to receive a FIRST scholarship (1999)",
+            "• 1st Canadian Team to win a Regional Chairman's Award (2002)",
+            "• 1st Canadian Team to win a Regional Competition in the United States(2003)",
+            "• 1st Canadian Team to finish in the divisional Top 8 at the Championship event (2004)",
+            "• 1st Canadian Team Mentor to win a regional Woodie Flowers Award (2004)",
+            "• 1st Canadian Team to attend a West Coast Regional (2005)",
+            "\n",
+            "AWARDS",
+            "\n",
+            "• 2017 - Industrial Design Award at Ryerson University Regional Event",
+            "• 2017 - Excellence in Engineering Award at McMaster University Regional Event",
+            "• 2016 - Winner, Newton Sub-Division at World Championships",
+            "• 2015 - Excellence in Engineering Award at Greater Toronto Central Regional Event",
+            "• 2015 - Creativity Award in Archimedes Division, World Championships",
+            "• 2014 - Winner, North Bay Regional",
+            "• 2014 - Industrial Design Award at North Bay Regional",
+            "• 2013 - Division Champions, Vex Robotics Competition World Championships",
+            "• 2012 - Creativity Award at Greater Toronto East Regional Event",
+            "• 2012 - Judges’ Award at Buckeye Regional (Cleveland, OH)",
+            "• 2012 - Engineering Excellence Award at Greater Toronto West Regional Event",
+            "• 2011 - Entrepreneurship Award at Greater Toronto East Regional Event",
+            "• 2010 - Chairman’s Award, Greater Toronto Regional",
+            "• 2010 - Industrial Design Award at Finger Lakes Regional Event",
+            "• 2009 - Winner, Finger Lakes Regional",
+            "• 2009 - Leadership in Controls Award at Finger Lakes Regional Event",
+            "• 2009 - Industrial Design Award at Greater Toronto Regional Event",
+            "• 2008 - “Driving Tomorrow’s Technology” Award at Waterloo Regional Event",
+            "• 2008 - Autodesk Visualization Award at Greater Toronto Regional Event",
+            "• 2008 - Gracious Professionalism Award at Greater Toronto Regional Event",
+            "• 2007 - Autodesk Visualization Award at Waterloo Regional Event",
+            "• 2007 - Sportsmanship Award at Waterloo Regional Event",
+            "• 2007 - Judges’ Award at Waterloo Regional Event",
+            "• 2007 - Website Award at Greater Toronto Regional Event",
+            "• 2006 - Judges’ Award at Finger Lakes Regional Event",
+            "• 2006 - “Driving Tomorrow’s Technology” Award at Waterloo Regional Event",
+            "• 2006 - Website Award at Waterloo Regional Event",
+            "• 2006 - Regional Woodie Flowers Award (Shawn Lim) at Greater Toronto Regional Event",
+            "• 2006 - Website Award at Greater Toronto Regional Event",
+            "• 2005 - Sportsmanship Award at Waterloo Regional Event",
+            "• 2005 - Website Award at Waterloo Regional Event",
+            "• 2005 - Creativity Award at Waterloo Regional Event",
+            "• 2005 - Entrepreneurship Award at Southern California Regional Event",
+            "• 2004 - Website Award at Pittsburgh Regional Event",
+            "• 2004 - Sportsmanship Award at Greater Toronto Regional Event",
+            "• 2004 - Website Design Award on Einstein Field, World Championships",
+            "• 2003 - Winner, West Michigan Regional ",
+            "• 2002 - Founder, Canadian Regional Event",
+            "• 2002 - Chairman’s Award, Canadian Regional Event",
+            "• 2001 - Judge's Award at Great Lakes Regional Event",
+            "• 1999 - Regional Quarterfinalists at Great Lakes Regional Event",
+            "• 1998 - Rookie Year in USFIRST (FIRST), Special Judges’ Award at National Championships",
+            "• 1997 - Canada FIRST National 5th Place Finish",
+            "• 1996 - Canada FIRST Champions",
+            "• 1995 - Canada FIRST Champions",
+          ]
         }
 
      ],
      "routes" : routes
   }
-  //
-  // obj.first = {
-  //   "menu" : menu,
-  //   "routes" : routes
-  //
-  // };
+
+  obj.frc = {
+    "menu" : menu,
+    "routes" : routes,
+    "robot" : {
+      "name" : "Blizzard XVI",
+      "image" : "/assets/pictures/188-logo.png",
+      "year" : 2017,
+      "specs" : [
+        {
+          "name" : "Drivetrain",
+          "details" : [
+            "4 Cim Motors",
+            "15 feet/second",
+            "4x4\" Vex Versa Traction Wheel",
+            "2x4\" Vex Versa Omni Wheel"
+          ]
+        },
+        {
+          "name" : "Function",
+          "details" : [
+            "Dual roller gear intake",
+            "2 second hang",
+          ]
+        }
+      ]
+    }
+
+  };
 
   obj.community = {
     "menu" : menu,
@@ -102,12 +192,18 @@ var content = (function(){
     ],
     "routes" : routes,
     "sponsors": [
-      {"name" : "TDSB",
-      "image" : "https://imgur.com/J6fhamP.jpg"},
-      {"name" : "Scotiabank",
-      "image" : "https://imgur.com/Jd3OE1v.jpg"},
-      {"name" : "Impark",
-      "image" : "https://imgur.com/fhcc4np.jpg"},
+      {
+        "name" : "TDSB",
+        "image" : "https://imgur.com/J6fhamP.jpg",
+        "url" : "http://www.tdsb.on.ca/"},
+      {
+        "name" : "Scotiabank",
+        "image" : "https://imgur.com/Jd3OE1v.jpg",
+        "url" : "http://www.scotiabank.com/"},
+      {
+        "name" : "Impark",
+        "image" : "https://imgur.com/fhcc4np.jpg",
+        "url" : "https://www.impark.com/"}
     ]
   };
 
