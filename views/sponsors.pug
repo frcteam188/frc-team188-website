@@ -7,10 +7,15 @@ html
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
   body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
-    div.page.mdc-card.margin-v-b.padding-b
-      each index in paras
-        h1.none.primary=index.title
-        p.margin-b=index.para
+  
+  .padding-m
+    
+  div.page.mdc-card.margin-v-b.padding-b
+    each index in paras
+      h1.none.primary=index.title
+      p.margin-b=index.para
+      p.margin-b='Considering sponsoring?'
+        a.no-decor.primary-hover(href='mailto:sponsorship@team188.com')=' Contact sponsorship@team188.com'
 
   //sponsor buttons
   div.mdc-card.grid-container.margin-v-b.page.center-items

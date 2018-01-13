@@ -7,17 +7,19 @@ html
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
     script(src='/javascripts/robot.js')
-      body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
-
+    
+    body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+    
+    .padding-m
 
     div.page.mdc-card.margin-v-b.relative
       .robot#robot
         .robot-pic(style='background-image: url(' +  robot.image + ');')
         .robot-info
-          h1.primary.margin-v-b=robot.name + ' (' + robot.year + ')'
+          h1.primary.margin-v-m=robot.name + ' (' + robot.year + ')'
           each spec in robot.specs
             .fill-w.margin-v-m
-              h2.accent.none=spec.name
+              h2.primary.none=spec.name
               each detail in spec.details
                 h4.robot-detail.f-left.margin-s.padding-s.text-s=detail
               .clear

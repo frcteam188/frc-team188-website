@@ -9,11 +9,20 @@ html
     
   body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
   
-    div.page.mdc-card.padding-b.fill-v
+    .padding-m
+      
+    div.page.mdc-card.margin-v-b.padding-b.relative
+      
+      div.absolute.top.right.margin-b
+        each item, index in paras
+          if (item.url == pagename)
+            p.none-p.primary.margin-s.f-left.text-right=item.title
+          else  
+            a.no-decor.primary-hover.margin-s.f-left.text-right(href='/about/' + item.url)=item.title
+    
       each item, index in paras
         if (item.url == pagename)
-          .margin-v-m
-          h1.primary.none=item.title
+          h1.primary.none.f-left=item.title
           .margin-v-s
           each line in item.para  
             if (line == '\n')
@@ -21,13 +30,13 @@ html
             else
               p.none-m=line
           .margin-v-s
-          .fill-w
+          //-.fill-w
             each item2, index2 in paras
               if (index2+1 == index)
                 a.f-left.about-nav-button(href='/about/' + item2.url)='< '+item2.title
               if (index2-1 == index)
                 a.f-right.text-right.about-nav-button(href='/about/' + item2.url)=item2.title+' >'
-          
+      .clear
     div.mdc-card.navbar-container
       ul.mdc-list.navbar
         each item in menu

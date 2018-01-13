@@ -241,12 +241,12 @@ $robot-button-size: 30px;
 
 .robot-pic{
   float: left;
-  margin: $margin-m;
+  margin: 0 $margin-m 0 0;
   width: $page-width * 0.55;
-  height: $page-width * 0.5;
-  background-position: center;
+  height: $page-width * 0.55;
+  background-position: left center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 
 }
 
@@ -256,7 +256,7 @@ $robot-button-size: 30px;
 }
 
 .robot-detail{
-  background: $primary;
+  background: $accent;
   border-radius: 5px;
   color : $text-on-primary;
   font-size : 13px;
@@ -289,11 +289,19 @@ $robot-button-size: 30px;
   color: $primary;
 }
 
+.primary-hover:hover{
+  color: $primary;
+}
+
 .primary-bg{
   background: $primary;
 }
 
 .accent{
+  color: $accent;
+}
+
+.accent-hover:hover{
   color: $accent;
 }
 
@@ -303,6 +311,11 @@ $robot-button-size: 30px;
 .grey{
   color: #333;
 }
+
+.grey-hover:hover{
+  color: #333;
+}
+
 .grey-bg{
   background: #333;
 }

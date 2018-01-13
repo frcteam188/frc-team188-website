@@ -10513,19 +10513,19 @@ a {
 
 .robot-pic {
   float: left;
-  margin: 15px;
+  margin: 0 15px 0 0;
   width: 495px;
-  height: 450px;
-  background-position: center;
+  height: 495px;
+  background-position: left center;
   background-repeat: no-repeat;
-  background-size: contain; }
+  background-size: cover; }
 
 .robot-info {
   float: left;
   width: 315px; }
 
 .robot-detail {
-  background: #B71C1C;
+  background: #F44336;
   border-radius: 5px;
   color: white;
   font-size: 13px;
@@ -10550,16 +10550,25 @@ a {
 .primary {
   color: #B71C1C; }
 
+.primary-hover:hover {
+  color: #B71C1C; }
+
 .primary-bg {
   background: #B71C1C; }
 
 .accent {
   color: #F44336; }
 
+.accent-hover:hover {
+  color: #F44336; }
+
 .accent-bg {
   background: #F44336; }
 
 .grey {
+  color: #333; }
+
+.grey-hover:hover {
   color: #333; }
 
 .grey-bg {
