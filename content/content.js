@@ -225,8 +225,14 @@ var content = (function(){
     "routes" : routes,
     "sponsors": [
       {
+        "name" : "Parkin",
+        "image" : "https://imgur.com/EGUpXNF.jpg",
+        "url" : "http://www.parkin.ca/"
+      },
+      {
         "name" : "TDSB",
         "image" : "https://imgur.com/J6fhamP.jpg",
+
         "url" : "http://www.tdsb.on.ca/"},
       {
         "name" : "Scotiabank",

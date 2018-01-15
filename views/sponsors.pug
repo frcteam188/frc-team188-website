@@ -20,7 +20,13 @@ html
 
   //sponsor buttons
   div.mdc-card.grid-container.margin-v-b.page.center-items
-    each item in sponsors
+    each item, index in sponsors
+        //- if (index == 0)
+        //-   a.sponsor-img(
+        //-     style='background-image: url(' + item.image + '); width: 100%'
+        //-     href=item.url)
+        //-     h1.none-m.grid-button-foreground #{item.name}
+        //- else
         a.sponsor-img(
           style='background-image: url(' + item.image + ')'
           href=item.url)
