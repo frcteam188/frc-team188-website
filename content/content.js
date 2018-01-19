@@ -225,6 +225,11 @@ var content = (function(){
     "routes" : routes,
     "sponsors": [
       {
+        "name" : "Eventscape",
+        "image" : "https://imgur.com/TD6k7Lc.jpg",
+        "url" : "https://eventscape.com/"
+      },
+      {
         "name" : "Parkin",
         "image" : "https://imgur.com/EGUpXNF.jpg",
         "url" : "http://www.parkin.ca/"
