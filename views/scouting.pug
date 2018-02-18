@@ -27,12 +27,10 @@ html
           | Gears Scored Total:
           span#gearsScoredlbl
         p
-          | Pressure:
-          span#pressurelbl
-        p
-          | High Balls Scored:
-          span#ballScoredlbl
-      
+          | form id :
+          input#idtool(type='number',  maxlength='100')
+          button#submitpref.btn(type='button', value='idtool', onclick='submitpref(idtool)')  LOAD
+
     script(type='text/javascript').
       updateStation(station);
 

@@ -15,8 +15,8 @@ function updateStation(st) {
 window.onload = function(){
   document.getElementById("gearsAcquiredlbl").innerHTML = gearsAcquired;
   document.getElementById("gearsScoredlbl").innerHTML = gearsScored;
-  document.getElementById("pressurelbl").innerHTML = pressure;
-  document.getElementById("ballScoredlbl").innerHTML = autoHigh;
+  //document.getElementById("pressurelbl").innerHTML = pressure;
+  //document.getElementById("ballScoredlbl").innerHTML = autoHigh;
   //document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 
   if(station.charAt(0) == 'b'){
@@ -425,7 +425,8 @@ function resetDavit() {
   document.getElementById("davit3").innerHTML = "";
 }
 function getformid(){
-return ((matchNumber-1) * 6) + getStation();
+  return (providedid);
+//return ((matchNumber-1) * 6) + getStation();
 }
 function getStation(){
 if(station == "r1"){
@@ -593,12 +594,15 @@ function post(path, params, method) {
 }
 function sendData() {
   prepData();
-  $.post("scouting/api/sendData",submit, function(data, textStat, jqXHR){
-    console.log(data);
-    nextMatch();
-  });
+  submitpref();
+  $.post("scouting/api/sendData",submit);
+  nextMatch();
 }
-
+function submitpref(id){
+  sumbit = window.localStorage.getItem(id);
+  $.post("scouting/api/sendData",submit);
+  alert( id+ " submited");
+}
 function prepData() {
   submit.auto = AutoForm;
   submit.tele = TeleForm;
