@@ -2,22 +2,27 @@ doctype html
 html
   head
     title Team 188
-    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
     //link(rel='import', href='views/robot.pug')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
     script(src='/javascripts/home.js')
 
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')#body
+    body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
 
+    .padding-m
+    
     //The header image
     div.page.mdc-card.margin-v-b.relative
         div.top.feature-pic#feature-pic.relative
         div.absolute.fill
-          a(href="/first").absolute.fill.opacity-half-hover.grey-bg
+          //- .grey-bg
+          a().absolute.fill.opacity-half-hover 
+          
             div.absolute.top.left
-              .feature-text
-                h1.margin-b.padding-b hello
+              .feature-text#feature-text
+                h1.margin-b.padding-b
           button.fill-v.none.material-icons.f-left.accent-bg.opacity-hover.text-on-primary(onclick= 'prev();') keyboard_arrow_left
           button.fill-v.none.material-icons.f-right.accent-bg.opacity-hover.text-on-primary(onclick= 'next();')  keyboard_arrow_right
           .clear
@@ -25,46 +30,26 @@ html
 
     //short description
     div.page.mdc-card.margin-v-b.padding-b
-      p.none-m=description
-      a(href='/about') Find out more
-    //short description
-    div.page.mdc-card.margin-v-b.padding-b
-      p.none-m=description
-      a(href='/about') Find out more
-    //short description
-    div.page.mdc-card.margin-v-b.padding-b
-      p.none-m=description
-      a(href='/about') Find out more
-    //short description
-    div.page.mdc-card.margin-v-b.padding-b
-      p.none-m=description
-      a(href='/about') Find out more
-    //short description
-    div.page.mdc-card.margin-v-b.padding-b
-      p.none-m=description
+      each line in description
+        p.none-m=line
+        <br/>
       a(href='/about') Find out more
 
-    //past year robots buttons
-    div.grid-container.margin-v-b
-      a.grid-button.mdc-card(
-        style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
-        href='/')
-        h1.none-m.grid-button-foreground 2016
+    //- //past year robots buttons
+    //- div.grid-container.margin-v-b
+    //-   a.grid-button.mdc-card(
+    //-     style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
+    //-     href='/')
+    //-     h1.none-m.grid-button-foreground 2016
+    //- 
+    //-   each index in [2015, 2014, '...']
+    //-     a.grid-button.mdc-card.grid-m(
+    //-       style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
+    //-       href='/')
+    //-       h1.none-m.grid-button-foreground=index
+    //- 
+    //-   .clear
 
-      each index in [2015, 2014, '...']
-        a.grid-button.mdc-card.grid-m(
-          style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
-          href='/')
-          h1.none-m.grid-button-foreground=index
-
-      .clear
-
-    //footer
-    div.footer.page.mdc-card.padding-b
-      div.footer-links
-        each index in routes
-          a.footer-link(href=index.url)=index.name
-        .clear
     //- div.center
     //-   p.margin-s Team 188	&copy 2017
     //- div.absolute.top

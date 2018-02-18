@@ -1,0 +1,14 @@
+ [
+ {"name": "Home",
+  "url": "/"},
+ {"name": "About",
+  "url": "/about"},
+ {"name": "FRC",
+  "url": "/frc"},
+ {"name": "FLL",
+  "url": "/fll"},
+ {"name": "Sponsors",
+  "url": "/sponsors"},
+ {"name": "2016",
+   "url": "/first/2016"}
+ ]

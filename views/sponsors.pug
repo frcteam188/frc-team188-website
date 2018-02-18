@@ -2,30 +2,37 @@ doctype html
 html
   head
     title About
-    link(rel='stylesheet', href='assets/generated-css/stylesheet.css')
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     script(src='/javascripts/jquery-3.0.0.min.js')
-  body.none.fill(style='background-image: url(assets/pictures/circuit.png);')
-    div.page.mdc-card.margin-v-b.padding-b
-      each index in paras
-        h1.none.primary=index.title
-        p.margin-b=index.para
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+  
+  .padding-m
+    
+  div.page.mdc-card.margin-v-b.padding-b
+    each index in paras
+      h1.none.primary=index.title
+      .margin-m
+        p.none=index.para
+        p.none='Considering sponsoring?'
+          a.no-decor.primary-hover(href='mailto:sponsorship@team188.com')=' Contact sponsorship@team188.com'
 
   //sponsor buttons
   div.mdc-card.grid-container.margin-v-b.page.center-items
-    each index in [0, 1, 2, 3, 4]
+    each item, index in sponsors
+        //- if (index == 0)
+        //-   a.sponsor-img(
+        //-     style='background-image: url(' + item.image + '); width: 100%'
+        //-     href=item.url)
+        //-     h1.none-m.grid-button-foreground #{item.name}
+        //- else
         a.sponsor-img(
-          style='background-image: url(' + 'assets/pictures/188-logo.png' + ')'
-          href='/')
-          h1.none-m.grid-button-foreground TDSB
+          style='background-image: url(' + item.image + ')'
+          href=item.url)
+          h1.none-m.grid-button-foreground #{item.name}
     .clear
 
-  //footer
-  div.footer.page.mdc-card.padding-b
-    div.footer-links
-      each index in routes
-        a.footer-link(href=index.url)=index.name
-      .clear
 
     div.mdc-card.navbar-container
       ul.mdc-list.navbar

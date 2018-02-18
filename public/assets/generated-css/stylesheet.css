@@ -10430,7 +10430,7 @@ a {
 
 .blog {
   width: 850px;
-  background: #e7e7e7; }
+  background: white; }
 
 .footer {
   display: flex;
@@ -10459,9 +10459,12 @@ a {
   background-repeat: no-repeat; }
 
 .feature-pic {
-  height: 300px;
+  height: 400px;
   width: 900px;
-  background-position: center; }
+  background-color: #B71C1C;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 .feature-text {
   color: white; }
@@ -10501,22 +10504,32 @@ a {
 .grid-button-foreground:hover {
   opacity: 0.5; }
 
+.about-nav-button {
+  width: 250px; }
+
 .robot {
   position: relative;
   width: 100%; }
 
 .robot-pic {
   float: left;
-  margin: 15px;
+  margin: 0 15px 0 0;
   width: 495px;
-  height: 450px;
-  background-position: center;
+  height: 495px;
+  background-position: left center;
   background-repeat: no-repeat;
-  background-size: contain; }
+  background-size: cover; }
 
 .robot-info {
   float: left;
-  width: 225px; }
+  width: 315px; }
+
+.robot-detail {
+  background: #F44336;
+  border-radius: 5px;
+  color: white;
+  font-size: 13px;
+  font-weight: 100; }
 
 .robot-button {
   width: 30px;
@@ -10537,10 +10550,16 @@ a {
 .primary {
   color: #B71C1C; }
 
+.primary-hover:hover {
+  color: #B71C1C; }
+
 .primary-bg {
   background: #B71C1C; }
 
 .accent {
+  color: #F44336; }
+
+.accent-hover:hover {
   color: #F44336; }
 
 .accent-bg {
@@ -10549,11 +10568,17 @@ a {
 .grey {
   color: #333; }
 
+.grey-hover:hover {
+  color: #333; }
+
 .grey-bg {
   background: #333; }
 
 .text-on-primary {
   color: white; }
+
+.text-right {
+  text-align: right; }
 
 .padding-b {
   padding: 25px; }
@@ -10621,6 +10646,13 @@ a {
 .circle {
   padding: 10px;
   border-radius: 50%; }
+
+.opacity-quarter-hover {
+  opacity: 0;
+  transition-duration: 1s; }
+
+.opacity-quarter-hover:hover {
+  opacity: 0.25; }
 
 .opacity-half-hover {
   opacity: 0;

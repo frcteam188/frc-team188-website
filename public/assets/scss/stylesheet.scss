@@ -2,7 +2,7 @@ $primary: #B71C1C;
 $accent: #F44336;
 $background: #fff;
 $text-on-primary: white;
-$blog-color: #e7e7e7;
+$blog-color: white;
 
 $padding-b: 25px;
 $padding-m: 15px;
@@ -170,9 +170,12 @@ a{
 //~~~~~~~~INDEX.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .feature-pic{
-  height: 300px;
+  height: 400px;
   width: $page-width;
+  background-color: $primary;
   background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
 .feature-text{
@@ -220,6 +223,13 @@ a{
   opacity: 0.5;
 }
 
+//~~~~~~~~~~~ABOUT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.about-nav-button{
+    width: 250px;
+}
+
 //~~~~~~~~~~~ROBOT.PUG~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 $robot-button-size: 30px;
@@ -231,18 +241,26 @@ $robot-button-size: 30px;
 
 .robot-pic{
   float: left;
-  margin: $margin-m;
+  margin: 0 $margin-m 0 0;
   width: $page-width * 0.55;
-  height: $page-width * 0.5;
-  background-position: center;
+  height: $page-width * 0.55;
+  background-position: left center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
 
 }
 
 .robot-info{
   float: left;
-  width: $page-width * 0.25;
+  width: $page-width * 0.35;
+}
+
+.robot-detail{
+  background: $accent;
+  border-radius: 5px;
+  color : $text-on-primary;
+  font-size : 13px;
+  font-weight: 100;
 }
 
 .robot-button{
@@ -271,11 +289,19 @@ $robot-button-size: 30px;
   color: $primary;
 }
 
+.primary-hover:hover{
+  color: $primary;
+}
+
 .primary-bg{
   background: $primary;
 }
 
 .accent{
+  color: $accent;
+}
+
+.accent-hover:hover{
   color: $accent;
 }
 
@@ -285,11 +311,20 @@ $robot-button-size: 30px;
 .grey{
   color: #333;
 }
+
+.grey-hover:hover{
+  color: #333;
+}
+
 .grey-bg{
   background: #333;
 }
 .text-on-primary{
   color: $text-on-primary;
+}
+
+.text-right{
+  text-align: right;
 }
 
 .padding-b{
@@ -368,6 +403,16 @@ $robot-button-size: 30px;
   padding: 10px;
   border-radius: 50%;
 }
+
+.opacity-quarter-hover{
+  opacity: 0;
+  transition-duration: 1s;
+}
+
+.opacity-quarter-hover:hover{
+  opacity: 0.25;
+}
+
 
 .opacity-half-hover{
   opacity: 0;
