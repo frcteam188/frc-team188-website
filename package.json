@@ -23,6 +23,7 @@
     "jsonwebtoken": "^7.3.0",
     "material-components-web": "^0.1.1",
     "moment": "^2.16.0",
+    "mongoose": "^5.0.9",
     "pg": "6.1.2",
     "pug": "^2.0.0-beta6"
   },
