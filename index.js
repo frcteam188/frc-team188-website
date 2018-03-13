@@ -2,6 +2,8 @@ const express = require('express');
 const websiteRoutes = require('./routes/website');
 const scoutingRoutes = require('./routes/scouting');
 
+const content = require('./content/content.js').content();
+
 // set variables for environment
 const app = express();
 const path = require('path');
@@ -17,7 +19,7 @@ app.listen(port, function() {
 });
 console.log('server is running');
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', [path.join(__dirname, 'views/website'), path.join(__dirname, 'views/scouting')]);
 app.set('view engine', 'pug'); // use either jade or ejs
 
 // instruct express to server up static assets
