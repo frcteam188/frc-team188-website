@@ -8,28 +8,24 @@ html
   script(src='/javascripts/scouting.js')
   script(src='/javascripts/jquery-3.0.0.min.js')
   body
-    #sidebar
-      #stationInfo
-        p
-          strong Station:
-          span#stationlbl=station
-        p
-          strong Team:
-          span#teamNumberlbl=teamNumber
-        p
-          strong Match:
-          span#matchNumberlbl=matchNumber
-      #info
-        p
-          | Gears Pickup Total:
-          span#gearsAcquiredlbl
-        p
-          | Gears Scored Total:
-          span#gearsScoredlbl
-        p
-          | form id :
-          input#idtool(type='number',  maxlength='100')
-          button#submitpref.btn(type='button', value='idtool', onclick='submitpref(idtool)')  LOAD
+    #bg
+    #stationInfo
+        strong Station:
+        span#stationlbl=station
+    #matchInfo
+        strong Team:  
+        span#teamNumberlbl=teamNumber
+        span ####
+        strong Match:
+        span#matchNumberlbl=matchNumber
+        span ##
+    #info
+      p#infoBlock
+        | Gears Pickup Total:
+        span#gearsAcquiredlbl
+      p#infoBlock
+        | Gears Scored Total:
+        span#gearsScoredlbl
 
     script(type='text/javascript').
       updateStation(station);
@@ -41,9 +37,9 @@ html
 
     #autodiv
       #startingPosdiv
-        button#loadPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
+        button#farPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
         button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
-        button#boilerPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
+        button#nearPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
       #autoBallScore
         button#highGoal.boiler.btn(type='button', value='high', onclick='autoScoreHigh()')  High
       #autoPickupdiv
@@ -54,7 +50,7 @@ html
         button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
         button#autoport3.port.btn(type='button', value='true', onclick='autoport3()')
       #mobilitydiv
-        button#mobismall.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
+        button#mobibtn.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
     #telediv
       #ballScore
         button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High

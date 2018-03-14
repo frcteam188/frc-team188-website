@@ -9,15 +9,15 @@ const Match = require('../models/Match')
 const MatchData = require('../models/MatchData')
 const Team = require('../models/Team')
 
-const mongoURI = process.env.MONGOURI || 'mongodb://localhost/scouting2018'
+const mongoURI = process.env.MONGOURI ||
 
-// 'mongodb://roland:Anderson'+
-//                   '@scouting2018-shard-00-00-prx1p.mongodb.net:27017,'+
-//                   'scouting2018-shard-00-01-prx1p.mongodb.net:27017,'+
-//                   'scouting2018-shard-00-02-prx1p.mongodb.net:27017/'+
-//                   'test?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
+ 'mongodb://roland:Anderson'+
+                   '@scouting2018-shard-00-00-prx1p.mongodb.net:27017,'+
+                   'scouting2018-shard-00-01-prx1p.mongodb.net:27017,'+
+                   'scouting2018-shard-00-02-prx1p.mongodb.net:27017/'+
+                   'test?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
 
-
+//'mongodb://localhost/scouting2018'
 
 mongoose.connect(mongoURI);
 
