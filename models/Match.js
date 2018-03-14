@@ -33,7 +33,6 @@ MatchSchema.statics.get = async function(matchNumber, station) {
   result.teamNumber = result[station];
   console.log(result);
   return result;
-
 };
 
 

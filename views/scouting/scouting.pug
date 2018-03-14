@@ -10,15 +10,13 @@ html
   body
     #bg
     #stationInfo
-        strong Station:
+        strong Station:      
         span#stationlbl=station
     #matchInfo
         strong Team:  
         span#teamNumberlbl=teamNumber
-        span ####
-        strong Match:
-        span#matchNumberlbl=matchNumber
-        span ##
+        strong                 Match:
+        span#matchNumberlbl=number
     #info
       p#infoBlock
         | Gears Pickup Total:
@@ -37,32 +35,39 @@ html
 
     #autodiv
       #startingPosdiv
-        button#farPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  LOAD
+        button#farPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  FAR
         button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
-        button#nearPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  BOILER
-      #autoBallScore
-        button#highGoal.boiler.btn(type='button', value='high', onclick='autoScoreHigh()')  High
+        button#nearPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  NEAR
       #autoPickupdiv
-        button#gearGroundField.pickup.btn(type='button', value='true', onclick='autogearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') HOPPER
-      #autoport
-        button#autoport1.port.btn(type='button', value='true', onclick='autoport1()')
-        button#autoport2.port.btn(type='button', value='true', onclick='autoport2()')
-        button#autoport3.port.btn(type='button', value='true', onclick='autoport3()')
+        button#autoPyramid.pickup.btn(type='button', value='true', onclick='autogearField()') 
+        button#autoGround.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') 
+      #autoplatform
+        button#autoSwitchFar.platform.btn(type='button', value='true', onclick='autoport1()')
+        button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoport2()')
+        button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoport3()')
+        button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoport3()')
+      #autoExchange
+        button#autoExchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
       #mobilitydiv
         button#mobibtn.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
     #telediv
-      #ballScore
-        button#highGoal.boiler.btn(type='button', value='high', onclick='scoreHigh()')  High
-      #pickup
-        button#gearGroundField.pickup.btn(type='button', value='true', onclick='gearField()') GEAR
-        button#ballGroundField.pickup.btn(type='button', value='true', onclick='ballField()') BALL
-        button#gearHumanLoad.pickup.btn(type='button', value='true', onclick='gearLoad()') GEAR
-        button#ballHumanLoad.pickup.btn(type='button', value='true', onclick='ballLoad()') BALL
-      #port
-        button#port1.port.btn(type='button', value='true', onclick='port1()')
-        button#port2.port.btn(type='button', value='true', onclick='port2()')
-        button#port3.port.btn(type='button', value='true', onclick='port3()')
+      #platform 
+        button#ownSwitchFar.platform.btn(type='button', value='true', onclick='ownSwitchFar()')
+        button#ownSwitchNear.platform.btn(type='button', value='true', onclick='ownSwitchNear()')
+        button#scaleFar.platform.btn(type='button', value='true', onclick='scaleFar()')
+        button#scaleNear.platform.btn(type='button', value='true', onclick='scaleNear()')
+        button#oppSwitchFar.platform.btn(type='button', value='true', onclick='oppSwitchFar()')
+        button#oppSwitchNear.platform.btn(type='button', value='true', onclick='oppSwitchNear()')
+      #pickupZone
+        button#zone1.pickup.btn(type='button', value='true', onclick='zone1()') 
+        button#zone2.pickup.btn(type='button', value='true', onclick='zone2()') 
+        button#zone3.pickup.btn(type='button', value='true', onclick='zone3()') 
+        button#zone4.pickup.btn(type='button', value='true', onclick='zone4()') 
+      #huamnLoad
+        button#humanLoadFar.humanLoad.btn(type='button', value='true', onclick='port1()')
+        button#humanLoadNear.humanLoad.btn(type='button', value='true', onclick='port2()')
+      #exchange
+        button#exchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
       #endgame
         button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
         button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')

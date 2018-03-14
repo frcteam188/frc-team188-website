@@ -32,9 +32,10 @@ body{
   height: 50px;
   width: 50px;
 }
-.port{
-  height: 30px;
-  width: 75px;
+.platform{
+  height: 48px;
+  width: 64px;
+  left: 240px;
 }
 #stationInfo{
   position: absolute;
@@ -83,36 +84,41 @@ body{
   color: white;
   text-align: center;
 }
-#port1{
-  -webkit-transform: rotate(-30deg);
-  top: 190px;
-  left: 190px;
+#autoSwitchFar{
+  top: 155px;
+  left: 240px;
 }
-#port2{
-  -webkit-transform: rotate(-90deg);
-  top: 275px;
-  left: 130px;
+#autoSwitchNear{
+  top: 302px;
+  left: 240px;
 }
-#port3{
-  -webkit-transform: rotate(30deg);
-  left: 190px;
-  top: 370px;
+#autoScaleFar{
+  top: 130px;
+  left: 452px;
 }
-#autoport1{
-  -webkit-transform: rotate(-30deg);
-  top: 190px;
-  left: 190px;
+#autoScaleNear{
+  top: 328px;
+  left: 452px;
 }
-#autoport2{
-  -webkit-transform: rotate(-90deg);
-  top: 275px;
-  left: 130px;
+#autoPyramid{
+  height: 54px;
+  width: 54px;
+  top: 226px;
+  left: 180px;
 }
-#autoport3{
-  -webkit-transform: rotate(30deg);
-  left: 190px;
-  top: 370px;
+#autoGround{
+  height: 209px;
+  width: 65px;
+  top: 148px;
+  left: 309px;
 }
+#autoExchange{
+  height: 66px;
+  width: 47px;
+  top: 170px;
+  left: 44px;
+}
+
 .boiler{
   height: 50px;
   width: 50px;
@@ -258,12 +264,7 @@ body{
   left: 450px;
   background: #ddd;
 }
-#ballGroundField{
-  height: 50px;
-  width: 100px;
-  top: 150px;
-  left: 450px;
-}
+
 #gearHumanLoad{
   top: 50px;
   left: 635px;
@@ -307,40 +308,6 @@ body{
   color: white;
   font-size: 30px;
 }
-#showauto{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 540px;
-  left: 790px;
-  background-color: #ffd600;
-  border: 10px;
-  border-color: white;
-  color: white;
-}
-#showtele{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 540px;
-  left: 845.5px;
-  background-color: #00c853;
-  border: 0px;
-  border-color: white;
-  color: white;
-}
-#showform{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 540px;
-  left: 901px;
-  background-color: #d50000;
-  border: 0px;
-  border-color: white;
-  color: white;
-}
-
 #davit1{
   top: 180px;
   left: 310px;
@@ -380,4 +347,39 @@ body{
 }
 #miscdiv{
   display: none;
+}
+
+
+#showauto{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 777px;
+  background-color: #ffd600;
+  border: 10px;
+  border-color: white;
+  color: white;
+}
+#showtele{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 832.5px;
+  background-color: #00c853;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+#showform{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 888px;
+  background-color: #d50000;
+  border: 0px;
+  border-color: white;
+  color: white;
 }
