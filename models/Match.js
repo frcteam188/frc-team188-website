@@ -24,11 +24,18 @@ MatchSchema.statics.saveOne = async function(match){
     .exec().catch(mongoError)
 }
 
-MatchSchema.statics.get = async function(matchNumber) {
-  return await this.findOne()
+MatchSchema.statics.get = async function(matchNumber, station) {
+  result = await this.findOne()
     .where('number').equals(matchNumber)
     .exec().catch(mongoError);
-  };
+  result = result.toObject();
+  result.station = station;
+  result.teamNumber = result[station];
+  console.log(result);
+  return result;
+
+};
+
 
 MatchSchema.methods.getMatchData = async function() {
   return MatchData.getMatch(this.number);
