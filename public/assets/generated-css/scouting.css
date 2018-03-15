@@ -119,6 +119,64 @@ body{
   left: 44px;
 }
 
+
+#exchange{
+  height: 66px;
+  width: 47px;
+  top: 170px;
+  left: 44px;
+}
+#ownSwitchFar{
+  top: 155px;
+  left: 240px;
+}
+#ownSwitchNear{
+  top: 302px;
+  left: 240px;
+}
+#oppSwitchFar{
+  top: 155px;
+  left: 665px;
+}
+#oppSwitchNear{
+  top: 302px;
+  left: 665px;
+}
+#scaleFar{
+  top: 130px;
+  left: 452px;
+}
+#scaleNear{
+  top: 328px;
+  left: 452px;
+}
+
+#zone1{
+  top: 204px;
+  left: 148px;
+  height: 100px;
+  width: 65px;
+}
+#zone2{
+  top: 204px;
+  left: 330px;
+  height: 100px;
+  width: 65px;
+}
+#zone3{
+  top: 204px;
+  left: 574px;
+  height: 100px;
+  width: 65px;
+}
+#zone4{
+  top: 204px;
+  left: 755px;
+  height: 100px;
+  width: 65px;
+}
+
+
 .boiler{
   height: 50px;
   width: 50px;

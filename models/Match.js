@@ -1,6 +1,6 @@
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
-const mongoError = require('./mongoHelper');
+const mongoError = require('./MongoHelper');
 const MatchData = require('./MatchData')
 
 mongoose.Promise = global.Promise;

@@ -1,5 +1,5 @@
 var mongoose     = require('mongoose');
-const mongoError = require('./mongoHelper');
+const mongoError = require('./MongoHelper');
 var Schema       = mongoose.Schema;
 
 mongoose.Promise = global.Promise;

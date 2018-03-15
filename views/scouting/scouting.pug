@@ -19,11 +19,11 @@ html
         span#matchNumberlbl=number
     #info
       p#infoBlock
-        | Gears Pickup Total:
-        span#gearsAcquiredlbl
+        | Cube Pickup Total:
+        span#cubesAcquiredlbl
       p#infoBlock
-        | Gears Scored Total:
-        span#gearsScoredlbl
+        | Cube Scored Total:
+        span#cubesScoredlbl
 
     script(type='text/javascript').
       updateStation(station);
@@ -35,17 +35,17 @@ html
 
     #autodiv
       #startingPosdiv
-        button#farPos.startingPos.btn(type='button', value='load', onclick='startLoad()')  FAR
+        button#farPos.startingPos.btn(type='button', value='far', onclick='startFar()')  FAR
         button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
-        button#nearPos.startingPos.btn(type='button', value='boiler', onclick='startBoiler()')  NEAR
+        button#nearPos.startingPos.btn(type='button', value='near', onclick='startNear()')  NEAR
       #autoPickupdiv
-        button#autoPyramid.pickup.btn(type='button', value='true', onclick='autogearField()') 
-        button#autoGround.pickup.btn(type='button', value='true', onclick='autoballField(ballGroundField)') 
+        button#autoPyramid.pickup.btn(type='button', value='true', onclick='autoPyramid()') 
+        button#autoGround.pickup.btn(type='button', value='true', onclick='autoGround()') 
       #autoplatform
-        button#autoSwitchFar.platform.btn(type='button', value='true', onclick='autoport1()')
-        button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoport2()')
-        button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoport3()')
-        button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoport3()')
+        button#autoSwitchFar.platform.btn(type='button', value='true', onclick='autoSwitchFar()')
+        button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoSwitchNear()')
+        button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoScaleFar()')
+        button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoScaleNear()')
       #autoExchange
         button#autoExchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
       #mobilitydiv
@@ -68,10 +68,10 @@ html
         button#humanLoadNear.humanLoad.btn(type='button', value='true', onclick='port2()')
       #exchange
         button#exchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
-      #endgame
-        button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
-        button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')
-        button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
+      //- #endgame
+      //-   button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
+      //-   button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')
+      //-   button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
     #submitiondiv
       #telebtn
         button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
