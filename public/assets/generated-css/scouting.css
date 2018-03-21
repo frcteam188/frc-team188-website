@@ -37,6 +37,11 @@ body{
   width: 64px;
   left: 240px;
 }
+.exchange{
+  height: 66px;
+  width: 47px;
+  position: absolute;
+}
 #stationInfo{
   position: absolute;
   z-index: 1;
@@ -113,13 +118,21 @@ body{
   left: 309px;
 }
 #autoExchange{
+  position: absolute;
   height: 66px;
   width: 47px;
   top: 170px;
   left: 44px;
 }
 
-
+#humanLoadFar{
+  top: 33px;
+  left: 874px;
+}
+#humanLoadNear{
+  top: 421px;
+  left: 874px;
+}
 #exchange{
   height: 66px;
   width: 47px;
@@ -344,13 +357,13 @@ body{
   position: absolute;
   width: 700px;
   top: 510px;
-  left: 10px;
+  left: 0px;
 }
 
 #infoBlock{
   display: inline-block;
   position: relative;
-  left: 50px;
+  left: 40px;
   padding: 10px;
   font-size: 18px;
 }
@@ -358,8 +371,8 @@ body{
 #submitbtn{
   width: 155px;
   height: 85px;
-  top: 445px;
-  left: 785px;
+  top: 504px;
+  left: 594px;
   margin: 10px;
   background-color: #333;
   display: none;
@@ -383,7 +396,7 @@ body{
   position: absolute;
   display: none;
   width: 150px;
-  top: 100px;
+  top: 75px;
   left: 400px;
   color: #fff;
 }
@@ -440,4 +453,5 @@ body{
   border: 0px;
   border-color: white;
   color: white;
+
 }

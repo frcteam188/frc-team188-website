@@ -24,6 +24,9 @@ html
       p#infoBlock
         | Cube Scored Total:
         span#cubesScoredlbl
+      p#infoBlock
+        | Holding Cube:
+        span#holdingCube
 
     script(type='text/javascript').
       updateStation(station);
@@ -46,8 +49,8 @@ html
         button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoSwitchNear()')
         button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoScaleFar()')
         button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoScaleNear()')
-      #autoExchange
-        button#autoExchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
+      #autoExchangeDiv
+        button#autoExchange.btn(type='button', value='true', onclick='autoExchange()')
       #mobilitydiv
         button#mobibtn.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
     #telediv
@@ -63,15 +66,12 @@ html
         button#zone2.pickup.btn(type='button', value='true', onclick='zone2()') 
         button#zone3.pickup.btn(type='button', value='true', onclick='zone3()') 
         button#zone4.pickup.btn(type='button', value='true', onclick='zone4()') 
+        
       #huamnLoad
-        button#humanLoadFar.humanLoad.btn(type='button', value='true', onclick='port1()')
-        button#humanLoadNear.humanLoad.btn(type='button', value='true', onclick='port2()')
-      #exchange
-        button#exchange.exchange.btn(type='button', value='true', onclick='autoExchange()')
-      //- #endgame
-      //-   button#davit1.davit.btn(type='button', value='true', onclick='hang1(davit1)')
-      //-   button#davit2.davit.btn(type='button', value='true', onclick='hang2(davit2)')
-      //-   button#davit3.davit.btn(type='button', value='true', onclick='hang3(davit3)')
+        button#humanLoadFar.pickup.btn(type='button', value='true', onclick='humanLoadFar()') 
+        button#humanLoadNear.pickup.btn(type='button', value='true', onclick='humanLoadNear()') 
+      #exchangeDiv
+        button#exchange.exchange.btn(type='button', value='true', onclick='teleExchange()')
     #submitiondiv
       #telebtn
         button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
@@ -82,13 +82,13 @@ html
       #submitdiv
         button#submitbtn.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
     #miscdiv
-      span#gearlbl  Gear Bot
+      span#switchlbl  Switch Bot
       #gearbotbtn
-        button#gb0.gearbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,"gear")') 0
-        button#gb1.gearbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,"gear")') 1
-        button#gb2.gearbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,"gear")') 2
+        button#swb0.switchbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,"switch")') 0
+        button#swb1.switchbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,"switch")') 1
+        button#swb2.switchbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,"switch")') 2
 
-      span#shotlbl  Shot Bot
+      span#shotlbl  Scale Bot
       #shotbotbtn
         button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,"shot")') 0
         button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,"shot")') 1
