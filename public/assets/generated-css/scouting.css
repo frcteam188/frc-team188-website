@@ -1,7 +1,13 @@
 body{
-  background-image: url("../pictures/scouting.png");
-  background-repeat: no-repeat;
   font-family: Roboto, sans-serif;
+}
+#bg{
+  background-image: url("../pictures/scouting2018.png");
+  background-repeat: no-repeat;
+  height: -webkit-fill-available;
+  top: 29px;
+  z-index: -1;
+  position: relative;
 }
 .btn{
   background-color: #dddddd;
@@ -20,15 +26,45 @@ body{
   text-align: center;
   height: 50px;
   width: 95px;
-  left: 35px;
+  left: 47px;
 }
 .pickup{
   height: 50px;
   width: 50px;
 }
-.port{
-  height: 30px;
-  width: 75px;
+.platform{
+  height: 48px;
+  width: 64px;
+  left: 240px;
+}
+.exchange{
+  height: 66px;
+  width: 47px;
+  position: absolute;
+}
+#stationInfo{
+  position: absolute;
+  z-index: 1;
+  padding: 5px;
+  width: 100px;
+  left: 3px;
+  top: 2px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #d50000;
+}
+#matchInfo{
+  position: absolute;
+  z-index: 1;
+  padding: 5px;
+  width: 180px;
+  left: 767px;
+  top: 2px;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  background-color: #d50000;
 }
 #modelbl{
   position: absolute;
@@ -36,53 +72,124 @@ body{
   left: 0px;
   font-size: 30px;
   background-color: #FFD600;
-  width: 786px;
+  width: 100%;
   margin: 0px;
   color: white;
   text-align: center;
 }
 #modebtmlbl{
   position: absolute;
-  top: 517px;
+  top: 480px;
   left: 0px;
   font-size: 30px;
   background-color: #FFD600;
-  width: 786px;
+  width: 100%;
   height: 34px;
   margin: 0px;
   color: white;
   text-align: center;
 }
-#port1{
-  -webkit-transform: rotate(-30deg);
-  top: 190px;
-  left: 190px;
+#autoSwitchFar{
+  top: 155px;
+  left: 240px;
 }
-#port2{
-  -webkit-transform: rotate(-90deg);
-  top: 275px;
-  left: 130px;
+#autoSwitchNear{
+  top: 302px;
+  left: 240px;
 }
-#port3{
-  -webkit-transform: rotate(30deg);
-  left: 190px;
-  top: 370px;
+#autoScaleFar{
+  top: 130px;
+  left: 452px;
 }
-#autoport1{
-  -webkit-transform: rotate(-30deg);
-  top: 190px;
-  left: 190px;
+#autoScaleNear{
+  top: 328px;
+  left: 452px;
 }
-#autoport2{
-  -webkit-transform: rotate(-90deg);
-  top: 275px;
-  left: 130px;
+#autoPyramid{
+  height: 54px;
+  width: 54px;
+  top: 226px;
+  left: 180px;
 }
-#autoport3{
-  -webkit-transform: rotate(30deg);
-  left: 190px;
-  top: 370px;
+#autoGround{
+  height: 209px;
+  width: 65px;
+  top: 148px;
+  left: 309px;
 }
+#autoExchange{
+  position: absolute;
+  height: 66px;
+  width: 47px;
+  top: 170px;
+  left: 44px;
+}
+
+#humanLoadFar{
+  top: 33px;
+  left: 874px;
+}
+#humanLoadNear{
+  top: 421px;
+  left: 874px;
+}
+#exchange{
+  height: 66px;
+  width: 47px;
+  top: 170px;
+  left: 44px;
+}
+#ownSwitchFar{
+  top: 155px;
+  left: 240px;
+}
+#ownSwitchNear{
+  top: 302px;
+  left: 240px;
+}
+#oppSwitchFar{
+  top: 155px;
+  left: 665px;
+}
+#oppSwitchNear{
+  top: 302px;
+  left: 665px;
+}
+#scaleFar{
+  top: 130px;
+  left: 452px;
+}
+#scaleNear{
+  top: 328px;
+  left: 452px;
+}
+
+#zone1{
+  top: 204px;
+  left: 148px;
+  height: 100px;
+  width: 65px;
+}
+#zone2{
+  top: 204px;
+  left: 330px;
+  height: 100px;
+  width: 65px;
+}
+#zone3{
+  top: 204px;
+  left: 574px;
+  height: 100px;
+  width: 65px;
+}
+#zone4{
+  top: 204px;
+  left: 755px;
+  height: 100px;
+  width: 65px;
+}
+
+
 .boiler{
   height: 50px;
   width: 50px;
@@ -208,12 +315,12 @@ body{
 #LowBall{
   display: block;
 }
-#mobismall{
+#mobibtn{
   height: 50px;
   width: 100px;
   display: block;
   top: 50px;
-  left: 215px;
+  left: 225px;
 }
 #highGoal{
   left: 35px;
@@ -228,12 +335,7 @@ body{
   left: 450px;
   background: #ddd;
 }
-#ballGroundField{
-  height: 50px;
-  width: 100px;
-  top: 150px;
-  left: 450px;
-}
+
 #gearHumanLoad{
   top: 50px;
   left: 635px;
@@ -242,79 +344,41 @@ body{
   top: 50px;
   left: 690px;
 }
-#loadPos{
-  top: 180px;
+#farPos{
+  top: 95px;
 }
 #middlePos{
-  top: 240px;
+  top: 260px;
 }
-#boilerPos{
-  top: 300px;
+#nearPos{
+  top: 360px;
 }
 #info{
   position: absolute;
-  width: 100px;
-  top: 150px;
-  left: 800px;
+  width: 700px;
+  top: 510px;
+  left: 0px;
 }
-#stationInfo{
-  position: absolute;
-  padding-left: 15px;
-  width: 140px;
-  height: 130px;
-  left: 785px;
-  top: 0px;
-  margin: 10px;
-  color: white;
+
+#infoBlock{
+  display: inline-block;
+  position: relative;
+  left: 40px;
+  padding: 10px;
   font-size: 18px;
-  font-weight: 400;
-  background-color: #d50000;
 }
+
 #submitbtn{
   width: 155px;
   height: 85px;
-  top: 445px;
-  left: 785px;
+  top: 504px;
+  left: 594px;
   margin: 10px;
   background-color: #333;
   display: none;
   color: white;
   font-size: 30px;
 }
-#showauto{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 390px;
-  left: 790px;
-  background-color: #ffd600;
-  border: 10px;
-  border-color: white;
-  color: white;
-}
-#showtele{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 390px;
-  left: 842.5px;
-  background-color: #00c853;
-  border: 0px;
-  border-color: white;
-  color: white;
-}
-#showform{
-  opacity: 1;
-  width: 50px;
-  height: 50px;
-  top: 390px;
-  left: 895px;
-  background-color: #d50000;
-  border: 0px;
-  border-color: white;
-  color: white;
-}
-
 #davit1{
   top: 180px;
   left: 310px;
@@ -332,7 +396,7 @@ body{
   position: absolute;
   display: none;
   width: 150px;
-  top: 100px;
+  top: 75px;
   left: 400px;
   color: #fff;
 }
@@ -354,4 +418,40 @@ body{
 }
 #miscdiv{
   display: none;
+}
+
+
+#showauto{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 777px;
+  background-color: #ffd600;
+  border: 10px;
+  border-color: white;
+  color: white;
+}
+#showtele{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 832.5px;
+  background-color: #00c853;
+  border: 0px;
+  border-color: white;
+  color: white;
+}
+#showform{
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+  top: 525px;
+  left: 888px;
+  background-color: #d50000;
+  border: 0px;
+  border-color: white;
+  color: white;
+
 }

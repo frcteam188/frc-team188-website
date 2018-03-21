@@ -1,0 +1,113 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no')
+    link#pagestyle(rel='stylesheet', href='../assets/generated-css/scouting.css')
+    title 188 Scout
+  script(src='/javascripts/scouting.js')
+  script(src='/javascripts/jquery-3.0.0.min.js')
+  body
+    #bg
+    #stationInfo
+        strong Station:      
+        span#stationlbl=station
+    #matchInfo
+        strong Team:  
+        span#teamNumberlbl=teamNumber
+        strong                 Match:
+        span#matchNumberlbl=number
+    #info
+      p#infoBlock
+        | Cube Pickup Total:
+        span#cubesAcquiredlbl
+      p#infoBlock
+        | Cube Scored Total:
+        span#cubesScoredlbl
+      p#infoBlock
+        | Holding Cube:
+        span#holdingCube
+
+    script(type='text/javascript').
+      updateStation(station);
+
+    p#modelbl
+      | AUTO MODE
+
+    p#modebtmlbl
+
+    #autodiv
+      #startingPosdiv
+        button#farPos.startingPos.btn(type='button', value='far', onclick='startFar()')  FAR
+        button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
+        button#nearPos.startingPos.btn(type='button', value='near', onclick='startNear()')  NEAR
+      #autoPickupdiv
+        button#autoPyramid.pickup.btn(type='button', value='true', onclick='autoPyramid()') 
+        button#autoGround.pickup.btn(type='button', value='true', onclick='autoGround()') 
+      #autoplatform
+        button#autoSwitchFar.platform.btn(type='button', value='true', onclick='autoSwitchFar()')
+        button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoSwitchNear()')
+        button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoScaleFar()')
+        button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoScaleNear()')
+      #autoExchangeDiv
+        button#autoExchange.btn(type='button', value='true', onclick='autoExchange()')
+      #mobilitydiv
+        button#mobibtn.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
+    #telediv
+      #platform 
+        button#ownSwitchFar.platform.btn(type='button', value='true', onclick='ownSwitchFar()')
+        button#ownSwitchNear.platform.btn(type='button', value='true', onclick='ownSwitchNear()')
+        button#scaleFar.platform.btn(type='button', value='true', onclick='scaleFar()')
+        button#scaleNear.platform.btn(type='button', value='true', onclick='scaleNear()')
+        button#oppSwitchFar.platform.btn(type='button', value='true', onclick='oppSwitchFar()')
+        button#oppSwitchNear.platform.btn(type='button', value='true', onclick='oppSwitchNear()')
+      #pickupZone
+        button#zone1.pickup.btn(type='button', value='true', onclick='zone1()') 
+        button#zone2.pickup.btn(type='button', value='true', onclick='zone2()') 
+        button#zone3.pickup.btn(type='button', value='true', onclick='zone3()') 
+        button#zone4.pickup.btn(type='button', value='true', onclick='zone4()') 
+        
+      #huamnLoad
+        button#humanLoadFar.pickup.btn(type='button', value='true', onclick='humanLoadFar()') 
+        button#humanLoadNear.pickup.btn(type='button', value='true', onclick='humanLoadNear()') 
+      #exchangeDiv
+        button#exchange.exchange.btn(type='button', value='true', onclick='teleExchange()')
+    #submitiondiv
+      #telebtn
+        button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
+      #autobtn
+        button#showauto.btn(type='button', value='true', onclick='showAuto()') AUTO
+      #miscbtn
+        button#showform.btn(type='button', value='true', onclick='showForm()') MISC
+      #submitdiv
+        button#submitbtn.btn(type='button', value='true', onclick='scoreForm()') SUBMIT
+    #miscdiv
+      span#switchlbl  Switch Bot
+      #gearbotbtn
+        button#swb0.switchbot.btn(type='button', value='0', onclick='setValue(gb0,gb1,gb2,"switch")') 0
+        button#swb1.switchbot.btn(type='button', value='1', onclick='setValue(gb1,gb0,gb2,"switch")') 1
+        button#swb2.switchbot.btn(type='button', value='2', onclick='setValue(gb2,gb0,gb1,"switch")') 2
+
+      span#shotlbl  Scale Bot
+      #shotbotbtn
+        button#sb0.shotbot.btn(type='button', value='0', onclick='setValue(sb0,sb1,sb2,"shot")') 0
+        button#sb1.shotbot.btn(type='button', value='1', onclick='setValue(sb1,sb0,sb2,"shot")') 1
+        button#sb2.shotbot.btn(type='button', value='2', onclick='setValue(sb2,sb0,sb1,"shot")') 2
+
+      span#lowGoallbl  Low Goal Bot
+      #lowbotbtn
+        button#lb0.lowbot.btn(type='button', value='0', onclick='setValue(lb0,lb1,lb2,"low")') 0
+        button#lb1.lowbot.btn(type='button', value='1', onclick='setValue(lb1,lb0,lb2,"low")') 1
+        button#lb2.lowbot.btn(type='button', value='2', onclick='setValue(lb2,lb0,lb1,"low")') 2
+
+      span#defendlbl  Defend Bot
+      #defendbotbtn
+        button#db0.defendbot.btn(type='button', value='0', onclick='setDefValue(db0,db1,db2,db3,db4,db5)') 0
+        button#db1.defendbot.btn(type='button', value='1', onclick='setDefValue(db1,db0,db2,db3,db4,db5)') 1
+        button#db2.defendbot.btn(type='button', value='2', onclick='setDefValue(db2,db0,db1,db3,db4,db5)') 2
+        button#db3.defendbot.btn(type='button', value='3', onclick='setDefValue(db3,db0,db1,db2,db4,db5)') 3
+        button#db4.defendbot.btn(type='button', value='4', onclick='setDefValue(db4,db0,db1,db2,db3,db5)') 4
+        button#db5.defendbot.btn(type='button', value='5', onclick='setDefValue(db5,db0,db1,db2,db3,db4)') 5
+
+      span#commentslbl  Comments
+      input#commentsinput(type='text')

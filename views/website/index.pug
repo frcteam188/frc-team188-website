@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    title Team 188
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    //link(rel='import', href='views/robot.pug')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+    script(src='/javascripts/home.js')
+
+    body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+
+    .padding-m
+    
+    //The header image
+    div.page.mdc-card.margin-v-b.relative
+        div.top.feature-pic#feature-pic.relative
+        div.absolute.fill
+          //- .grey-bg
+          a().absolute.fill.opacity-half-hover 
+          
+            div.absolute.top.left
+              .feature-text#feature-text
+                h1.margin-b.padding-b
+          button.fill-v.none.material-icons.f-left.accent-bg.opacity-hover.text-on-primary(onclick= 'prev();') keyboard_arrow_left
+          button.fill-v.none.material-icons.f-right.accent-bg.opacity-hover.text-on-primary(onclick= 'next();')  keyboard_arrow_right
+          .clear
+
+
+    //short description
+    div.page.mdc-card.margin-v-b.padding-b
+      each line in description
+        p.none-m=line
+        <br/>
+      a(href='/about') Find out more
+
+    //- //past year robots buttons
+    //- div.grid-container.margin-v-b
+    //-   a.grid-button.mdc-card(
+    //-     style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
+    //-     href='/')
+    //-     h1.none-m.grid-button-foreground 2016
+    //- 
+    //-   each index in [2015, 2014, '...']
+    //-     a.grid-button.mdc-card.grid-m(
+    //-       style='background-image: url(' + '/assets/pictures/188-logo.png' + ')'
+    //-       href='/')
+    //-       h1.none-m.grid-button-foreground=index
+    //- 
+    //-   .clear
+
+    //- div.center
+    //-   p.margin-s Team 188	&copy 2017
+    //- div.absolute.top
+    //-   div.feature-pic(style='background-image: url(assets/pictures/188-logo.png);')
+    //- //navbar
+    //div.navbar-pic(style='background-image: url(assets/pictures/188-logo.png);')
+
+    div.mdc-card.navbar-container#navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.text-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

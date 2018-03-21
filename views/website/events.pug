@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    title Events
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+    
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+    
+    .padding-m
+      
+    div.page.mdc-card.margin-v-b.padding-b
+      h1.none.primary Upcoming
+      div.blog.margin-v-b
+          h2.none.primary FRC
+          p.margin-b York District Event, March 23 - March 25, 2018 
+          p.margin-b McMaster District Event, April 6 - April 8, 2018 
+      h1.none.primary Past
+      div.blog.margin-v-b
+          h2.none.primary VEX
+          p.margin-b Vex Robotics Competition - 8:00am - 8:00pm Saturday, November 25, 2017
+      div.blog
+          h2.none.primary FLL
+          p.margin-b TDSB First Lego League Qualifier (TDSB Schools Only) - 8:00am - 6:00pm Saturday, December 2, 2017
+            
+        
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

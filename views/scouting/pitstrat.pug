@@ -1,0 +1,131 @@
+doctype html
+html
+  head
+    title Pit Strat
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+
+  body.none.fill
+    //(style='background-image: url(assets/pictures/circuit.png);')#body
+
+
+    div.f-left(style='width:10%;')
+      p.grid-width=('#' + matchNumber)
+      p.grid-height.none='Click below to visit Team'
+      each team, teamNumber in summary
+        if (team.color == '#ba3248')
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
+      each team, teamNumber in summary
+        if (team.color == '#4286f4')
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
+
+    div.f-left(style='width: 90%')
+      div
+        each title, i in ['Station', 'mPlayed', 'aGear', 'aSide', 'aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']
+          if (i <= 1)
+            p.grid-width.f-left(style='background: orange')=title
+          if (i > 1 && i < 7)
+            p.grid-width.f-left(style='background: yellow')=title
+          if (i >= 7)
+            p.grid-width.f-left(style='background: green')=title
+
+        .clear
+        each team, teamNumber in summary
+          if (team.color == '#ba3248')
+            .no-decor.grid-height.padding-s
+            each val, field in team
+              if(field!='color')
+                .no-decor.f-left.center.grid-item=val+''
+        .clear
+        each team, teamNumber in summary
+          if (team.color == '#4286f4')
+            .no-decor.grid-height.padding-s
+              each val, field in team
+                if (field!='color')
+                  .no-decor.f-left.center.grid-item=val+''
+        .clear
+
+    .clear
+    div.margin-b
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
+        Prev Prev Match
+
+      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
+        Next Next Match
+
+      //-
+      //- div.padding-b(style='background: yellow')
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=108')
+      //-     Match 1x8
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=207')
+      //-     Match 2x7
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=306')
+      //-     Match 3x6
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=405')
+      //-     Match 4x5
+      //-
+      //- div.padding-b(style='background: orange')
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=105')
+      //-     Match 1x5
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=104')
+      //-     Match 1x4
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=203')
+      //-     Match 2x3
+      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=307')
+      //-     Match 3x7
+
+      div.padding-b(style='background: green; margin-top: 20px;')
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=10')
+          Match 10
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=20')
+          Match 20
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=29')
+          Match 29
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=34')
+          Match 34
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=42')
+          Match 42
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=58')
+          Match 58
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=68')
+          Match 68
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=80')
+          Match 80
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=89')
+          Match 89
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=94')
+          Match 94
+        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=106')
+          Match 106
+
+    div
+      p.padding-b=('RED:' +  red)
+      p.f-left.padding-b=('BLUE:' + blue)
+      .clear
+
+    style(type='text/css').
+      .grid-width{
+        width: 8%;
+      }
+      .grid-height{
+        height: 40px;
+      }
+      .grid-item{
+        width: 8%;
+        height: 40px;
+      }
+      a{
+        background-color: #dddddd;
+        border: red;
+        height: 100px;
+        width: 150px;
+        padding: 3px 3px;
+        display: inline;
+        font-size: 16px;
+        margin: 5px 4px;
+        cursor: pointer;
+      }
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

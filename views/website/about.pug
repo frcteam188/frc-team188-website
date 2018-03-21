@@ -1,0 +1,48 @@
+doctype html
+html
+  head
+    title About
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+    
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+  
+    .padding-m
+      
+    div.page.mdc-card.margin-v-b.padding-b.relative
+      
+      div.absolute.top.right.margin-b
+        each item, index in paras
+          if (item.url == pagename)
+            p.none-p.primary.margin-s.f-left.text-right=item.title
+          else  
+            a.no-decor.primary-hover.margin-s.f-left.text-right(href='/about/' + item.url)=item.title
+    
+      each item, index in paras
+        if (item.url == pagename)
+          h1.primary.none.f-left=item.title
+          .margin-v-s
+          each line in item.para  
+            if (line == '\n')
+              .margin-v-s
+            else
+              p.none-m=line
+          .margin-v-s
+          //-.fill-w
+            each item2, index2 in paras
+              if (index2+1 == index)
+                a.f-left.about-nav-button(href='/about/' + item2.url)='< '+item2.title
+              if (index2-1 == index)
+                a.f-right.text-right.about-nav-button(href='/about/' + item2.url)=item2.title+' >'
+      .clear
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()
