@@ -5,7 +5,7 @@ body{
   background-image: url("../pictures/scouting2018.png");
   background-repeat: no-repeat;
   height: -webkit-fill-available;
-  top: 29px;
+  top: 11px;
   z-index: -1;
   position: relative;
 }
@@ -190,75 +190,57 @@ body{
 }
 
 
-.boiler{
-  height: 50px;
-  width: 50px;
-  top: 450px;
-}
-.davit{
-    width: 50px;
-    height: 50px;
-    background: #000;
-    border: solid 1px #000;
-    border-radius: 50%
-}
-.gearbot{
+.switchbot{
   position: absolute;
   height: 30px;
   width: 30px;
   top: 0px;
 }
-#gb0{
+#swb0{
   left: 0px;
   background: #00ff12;
 }
-#gb1{
+#swb1{
   left: 30px;
 }
-#gb2{
+#swb2{
   left: 60px;
 }
-#gb3{
-  left: 90px;
-}
-.shotbot{
+
+.scalebot{
   position: absolute;
   height: 30px;
   width: 30px;
   top: 75px;
 }
-#sb0{
+#scb0{
   left: 0px;
   background: #00ff12;
 }
-#sb1{
+#scb1{
   left: 30px;
 }
-#sb2{
+#scb2{
   left: 60px;
 }
-#sb3{
-  left: 90px;
-}
-.lowbot{
+
+.exbot{
   position: absolute;
   height: 30px;
   width: 30px;
   top: 150px;
 }
-#lb0{
+#exb0{
   left: 0px;
   background: #00ff12;
 }
-#lb1{
+#exb1{
   left: 30px;
 }
-#lb2{
+#exb2{
   left: 60px;
 }
-#lb3{
-  left: 90px;
-}
+
 .defendbot{
   position: absolute;
   height: 30px;
@@ -284,15 +266,56 @@ body{
 #db5{
   left: 150px;
 }
-#gearlbl{
+#switchlbl{
   position: absolute;
   top: -15px;
 }
-#shotlbl{
+#parkbtn{
+  position: absolute;
+  top: -15px;
+  height: 50px;
+  width: 100px;
+}
+#nocarriedbtn{
+  position: absolute;
+  top: 150px;
+}
+#carriedbtn{
+  position: absolute;
+  top: 190px;
+  height: 50px;
+  width: 100px;
+}
+#hangbtn{
+  position: absolute;
+  top: 45px;
+  height: 50px;
+  width: 100px;
+}
+#noCarriedlbl{
+  position: absolute;
+  top: 111px;
+}
+.nocarried{
+  height: 30px;
+  width: 30px;
+}
+#noCb0{
+  left: 0px;
+  background: #00ff12;
+}
+#noCb1{
+  left: 30px;
+}
+#noCb2{
+  left: 60px;
+}
+
+#scalelbl{
   position: absolute;
   top: 60px;
 }
-#lowGoallbl{
+#exlbl{
   position: absolute;
   top: 135px;
 }
@@ -392,13 +415,19 @@ body{
   left: 310px;
 }
 
-#miscdiv{
+#miscInfodiv{
   position: absolute;
-  display: none;
   width: 150px;
   top: 75px;
-  left: 400px;
-  color: #fff;
+  left: 550px;
+  color: #000;
+}
+#endGamediv{
+  position: absolute;
+  width: 150px;
+  top: 75px;
+  left: 250px;
+  color: #000;
 }
 #submitform{
   opacity: 1;
