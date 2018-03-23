@@ -1,6 +1,7 @@
-var startingPos=false, mobility=false,
+var startingPos=false, mobility=false, park = false, carried = false,
+    nocarried = 0,
     gearField, gearLoad, gearGround, ballField, ballLoad, auto=0,
-    AutoForm = {},
+    AutoForm = {}, hangAttempt = false, hangSuccess = false, hangState = 0,
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0,
     autoCubePickup = 0, autoPickup=false, telecubesAcquired = 0,
     telecubesScored = 0, station, matchNumber=0, teamNumber=0,
@@ -15,9 +16,9 @@ var startingPos=false, mobility=false,
     opp_switch_far =0, opp_switch_near =0, scale_near =0, scale_far = 0,
     zone_1 =0, zone_2 =0, zone_3 =0, zone_4 =0, teleCubePickup =0,
     port1State = 0, port2State = 0, port3State = 0, davit1State = 0,
-    davit2State = 0, davit3State = 0, hangDavit = 0, gearBot =0,
+    davit2State = 0, davit3State = 0, gearBot =0,
     shotBot =0, defendBot =0, autoHigh = 0, autoLow = 0, autoCube = 0,
-    teleHigh = 0, teleLow = 0, hangDuration=0, hang = false, statecol = "#00ff12",
+    teleHigh = 0, teleLow = 0,  statecol = "#00ff12",
     defcol  = "#ddd", holdingCube=true;
 
 
@@ -30,9 +31,6 @@ window.onload = function(){
   document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
   document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
   document.getElementById("holdingCube").innerHTML = holdingCube;
-  //document.getElementById("pressurelbl").innerHTML = pressure;
-  //document.getElementById("ballScoredlbl").innerHTML = autoHigh;
-  //document.getElementById("ballScoredLowlbl").innerHTML = autoLow;
 
   if(station.charAt(0) == 'b'){
     document.getElementById("pagestyle").setAttribute("href", "../assets/generated-css/scoutingblue.css");
@@ -47,15 +45,18 @@ function setValue(b0,b1,b2,x) {
   b0.style.background = statecol;
   b1.style.background = defcol;
   b2.style.background = defcol;
-  if(x=="gear"){
-    gearBot = b0.value;
-    console.log(gearBot);
-  } else if (x=="shot") {
-    shotBot = b0.value;
-    console.log(shotBot);
-  } else if (x=="low") {
-    teleLow = b0.value;
-    console.log(teleLow);
+  if(x=="switch"){
+    switchBot = b0.value;
+    console.log(switchBot);
+  } else if (x=="scale") {
+    scaleBot = b0.value;
+    console.log(scaleBot);
+  } else if (x=="exchange") {
+    exchangeBot = b0.value;
+    console.log(exchangeBot);
+  } else if (x=="nocarried") {
+    nocarried = b0.value;
+    console.log(nocarried);
   }
 }
 function setDefValue(b0,b1,b2,b3,b4,b5) {
@@ -516,6 +517,29 @@ function humanLoadNear(){
     console.log("humanLoad: cube acquired near");
 }
 
+
+function changePark(){
+  if(park){
+    park = false;
+    document.getElementById("parkbtn").style.background = defcol;
+  } else {
+    park = true;
+    document.getElementById("parkbtn").style.background = statecol;
+  }
+  console.log("park = " + park);
+}
+function changeCarried(){
+  if(carried){
+    carried = false;
+    document.getElementById("carriedbtn").style.background = defcol;
+  } else {
+    carried = true;
+    document.getElementById("carriedbtn").style.background = statecol;
+  }
+  console.log("Carried = " + carried);
+}
+
+
 function gearLoad(){
   resetPlatforms();
   resetDavit();
@@ -570,95 +594,29 @@ function resetPlatforms() {
   document.getElementById("exchange").style.background = defcol;
   document.getElementById("exchange").innerHTML = "";
 }
-function hang1(davit) {
-  resetPlatforms();
-  if (davit1State == 0) {
-    resetDavit();
-    davit1State = 1;
-    davit.style.background = '#FFEB3B';
-    davit.innerHTML = "St";
-    timestamp = new Date()
-    console.log(timestamp+"hangstarted");
-  }else if (davit1State == 1) {
-    resetDavit();
-    davit1State = 2;
-    davit.style.background = '#EF5350';
-    davit.innerHTML = "End";
-    timeEnd = new Date()
-    hangDuration = (timeEnd - timestamp)/1000;
-    console.log("hang ended " + hangDuration);
+function hang() {
+  if (hangState == 0) {
+    hangState++;
+    hangAttempt = true;
+    hangbtn.style.background = statecol;
+    hangbtn.innerHTML = "Attempt";
+    console.log("hang Attempt: " + hangAttempt);
+  }else if (hangState == 1) {
+    hangState = 2;
+    hangSuccess = true;
+    hangbtn.style.background = statecol;
+    hangbtn.innerHTML = "Success";
+    console.log("hang Success: " + hangAttempt);
   } else {
-    resetDavit();
-    davit.style.background = statecol;
-    davit.innerHTML = "OK";
-    hang = true;
-    hangDavit = 1;
-    console.log("successful hang on" + hangDavit);
+    hangbtn.style.background = defcol;
+    hangbtn.innerHTML = "Hang";
+    hangAttempt = false;
+    hangSuccess = false;
+    hangState = 0;
+    console.log("hang: " + hangState);
   }
 }
-function hang2(davit) {
-  resetPlatforms();
-  if (davit2State == 0) {
-    resetDavit();
-    davit2State = 1;
-    davit.style.background = '#FFEB3B';
-    davit.innerHTML = "St";
-    timestamp = new Date()
-    console.log(timestamp+"hangstarted");
-  }else if (davit2State == 1) {
-    resetDavit();
-    davit2State = 2;
-    davit.style.background = '#EF5350';
-    davit.innerHTML = "End";
-    timeEnd = new Date()
-    hangDuration = (timeEnd - timestamp)/1000;
-    console.log("hang ended " + hangDuration + "  "+davit2State);
-  } else {
-    resetDavit();
-    davit.style.background = statecol;
-    davit.innerHTML = "OK";
-    hang = true;
-    hangDavit = 2;
-    console.log("successful hang on "+hangDavit);
-  }
-}
-function hang3(davit) {
-  resetPlatforms();
-  if (davit3State == 0) {
-    resetDavit();
-    davit3State = 1;
-    davit.style.background = '#FFEB3B';
-    davit.innerHTML = "St";
-    timestamp = new Date()
-    console.log(timestamp+"hangstarted");
-  }else if (davit3State == 1) {
-    resetDavit();
-    davit3State = 2;
-    davit.style.background = '#EF5350';
-    davit.innerHTML = "End";
-    timeEnd = new Date()
-    hangDuration = (timeEnd - timestamp)/1000;
-    console.log("hang ended " + hangDuration);
-  } else {
-    resetDavit();
-    davit.style.background = statecol;
-    davit.innerHTML = "OK";
-    hang = true;
-    hangDavit = 3;
-    console.log("successful hang on " + hangDavit);
-  }
-}
-function resetDavit() {
-  davit1State = 0;
-  davit2State = 0;
-  davit3State = 0;
-  document.getElementById("davit1").style.background = '#000';
-  document.getElementById("davit1").innerHTML = "";
-  document.getElementById("davit2").style.background = '#000';
-  document.getElementById("davit2").innerHTML = "";
-  document.getElementById("davit3").style.background = '#000';
-  document.getElementById("davit3").innerHTML = "";
-}
+
 function getformid(){
   console.log(((matchNumber-1) * 6) + getStation());
   return (((matchNumber-1) * 6) + getStation());
@@ -843,6 +801,17 @@ function submitpref(id){
   alert( id+ " submited");
 }
 function prepData() {
+  submit.starting_pos = startingPos;
+  submit.mobility = mobility;
+  submit.
+
+
+
+
+
+
+
+
   submit.auto = AutoForm;
   submit.tele = TeleForm;
   submit.form = FormForm;
