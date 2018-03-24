@@ -31,7 +31,7 @@ var startingPos=false, mobility=false, park = false, carried = false,
     davit2State = 0, davit3State = 0, gearBot =0,
     shotBot =0, defendBot =0, autoHigh = 0, autoCube_attempt = 0, autoCube_scored = 0,
     teleHigh = 0, teleLow = 0,  statecol = "#00ff12",
-    defcol  = "#ddd", holdingCube=true;
+    defcol  = "#ddd", holdingCube=true, timer = 0;
 
 
 function updateStation(st) {
@@ -85,10 +85,12 @@ function setDefValue(b0,b1,b2,b3,b4,b5) {
 }
 
 function startTimer(){
-  timestamp = new Date();
-  var tempbtn = document.getElementById("countdownbtn")
-  tempbtn.style.background = statecol;
-  tempbtn.innerHTML = "timerRunning"
+    timestamp = new Date();
+    var tempbtn = document.getElementById("countdownbtn")
+    tempbtn.style.background = statecol;
+    tempbtn.innerHTML = "timerRunning    Reset" ;
+    timer++;
+
 }
 
 function startFar(){
@@ -932,8 +934,8 @@ function prepData() {
     "ownSwitchNearScored" : own_switch_near_scored,
     "scaleFarAttempt" : scale_far_attempt,
     "scaleFarScored" : scale_far_scored,
-    "sclaeNearAttempt" : scale_far_attempt,
-    "sclaeNearScored" : scale_far_scored,
+    "scaleNearAttempt" : scale_far_attempt,
+    "scaleNearScored" : scale_far_scored,
     "oppSwitchFarAttempt" : opp_switch_far_attempt,
     "oppSwitchFarScored" : opp_switch_far_scored,
     "oppSwitchNearAttempt" : opp_switch_near_attempt,
@@ -949,8 +951,8 @@ function prepData() {
     "telePickup" : {"1": zone_1, "2":zone_2, "3":zone_3, "4":zone_4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
     "teleCubePickup" : teleCubePickup,
     "teleCubeAttempt" : teleCube_attempt,
-    "telecubeScored" : teleCube_scored,
-    "teleRobotAction" : auto_tele_action,
+    "teleCubeScored" : teleCube_scored,
+    "teleRobotAction" : tele_robot_action,
 
     "park" : park,
     "carried" : carried,

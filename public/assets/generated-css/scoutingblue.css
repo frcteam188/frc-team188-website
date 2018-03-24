@@ -358,6 +358,15 @@ body{
   top: 50px;
   left: 635px;
 }
+#countdownbtn{
+  height: 70px;
+  width: 94px;
+  display: block;
+  background: purple;
+  opacity: 1;
+  top: 35px;
+  left: 437px;
+}
 #highGoal{
   left: 35px;
 }
