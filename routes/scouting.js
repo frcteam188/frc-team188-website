@@ -15,7 +15,7 @@ const mongoURI = process.env.MONGOURI ||
                    '@scouting2018-shard-00-00-prx1p.mongodb.net:27017,'+
                    'scouting2018-shard-00-01-prx1p.mongodb.net:27017,'+
                    'scouting2018-shard-00-02-prx1p.mongodb.net:27017/'+
-                   'test?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
+                   'york?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
 console.log(mongoURI);
 //'mongodb://localhost/scouting2018'
 
@@ -46,7 +46,7 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    MatchData.getMatch(req.query.matchNumber)
+    Match.getMatchData(req.query.matchNumber)
       .then(sendResult(req, 'pitstrat', res), sendFailure(res));
   }
   else{

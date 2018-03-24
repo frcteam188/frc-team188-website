@@ -15,38 +15,47 @@ html
       p.grid-height.none='Click below to visit Team'
       each team, teamNumber in summary
         if (team.color == '#ba3248')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + team.teamNumber)=team.teamNumber
       each team, teamNumber in summary
         if (team.color == '#4286f4')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + teamNumber)=teamNumber
+          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + team.teamNumber)=team.teamNumber
 
     div.f-left(style='width: 90%')
       div
-        each title, i in ['Station', 'mPlayed', 'aGear', 'aSide', 'aGearP','aBallP','aHigh','tGear','tGearP', 'hangSucc','hangDur']
-          if (i <= 1)
+        each title, i in ['mPlayed', 'aPickup', 'aAttemp', 'aScored','tPickup','zones','own','scale', 'opp', 'exchange', 'hangAtt', 'hangSucc']
+          if (i < 1)
             p.grid-width.f-left(style='background: orange')=title
-          if (i > 1 && i < 7)
+          if (i > 0 && i < 4)
             p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 7)
+          if (i >= 4)
             p.grid-width.f-left(style='background: green')=title
-
+    
         .clear
         each team, teamNumber in summary
-          if (team.color == '#ba3248')
             .no-decor.grid-height.padding-s
             each val, field in team
-              if(field!='color')
+              if(field!='color'&&field!='teamNumber')
                 .no-decor.f-left.center.grid-item=val+''
         .clear
-        each team, teamNumber in summary
-          if (team.color == '#4286f4')
-            .no-decor.grid-height.padding-s
-              each val, field in team
-                if (field!='color')
-                  .no-decor.f-left.center.grid-item=val+''
-        .clear
-
     .clear
+    //- 
+    //- div.f-left(style='width: 90%')
+    //-   div
+    //-     each title, i in names
+    //-       //- if (i <= 1)
+    //-       //-   p.grid-width.f-left(style='background: orange')=title
+    //-       //- if (i > 1 && i < 7)
+    //-       //-   p.grid-width.f-left(style='background: yellow')=title
+    //-       //- if (i >= 7)
+    //-       p.grid-width.f-left(style='background: green')=title
+    //-   .clear
+    //-   div
+    //-     each row, rowNumber in rows
+    //-       each val, index in row
+    //-        .no-decor.f-left.center.grid-item=val+''
+    //-       .clear
+    //-     .clear
+    //- 
     div.margin-b
       a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
         Prev Prev Match
@@ -75,44 +84,20 @@ html
       //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=307')
       //-     Match 3x7
 
-      div.padding-b(style='background: green; margin-top: 20px;')
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=10')
-          Match 10
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=20')
-          Match 20
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=29')
-          Match 29
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=34')
-          Match 34
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=42')
-          Match 42
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=58')
-          Match 58
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=68')
-          Match 68
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=80')
-          Match 80
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=89')
-          Match 89
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=94')
-          Match 94
-        a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=106')
-          Match 106
-
-    div
-      p.padding-b=('RED:' +  red)
-      p.f-left.padding-b=('BLUE:' + blue)
-      .clear
+      div.padding-b(style='border: red solid 5px; margin-top: 20px;')
+        each number, i in [1, 2, 3, 4, 5, 6]
+          a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber='+number)
+            ='Match ' + number
 
     style(type='text/css').
       .grid-width{
-        width: 8%;
+        width: 7%;
       }
       .grid-height{
         height: 40px;
       }
       .grid-item{
-        width: 8%;
+        width: 7%;
         height: 40px;
       }
       a{

@@ -8,7 +8,64 @@ var MatchDataSchema = new Schema({
   matchNumber: Number,
   teamNumber: Number,
   tournament: String,
-  value: Number
+  value: Number,
+
+  cubesAcquired : Number,
+  cubesScored : Number,
+
+  startingPos : String,
+  mobility : Boolean,
+
+  autoPyramid : Number,
+  autoGround : Number,
+  autoCubePickup : Number, //a
+  autoExchangeAttempt : Number,
+  autoExchangeScored : Number,
+  autoSwitchFarAttempt : Number,
+  autoSwitchFarScored : Number,
+  autoSwitchNearAttempt : Number,
+  autoSwitchNearScored : Number,
+  autoScaleFarAttempt : Number,
+  autoScaleFarScored : Number,
+  autoScaleNearAttempt : Number,
+  autoScaleNearScored : Number,
+  autoCubeAttempt : Number, //a
+  autoCubeScored : Number, //a
+  autoRobotAction : Object,
+
+  ownSwitchFarAttempt : Number,
+  ownSwitchFarScored : Number,
+  ownSwitchNearAttempt : Number,
+  ownSwitchNearScored : Number,
+  scaleFarAttempt : Number,
+  scaleFarScored : Number,
+  scaleNearAttempt : Number,
+  scaleNearScored : Number,
+  oppSwitchFarAttempt : Number,
+  oppSwitchFarScored : Number,
+  oppSwitchNearAttempt : Number,
+  oppSwitchNearScored : Number,
+  teleExchangeAttempt : Number,
+  teleExchangeScored : Number,
+  teleSwitchAttempt : Number,
+  teleSwitchScored : Number,
+  teleScaleAttempt : Number,
+  teleScaleScored : Number,
+  teleOppSwitchAttempt : Number,
+  teleOppSwitchScored : Number,
+  telePickup : {1: Number, 2: Number, 3: Number, 4 : Number, humanLoadNear: Number, humanLoadFar: Number},
+  teleCubePickup : Number,
+  teleCubeAttempt : Number,
+  teleCubeScored : Number,
+  teleRobotAction : Object,
+
+  park : Boolean,
+  carried : Boolean,
+  hangAttempt : Boolean,
+  hangSuccess : Boolean,
+  noCarried : Number,
+  comments : String,
+
   /*
   all of the data
   */
@@ -41,6 +98,12 @@ MatchDataSchema.statics.getTeam = async function(teamNumber) {
     .where('teamNumber').equals(teamNumber)
     .exec().catch(mongoError)
 }
+
+MatchDataSchema.statics.getTeams = async function(teams) {
+  return await this.find({ teamNumber: { $in: teams } } )
+    .exec().catch(mongoError)
+}
+
 
 const MatchData = mongoose.model('MatchData', MatchDataSchema, 'MatchDatas');
 
