@@ -18,7 +18,7 @@ var MatchDataSchema = new Schema({
 
   autoPyramid : Number,
   autoGround : Number,
-  autoCubePickup : Number,
+  autoCubePickup : Number, //a
   autoExchangeAttempt : Number,
   autoExchangeScored : Number,
   autoSwitchFarAttempt : Number,
@@ -29,8 +29,8 @@ var MatchDataSchema = new Schema({
   autoScaleFarScored : Number,
   autoScaleNearAttempt : Number,
   autoScaleNearScored : Number,
-  autoCubeAttempt : Number,
-  autoCubeScored : Number,
+  autoCubeAttempt : Number, //a
+  autoCubeScored : Number, //a
 
   ownSwitchFarAttempt : Number,
   ownSwitchFarScored : Number,
@@ -90,6 +90,12 @@ MatchDataSchema.statics.getTeam = async function(teamNumber) {
     .where('teamNumber').equals(teamNumber)
     .exec().catch(mongoError)
 }
+
+MatchDataSchema.statics.getTeams = async function(teams) {
+  return await this.find({ teamNumber: { $in: teams } } )
+    .exec().catch(mongoError)
+}
+
 
 const MatchData = mongoose.model('MatchData', MatchDataSchema, 'MatchDatas');
 
