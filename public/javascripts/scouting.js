@@ -1,23 +1,28 @@
 var startingPos=false, mobility=false, park = false, carried = false,
-    nocarried = 0,
-    gearField, gearLoad, gearGround, ballField, ballLoad, auto=0,
-    AutoForm = {}, hangAttempt = false, hangSuccess = false, hangState = 0,
+    nocarried = 0, comments = "",
+    auto=0,
+    hangAttempt = false, hangSuccess = false, hangState = 0,
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0,
     autoCubePickup = 0, autoPickup=false, telecubesAcquired = 0,
     telecubesScored = 0, station, matchNumber=0, teamNumber=0,
-    TeleForm = {} , hangDavit=1, timestamp, timeEnd,
-    FormForm ={}, submit = {}, exchangeAttempt = 0, auto_exchange = 0,
-    ballGround, pressure = 0 , groundPickup = false, tele_exchange = 0,
+    hangDavit=1, timestamp, timeEnd,
+    submit = {}, exchangeAttempt = 0,
+    ballGround, pressure = 0 ,
     human_load_far = 0, human_load_near = 0,
     cubesAcquired = 0, cubesScored = 0, prefLift, ballsScored =0,
     cubeAttempt1 = 0, cubeAttempt2 = 0 , cubeAttempt3 = 0, cubeAttempt4 = 0,
-    auto_pyramid = 0, auto_ground = 0, auto_switch_far = 0, auto_switch_near =0,
-    auto_scale_far = 0, auto_scale_near = 0, teleCube = 0, own_switch_near =0, own_switch_far =0,
-    opp_switch_far =0, opp_switch_near =0, scale_near =0, scale_far = 0,
+    auto_pyramid = 0, auto_ground = 0,
+    auto_switch_far_attempt = 0, auto_switch_near_attempt =0, auto_scale_far_attempt = 0, auto_scale_near_attempt = 0,
+    auto_switch_far_scored = 0, auto_switch_near_scored =0, auto_scale_far_scored = 0, auto_scale_near_scored = 0,
+    auto_exchange_attempt = 0,auto_exchange_scored = 0,
+    teleCube_attempt = 0, teleCube_scored = 0, tele_exchange_attempt = 0,tele_exchange_scored = 0,
+    own_switch_near_attempt =0, own_switch_far_attempt =0, opp_switch_far_attempt =0, opp_switch_near_attempt =0, scale_near_attempt =0, scale_far_attempt = 0,
+    own_switch_near_scored =0, own_switch_far_scored =0, opp_switch_far_scored =0, opp_switch_near_scored =0, scale_near_scored =0, scale_far_scored = 0,
+
     zone_1 =0, zone_2 =0, zone_3 =0, zone_4 =0, teleCubePickup =0,
     port1State = 0, port2State = 0, port3State = 0, davit1State = 0,
     davit2State = 0, davit3State = 0, gearBot =0,
-    shotBot =0, defendBot =0, autoHigh = 0, autoLow = 0, autoCube = 0,
+    shotBot =0, defendBot =0, autoHigh = 0, autoCube_attempt = 0, autoCube_scored = 0,
     teleHigh = 0, teleLow = 0,  statecol = "#00ff12",
     defcol  = "#ddd", holdingCube=true;
 
@@ -47,16 +52,16 @@ function setValue(b0,b1,b2,x) {
   b2.style.background = defcol;
   if(x=="switch"){
     switchBot = b0.value;
-    console.log(switchBot);
+    console.log(x + switchBot);
   } else if (x=="scale") {
     scaleBot = b0.value;
-    console.log(scaleBot);
+    console.log(x + scaleBot);
   } else if (x=="exchange") {
     exchangeBot = b0.value;
-    console.log(exchangeBot);
+    console.log(x + exchangeBot);
   } else if (x=="nocarried") {
     nocarried = b0.value;
-    console.log(nocarried);
+    console.log(x + nocarried);
   }
 }
 function setDefValue(b0,b1,b2,b3,b4,b5) {
@@ -68,7 +73,8 @@ function setDefValue(b0,b1,b2,b3,b4,b5) {
   b5.style.background = defcol;
 
   defendBot = b0.value;
-  console.log(defendBot);
+  console.log("def" + defendBot);
+  console.log(document.getElementById("commentsinput").value);
 }
 
 
@@ -147,7 +153,7 @@ function autoGround(){
     holdingCube=true;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
-    console.log("auto cube acquired pyramid");
+    console.log("auto cube acquired ground");
   }
 }
 function autoExchange(){
@@ -156,17 +162,19 @@ function autoExchange(){
       resetPlatforms();
       cubeAttempt1 = 1;
       exchangeAttempt++;
+      auto_exchange_attempt++;
+      autoCube_attempt++;
       document.getElementById("autoExchange").style.background = '#FFEB3B';
       document.getElementById("autoExchange").innerHTML = "Atmpt";
-      console.log("Attmpted Exchange");
+      console.log("Auto Attmpted Exchange");
     } else if (exchangeAttempt == 1) {
       resetPlatforms();
       document.getElementById("autoExchange").style.background = statecol;
       document.getElementById("autoExchange").innerHTML = "Scored";
       exchangeAttempt = 0;
-      autoCube++;
+      autoCube_scored++;
       cubesScored++;
-      auto_exchange++;
+      auto_exchange_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       //autoprefLift = "port1";
       holdingCube=false;
@@ -180,6 +188,8 @@ function autoSwitchFar(){
     if (cubeAttempt1 == 0) {
       resetPlatforms();
       cubeAttempt1 = 1;
+      auto_switch_far_attempt++;
+      autoCube_attempt++;
       document.getElementById("autoSwitchFar").style.background = '#FFEB3B';
       document.getElementById("autoSwitchFar").innerHTML = "Attempt";
       console.log("Attmpted Swith Far");
@@ -187,11 +197,10 @@ function autoSwitchFar(){
       resetPlatforms();
       document.getElementById("autoSwitchFar").style.background = statecol;
       document.getElementById("autoSwitchFar").innerHTML = "Scored";
-      autoCube++;
+      autoCube_scored++;
       cubesScored++;
-      auto_switch_far++;
+      auto_switch_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
-      //autoprefLift = "port1";
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("auto cube scored switch far");
@@ -203,6 +212,8 @@ function autoSwitchNear(){
       if (cubeAttempt2 == 0) {
         resetPlatforms();
         cubeAttempt2 = 1;
+        auto_switch_near_attempt++;
+        autoCube_attempt++
         document.getElementById("autoSwitchNear").style.background = '#FFEB3B';
         document.getElementById("autoSwitchNear").innerHTML = "Attempt";
         console.log("attmpted Switch Near");
@@ -210,9 +221,9 @@ function autoSwitchNear(){
         resetPlatforms();
         document.getElementById("autoSwitchNear").style.background = statecol;
         document.getElementById("autoSwitchNear").innerHTML = "Scored";
-        autoCube++;
+        autoCube_scored++;
         cubesScored++;
-        auto_switch_near++;
+        auto_switch_near_scored++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         //autoprefLift = "port2";
         holdingCube=false;
@@ -227,6 +238,8 @@ function autoScaleFar(){
     if (cubeAttempt3 == 0) {
       resetPlatforms();
       cubeAttempt3 = 1;
+      auto_scale_far_attempt++;
+      autoCube_attempt++;
       document.getElementById("autoScaleFar").style.background = '#FFEB3B';
       document.getElementById("autoScaleFar").innerHTML = "Attempt";
       console.log("attmpted scale far");
@@ -234,9 +247,9 @@ function autoScaleFar(){
       resetPlatforms();
       document.getElementById("autoScaleFar").style.background = statecol;
       document.getElementById("autoScaleFar").innerHTML = "Scored";
-      autoCube++;
+      autoCube_scored++;
       cubesScored++;
-      auto_scale_far++;
+      auto_scale_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       //autoprefLift = "port3";
       holdingCube=false;
@@ -250,6 +263,8 @@ function autoScaleNear(){
     if (cubeAttempt4 == 0) {
       resetPlatforms();
       cubeAttempt4 = 1;
+      auto_scale_near_attempt++;
+      autoCube_attempt++;
       document.getElementById("autoScaleNear").style.background = '#FFEB3B';
       document.getElementById("autoScaleNear").innerHTML = "Attempt";
       console.log("attmpted scale near");
@@ -257,9 +272,9 @@ function autoScaleNear(){
       resetPlatforms();
       document.getElementById("autoScaleNear").style.background = statecol;
       document.getElementById("autoScaleNear").innerHTML = "Scored";
-      autoCube++;
+      autoCube_scored++;
       cubesScored++;
-      auto_scale_near++;
+      auto_scale_near_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       //autoprefLift = "port3";
       holdingCube=false;
@@ -294,6 +309,8 @@ function ownSwitchFar(){
     if (cubeAttempt1 == 0) {
       resetPlatforms();
       cubeAttempt1 = 1;
+      own_switch_far_attempt++;
+      teleCube_attempt++;
       document.getElementById("ownSwitchFar").style.background = '#FFEB3B';
       document.getElementById("ownSwitchFar").innerHTML = "Attempt";
       console.log("Attmpted Swith Far");
@@ -301,9 +318,9 @@ function ownSwitchFar(){
       resetPlatforms();
       document.getElementById("ownSwitchFar").style.background = statecol;
       document.getElementById("ownSwitchFar").innerHTML = "Scored";
-      teleCube++;
+      teleCube_scored++;
       cubesScored++;
-      own_switch_far++;
+      own_switch_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -316,6 +333,8 @@ function ownSwitchNear(){
       if (cubeAttempt2 == 0) {
         resetPlatforms();
         cubeAttempt2 = 1;
+        own_switch_near_attempt++;
+        teleCube_attempt++;
         document.getElementById("ownSwitchNear").style.background = '#FFEB3B';
         document.getElementById("ownSwitchNear").innerHTML = "Attempt";
         console.log("attmpted Switch Near");
@@ -323,9 +342,9 @@ function ownSwitchNear(){
         resetPlatforms();
         document.getElementById("ownSwitchNear").style.background = statecol;
         document.getElementById("ownSwitchNear").innerHTML = "Scored";
-        teleCube++;
+        teleCube_scored++;
         cubesScored++;
-        own_switch_near++;
+        own_switch_near_attempt++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -339,6 +358,8 @@ function oppSwitchFar(){
     if (cubeAttempt1 == 0) {
       resetPlatforms();
       cubeAttempt1 = 1;
+      opp_switch_far_attempt++;
+      teleCube_attempt++;
       document.getElementById("oppSwitchFar").style.background = '#FFEB3B';
       document.getElementById("oppSwitchFar").innerHTML = "Attempt";
       console.log("Attmpted Swith Far");
@@ -346,9 +367,9 @@ function oppSwitchFar(){
       resetPlatforms();
       document.getElementById("oppSwitchFar").style.background = statecol;
       document.getElementById("oppSwitchFar").innerHTML = "Scored";
-      teleCube++;
+      teleCube_scored++;
       cubesScored++;
-      opp_switch_far++;
+      opp_switch_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -361,6 +382,8 @@ function oppSwitchNear(){
       if (cubeAttempt2 == 0) {
         resetPlatforms();
         cubeAttempt2 = 1;
+        opp_switch_near_attempt++;
+        teleCube_attempt++;
         document.getElementById("oppSwitchNear").style.background = '#FFEB3B';
         document.getElementById("oppSwitchNear").innerHTML = "Attempt";
         console.log("attmpted Switch Near");
@@ -368,9 +391,9 @@ function oppSwitchNear(){
         resetPlatforms();
         document.getElementById("oppSwitchNear").style.background = statecol;
         document.getElementById("oppSwitchNear").innerHTML = "Scored";
-        teleCube++;
+        teleCube_scored++;
         cubesScored++;
-        opp_switch_near++;
+        opp_switch_near_scored++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -383,6 +406,8 @@ function scaleFar(){
     if (cubeAttempt3 == 0) {
       resetPlatforms();
       cubeAttempt3 = 1;
+      scale_far_attempt++;
+      teleCube_attempt++;
       document.getElementById("scaleFar").style.background = '#FFEB3B';
       document.getElementById("scaleFar").innerHTML = "Attempt";
       console.log("attmpted scale far");
@@ -390,9 +415,9 @@ function scaleFar(){
       resetPlatforms();
       document.getElementById("scaleFar").style.background = statecol;
       document.getElementById("scaleFar").innerHTML = "Scored";
-      teleCube++;
+      teleCube_scored++;
       cubesScored++;
-      scale_far++;
+      scale_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       //autoprefLift = "port3";
       holdingCube=false;
@@ -405,7 +430,9 @@ function scaleNear(){
   if(holdingCube){
     if (cubeAttempt4 == 0) {
       resetPlatforms();
-      cubeAttempt4 = 1;
+      cubeAttempt4 = 1
+      scale_near_attempt++;
+      teleCube_attempt++;
       document.getElementById("scaleNear").style.background = '#FFEB3B';
       document.getElementById("scaleNear").innerHTML = "Attempt";
       console.log("attmpted scale near");
@@ -413,9 +440,9 @@ function scaleNear(){
       resetPlatforms();
       document.getElementById("scaleNear").style.background = statecol;
       document.getElementById("scaleNear").innerHTML = "Scored";
-      teleCube++;
+      teleCube_scored++;
       cubesScored++;
-      scale_near++;
+      scale_near_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       //autoprefLift = "port3";
       holdingCube=false;
@@ -430,6 +457,8 @@ function teleExchange(){
       resetPlatforms();
       cubeAttempt1 = 1;
       exchangeAttempt++;
+      tele_exchange_attempt++;
+      teleCube_attempt++;
       document.getElementById("exchange").style.background = '#FFEB3B';
       document.getElementById("exchange").innerHTML = "Atmpt";
       console.log("Attmpted Exchange");
@@ -438,9 +467,9 @@ function teleExchange(){
       document.getElementById("exchange").style.background = statecol;
       document.getElementById("exchange").innerHTML = "Scored";
       exchangeAttempt = 0;
-      teleCube++;
+      teleCube_scored++;
       cubesScored++;
-      tele_exchange++;
+      tele_exchange_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -539,30 +568,6 @@ function changeCarried(){
   console.log("Carried = " + carried);
 }
 
-
-function gearLoad(){
-  resetPlatforms();
-  resetDavit();
-  telecubesAcquired++;
-  cubesAcquired++;
-  holdingCube=true;
-  document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
-  document.getElementById("holdingCube").innerHTML = holdingCube;
-  console.log("gear HUMAN");
-}
-
-function gearField(){
-  resetPlatforms();
-  resetDavit();
-  groundPickup = true;
-  telecubesAcquired++;
-  cubesAcquired++;
-  holdingCube=true;
-  document.getElementById("holdingCube").innerHTML = holdingCube;
-  document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
-  console.log("gear field");
-}
-
 function resetPlatforms() {
   cubeAttempt3 = 0;
   cubeAttempt2 = 0;
@@ -606,7 +611,7 @@ function hang() {
     hangSuccess = true;
     hangbtn.style.background = statecol;
     hangbtn.innerHTML = "Success";
-    console.log("hang Success: " + hangAttempt);
+    console.log("hang Success: " + hangSuccess);
   } else {
     hangbtn.style.background = defcol;
     hangbtn.innerHTML = "Hang";
@@ -618,8 +623,9 @@ function hang() {
 }
 
 function getformid(){
-  console.log(((matchNumber-1) * 6) + getStation());
-  return (((matchNumber-1) * 6) + getStation());
+  //console.log(((matchNumber-1) * 6) + getStation());
+  var temp = matchNumber + " " + teamNumber;
+  return (temp);
 }
 function getStation(){
   if(station == "r1"){
@@ -756,17 +762,17 @@ function showForm() {
   //scoreTele();
 }
 function scoreForm(){
-  FormForm["form_id"] = getformid();
-  FormForm["team_number"] = teamNumber;
-  FormForm["match_number"] = matchNumber;
+  // FormForm["form_id"] = getformid();
+  // FormForm["team_number"] = teamNumber;
+  // FormForm["match_number"] = matchNumber;
+  //
+  // FormForm["gear_bot"] = gearBot;
+  // FormForm["shot_bot"] = shotBot;
+  // FormForm["defend_bot"] = defendBot;
+  comments =  document.getElementById("commentsinput").value;
 
-  FormForm["gear_bot"] = gearBot;
-  FormForm["shot_bot"] = shotBot;
-  FormForm["defend_bot"] = defendBot;
-  //FormForm["comments"] = document.getElementById("commentsinput").value;
-
-  console.log(TeleForm);
-  window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
+  //console.log(TeleForm);
+  //window.sessionStorage.setItem("teleForm", JSON.stringify(TeleForm));
 
   sendData();
 }
@@ -791,9 +797,9 @@ function post(path, params, method) {
 }
 function sendData() {
   prepData();
-  submitpref();
-  $.post("scouting/api/sendData",submit);
-  nextMatch();
+  //submitpref();
+  $.post("scouting/submitMatchData",submit);
+  //nextMatch();
 }
 function submitpref(id){
   sumbit = window.localStorage.getItem(id);
@@ -801,9 +807,62 @@ function submitpref(id){
   alert( id+ " submited");
 }
 function prepData() {
-  submit.starting_pos = startingPos;
-  submit.mobility = mobility;
-  submit.
+  // submit.starting_pos = startingPos;
+  // submit.mobility = mobility;
+  submit = {
+    "matchNumber" : matchNumber,
+    "teamNumber" : teamNumber,
+    "tournament" : "york",
+
+    "cubesAcquired" : cubesAcquired,
+    "cubesScored" : cubesScored,
+
+    "starting_pos" : startingPos,
+    "mobility" : mobility,
+
+    "autoPyramid" : auto_pyramid,
+    "autoGround" : auto_ground,
+    "autoCubePickup" : autoCubePickup,
+    "autoExchangeAttempt" : auto_exchange_attempt,
+    "autoExchangeScored" : auto_exchange_scored,
+    "autoSwitchFarAttempt" : auto_switch_far_attempt,
+    "autoSwitchFarScored" : auto_switch_far_scored,
+    "autoSwitchNearAttempt" : auto_switch_near_attempt,
+    "autoSwitchNearScored" : auto_switch_near_scored,
+    "autoScaleFarAttempt" : auto_scale_far_attempt,
+    "autoScaleFarScored" : auto_scale_far_scored,
+    "autoScaleNearAttempt" : auto_scale_near_attempt,
+    "autoScaleNearScored" : auto_scale_near_scored,
+    "autoCubeAttempt" : autoCube_attempt,
+    "autoCubeScored" : autoCube_scored,
+
+    "ownSwitchFarAttempt" : own_switch_far_attempt,
+    "ownSwitchFarScored" : own_switch_far_scored,
+    "ownSwitchNearAttempt" : own_switch_near_attempt,
+    "ownSwitchNearScored" : own_switch_near_scored,
+    "scaleFarAttempt" : scale_far_attempt,
+    "scaleFarScored" : scale_far_scored,
+    "sclaeNearAttempt" : scale_far_attempt,
+    "sclaeNearScored" : scale_far_scored,
+    "oppSwitchFarAttempt" : opp_switch_far_attempt,
+    "oppSwitchFarScored" : opp_switch_far_scored,
+    "oppSwitchNearAttempt" : opp_switch_near_attempt,
+    "oppSwitchNearScored" : opp_switch_near_scored,
+    "teleExchangeAttempt" : tele_exchange_attempt,
+    "teleExchangeScored" : tele_exchange_scored,
+    "telePickup" : {"1": zone1, "2":zone2, "3":zone3, "4":zone4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
+    "teleCubePickup" : teleCubePickup,
+    "teleCubeAttempt" : teleCube_attempt,
+    "telecubeScored" : telecube_scored,
+
+    "park" : park,
+    "carried" : carried,
+    "hangAttempt" : hangAttempt,
+    "hangSuccess" : hangSuccess,
+    "noCarried" : nocarried,
+    "comments" : comments,
+
+    }
 
 
 
@@ -812,9 +871,9 @@ function prepData() {
 
 
 
-  submit.auto = AutoForm;
-  submit.tele = TeleForm;
-  submit.form = FormForm;
+  // submit.auto = AutoForm;
+  // submit.tele = TeleForm;
+  // submit.form = FormForm;
   window.sessionStorage.setItem("submit", JSON.stringify(submit));
   window.localStorage.setItem(getformid(),submit);
   console.log(submit);
