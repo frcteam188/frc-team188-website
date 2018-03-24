@@ -308,6 +308,7 @@ function autoScaleNear(){
       resetPlatforms();
       cubeAttempt4 = 1;
       auto_scale_near_attempt++;
+      auto_scale_attempt++;
       autoCube_attempt++;
       document.getElementById("autoScaleNear").style.background = '#FFEB3B';
       document.getElementById("autoScaleNear").innerHTML = "Attempt";
@@ -472,7 +473,7 @@ function scaleFar(){
       resetPlatforms();
       cubeAttempt3 = 1;
       scale_far_attempt++;
-      tele_switch_attempt++;
+      tele_scale_attempt++;
       teleCube_attempt++;
       document.getElementById("scaleFar").style.background = '#FFEB3B';
       document.getElementById("scaleFar").innerHTML = "Attempt";
@@ -482,7 +483,7 @@ function scaleFar(){
       document.getElementById("scaleFar").style.background = statecol;
       document.getElementById("scaleFar").innerHTML = "Scored";
       teleCube_scored++;
-      tele_switch_scored++;
+      tele_scale_scored++;
       cubesScored++;
       scale_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
@@ -501,7 +502,7 @@ function scaleNear(){
       resetPlatforms();
       cubeAttempt4 = 1
       scale_near_attempt++;
-      tele_switch_attempt++;
+      tele_scale_attempt++;
       teleCube_attempt++;
       document.getElementById("scaleNear").style.background = '#FFEB3B';
       document.getElementById("scaleNear").innerHTML = "Attempt";
@@ -511,7 +512,7 @@ function scaleNear(){
       document.getElementById("scaleNear").style.background = statecol;
       document.getElementById("scaleNear").innerHTML = "Scored";
       teleCube_scored++;
-      tele_switch_scored++;
+      tele_scale_scored++;
       cubesScored++;
       scale_near_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
@@ -934,8 +935,8 @@ function prepData() {
     "ownSwitchNearScored" : own_switch_near_scored,
     "scaleFarAttempt" : scale_far_attempt,
     "scaleFarScored" : scale_far_scored,
-    "scaleNearAttempt" : scale_far_attempt,
-    "scaleNearScored" : scale_far_scored,
+    "scaleNearAttempt" : scale_near_attempt,
+    "scaleNearScored" : scale_near_scored,
     "oppSwitchFarAttempt" : opp_switch_far_attempt,
     "oppSwitchFarScored" : opp_switch_far_scored,
     "oppSwitchNearAttempt" : opp_switch_near_attempt,
