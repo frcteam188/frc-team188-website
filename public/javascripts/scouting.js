@@ -7,7 +7,7 @@ var startingPos=false, mobility=false, park = false, carried = false,
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0,
     autoCubePickup = 0, autoPickup=false, telecubesAcquired = 0,
     telecubesScored = 0, station, matchNumber=0, teamNumber=0,
-    hangDavit=1, timestamp, timeEnd,
+    hangDavit=1, timestamp, timeLap, timeDurr=0,
     submit = {}, exchangeAttempt = 0,
     ballGround, pressure = 0 ,
     human_load_far = 0, human_load_near = 0,
@@ -31,7 +31,7 @@ var startingPos=false, mobility=false, park = false, carried = false,
     davit2State = 0, davit3State = 0, gearBot =0,
     shotBot =0, defendBot =0, autoHigh = 0, autoCube_attempt = 0, autoCube_scored = 0,
     teleHigh = 0, teleLow = 0,  statecol = "#00ff12",
-    defcol  = "#ddd", holdingCube=true;
+    defcol  = "#ddd", holdingCube=true, timer = 0;
 
 
 function updateStation(st) {
@@ -84,14 +84,21 @@ function setDefValue(b0,b1,b2,b3,b4,b5) {
   console.log(document.getElementById("commentsinput").value);
 }
 
+function startTimer(){
+    timestamp = new Date();
+    var tempbtn = document.getElementById("countdownbtn")
+    tempbtn.style.background = statecol;
+    tempbtn.innerHTML = "timerRunning    Reset" ;
+    timer++;
 
+}
 
 function startFar(){
   if(startingPos == false){
     startingPos = document.getElementById("farPos").value;
     console.log(startingPos);
     document.getElementById("farPos").style.background = statecol;
-  } else{
+  } else if(startingPos != "far"){
     startingPos = document.getElementById("farPos").value;
     console.log(startingPos);
     document.getElementById("farPos").style.background = statecol;
@@ -117,7 +124,7 @@ function startNear(){
     startingPos = document.getElementById("nearPos").value;
     console.log(startingPos);
     document.getElementById("nearPos").style.background = statecol;
-  }else {
+  }else if (startingPos != "near") {
     startingPos = document.getElementById("nearPos").value;
     console.log(startingPos);
     document.getElementById("nearPos").style.background = statecol;
@@ -149,6 +156,11 @@ function autoPyramid(){
     document.getElementById("holdingCube").innerHTML = holdingCube;
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     console.log("auto cube acquired pyramid");
+    timeLap = new Date()
+    timeDurr = (timeLap - timestamp)/1000;
+    var temp = "pyramid " + timeDurr;
+    auto_robot_action.push(temp);
+    console.log(auto_robot_action);
   }
 }
 function autoGround(){
@@ -161,6 +173,11 @@ function autoGround(){
     document.getElementById("holdingCube").innerHTML = holdingCube;
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     console.log("auto cube acquired ground");
+    timeLap = new Date()
+    timeDurr = (timeLap - timestamp)/1000;
+    var temp = "ground pickup " + timeDurr;
+    auto_robot_action.push(temp);
+    console.log(auto_robot_action);
   }
 }
 function autoExchange(){
@@ -187,6 +204,11 @@ function autoExchange(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("Auto Exchange Scored");
+      timeLap = new Date()
+      timeDurr = (timeLap - timestamp)/1000;
+      var temp = "exchange " + timeDurr;
+      auto_robot_action.push(temp);
+      console.log(auto_robot_action);
     }
   }
 }
@@ -211,6 +233,11 @@ function autoSwitchFar(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("auto cube scored switch far");
+      timeLap = new Date()
+      timeDurr = (timeLap - timestamp)/1000;
+      var temp = "switch far " + timeDurr;
+      auto_robot_action.push(temp);
+      console.log(auto_robot_action);
     }
   }
 }
@@ -236,6 +263,11 @@ function autoSwitchNear(){
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
         console.log("auto cube scored switch near");
+        timeLap = new Date()
+        timeDurr = (timeLap - timestamp)/1000;
+        var temp = "switch near " + timeDurr;
+        auto_robot_action.push(temp);
+        console.log(auto_robot_action);
       }
   }
 }
@@ -262,6 +294,11 @@ function autoScaleFar(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("gear scored scale far");
+      timeLap = new Date()
+      timeDurr = (timeLap - timestamp)/1000;
+      var temp = "scale far " + timeDurr;
+      auto_robot_action.push(temp);
+      console.log(auto_robot_action);
     }
   }
 }
@@ -287,6 +324,11 @@ function autoScaleNear(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("gear scored scale near");
+      timeLap = new Date()
+      timeDurr = (timeLap - timestamp)/1000;
+      var temp = "scale near " + timeDurr;
+      auto_robot_action.push(temp);
+      console.log(auto_robot_action);
     }
   }
 }
@@ -334,6 +376,8 @@ function ownSwitchFar(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("tele: cube scored switch far");
+      tele_robot_action.push("own switch far");
+      console.log(auto_robot_action);
     }
   }
 }
@@ -360,6 +404,8 @@ function ownSwitchNear(){
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
         console.log("tele: cube scored switch near");
+        tele_robot_action.push("own switch near");
+        console.log(auto_robot_action);
       }
   }
 }
@@ -368,14 +414,14 @@ function oppSwitchFar(){
   if(holdingCube){
     if (cubeAttempt5 == 0) {
       resetPlatforms();
-      cubeAttempt1 = 1;
+      cubeAttempt5 = 1;
       opp_switch_far_attempt++;
       tele_opp_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("oppSwitchFar").style.background = '#FFEB3B';
       document.getElementById("oppSwitchFar").innerHTML = "Attempt";
       console.log("Attmpted Swith Far");
-    } else if (cubeAttempt1 == 1) {
+    } else if (cubeAttempt5 == 1) {
       resetPlatforms();
       document.getElementById("oppSwitchFar").style.background = statecol;
       document.getElementById("oppSwitchFar").innerHTML = "Scored";
@@ -387,6 +433,8 @@ function oppSwitchFar(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("tele: cube scored switch far");
+      tele_robot_action.push("opp switch far");
+      console.log(auto_robot_action);
     }
   }
 }
@@ -394,14 +442,14 @@ function oppSwitchNear(){
   if(holdingCube){
       if (cubeAttempt6 == 0) {
         resetPlatforms();
-        cubeAttempt2 = 1;
+        cubeAttempt6 = 1;
         opp_switch_near_attempt++;
         tele_opp_switch_attempt++;
         teleCube_attempt++;
         document.getElementById("oppSwitchNear").style.background = '#FFEB3B';
         document.getElementById("oppSwitchNear").innerHTML = "Attempt";
         console.log("attmpted Switch Near");
-      } else if (cubeAttempt2 == 1) {
+      } else if (cubeAttempt6 == 1) {
         resetPlatforms();
         document.getElementById("oppSwitchNear").style.background = statecol;
         document.getElementById("oppSwitchNear").innerHTML = "Scored";
@@ -413,6 +461,8 @@ function oppSwitchNear(){
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
         console.log("tele: cube scored switch near");
+        tele_robot_action.push("opp switch near");
+        console.log(auto_robot_action);
       }
   }
 }
@@ -440,6 +490,8 @@ function scaleFar(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("gear scored scale far");
+      tele_robot_action.push("scale far");
+      console.log(auto_robot_action);
     }
   }
 }
@@ -467,6 +519,8 @@ function scaleNear(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("gear scored scale near");
+      tele_robot_action.push("scale near");
+      console.log(auto_robot_action);
     }
   }
 }
@@ -493,6 +547,8 @@ function teleExchange(){
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
       console.log("Tele Exchange Scored");
+      tele_robot_action.push("exchange");
+      console.log(auto_robot_action);
     }
   }
 }
@@ -507,6 +563,8 @@ function zone1(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("zone 1: cube acquired pyramid");
+    tele_robot_action.push("zone 1");
+    console.log(auto_robot_action);
 }
 
 function zone2(){
@@ -518,6 +576,8 @@ function zone2(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("zone 2: cube acquired pyramid");
+    tele_robot_action.push("zone 2");
+    console.log(auto_robot_action);
 }
 
 function zone3(){
@@ -529,6 +589,8 @@ function zone3(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("zone 3: cube acquired pyramid");
+    tele_robot_action.push("zone 3");
+    console.log(auto_robot_action);
 }
 
 function zone4(){
@@ -540,7 +602,9 @@ function zone4(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("zone 4: cube acquired pyramid");
-}
+    tele_robot_action.push("zone 4");
+    console.log(auto_robot_action);
+  }
 
 function humanLoadFar(){
     resetPlatforms();
@@ -551,6 +615,8 @@ function humanLoadFar(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("humanLoad: cube acquired far");
+    tele_robot_action.push("human Load Far");
+    console.log(auto_robot_action);
 }
 
 
@@ -563,6 +629,8 @@ function humanLoadNear(){
     document.getElementById("cubesAcquiredlbl").innerHTML = cubesAcquired;
     document.getElementById("holdingCube").innerHTML = holdingCube;
     console.log("humanLoad: cube acquired near");
+    tele_robot_action.push("human Load Near");
+    console.log(auto_robot_action);
 }
 
 
@@ -858,6 +926,7 @@ function prepData() {
     "autoScaleNearScored" : auto_scale_near_scored,
     "autoCubeAttempt" : autoCube_attempt,
     "autoCubeScored" : autoCube_scored,
+    "autoRobotAction" : auto_robot_action,
 
     "ownSwitchFarAttempt" : own_switch_far_attempt,
     "ownSwitchFarScored" : own_switch_far_scored,
@@ -865,8 +934,8 @@ function prepData() {
     "ownSwitchNearScored" : own_switch_near_scored,
     "scaleFarAttempt" : scale_far_attempt,
     "scaleFarScored" : scale_far_scored,
-    "sclaeNearAttempt" : scale_far_attempt,
-    "sclaeNearScored" : scale_far_scored,
+    "scaleNearAttempt" : scale_far_attempt,
+    "scaleNearScored" : scale_far_scored,
     "oppSwitchFarAttempt" : opp_switch_far_attempt,
     "oppSwitchFarScored" : opp_switch_far_scored,
     "oppSwitchNearAttempt" : opp_switch_near_attempt,
@@ -882,7 +951,8 @@ function prepData() {
     "telePickup" : {"1": zone_1, "2":zone_2, "3":zone_3, "4":zone_4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
     "teleCubePickup" : teleCubePickup,
     "teleCubeAttempt" : teleCube_attempt,
-    "telecubeScored" : teleCube_scored,
+    "teleCubeScored" : teleCube_scored,
+    "teleRobotAction" : tele_robot_action,
 
     "park" : park,
     "carried" : carried,

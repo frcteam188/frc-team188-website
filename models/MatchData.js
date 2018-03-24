@@ -31,6 +31,7 @@ var MatchDataSchema = new Schema({
   autoScaleNearScored : Number,
   autoCubeAttempt : Number, //a
   autoCubeScored : Number, //a
+  autoRobotAction : Object,
 
   ownSwitchFarAttempt : Number,
   ownSwitchFarScored : Number,
@@ -56,6 +57,7 @@ var MatchDataSchema = new Schema({
   teleCubePickup : Number,
   teleCubeAttempt : Number,
   teleCubeScored : Number,
+  teleRobotAction : Object,
 
   park : Boolean,
   carried : Boolean,
