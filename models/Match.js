@@ -38,11 +38,11 @@ MatchSchema.statics.get = async function(matchNumber, station) {
 const averageTemplate = {
   "matchesPlayed" : 0,
   "aPickup": 0, "aAttempted": 0, "aScored": 0,
-  "tPickup": 0, "zones" : {1 : 0, 2 : 0, 3 : 0, 4 : 0},
+  "tPickup": 0, "zones": {},
   "own" : 0, "scale" : 0, "opp" : 0, "exchange": 0,
   "hangAttempt" : 0, "hangSuccess" : 0}
 
-
+const zoneTemplate = {1 : 0, 2 : 0, 3 : 0, 4 : 0}
 
 MatchSchema.statics.getMatchData = async function(matchNumber) {
   match = await this.findOne()
@@ -64,6 +64,7 @@ MatchSchema.statics.getMatchData = async function(matchNumber) {
       teamNumber = data.teamNumber
       if (averages[teamNumber] === undefined){
         averages[teamNumber] = {...averageTemplate} //using spread operator to clone the template
+        averages[teamNumber].zones = {...zoneTemplate}
       }
       averages[teamNumber].matchesPlayed += 1
       averages[teamNumber].aPickup += data.autoCubePickup
@@ -84,9 +85,9 @@ MatchSchema.statics.getMatchData = async function(matchNumber) {
     for(var teamNumber in averages){
       averages[teamNumber]["hangSuccess"] = (averages[teamNumber]["hangSuccess"]/averages[teamNumber]["hangAttempt"]).toFixed(2)
       for(var key in averages[teamNumber]){
-        for (var j = 1; j <= 4; j++){
-          averages[teamNumber].zones[j] = (averages[teamNumber].zones[j]/averages[teamNumber]["matchesPlayed"]).toFixed(1)
-        }
+        // for (var j = 1; j <= 4; j++){
+        //   averages[teamNumber].zones[j] = (averages[teamNumber].zones[j]/averages[teamNumber]["matchesPlayed"]).toFixed(1)
+        // }
         if(key !== "hangSuccess" && key !== "matchesPlayed" && key !== "zones"){
           averages[teamNumber][key] = (averages[teamNumber][key]/averages[teamNumber]["matchesPlayed"]).toFixed(2)
         }
