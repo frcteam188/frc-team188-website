@@ -399,7 +399,7 @@ function ownSwitchNear(){
         document.getElementById("ownSwitchNear").innerHTML = "Scored";
         teleCube_scored++;
         cubesScored++;
-        own_switch_near_attempt++;
+        own_switch_near_scored++;
         tele_switch_scored++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         holdingCube=false;
