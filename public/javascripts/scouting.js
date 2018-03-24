@@ -104,7 +104,7 @@ function startMid(){
     startingPos = document.getElementById("middlePos").value;
     console.log(startingPos);
     document.getElementById("middlePos").style.background = statecol;
-  }else {
+  }else if (startingPos != "middle") {
     startingPos = document.getElementById("middlePos").value;
     console.log(startingPos);
     document.getElementById("middlePos").style.background = statecol;
@@ -873,12 +873,12 @@ function prepData() {
     "oppSwitchNearScored" : opp_switch_near_scored,
     "teleExchangeAttempt" : tele_exchange_attempt,
     "teleExchangeScored" : tele_exchange_scored,
-    "teleSwitchAttempt" : tele_switch_attempt;
-    "teleSwitchScored" : tele_switch_scored;
-    "teleScaleAttempt" : tele_scale_attempt;
-    "teleScaleScored" : tele_scale_scored;
-    "teleOppSwitchAttempt" : tele_opp_switch_attempt;
-    "teleOppSwitchScored" : tele_opp_switch_scored;
+    "teleSwitchAttempt" : tele_switch_attempt,
+    "teleSwitchScored" : tele_switch_scored,
+    "teleScaleAttempt" : tele_scale_attempt,
+    "teleScaleScored" : tele_scale_scored,
+    "teleOppSwitchAttempt" : tele_opp_switch_attempt,
+    "teleOppSwitchScored" : tele_opp_switch_scored,
     "telePickup" : {"1": zone_1, "2":zone_2, "3":zone_3, "4":zone_4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
     "teleCubePickup" : teleCubePickup,
     "teleCubeAttempt" : teleCube_attempt,
