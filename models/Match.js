@@ -35,21 +35,58 @@ MatchSchema.statics.get = async function(matchNumber, station) {
   return result;
 };
 
-const averages = {
+const averageTemplate = {
   "aPickup": 0, "aAttempted": 0, "aScored": 0,
   "tPickup": 0, "zones" : {1 : 0, 2 : 0, 3 : 0, 4 : 0},
   "own" : 0, "scale" : 0, "opp" : 0, "exchange": 0,
-  "hangAttempt" : 0, "hangSuccess" : 0}
+  "hangAttempt" : 0, "hangSuccess" : 0, "matchesPlayed" : 0}
+
+
 
 MatchSchema.methods.getMatchData = async function() {
   results = await MatchData.getMatch(this.number).catch(mongoError);
   if (results === []){ // this match has not been played yet, show averages for the teams
     teams = [this.r1, this.r2, this.r3, this.b1, this.b2, this.b3]
     teamDatas = await MatchData.getTeams(teams).catch(mongoError);
-    for (data in teamDatas){
+    averages = {}
+    output = {"r1" : {}, "r2" : {}, "r3" : {}, "b1" : {}, "b2" : {}, "b3" : {}}
 
+    for (var i in teamDatas){
+      data = teamDatas[i]
+      teamNumber = data.teamNumber
+      if (averages[teamNumber] === undefined){
+        averages[teamNumber] = {...averageTemplate} //using spread operator to clone the template
+      }
+      averages[teamNumber].aPickup += data.autoCubePickup
+      averages[teamNumber].aAttempted += data.autoCubeAttempt
+      averages[teamNumber].aScored += data.autoCubeScored
+      averages[teamNumber].tPickup += data.teleCubePickup
+      for (var j = 1; j <= 4; j++){
+        averages[teamNumber].zones[j] += data.telePickup[j]
+      }
+      averages[teamNumber].own += data.teleSwitchScored
+      averages[teamNumber].scale += data.teleScaleScored
+      averages[teamNumber].opp += data.teleOppSwitchScored
+      averages[teamNumber].exchange += data.teleExchangeScored
+      averages[teamNumber].hangAttempt += 1*data.hangAttempt
+      averages[teamNumber].hangSuccess += 1*data.hangSuccess
+      averages[teamNumber].matchesPlayed += 1
+    }
+
+    for(var teamNumber in averages){
+      averages[teamNumber]["hangSuccess"] /= averages[teamNumber]["hangAttempt"]
+      for(var key in averages[teamNumber]){
+        if(key !== "hangSuccess" && key != "matchedPlayed"){
+          averages[teamNumber][key] /= averages[teamNumber]["matchedPlayed"]
+        }
+      }
+    }
+
+    for (var key in output){
+      output[key] = averages[this[key]] || {}
     }
   }
+
 };
 
 const Match = mongoose.model('Match', MatchSchema, 'Matches');
