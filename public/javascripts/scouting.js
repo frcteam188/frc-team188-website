@@ -84,7 +84,12 @@ function setDefValue(b0,b1,b2,b3,b4,b5) {
   console.log(document.getElementById("commentsinput").value);
 }
 
-
+function startTimer(){
+  timestamp = new Date();
+  var tempbtn = document.getElementById("countdownbtn")
+  tempbtn.style.background = statecol;
+  tempbtn.innerHTML = "timerRunning"
+}
 
 function startFar(){
   if(startingPos == false){
@@ -98,7 +103,6 @@ function startFar(){
     document.getElementById("middlePos").style.background = defcol;
     document.getElementById("nearPos").style.background = defcol;
   }
-  timestamp = new Date();
 }
 function startMid(){
   if(startingPos == false){
@@ -112,7 +116,6 @@ function startMid(){
     document.getElementById("nearPos").style.background = defcol;
     document.getElementById("farPos").style.background = defcol;
   }
-  timestamp = new Date();
 }
 function startNear(){
   if(startingPos == false){
@@ -126,7 +129,6 @@ function startNear(){
     document.getElementById("farPos").style.background = defcol;
     document.getElementById("middlePos").style.background = defcol;
   }
-  timestamp = new Date ();
 }
 
 
@@ -410,14 +412,14 @@ function oppSwitchFar(){
   if(holdingCube){
     if (cubeAttempt5 == 0) {
       resetPlatforms();
-      cubeAttempt1 = 1;
+      cubeAttempt5 = 1;
       opp_switch_far_attempt++;
       tele_opp_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("oppSwitchFar").style.background = '#FFEB3B';
       document.getElementById("oppSwitchFar").innerHTML = "Attempt";
       console.log("Attmpted Swith Far");
-    } else if (cubeAttempt1 == 1) {
+    } else if (cubeAttempt5 == 1) {
       resetPlatforms();
       document.getElementById("oppSwitchFar").style.background = statecol;
       document.getElementById("oppSwitchFar").innerHTML = "Scored";
@@ -438,14 +440,14 @@ function oppSwitchNear(){
   if(holdingCube){
       if (cubeAttempt6 == 0) {
         resetPlatforms();
-        cubeAttempt2 = 1;
+        cubeAttempt6 = 1;
         opp_switch_near_attempt++;
         tele_opp_switch_attempt++;
         teleCube_attempt++;
         document.getElementById("oppSwitchNear").style.background = '#FFEB3B';
         document.getElementById("oppSwitchNear").innerHTML = "Attempt";
         console.log("attmpted Switch Near");
-      } else if (cubeAttempt2 == 1) {
+      } else if (cubeAttempt6 == 1) {
         resetPlatforms();
         document.getElementById("oppSwitchNear").style.background = statecol;
         document.getElementById("oppSwitchNear").innerHTML = "Scored";
@@ -948,7 +950,7 @@ function prepData() {
     "teleCubePickup" : teleCubePickup,
     "teleCubeAttempt" : teleCube_attempt,
     "telecubeScored" : teleCube_scored,
-    "teleRobotAction" : auto_tele_action;
+    "teleRobotAction" : auto_tele_action,
 
     "park" : park,
     "carried" : carried,
