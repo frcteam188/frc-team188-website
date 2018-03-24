@@ -9,6 +9,55 @@ var MatchDataSchema = new Schema({
   teamNumber: Number,
   tournament: String,
   value: Number
+
+  cubesAcquired : Number,
+  cubesScored : Number,
+
+  startingPos : String,
+  mobility : Boolean,
+
+  autoPyramid : Number,
+  autoGround : Number,
+  autoCubePickup : Number,
+  autoExchangeAttempt : Number,
+  autoExchangeScored : Number,
+  autoSwitchFarAttempt : Number,
+  autoSwitchFarScored : Number,
+  autoSwitchNearAttempt : Number,
+  autoSwitchNearScored : Number,
+  autoScaleFarAttempt : Number,
+  autoScaleFarScored : Number,
+  autoScaleNearAttempt : Number,
+  autoScaleNearScored : Number,
+  autoCubeAttempt : Number,
+  autoCubeScored : Number,
+
+  ownSwitchFarAttempt : Number,
+  ownSwitchFarScored : Number,
+  ownSwitchNearAttempt : Number,
+  ownSwitchNearScored : Number,
+  scaleFarAttempt : Number,
+  scaleFarScored : Number,
+  scaleNearAttempt : Number,
+  scaleNearScored : Number,
+  oppSwitchFarAttempt : Number,
+  oppSwitchFarScored : Number,
+  oppSwitchNearAttempt : Number,
+  oppSwitchNearScored : Number,
+  teleExchangeAttempt : Number,
+  teleExchangeScored : Number,
+  telePickup : {1: Number, 2: Number, 3: Number, 4 : Number, humanLoadNear: Number, humanLoadFar: Number}
+  teleCubePickup : Number,
+  teleCubeAttempt : Number,
+  teleCubeScored : Number,
+
+  park : Boolean,
+  carried : Boolean,
+  hangAttempt : Boolean,
+  hangSuccess : Boolean,
+  noCarried : Number,
+  comments : String,
+
   /*
   all of the data
   */
