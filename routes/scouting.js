@@ -46,7 +46,7 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    MatchData.getMatch(req.query.matchNumber)
+    Match.getMatchData(req.query.matchNumber)
       .then(sendResult(req, 'pitstrat', res), sendFailure(res));
   }
   else{

@@ -43,10 +43,16 @@ const averageTemplate = {
 
 
 
-MatchSchema.methods.getMatchData = async function() {
-  results = await MatchData.getMatch(this.number).catch(mongoError);
-  if (results === []){ // this match has not been played yet, show averages for the teams
-    teams = [this.r1, this.r2, this.r3, this.b1, this.b2, this.b3]
+MatchSchema.statics.getMatchData = async function(matchNumber) {
+  match = await this.findOne()
+    .where('number').equals(matchNumber)
+    .exec().catch(mongoError);
+
+  results = await MatchData.getMatch(match.number).catch(mongoError);
+  console.log(results)
+  if (results.length === 0){ // this match has not been played yet, show averages for the teams
+    console.log("unplayed match")
+    teams = [match.r1, match.r2, match.r3, match.b1, match.b2, match.b3]
     teamDatas = await MatchData.getTeams(teams).catch(mongoError);
     averages = {}
     output = {"r1" : {}, "r2" : {}, "r3" : {}, "b1" : {}, "b2" : {}, "b3" : {}}
@@ -72,21 +78,25 @@ MatchSchema.methods.getMatchData = async function() {
       averages[teamNumber].hangSuccess += 1*data.hangSuccess
       averages[teamNumber].matchesPlayed += 1
     }
-
+    console.log(averages)
     for(var teamNumber in averages){
       averages[teamNumber]["hangSuccess"] /= averages[teamNumber]["hangAttempt"]
       for(var key in averages[teamNumber]){
-        if(key !== "hangSuccess" && key != "matchedPlayed"){
-          averages[teamNumber][key] /= averages[teamNumber]["matchedPlayed"]
+        if(key !== "hangSuccess" && key != "matchesPlayed"){
+          averages[teamNumber][key] /= averages[teamNumber]["matchesPlayed"]
         }
       }
     }
 
     for (var key in output){
-      output[key] = averages[this[key]] || {}
+      output[key] = averages[match[key]] || {}
+      output[key]["teamNumber"] = match[key]
+      output[key]["color"] = key[0]==='r'?'#ba3248':'#4286f4'
     }
-  }
 
+    return {"summary" : output}
+  }
+  return results
 };
 
 const Match = mongoose.model('Match', MatchSchema, 'Matches');
