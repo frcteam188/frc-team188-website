@@ -8,7 +8,7 @@ var MatchDataSchema = new Schema({
   matchNumber: Number,
   teamNumber: Number,
   tournament: String,
-  value: Number
+  value: Number,
 
   cubesAcquired : Number,
   cubesScored : Number,
@@ -46,7 +46,7 @@ var MatchDataSchema = new Schema({
   oppSwitchNearScored : Number,
   teleExchangeAttempt : Number,
   teleExchangeScored : Number,
-  telePickup : {1: Number, 2: Number, 3: Number, 4 : Number, humanLoadNear: Number, humanLoadFar: Number}
+  telePickup : {1: Number, 2: Number, 3: Number, 4 : Number, humanLoadNear: Number, humanLoadFar: Number},
   teleCubePickup : Number,
   teleCubeAttempt : Number,
   teleCubeScored : Number,
