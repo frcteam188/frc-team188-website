@@ -22,14 +22,13 @@ html
 
     div.f-left(style='width: 90%')
       div
-        each title, i in ['matchNumber', 'Mobility','aGear','aGearP','aBallP','aHigh','tGear','tGearP','tHigh','hangSucc','hangDur']
-          if (i <= 1)
+        each title, i in ['matchNum', 'aPickup', 'aAttemp', 'aScored','tPickup','zones','own','scale', 'opp', 'exchange', 'hangAtt', 'hangSucc']
+          if (i < 1)
             p.grid-width.f-left(style='background: orange')=title
-          if (i > 1 && i < 6)
+          if (i > 0 && i < 4)
             p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 6)
+          if (i >= 4)
             p.grid-width.f-left(style='background: green')=title
-
         .clear
         each match, index in summary
           //if (team.color == '#ba3248')
@@ -44,6 +43,7 @@ html
         .clear
 
     .clear
+      
     //- div.margin-b
     //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
     //-     Prev Prev Match

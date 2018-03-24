@@ -56,7 +56,8 @@ routes.get('/pitStrat', function(req, res){
 
 routes.get('/viewTeam', function(req, res){
   if(req.query.teamNumber != undefined){
-
+    Team.getMatches(req.query.teamNumber)
+      .then(sendResult(req, 'teamview', res), sendFailure(res));
   }
   else{
     res.send('missing query: teamNumber');

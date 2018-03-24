@@ -45,19 +45,46 @@ const averageTemplate = {
 const zoneTemplate = {1 : 0, 2 : 0, 3 : 0, 4 : 0}
 
 MatchSchema.statics.getMatchData = async function(matchNumber) {
+  var output = {"r1" : {}, "r2" : {}, "r3" : {}, "b1" : {}, "b2" : {}, "b3" : {}}
+  var averages
   match = await this.findOne()
     .where('number').equals(matchNumber)
     .exec().catch(mongoError);
 
-  // results = await MatchData.getMatch(match.number).catch(mongoError);
+  results = await MatchData.getMatch(match.number).catch(mongoError);
 
-  // matchPlayed = true
-  // if (results.length === 0){ // this match has not been played yet, show averages for the teams
+  for (var i in results){
+    var data=results[i]
+    var key
+    for(k in match){
+      if (match[k] === data.teamNumber){
+        key = k
+      }
+    }
+
+
+    output[key] ={
+      "matchesPlayed" : '/',
+      "aPickup": data.autoCubePickup,
+      "aAttempted": data.autoCubeAttempt,
+      "aScored": data.autoCubeScored,
+      "tPickup": data.teleCubePickup,
+      "zones": {1: data.telePickup[1], 2: data.telePickup[2], 3: data.telePickup[3], 4: data.telePickup[4]},
+      "own" : data.teleSwitchScored,
+      "scale" : data.teleScaleScored,
+      "opp" : data.teleOppSwitchScored,
+      "exchange": data.teleExchangeScored,
+      "hangAttempt" : 1*data.hangAttempt,
+      "hangSuccess" : 1*data.hangSuccess,
+    }
+  }
+
+  matchPlayed = true
+  if (results.length === 0){ // this match has not been played yet, show averages for the teams
     matchPlayed = false
     teams = [match.r1, match.r2, match.r3, match.b1, match.b2, match.b3]
     teamDatas = await MatchData.getTeams(teams).catch(mongoError);
     averages = {}
-    results = {"r1" : {}, "r2" : {}, "r3" : {}, "b1" : {}, "b2" : {}, "b3" : {}}
 
     for (var i in teamDatas){
       data = teamDatas[i]
@@ -93,20 +120,22 @@ MatchSchema.statics.getMatchData = async function(matchNumber) {
         }
       }
     }
+  }
 
-    for (var key in results){
-      results[key] = averages[match[key]] || {}
-      if (results[key]["zones"] !== undefined){
-        results[key]["zones"] = Object.values(results[key]["zones"]).toString()
-      }
-      results[key]["teamNumber"] = match[key]
-      results[key]["color"] = key[0]==='r'?'#ba3248':'#4286f4'
+  for (var key in output){
+    if(averages !== undefined){
+      output[key] = averages[match[key]] || {}
     }
-  // }
+    if (output[key]["zones"] !== undefined){
+      output[key]["zones"] = Object.values(output[key]["zones"]).toString()
+    }
+    output[key]["teamNumber"] = match[key]
+    output[key]["color"] = key[0]==='r'?'#ba3248':'#4286f4'
+  }
 
-  return {"summary" : results, "matchNumber" : match.number,
+  return {"summary" : output, "matchNumber" : match.number,
           "names" : ['Station', 'mPlayed', 'aPickup', 'aAttempted', 'aScored',
-          'tPickup', 'zones', 'own', 'scale', 'opp', 'exchange', 'hangAttt', 'hangSucc']}
+          'tPickup', 'zones', 'own', 'scale', 'opp', 'exchange', 'hangAtt', 'hangSucc']}
 };
 
 const Match = mongoose.model('Match', MatchSchema, 'Matches');
