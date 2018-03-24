@@ -1,6 +1,8 @@
 var startingPos=false, mobility=false, park = false, carried = false,
     nocarried = 0, comments = "",
     auto=0,
+    auto_robot_action = [],
+    tele_robot_action = [],
     hangAttempt = false, hangSuccess = false, hangState = 0,
     autoprefLift=0, prefport1 = 0, prefport2 = 0, prefport3 = 0,
     autoCubePickup = 0, autoPickup=false, telecubesAcquired = 0,
@@ -18,7 +20,12 @@ var startingPos=false, mobility=false, park = false, carried = false,
     teleCube_attempt = 0, teleCube_scored = 0, tele_exchange_attempt = 0,tele_exchange_scored = 0,
     own_switch_near_attempt =0, own_switch_far_attempt =0, opp_switch_far_attempt =0, opp_switch_near_attempt =0, scale_near_attempt =0, scale_far_attempt = 0,
     own_switch_near_scored =0, own_switch_far_scored =0, opp_switch_far_scored =0, opp_switch_near_scored =0, scale_near_scored =0, scale_far_scored = 0,
-
+    tele_switch_attempt = 0
+    tele_switch_scored = 0
+    tele_scale_attempt = 0
+    tele_scale_scored = 0
+    tele_opp_switch_attempt = 0
+    tele_opp_switch_scored = 0
     zone_1 =0, zone_2 =0, zone_3 =0, zone_4 =0, teleCubePickup =0,
     port1State = 0, port2State = 0, port3State = 0, davit1State = 0,
     davit2State = 0, davit3State = 0, gearBot =0,
@@ -310,6 +317,7 @@ function ownSwitchFar(){
       resetPlatforms();
       cubeAttempt1 = 1;
       own_switch_far_attempt++;
+      tele_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("ownSwitchFar").style.background = '#FFEB3B';
       document.getElementById("ownSwitchFar").innerHTML = "Attempt";
@@ -321,6 +329,7 @@ function ownSwitchFar(){
       teleCube_scored++;
       cubesScored++;
       own_switch_far_scored++;
+      tele_switch_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -334,6 +343,7 @@ function ownSwitchNear(){
         resetPlatforms();
         cubeAttempt2 = 1;
         own_switch_near_attempt++;
+        tele_switch_attempt++;
         teleCube_attempt++;
         document.getElementById("ownSwitchNear").style.background = '#FFEB3B';
         document.getElementById("ownSwitchNear").innerHTML = "Attempt";
@@ -345,6 +355,7 @@ function ownSwitchNear(){
         teleCube_scored++;
         cubesScored++;
         own_switch_near_attempt++;
+        tele_switch_scored++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -355,10 +366,11 @@ function ownSwitchNear(){
 
 function oppSwitchFar(){
   if(holdingCube){
-    if (cubeAttempt1 == 0) {
+    if (cubeAttempt5 == 0) {
       resetPlatforms();
       cubeAttempt1 = 1;
       opp_switch_far_attempt++;
+      tele_opp_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("oppSwitchFar").style.background = '#FFEB3B';
       document.getElementById("oppSwitchFar").innerHTML = "Attempt";
@@ -370,6 +382,7 @@ function oppSwitchFar(){
       teleCube_scored++;
       cubesScored++;
       opp_switch_far_scored++;
+      tele_opp_switch_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
       holdingCube=false;
       document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -379,10 +392,11 @@ function oppSwitchFar(){
 }
 function oppSwitchNear(){
   if(holdingCube){
-      if (cubeAttempt2 == 0) {
+      if (cubeAttempt6 == 0) {
         resetPlatforms();
         cubeAttempt2 = 1;
         opp_switch_near_attempt++;
+        tele_opp_switch_attempt++;
         teleCube_attempt++;
         document.getElementById("oppSwitchNear").style.background = '#FFEB3B';
         document.getElementById("oppSwitchNear").innerHTML = "Attempt";
@@ -394,6 +408,7 @@ function oppSwitchNear(){
         teleCube_scored++;
         cubesScored++;
         opp_switch_near_scored++;
+        tele_opp_switch_scored++;
         document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
         holdingCube=false;
         document.getElementById("holdingCube").innerHTML = holdingCube;
@@ -407,6 +422,7 @@ function scaleFar(){
       resetPlatforms();
       cubeAttempt3 = 1;
       scale_far_attempt++;
+      tele_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("scaleFar").style.background = '#FFEB3B';
       document.getElementById("scaleFar").innerHTML = "Attempt";
@@ -416,6 +432,7 @@ function scaleFar(){
       document.getElementById("scaleFar").style.background = statecol;
       document.getElementById("scaleFar").innerHTML = "Scored";
       teleCube_scored++;
+      tele_switch_scored++;
       cubesScored++;
       scale_far_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
@@ -432,6 +449,7 @@ function scaleNear(){
       resetPlatforms();
       cubeAttempt4 = 1
       scale_near_attempt++;
+      tele_switch_attempt++;
       teleCube_attempt++;
       document.getElementById("scaleNear").style.background = '#FFEB3B';
       document.getElementById("scaleNear").innerHTML = "Attempt";
@@ -441,6 +459,7 @@ function scaleNear(){
       document.getElementById("scaleNear").style.background = statecol;
       document.getElementById("scaleNear").innerHTML = "Scored";
       teleCube_scored++;
+      tele_switch_scored++;
       cubesScored++;
       scale_near_scored++;
       document.getElementById("cubesScoredlbl").innerHTML = cubesScored;
@@ -572,6 +591,10 @@ function resetPlatforms() {
   cubeAttempt3 = 0;
   cubeAttempt2 = 0;
   cubeAttempt1 = 0;
+  cubeAttempt4 = 0;
+  cubeAttempt5 = 0;
+  cubeAttempt6 = 0;
+  exchangeAttempt = 0;
   document.getElementById("autoSwitchFar").style.background = defcol;
   document.getElementById("autoSwitchFar").innerHTML = "";
   document.getElementById("autoSwitchNear").style.background = defcol;
@@ -799,7 +822,7 @@ function sendData() {
   prepData();
   //submitpref();
   $.post("scouting/submitMatchData",submit);
-  //nextMatch();
+  nextMatch();
 }
 function submitpref(id){
   sumbit = window.localStorage.getItem(id);
@@ -850,10 +873,16 @@ function prepData() {
     "oppSwitchNearScored" : opp_switch_near_scored,
     "teleExchangeAttempt" : tele_exchange_attempt,
     "teleExchangeScored" : tele_exchange_scored,
-    "telePickup" : {"1": zone1, "2":zone2, "3":zone3, "4":zone4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
+    "teleSwitchAttempt" : tele_switch_attempt;
+    "teleSwitchScored" : tele_switch_scored;
+    "teleScaleAttempt" : tele_scale_attempt;
+    "teleScaleScored" : tele_scale_scored;
+    "teleOppSwitchAttempt" : tele_opp_switch_attempt;
+    "teleOppSwitchScored" : tele_opp_switch_scored;
+    "telePickup" : {"1": zone_1, "2":zone_2, "3":zone_3, "4":zone_4 ,"humanLoadNear" : human_load_near, "humanLoadFar" : human_load_far},
     "teleCubePickup" : teleCubePickup,
     "teleCubeAttempt" : teleCube_attempt,
-    "telecubeScored" : telecube_scored,
+    "telecubeScored" : teleCube_scored,
 
     "park" : park,
     "carried" : carried,
