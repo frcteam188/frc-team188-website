@@ -308,7 +308,6 @@ function autoScaleNear(){
       resetPlatforms();
       cubeAttempt4 = 1;
       auto_scale_near_attempt++;
-      auto_scale_attempt++;
       autoCube_attempt++;
       document.getElementById("autoScaleNear").style.background = '#FFEB3B';
       document.getElementById("autoScaleNear").innerHTML = "Attempt";
