@@ -889,10 +889,9 @@ function post(path, params, method) {
 function sendData() {
   prepData();
   //submitpref();
-  document.getElementById("submitbtn").disabled=true;
-  $.post("scouting/submitMatchData",submit);
+ document.getElementById("submitbtn").disabled=true;
+  $.post("scouting/submitMatchData",submit, function(data, textStat, jqXHR){nextMatch()});
 
-  nextMatch();
 }
 function submitpref(id){
   sumbit = window.localStorage.getItem(id);
