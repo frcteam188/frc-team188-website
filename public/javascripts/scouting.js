@@ -889,7 +889,9 @@ function post(path, params, method) {
 function sendData() {
   prepData();
   //submitpref();
+  document.getElementById("submitbtn").disabled=true;
   $.post("scouting/submitMatchData",submit);
+
   nextMatch();
 }
 function submitpref(id){
