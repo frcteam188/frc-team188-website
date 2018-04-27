@@ -50,7 +50,7 @@ window.onload = function(){
 
   matchNumber = parseInt(document.getElementById("matchNumberlbl").textContent);
   teamNumber = parseInt(document.getElementById("teamNumberlbl").textContent);
-
+  showLocal()
 }
 
 function setValue(b0,b1,b2,x) {
@@ -978,6 +978,47 @@ function prepData() {
   window.localStorage.setItem(getformid(), JSON.stringify(submit));
   console.log(submit);
 }
+var allStorage = null
+var showing = false
+function showLocal(){
+    if(allStorage == null){
+      allStorage = getAllStorage()
+      localSubmissions = $("#localSubmissions")
+      for (item in allStorage){
+        localSubmissions.append(getLocalButton(item))
+      }
+    }
+
+}
+
+function getLocalButton(submission){
+    var element = $(document.createElement("button"))
+    element.addClass("localButton")
+    element.text(submission)
+    element.click(function (){
+      $.post("scouting/submitMatchData", allStorage[submission]);
+    })
+    return element
+}
+
+function getAllStorage() {
+  localStorage = window.localStorage
+    var archive = {}, // Notice change here
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while ( i-- ) {
+        item = localStorage.getItem(keys[i])
+        try{
+          localSubmission = JSON.parse(item)
+          archive[ keys[i] ] = localSubmission;
+        }catch(e){
+
+        }
+    }
+    return archive;
+}
+
 function nextMatch() {
   matchNumber++;
   var url = 'scouting?matchNumber='+matchNumber+'&station='+station;

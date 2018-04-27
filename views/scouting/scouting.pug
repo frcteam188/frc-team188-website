@@ -74,6 +74,8 @@ html
       #exchangeDiv
         button#exchange.exchange.btn(type='button', value='true', onclick='teleExchange()')
     #submitiondiv
+      //- #localbtn
+      //-   button#showLocal.btn(type='button', value='true', onclick='showLocal()') LOCAL
       #telebtn
         button#showtele.btn(type='button', value='true', onclick='showTele()') TELE
       #autobtn
@@ -92,7 +94,6 @@ html
           button#noCb0.nocarried.btn(type='button', value='0', onclick='setValue(noCb0, noCb1,noCb2,"nocarried")') 0
           button#noCb1.nocarried.btn(type='button', value='1', onclick='setValue(noCb1,noCb0,noCb2,"nocarried")') 1
           button#noCb2.nocarried.btn(type='button', value='2', onclick='setValue(noCb2,noCb0,noCb1,"nocarried")') 2
-
         button#carriedbtn.btn(type='button', value='true', onclick='changeCarried()') Carried
 
       #miscInfodiv
@@ -125,3 +126,6 @@ html
 
         span#commentslbl  Comments
         input#commentsinput(type='text')
+      
+  #localSubmissions
+        
