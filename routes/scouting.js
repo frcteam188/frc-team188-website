@@ -15,7 +15,7 @@ const mongoURI = process.env.MONGOURI ||
                    '@scouting2018-shard-00-00-prx1p.mongodb.net:27017,'+
                    'scouting2018-shard-00-01-prx1p.mongodb.net:27017,'+
                    'scouting2018-shard-00-02-prx1p.mongodb.net:27017/'+
-                   'test?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
+                   'daly?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
 console.log(mongoURI);
 //'mongodb://localhost/scouting2018'
 
