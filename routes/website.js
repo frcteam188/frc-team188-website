@@ -7,6 +7,10 @@ routes.get('/', function(req, res) {
   res.render('index', content.home);
 });
 
+routes.get('/form', function(req, res) {
+  res.redirect('https://goo.gl/forms/FzTAlDLgkoXhuAxF2');
+});
+
 routes.get('/about', function(req, res){
   var new_about = content.about
   new_about.pagename = '';
