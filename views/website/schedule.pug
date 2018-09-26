@@ -74,7 +74,9 @@ html
           td 3-6 pm
           td Party
           td Robotics workshop
-
+      ul
+        each val, index in ['VEX Building takes places Tuesday/Wednesday 3-7pm','Business/Outreach on Friday 3-4:30']
+          li=  val
     div.mdc-card.navbar-container
       ul.mdc-list.navbar
         each item in menu
