@@ -12,7 +12,7 @@ routes.get('/form', function(req, res) {
 });
 
 routes.get('/gear', function(req, res) {
-  res.redirect('https://goo.gl/forms/FzTAlDLgkoXhuAxF2');
+  res.redirect('https://goo.gl/forms/0welJw8XAHikSZKC3');
 });
 
 routes.get('/schedule', function(req, res) {
