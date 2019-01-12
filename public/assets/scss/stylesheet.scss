@@ -56,6 +56,22 @@ $navbar-pic-height: 250px;
   --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5);
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 body{
   font-family: 'Slabo 27px', sans-serif;
 }

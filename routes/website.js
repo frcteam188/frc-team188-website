@@ -7,6 +7,18 @@ routes.get('/', function(req, res) {
   res.render('index', content.home);
 });
 
+routes.get('/form', function(req, res) {
+  res.redirect('https://goo.gl/forms/FzTAlDLgkoXhuAxF2');
+});
+
+routes.get('/gear', function(req, res) {
+  res.redirect('https://goo.gl/forms/0welJw8XAHikSZKC3');
+});
+
+routes.get('/schedule', function(req, res) {
+  res.render('schedule', content.schedule);
+});
+
 routes.get('/about', function(req, res){
   var new_about = content.about
   new_about.pagename = '';

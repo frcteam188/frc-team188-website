@@ -1,0 +1,88 @@
+doctype html
+html
+  head
+    title Schedule
+    link(rel='shortcut icon', href='/assets/pictures/188favicon.png')
+    link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    script(src='/javascripts/jquery-3.0.0.min.js')
+    
+  body.none.fill(style='background-image: url(https://imgur.com/zRYTpvO.jpg);')#body
+    
+    .padding-m
+      
+    div.page.mdc-card.margin-v-b.padding-b
+      h1 Course Schedule
+      table(style='width:100%', border='1')
+        tr
+          th Date
+          th Time
+          th Topic
+          th Room
+        tr
+          td Thursday, Sept 27
+          td 3-6 pm
+          td Introductions, Course outline, Meet your Mentors
+          td Robotics workshop
+        tr
+          td Tuesday, October 2
+          td 3-6 pm
+          td Intro to Robotics (what are robots, types of robots)
+          td Robotics workshop
+        tr
+          td Thursday, October 11
+          td 3-6 pm
+          td CAD
+          td Room 213
+        tr
+          td Thursday, October 18
+          td 3-6 pm
+          td CAD
+          td Room 213
+        tr
+          td Thursday, October 25
+          td 3-6 pm
+          td CAD
+          td Room 213
+        tr
+          td Thursday, November 1
+          td 3-6 pm
+          td Electrical
+          td Robotics workshop
+        tr
+          td Thursday, November 8
+          td 3-6 pm
+          td Pneumatics
+          td Robotics workshop
+        tr
+          td Tuesday/Thursday (TBD)
+          td 3-6 pm
+          td Programming
+          td Robotics workshop
+        tr
+          td Thursday, November 22
+          td 3-6 pm
+          td Tools Workshop + CNC
+          td Robotics workshop
+        tr
+          td Thursday, November 29
+          td 3-6 pm
+          td Build and program a robot
+          td Robotics workshop
+        tr
+          td Thursday, December 5
+          td 3-6 pm
+          td Party
+          td Robotics workshop
+      ul
+        each val, index in ['VEX Building takes places Tuesday/Wednesday 3-7pm','Business/Outreach on Friday 3-4:30']
+          li=  val
+    div.mdc-card.navbar-container
+      ul.mdc-list.navbar
+        each item in menu
+          li.mdc-list-item.f-left.navbar-item
+            a.center.fill.no-decor.mdc-theme--text-primary-on-primary(href=item.url)=item.name
+      .clear
+    script(src='scripts/material-components-web.js')
+    script.
+      mdc.autoInit()

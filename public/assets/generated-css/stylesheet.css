@@ -10339,10 +10339,10 @@ fieldset:disabled .mdc-radio__native-control + .mdc-radio__background .mdc-radio
   margin: -0.5rem 0 1rem -0.04em; }
 
 :root {
-  --mdc-theme-primary: #B71C1C;
-  --mdc-theme-accent: #F44336;
-  --mdc-theme-background: #fff;
-  --mdc-theme-text-primary-on-primary: white;
+  --mdc-theme-primary: $primary;
+  --mdc-theme-accent: $accent;
+  --mdc-theme-background: $background;
+  --mdc-theme-text-primary-on-primary: $text-on-primary;
   --mdc-theme-text-secondary-on-primary: rgba(255, 255, 255, 0.7);
   --mdc-theme-text-hint-on-primary: rgba(255, 255, 255, 0.5);
   --mdc-theme-text-disabled-on-primary: rgba(255, 255, 255, 0.5);
@@ -10367,6 +10367,19 @@ fieldset:disabled .mdc-radio__native-control + .mdc-radio__background .mdc-radio
   --mdc-theme-text-hint-on-dark: rgba(255, 255, 255, 0.5);
   --mdc-theme-text-disabled-on-dark: rgba(255, 255, 255, 0.5);
   --mdc-theme-text-icon-on-dark: rgba(255, 255, 255, 0.5); }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%; }
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px; }
+
+tr:nth-child(even) {
+  background-color: #dddddd; }
 
 body {
   font-family: 'Slabo 27px', sans-serif; }

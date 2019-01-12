@@ -203,6 +203,10 @@ var content = (function(){
     "routes" : routes
   };
 
+  obj.schedule = {
+    "menu" : menu,
+    "routes" : routes
+  }
   // obj.vex = {
   //   "menu" : menu,
   //   "paras" : [
