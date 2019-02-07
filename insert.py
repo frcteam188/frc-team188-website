@@ -30,4 +30,4 @@ for line in lines:
     data = res.read()
 
     print(data.decode("utf-8"))
-    print("done")
+    print("done!")
