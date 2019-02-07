@@ -250,7 +250,22 @@ var content = (function(){
       {
         "name" : "Impark",
         "image" : "https://imgur.com/fhcc4np.jpg",
-        "url" : "https://www.impark.com/"}
+        "url" : "https://www.impark.com/"},
+      {
+        "name" : "Fidelity",
+        "image" : "https://imgur.com/BGbjPTD.jpg",
+        "url" : "https://www.fidelity.com/"
+      },
+      {
+        "name" : "Accenture",
+        "image" : "https://imgur.com/QnFa3Qf.jpg",
+        "url" : "https://www.accenture.com/ca-en"
+      },
+      {
+        "name" : "",
+        "image" : "/assets/pictures/join_us.jpg",
+        "url" : "/assets/pictures/sponsor_package.jpg"
+      }
     ]
   };
 
