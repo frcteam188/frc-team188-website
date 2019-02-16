@@ -1,6 +1,7 @@
 const express = require('express');
 const websiteRoutes = require('./routes/website');
 const scoutingRoutes = require('./routes/scouting');
+const authRoutes = require('./routes/auth');
 
 const content = require('./content/content.js').content();
 
@@ -19,7 +20,7 @@ app.listen(port, function() {
 });
 console.log('server is running');
 
-app.set('views', [path.join(__dirname, 'views/website'), path.join(__dirname, 'views/scouting')]);
+app.set('views', [path.join(__dirname, 'views/website'), path.join(__dirname, 'views/scouting'), path.join(__dirname, 'views/auth')]);
 app.set('view engine', 'pug'); // use either jade or ejs
 
 // instruct express to server up static assets
@@ -30,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use('/', websiteRoutes);
 app.use('/scouting', scoutingRoutes);
+app.use('/auth', authRoutes);
 
 app.use(function(req, res, next){
   res.status(404);
