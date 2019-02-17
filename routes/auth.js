@@ -1,8 +1,10 @@
 
 const Router = require('express').Router;
 const router = Router();
+const db = require('../models/db_wrapper.js');
 const jwt = require('jsonwebtoken');
 
+// db.getUser("parth@me");
 router.get('/login', function(req, res){
     res.render('login', {
         title: 'Login'

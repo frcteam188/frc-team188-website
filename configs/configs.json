@@ -1,11 +1,11 @@
 {
     "stagingDb":{
         "name" : "Heroku Staging",
-        "Host" : "ec2-75-101-142-182.compute-1.amazonaws.com",
-        "Database" : "d5re8bgor54efi",
-        "User" : "qmtmgvowyjofmc",
-        "Port" : "5432",
-        "Password" : "4c9449daef728090f72b89f6d1b7f860d2c7ae5d5e0769490d1773537d93264a",
+        "host" : "ec2-75-101-142-182.compute-1.amazonaws.com",
+        "database" : "d5re8bgor54efi",
+        "user" : "qmtmgvowyjofmc",
+        "port" : "5432",
+        "password" : "4c9449daef728090f72b89f6d1b7f860d2c7ae5d5e0769490d1773537d93264a",
         "URI" : "postgres://qmtmgvowyjofmc:4c9449daef728090f72b89f6d1b7f860d2c7ae5d5e0769490d1773537d93264a@ec2-75-101-142-182.compute-1.amazonaws.com:5432/d5re8bgor54efi",
         "Heroku CLI" : "heroku pg:psql postgresql-animated-20935 --app frc-team188-website-staging"
     }
