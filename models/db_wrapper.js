@@ -1,7 +1,8 @@
 var exports = module.exports = {};
 const fs = require('fs');
 const util = require('../modules/util.js');
-const debug = require('../modules/debug.js');
+const uid = require('uid2');
+//const debug = require('../modules/debug.js');
 var appConfig;
 
 /*
@@ -46,18 +47,62 @@ pool.on('error', function (err, client) {
   console.error('idle client error', err.message, err.stack)
 })
 
-// exports.getUser = function(email){
-//   console.log("Getting User for email: " + email);
-//   var values = 'parth@me';
+exports.getUser = function(email){
+  console.log("Getting User for email: " + email);
+  var values = [email];
 
-//   var query = "SELECT * FROM public.\"users\" WHERE email = $1";
-//   pool.query(query, values, function (err, res) {
-//     if (err){
-//       console.log(err);
-//       res.send(err);
-//       return;
-//     }
+  var query = "SELECT * FROM public.\"users\" WHERE email = $1";
+  pool.query(query, values,  (err, res) => {
+    if (err){
+      console.log("couldnt get user " + email + ": " + err);
+      return;
+    }
+    console.log(res.rows[0])
+    if (res.rows[0]){
+      console.log(res.rows[0].password);
+      return res.rows[0];
+    } else {
+      console.log("user does not exist")
+      return;
+    }
+  });
+}
 
-//     console.log(res.rows[0]);
-//   });
-// }
+function addNewUser(user){
+    console.log("adding user " + user.email);
+    var values = [user.name, user.email, user.password, user.role, new Date().toISOString().slice(0,10), uid(8)]
+    var query = "INSERT INTO public.\"users\"(name, email, password, role, date_created, uid) VALUES ($1, $2, $3, $4, $5, $6)";
+    
+    pool.query(query, values, (err, res) => {
+        if(err){
+            console.log(err);
+            return false;
+        }
+        console.log(user.name + " successfully added to the database");
+        console.log(JSON.stringify(user));
+        return true; 
+    });
+}
+
+exports.addUser = (user) => {
+    console.log("checking if user exists for email: " + user.email);
+    var val = [user.email];
+    var qry = "SELECT * FROM public.\"users\"where email = $1";
+    pool.query(qry,val, (err,res) => {
+        if(err){
+            console.log("Error while adding a new user");
+            console.log(err);
+        }
+        if(res.rows[0]){
+            console.log("user already exists");
+        } else{
+            console.log("user not found, creating a new entry in db");
+            if (addNewUser(user)){
+                console.log("user added for " + user.name + ", " + user.email);
+            } else {
+                console.log("ERROR adding user " + user.name + ", " + user.email);
+            }
+            console.log(JSON.stringify(res.rows[0]))
+        }
+    });
+}
