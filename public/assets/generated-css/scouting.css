@@ -2,7 +2,7 @@ body{
   font-family: Roboto, sans-serif;
 }
 #bg{
-  background-image: url("../pictures/scouting2018.png");
+  background-image: url("../pictures/scouting2019red.png");
   background-repeat: no-repeat;
   height: -webkit-fill-available;
   top: 11px;
@@ -24,9 +24,9 @@ body{
 .startingPos{
   display: block;
   text-align: center;
-  height: 50px;
-  width: 95px;
-  left: 47px;
+  height: 53px;
+  width: 65px;
+  left: 590px;
 }
 .pickup{
   height: 50px;
@@ -41,6 +41,12 @@ body{
   height: 66px;
   width: 47px;
   position: absolute;
+}
+.rocketLeft{
+  left: 259px;
+}
+.rocketRight{
+  left: 361px;
 }
 #stationInfo{
   position: absolute;
@@ -89,33 +95,127 @@ body{
   color: white;
   text-align: center;
 }
-#autoSwitchFar{
-  top: 155px;
-  left: 240px;
+#autoShipHatchSide{
+  top: 229px;
+  left: 262px;
+  height: 50px;
+  width: 50px;
 }
-#autoSwitchNear{
-  top: 302px;
-  left: 240px;
+#autoShipCargoSide{
+  top: 229px;
+  left: 211px;
+  height: 50px;
+  width: 50px;
 }
-#autoScaleFar{
-  top: 130px;
-  left: 452px;
+#autoShipHatchFront{
+  top: 225px;
+  left: 344px;
+  height: 56px;
+  width: 44px;
 }
-#autoScaleNear{
-  top: 328px;
-  left: 452px;
+#autoRocketNear{
+  top: 411px;
+  left: 290px;
+  height: 60px;
+  width: 100px;
 }
-#autoPyramid{
+#autoRocketFar{
+  top: 35px;
+  left: 290px;
+  height: 60px;
+  width: 100px;
+}
+#autoRocketFarHatchLvl1{
+  top: 35px;
+  /*left: 361px; /*259px*/
+  height: 50px;
+  width: 50px;
+}
+#autoRocketFarHatchLvl2{
+  top: 86px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketFarHatchLvl3{
+  top: 137px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketFarCargoLvl1{
+  top: 35px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketFarCargoLvl2{
+  top: 86px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketFarCargoLvl3{
+  top: 137px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearHatchLvl1{
+  top: 421px;
+  /*left: 361px; /*259px*/
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearHatchLvl2{
+  top: 370px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearHatchLvl3{
+  top: 319px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearCargoLvl1{
+  top: 421px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearCargoLvl2{
+  top: 370px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoRocketNearCargoLvl3{
+  top: 319px;
+  left: 310px;
+  height: 50px;
+  width: 50px;
+}
+#autoHatchPickupFar{
   height: 54px;
   width: 54px;
-  top: 226px;
-  left: 180px;
+  top: 35px;
+  left: 600px;
 }
-#autoGround{
-  height: 209px;
+#autoBallDepotFar{
+  height: 33px;
   width: 65px;
-  top: 148px;
-  left: 309px;
+  top: 130px;
+  left: 590px;
+}
+#autoHatchPickupNear{
+  height: 54px;
+  width: 54px;
+  top: 415px;
+  left: 600px;
+}
+#autoBallDepotNear{
+  height: 33px;
+  width: 65px;
+  top: 340px;
+  left: 590px;
 }
 #autoExchange{
   position: absolute;
@@ -343,7 +443,7 @@ body{
   width: 100px;
   display: block;
   top: 50px;
-  left: 225px;
+  left: 470px;
 }
 #countdownbtn{
   height: 70px;
@@ -352,7 +452,6 @@ body{
   background: purple;
   opacity: 1;
   top: 35px;
-  left: 437px;
 }
 #highGoal{
   left: 35px;
@@ -377,13 +476,16 @@ body{
   left: 690px;
 }
 #farPos{
-  top: 95px;
+  top: 165px;
+  left: 590px;
 }
 #middlePos{
-  top: 260px;
+  top: 149px;
+  left: 524px;
+  height: 206px;
 }
 #nearPos{
-  top: 360px;
+  top: 286px;
 }
 #info{
   position: absolute;

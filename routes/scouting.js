@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const mongoose = require('mongoose');
 
+const pg = require('../models/db_wrapper.js')
 const Match = require('../models/Match')
 const MatchData = require('../models/MatchData')
 const Team = require('../models/Team')
@@ -27,8 +28,7 @@ routes.get('/', function(req, res){
 
   console.log(req.query);
   if(req.query.matchNumber != undefined && req.query.station != undefined){
-    Match.get(req.query.matchNumber, req.query.station)
-      .then(sendResult(req, 'scouting', res), sendFailure(res));
+    pg.getMatch(req.query.matchNumber, req.query.station,res);
   }else{
     res.send('missing query: matchNumber or stationNumber');
   }

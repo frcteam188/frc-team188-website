@@ -4,6 +4,7 @@ const util = require('../modules/util.js');
 const uid = require('uid2');
 //const debug = require('../modules/debug.js');
 var appConfig;
+var pg = require('pg');
 
 /*
  * ===== Module body =====
@@ -24,7 +25,6 @@ if (fs.existsSync('./configs/configs.json')) {
   // copy default config
 }
 
-var pg = require('pg');
 var config = {
   host: appConfig.stagingDb.host,
   port: appConfig.stagingDb.port,
@@ -52,20 +52,20 @@ exports.getUser = function(email){
   var values = [email];
 
   var query = "SELECT * FROM public.\"users\" WHERE email = $1";
-  pool.query(query, values,  (err, res) => {
-    if (err){
-      console.log("couldnt get user " + email + ": " + err);
-      return;
-    }
-    console.log(res.rows[0])
-    if (res.rows[0]){
-      console.log(res.rows[0].password);
-      return res.rows[0];
-    } else {
-      console.log("user does not exist")
-      return;
-    }
-  });
+  pool.query(query,values)
+    .then(res => {
+      console.log(res.rows[0])
+      if (res.rows[0]){
+        console.log(res.rows[0].password);
+        return res.rows[0];
+      } else {
+        console.log("user does not exist")
+        return;
+      }
+    })
+    .catch( e => {
+      console.error("could not get user " + email + ": " + e)
+    });
 }
 
 function addNewUser(user){
@@ -104,5 +104,30 @@ exports.addUser = (user) => {
             }
             console.log(JSON.stringify(res.rows[0]))
         }
+    });
+}
+
+
+
+//Data queries
+
+exports.getMatch = function(matchNumber, station, response){
+  console.log("Getting Match: " + matchNumber + " for station: " + station);
+  var values = [parseInt(matchNumber)];
+
+  var query = "SELECT * FROM public.\"matchSchedule\" WHERE match_number = $1";
+  pool.query(query, values, function (err, res) {
+    if (err){
+      console.log(err);
+      response.send(err);
+      return
+    }
+
+    response.render('scouting',{
+      'teamNumber': res.rows[0][station],
+      'matchNumber' : res.rows[0]['match_number'],
+      'station': station
+      });
+
     });
 }
