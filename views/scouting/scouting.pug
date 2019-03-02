@@ -42,15 +42,35 @@ html
         button#middlePos.startingPos.btn(type='button', value='middle', onclick='startMid()')  MIDDLE
         button#nearPos.startingPos.btn(type='button', value='near', onclick='startNear()')  NEAR
       #autoPickupdiv
-        button#autoPyramid.pickup.btn(type='button', value='true', onclick='autoPyramid()') 
-        button#autoGround.pickup.btn(type='button', value='true', onclick='autoGround()') 
+        button#autoHatchPickupFar.pickup.btn(type='button', value='true', onclick='autoPyramid()') 
+        button#autoBallDepotFar.pickup.btn(type='button', value='true', onclick='autoGround()') 
+        button#autoHatchPickupNear.pickup.btn(type='button', value='true', onclick='autoPyramid()') 
+        button#autoBallDepotNear.pickup.btn(type='button', value='true', onclick='autoGround()') 
       #autoplatform
-        button#autoSwitchFar.platform.btn(type='button', value='true', onclick='autoSwitchFar()')
-        button#autoSwitchNear.platform.btn(type='button', value='true', onclick='autoSwitchNear()')
-        button#autoScaleFar.platform.btn(type='button', value='true', onclick='autoScaleFar()')
-        button#autoScaleNear.platform.btn(type='button', value='true', onclick='autoScaleNear()')
-      #autoExchangeDiv
-        button#autoExchange.btn(type='button', value='true', onclick='autoExchange()')
+        button#autoShipHatchSide.platform.btn(type='button', value='true', onclick='autoSwitchFar()')
+        button#autoShipCargoSide.platform.btn(type='button', value='true', onclick='autoSwitchNear()')
+        button#autoShipHatchFront.platform.btn(type='button', value='true', onclick='autoScaleFar()')
+        button#autoRocketNear.platform.btn(type='button', value='true', onclick='autoScaleNear()')
+        button#autoRocketFar.platform.btn(type='button', value='true', onclick='autoScaleNear()')
+      #rocketNear
+        button#autoRocketFarHatchLvl1.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,1)')
+        button#autoRocketFarHatchLvl2.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,2)')
+        button#autoRocketFarHatchLvl3.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,3)')
+        button#autoRocketFarHatchLvl1.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,1)')
+        button#autoRocketFarHatchLvl2.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,2)')
+        button#autoRocketFarHatchLvl3.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,3)')
+        button#autoRocketFarCargoLvl1.btn(type='button', value='true', onclick='autoRocket(cargo,mid,1)')
+        button#autoRocketFarCargoLvl2.btn(type='button', value='true', onclick='autoRocket(cargo,mid,2)')
+        button#autoRocketFarCargoLvl3.btn(type='button', value='true', onclick='autoRocket(cargo,mid,3)')
+        button#autoRocketNearHatchLvl1.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,1)')
+        button#autoRocketNearHatchLvl2.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,2)')
+        button#autoRocketNearHatchLvl3.rocketLeft.btn(type='button', value='true', onclick='autoRocket(hatch,left,3)')
+        button#autoRocketNearHatchLvl1.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,1)')
+        button#autoRocketNearHatchLvl2.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,2)')
+        button#autoRocketNearHatchLvl3.rocketRight.btn(type='button', value='true', onclick='autoRocket(hatch,right,3)')
+        button#autoRocketNearCargoLvl1.btn(type='button', value='true', onclick='autoRocket(cargo,mid,1)')
+        button#autoRocketNearCargoLvl2.btn(type='button', value='true', onclick='autoRocket(cargo,mid,2)')
+        button#autoRocketNearCargoLvl3.btn(type='button', value='true', onclick='autoRocket(cargo,mid,3)')
       #mobilitydiv
         button#mobibtn.mobility.btn(type='button', value='true', onclick='changeMobility()') MOBILITY
         button#countdownbtn.countdown.btn(type='button', value='true', onclick='startTimer()') 3 2 1 POWER UP 
