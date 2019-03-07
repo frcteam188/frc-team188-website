@@ -39,6 +39,3 @@ var ScoutingApp = function (_React$Component) {
 
   return ScoutingApp;
 }(React.Component);
-// window.onload = function(){
-//     ReactDOM.render(e(ScoutingApp, props), document.getElementById('root'));
-// }

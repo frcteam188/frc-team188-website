@@ -13,6 +13,3 @@ class ScoutingApp extends React.Component {
    return <h1>Scouting 2019: {this.state.matchNumber}, {this.state.station}</h1>
   }
 }
-// window.onload = function(){
-//     ReactDOM.render(e(ScoutingApp, props), document.getElementById('root'));
-// }
