@@ -27,11 +27,11 @@ routes.get('/', function(req, res){
 
   console.log(req.query);
   if(req.query.matchNumber != undefined && req.query.station != undefined){
-    res.render('scouting',{
+    res.render('scouting',{'props': {
       'teamNumber': 188,
       'matchNumber' : 1,
       'station': req.query.station
-      });
+      }});
   }else{
     res.send('missing query: matchNumber or stationNumber');
   }
