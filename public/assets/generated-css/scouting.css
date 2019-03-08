@@ -5,7 +5,8 @@ body{
   background-image: url("../pictures/scouting2019red.png");
   background-repeat: no-repeat;
   height: -webkit-fill-available;
-  top: 11px;
+  top: 25px;
+  left: 0px;
   z-index: -1;
   position: relative;
 }
