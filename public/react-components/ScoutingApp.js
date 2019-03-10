@@ -36,21 +36,61 @@ var ScoutingApp = function (_React$Component) {
       return station.includes('b') ? flipped ? '/assets/pictures/scouting_blue_left.png' : '/assets/pictures/scouting_blue_right.png' : flipped ? '/assets/pictures/scouting_red_right.png' : '/assets/pictures/scouting_red_left.png';
     };
 
-    _this.handleTabChange = function (event, tabPosition) {
-      _this.setState({ tabPosition: tabPosition });
+    _this.habClicked = function (level) {
+      _this.setState({ startingLevel: level });
+    };
+
+    _this.pickup = function (gamePiece, source) {
+      var matchPhase = _this.state.matchPhase;
+
+      var isAuto = matchPhase === 'sandstorm';
+      _this.setState({ gamePiece: gamePiece });
     };
 
     _this.renderButtons = function (scoutingSize) {
+      var _this$state = _this.state,
+          color = _this$state.color,
+          matchPhase = _this$state.matchPhase,
+          gamePiece = _this$state.gamePiece,
+          startingLevel = _this$state.startingLevel;
+
+
+      var flipped = _this.state.flipped ^ color === 'blue';
+      var isAuto = matchPhase === 'sandstorm';
+      var isTele = !isAuto;
+      var preloaded = gamePiece != undefined;
+      var carryingCargo = gamePiece === 'cargo';
+      var carryingHatch = gamePiece === 'hatch';
+
       var createScoutingButton = function createScoutingButton(top, left, width, height, text, buttonProps) {
         return e(ScoutingButton, { top: top, left: left, width: width, height: height, scoutingSize: scoutingSize, flipped: flipped, text: text, buttonProps: buttonProps });
       };
 
-      var flipped = _this.state.flipped ^ _this.state.color === 'blue';
-      var lowHab = createScoutingButton(145, 80, 85, 260, 'LV-1', { onClick: undefined, variant: 'outlined' });
-      var middleHabTop = createScoutingButton(165, 0, 80, 65, 'LV-2', { onClick: undefined, variant: 'outlined' });
-      var middleHabBottom = createScoutingButton(320, 0, 80, 65, 'LV-2', { onClick: undefined, variant: 'outlined' });
-      var highHab = createScoutingButton(230, 0, 80, 90, 'LV-3', { onClick: undefined, variant: 'outlined' });
-      return [lowHab, middleHabTop, middleHabBottom, highHab];
+      var preloads = [createScoutingButton(25, 25, 125, 100, 'Hatch', { onClick: function onClick() {
+          return _this.pickup('hatch', 'preload');
+        }, variant: carryingHatch ? 'contained' : 'outlined' }), createScoutingButton(425, 25, 125, 100, 'Cargo', { onClick: function onClick() {
+          return _this.pickup('cargo', 'preload');
+        }, variant: carryingCargo ? 'contained' : 'outlined' })];
+
+      var lowHab = createScoutingButton(145, 80, 85, 260, 'LV-1', { onClick: function onClick() {
+          return _this.habClicked(1);
+        }, variant: startingLevel === 1 ? 'contained' : 'outlined' });
+      var middleHabTop = createScoutingButton(165, 0, 80, 65, 'LV-2', { onClick: function onClick() {
+          return _this.habClicked(2);
+        }, variant: startingLevel === 2 ? 'contained' : 'outlined' });
+      var middleHabBottom = createScoutingButton(320, 0, 80, 65, 'LV-2', { onClick: function onClick() {
+          return _this.habClicked(2);
+        }, variant: startingLevel === 2 ? 'contained' : 'outlined' });
+      var highHab = createScoutingButton(230, 0, 80, 90, 'LV-3', { onClick: function onClick() {
+          return _this.habClicked(3);
+        }, variant: startingLevel === 3 ? 'contained' : 'outlined' });
+
+      var showMobility = startingLevel !== 'none' && preloaded;
+      var mobility = createScoutingButton(25, 180, 125, 500, 'Mobility', { onClick: undefined, variant: 'outlined', disabled: !showMobility });
+
+      var habButtons = [lowHab, middleHabTop, middleHabBottom, isTele && highHab];
+
+      return [].concat(preloads, habButtons, [mobility]);
     };
 
     console.log(props);
@@ -61,7 +101,12 @@ var ScoutingApp = function (_React$Component) {
       'station': _this.props.station,
       'flipped': _this.props.flipped,
       'color': _this.props.station.includes('b') ? 'blue' : 'red',
-      'scoutingBg': _this.getBackgroundAsset(_this.props.station, _this.props.flipped)
+      'scoutingBg': _this.getBackgroundAsset(_this.props.station, _this.props.flipped),
+      'authDone': false,
+      'startingLevel': 'none',
+      'matchPhase': 'sandstorm', // sandstorm, tele
+      'gamePiece': undefined, //none, hatch, cargo
+      'cycles': []
     };
     return _this;
   }
@@ -69,6 +114,8 @@ var ScoutingApp = function (_React$Component) {
   _createClass(ScoutingApp, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       _objectDestructuringEmpty(this.props);
 
       var _state = this.state,
@@ -77,7 +124,10 @@ var ScoutingApp = function (_React$Component) {
           color = _state.color,
           matchNumber = _state.matchNumber,
           tabPosition = _state.tabPosition,
-          scoutingBg = _state.scoutingBg;
+          scoutingBg = _state.scoutingBg,
+          autoDone = _state.autoDone,
+          matchPhase = _state.matchPhase,
+          gamePiece = _state.gamePiece;
 
       var appBarHeight = 50,
           scoutingSize = 550;
@@ -90,9 +140,11 @@ var ScoutingApp = function (_React$Component) {
           { position: 'static', style: { height: appBarHeight } },
           React.createElement(
             Tabs,
-            { value: tabPosition, onChange: this.handleTabChange },
+            { value: tabPosition, onChange: function onChange(event, tabPosition) {
+                _this2.setState({ tabPosition: tabPosition });
+              } },
             React.createElement(Tab, { label: 'Sandstorm' }),
-            React.createElement(Tab, { label: 'Tele' }),
+            React.createElement(Tab, { label: 'Tele', disabled: !autoDone }),
             React.createElement(Tab, { label: 'Defence' }),
             React.createElement(Tab, { label: 'Submit' }),
             React.createElement(Tab, { label: 'Match: ' + matchNumber, disabled: true }),
@@ -152,18 +204,18 @@ var ScoutingButton = function (_React$Component2) {
   function ScoutingButton(props) {
     _classCallCheck(this, ScoutingButton);
 
-    var _this2 = _possibleConstructorReturn(this, (ScoutingButton.__proto__ || Object.getPrototypeOf(ScoutingButton)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (ScoutingButton.__proto__ || Object.getPrototypeOf(ScoutingButton)).call(this, props));
 
     var left = props.left,
         width = props.width,
         scoutingSize = props.scoutingSize,
         flipped = props.flipped;
 
-    _this2.state = {
+    _this3.state = {
       left: flipped ? scoutingSize - (left + width) : left
     };
 
-    return _this2;
+    return _this3;
   }
 
   _createClass(ScoutingButton, [{
