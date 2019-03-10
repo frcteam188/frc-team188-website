@@ -30,7 +30,8 @@ routes.get('/', function(req, res){
     res.render('scouting',{'props': {
       'teamNumber': 188,
       'matchNumber' : 1,
-      'station': req.query.station
+      'station': req.query.station,
+      'flipped': false
       }});
   }else{
     res.send('missing query: matchNumber or stationNumber');

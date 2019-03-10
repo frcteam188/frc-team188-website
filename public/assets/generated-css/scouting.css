@@ -1,20 +1,22 @@
 body{
   font-family: Roboto, sans-serif;
 }
-#bg{
-  background-image: url("../pictures/scouting2019red.png");
-  background-repeat: no-repeat;
-  height: -webkit-fill-available;
-  top: 25px;
-  left: 0px;
-  z-index: -1;
-  position: relative;
+#scouting-column{
+  width: fit-content;
+  position: absolute;
+  right: 0;
+  /* overflow: hidden; */
+}
+#info-column{
+  width: 410px;
+  float: left;
+  height: 100%;
 }
 .btn{
-  background-color: #dddddd;
+  /* background-color: #dddddd;
   border: red;
   color: black;
-  padding: 3px 3px;
+  padding: 3px 3px; */
   display: inline;
   font-size: 16px;
   margin: 5px 4px;
