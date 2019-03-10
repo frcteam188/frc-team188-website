@@ -13,12 +13,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var e = React.createElement;
 var _window$materialUi = window['material-ui'],
     AppBar = _window$materialUi.AppBar,
+    Avatar = _window$materialUi.Avatar,
     Button = _window$materialUi.Button,
     colors = _window$materialUi.colors,
     createMuiTheme = _window$materialUi.createMuiTheme,
     Grid = _window$materialUi.Grid,
+    List = _window$materialUi.List,
+    ListItem = _window$materialUi.ListItem,
+    ListItemAvatar = _window$materialUi.ListItemAvatar,
+    ListItemText = _window$materialUi.ListItemText,
     MuiThemeProvider = _window$materialUi.MuiThemeProvider,
-    Paper = _window$materialUi.Paper,
     Tabs = _window$materialUi.Tabs,
     Tab = _window$materialUi.Tab,
     Typography = _window$materialUi.Typography,
@@ -40,6 +44,10 @@ var ScoutingApp = function (_React$Component) {
       _this.setState({ startingLevel: level });
     };
 
+    _this.startTimer = function () {
+      _this.setState({ timer: new Date().getTime() });
+    };
+
     _this.pickup = function (gamePiece, source) {
       var matchPhase = _this.state.matchPhase;
 
@@ -47,20 +55,24 @@ var ScoutingApp = function (_React$Component) {
       _this.setState({ gamePiece: gamePiece });
     };
 
-    _this.renderButtons = function (scoutingSize) {
+    _this.renderButtons = function () {
       var _this$state = _this.state,
+          scoutingSize = _this$state.scoutingSize,
           color = _this$state.color,
           matchPhase = _this$state.matchPhase,
           gamePiece = _this$state.gamePiece,
-          startingLevel = _this$state.startingLevel;
+          startingLevel = _this$state.startingLevel,
+          timer = _this$state.timer;
 
 
       var flipped = _this.state.flipped ^ color === 'blue';
       var isAuto = matchPhase === 'sandstorm';
       var isTele = !isAuto;
       var preloaded = gamePiece != undefined;
+      var carryingNone = gamePiece === 'none';
       var carryingCargo = gamePiece === 'cargo';
       var carryingHatch = gamePiece === 'hatch';
+      var timerStarted = timer !== undefined;
 
       var createScoutingButton = function createScoutingButton(top, left, width, height, text, buttonProps) {
         return e(ScoutingButton, { top: top, left: left, width: width, height: height, scoutingSize: scoutingSize, flipped: flipped, text: text, buttonProps: buttonProps });
@@ -70,7 +82,9 @@ var ScoutingApp = function (_React$Component) {
           return _this.pickup('hatch', 'preload');
         }, variant: carryingHatch ? 'contained' : 'outlined' }), createScoutingButton(425, 25, 125, 100, 'Cargo', { onClick: function onClick() {
           return _this.pickup('cargo', 'preload');
-        }, variant: carryingCargo ? 'contained' : 'outlined' })];
+        }, variant: carryingCargo ? 'contained' : 'outlined' }), createScoutingButton(370, 320, 125, 75, 'No Preload', { onClick: function onClick() {
+          return _this.pickup('none', 'preload');
+        }, variant: carryingNone ? 'contained' : 'outlined' })];
 
       var lowHab = createScoutingButton(145, 80, 85, 260, 'LV-1', { onClick: function onClick() {
           return _this.habClicked(1);
@@ -85,28 +99,68 @@ var ScoutingApp = function (_React$Component) {
           return _this.habClicked(3);
         }, variant: startingLevel === 3 ? 'contained' : 'outlined' });
 
-      var showMobility = startingLevel !== 'none' && preloaded;
+      var startTime = createScoutingButton(105, 320, 125, 75, 'Start Timer', { onClick: function onClick() {
+          return _this.startTimer();
+        }, variant: timerStarted ? 'contained' : 'outlined' });
+
+      var showMobility = startingLevel !== 'none' && preloaded && timerStarted;
       var mobility = createScoutingButton(25, 180, 125, 500, 'Mobility', { onClick: undefined, variant: 'outlined', disabled: !showMobility });
 
       var habButtons = [lowHab, middleHabTop, middleHabBottom, isTele && highHab];
 
-      return [].concat(preloads, habButtons, [mobility]);
+      return [].concat(preloads, [startTime], habButtons, [mobility]);
+    };
+
+    _this.renderCycles = function () {
+      var scoutingSize = _this.state.scoutingSize;
+
+      return React.createElement(
+        List,
+        { style: { maxHeight: scoutingSize - 100, overflow: 'auto' } },
+        [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (i) {
+          return React.createElement(
+            ListItem,
+            { alignItems: 'flex-start' },
+            React.createElement(
+              ListItemAvatar,
+              null,
+              React.createElement(Avatar, { alt: 'Remy Sharp', src: '' })
+            ),
+            React.createElement(ListItemText, {
+              primary: 'Brunch this weekend?',
+              secondary: React.createElement(
+                React.Fragment,
+                null,
+                React.createElement(
+                  Typography,
+                  { component: 'span', color: 'textPrimary' },
+                  'Ali Connors'
+                ),
+                " — I'll be in your neighborhood doing errands this…"
+              )
+            })
+          );
+        })
+      );
     };
 
     console.log(props);
     _this.state = {
-      'tabPosition': 0,
-      'matchNumber': _this.props.matchNumber,
-      'teamNumber': _this.props.teamNumber,
-      'station': _this.props.station,
-      'flipped': _this.props.flipped,
-      'color': _this.props.station.includes('b') ? 'blue' : 'red',
-      'scoutingBg': _this.getBackgroundAsset(_this.props.station, _this.props.flipped),
-      'authDone': false,
-      'startingLevel': 'none',
-      'matchPhase': 'sandstorm', // sandstorm, tele
-      'gamePiece': undefined, //none, hatch, cargo
-      'cycles': []
+      appBarHeight: 50,
+      scoutingSize: 550,
+      tabPosition: 0,
+      matchNumber: _this.props.matchNumber,
+      teamNumber: _this.props.teamNumber,
+      station: _this.props.station,
+      flipped: _this.props.flipped,
+      color: _this.props.station.includes('b') ? 'blue' : 'red',
+      scoutingBg: _this.getBackgroundAsset(_this.props.station, _this.props.flipped),
+      authDone: false,
+      startingLevel: 'none',
+      timer: undefined,
+      matchPhase: 'sandstorm', // sandstorm, tele
+      gamePiece: undefined, //none, hatch, cargo
+      cycles: []
     };
     return _this;
   }
@@ -119,6 +173,8 @@ var ScoutingApp = function (_React$Component) {
       _objectDestructuringEmpty(this.props);
 
       var _state = this.state,
+          appBarHeight = _state.appBarHeight,
+          scoutingSize = _state.scoutingSize,
           teamNumber = _state.teamNumber,
           station = _state.station,
           color = _state.color,
@@ -129,8 +185,6 @@ var ScoutingApp = function (_React$Component) {
           matchPhase = _state.matchPhase,
           gamePiece = _state.gamePiece;
 
-      var appBarHeight = 50,
-          scoutingSize = 550;
 
       return React.createElement(
         MuiThemeProvider,
@@ -154,12 +208,16 @@ var ScoutingApp = function (_React$Component) {
         ),
         (tabPosition === 0 || tabPosition == 1) && React.createElement(
           'div',
-          { style: { height: scoutingSize } },
-          React.createElement('div', { id: 'info-column' }),
+          { style: { height: scoutingSize, overflow: 'hidden' } },
+          React.createElement(
+            'div',
+            { id: 'info-column' },
+            this.renderCycles()
+          ),
           React.createElement(
             'div',
             { id: 'scouting-column', style: { height: scoutingSize } },
-            this.renderButtons(scoutingSize),
+            this.renderButtons(),
             React.createElement('img', { className: 'fill-v', src: scoutingBg })
           ),
           React.createElement('div', { className: 'clear' })
