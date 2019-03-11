@@ -74,7 +74,7 @@ var ScoutingApp = function (_React$Component) {
 
     _this.state = {
       appBarHeight: 50,
-      scoutingSize: 450,
+      scoutingSize: 475,
       tabPosition: 2,
       matchNumber: matchNumber,
       teamNumber: teamNumber,

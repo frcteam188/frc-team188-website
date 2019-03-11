@@ -75,7 +75,7 @@ class ScoutingApp extends React.Component {
     // console.log(props)
     this.state = {
       appBarHeight: 50,
-      scoutingSize: 450,
+      scoutingSize: 475,
       tabPosition : 2,
       matchNumber: matchNumber,
       teamNumber: teamNumber,
