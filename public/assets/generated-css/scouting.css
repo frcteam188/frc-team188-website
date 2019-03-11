@@ -2,13 +2,13 @@ body{
   font-family: Roboto, sans-serif;
 }
 #scouting-column{
-  width: fit-content;
   position: absolute;
   right: 0;
+  width: 650px;
   /* overflow: hidden; */
 }
 #info-column{
-  width: 410px;
+  width: 310px;
   float: left;
   height: 100%;
 }

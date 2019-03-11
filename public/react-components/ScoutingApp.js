@@ -76,8 +76,8 @@ var ScoutingApp = function (_React$Component) {
         teamNumber = _this$props.teamNumber,
         station = _this$props.station,
         flipped = _this$props.flipped;
+    // console.log(props)
 
-    console.log(props);
     _this.state = {
       appBarHeight: 50,
       scoutingSize: 550,
@@ -102,7 +102,7 @@ var ScoutingApp = function (_React$Component) {
   _createClass(ScoutingApp, [{
     key: 'render',
     value: function render() {
-      console.log(this.state);
+      // console.log(this.state);
       var theme = this.createTheme();
 
       _objectDestructuringEmpty(this.props);
@@ -121,7 +121,6 @@ var ScoutingApp = function (_React$Component) {
           hab = _state.hab;
       var gamePiece = cycle.gamePiece;
 
-      var gamePieceAssets = { none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg' };
       return React.createElement(
         MuiThemeProvider,
         { theme: theme },
@@ -150,22 +149,23 @@ var ScoutingApp = function (_React$Component) {
               { id: 'state-info', style: { borderColor: theme.palette.primary.main } },
               React.createElement(
                 Typography,
-                { variant: 'headline', className: 'f-left', color: 'primary' },
+                { variant: 'h5', className: 'f-left', color: 'primary' },
                 teamNumber
               ),
-              React.createElement('img', { src: gamePieceAssets[gamePiece], id: 'game-piece-img' })
+              React.createElement('img', { src: this.getGamePieceAsset(gamePiece), id: 'game-piece-img' })
             ),
             React.createElement(
               List,
               { style: { maxHeight: scoutingSize - 100, overflow: 'auto' } },
-              this.renderCycles()
+              this.renderCycles(),
+              this.renderHabs()
             )
           ),
           React.createElement(
             'div',
             { id: 'scouting-column', style: { height: scoutingSize } },
             this.renderButtons(),
-            React.createElement('img', { className: 'fill-v', src: scoutingBg })
+            React.createElement('img', { className: 'fill', src: scoutingBg })
           ),
           React.createElement('div', { className: 'clear' })
         )
@@ -206,6 +206,17 @@ var ScoutingApp = function (_React$Component) {
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
+  this.getGamePieceAsset = function (gamePiece) {
+    var assetMap = { none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg' };
+    return assetMap[gamePiece];
+  };
+
+  this.getScoringAreaAsset = function (scoringArea) {
+    var scoringShip = scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship';
+    var assetMap = { 'rocket_ship': '/assets/pictures/rocket_ship.jpg', 'cargo_ship': '/assets/pictures/cargo_ship.jpg' };
+    return assetMap[scoringShip];
+  };
+
   this.getBackgroundAsset = function (station, flipped) {
     return station.includes('b') ? flipped ? '/assets/pictures/scouting_blue_left.png' : '/assets/pictures/scouting_blue_right.png' : flipped ? '/assets/pictures/scouting_red_right.png' : '/assets/pictures/scouting_red_left.png';
   };
@@ -217,9 +228,10 @@ var _initialiseProps = function _initialiseProps() {
           hab = _state2.hab,
           habs = _state2.habs;
 
+      var currTime = new Date().getTime();
       _this3.setState({
         matchPhase: 'tele',
-        cycle: Object.assign({}, cycle, { matchPhase: 'tele' }),
+        cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: currTime }),
         hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele')
       });
       if (habs.length == 0) {
@@ -275,112 +287,129 @@ var _initialiseProps = function _initialiseProps() {
     _this3.setState({ cycle: Object.assign({}, cycle, { gamePiece: gamePiece, pickup: source }) });
   };
 
-  this.renderButtons = function () {
+  this.score = function (scoringArea) {
     var _state6 = _this3.state,
-        scoutingSize = _state6.scoutingSize,
-        color = _state6.color,
-        matchPhase = _state6.matchPhase,
         cycle = _state6.cycle,
-        cycles = _state6.cycles,
-        hab = _state6.hab,
-        habs = _state6.habs;
+        cycles = _state6.cycles;
+
+    var isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
+    if (!isAttempted) {
+      _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted' }) });
+    } else {
+      var newCycle = new Cycle(_this3.props.robot, _this3.props.matchNumber, _this3.state.matchPhase);
+      cycle.success = 'success';
+      cycles.push(cycle);
+      _this3.setState({ cycle: newCycle, cycles: cycles });
+    }
+  };
+
+  this.renderButtons = function () {
+    var _state7 = _this3.state,
+        scoutingSize = _state7.scoutingSize,
+        color = _state7.color,
+        matchPhase = _state7.matchPhase,
+        cycle = _state7.cycle,
+        cycles = _state7.cycles,
+        hab = _state7.hab,
+        habs = _state7.habs;
 
 
     var flipped = _this3.state.flipped ^ color === 'blue';
     var isAuto = matchPhase === 'sandstorm';
     var isTele = !isAuto;
+    var timerStarted = hab.timer !== undefined;
     var mobilityDone = habs.length > 0;
+
     var carryingNone = cycle.gamePiece === 'none';
     var carryingCargo = cycle.gamePiece === 'cargo';
     var carryingHatch = cycle.gamePiece === 'hatch';
-    var timerStarted = hab.timer !== undefined;
 
     var createScoutingButton = function createScoutingButton(key, top, left, width, height, text, buttonProps) {
       return React.createElement(ScoutingButton, { key: key, top: top, left: left, width: width, height: height, text: text, buttonProps: buttonProps, flipped: flipped, scoutingSize: scoutingSize });
     };
 
-    var preloads = isAuto && [createScoutingButton('hatch-preload', 25, 25, 125, 100, 'Hatch', { onClick: function onClick() {
+    var preloads = isAuto && cycles.length == 0 && [createScoutingButton('hatch-preload', 25, 25, 150, 100, 'Hatch', { onClick: function onClick() {
         return _this3.pickup('hatch', 'preload');
-      }, variant: carryingHatch ? 'contained' : 'outlined' }), createScoutingButton('cargo-preload', 425, 25, 125, 100, 'Cargo', { onClick: function onClick() {
+      }, variant: carryingHatch ? 'contained' : 'outlined' }), createScoutingButton('cargo-preload', 425, 25, 150, 100, 'Cargo', { onClick: function onClick() {
         return _this3.pickup('cargo', 'preload');
-      }, variant: carryingCargo ? 'contained' : 'outlined' }), isAuto && createScoutingButton('no-preload', 450, 180, 125, 75, 'No Preload', { onClick: function onClick() {
+      }, variant: carryingCargo ? 'contained' : 'outlined' }), createScoutingButton('no-preload', 450, 225, 150, 75, 'No Preload', { onClick: function onClick() {
         return _this3.pickup('none', 'preload');
       }, variant: carryingNone ? 'contained' : 'outlined' })];
 
-    var mobilityButtons = !mobilityDone && [createScoutingButton('timer-start', 105, 320, 125, 75, 'Start Timer', { onClick: function onClick() {
+    var mobilityButtons = !mobilityDone && [createScoutingButton('timer-start', 105, 400, 100, 75, 'Start Timer', { onClick: function onClick() {
         return _this3.startTimer();
-      }, variant: timerStarted ? 'contained' : 'outlined' }), createScoutingButton('mobility', 25, 180, 125, 410, 'Mobility', { onClick: _this3.mobilityClicked, variant: 'outlined', disabled: !_this3.canTele() })];
+      }, variant: timerStarted ? 'contained' : 'outlined' }), createScoutingButton('mobility', 25, 225, 150, 410, 'Mobility', { onClick: _this3.mobilityClicked, variant: 'outlined', disabled: !_this3.canTele() })];
 
-    var habButtons = (isTele || habs.length == 0) && [createScoutingButton('low-hab', 145, 80, 85, 260, 'LV-1', { onClick: function onClick() {
+    var habButtons = (isTele || habs.length == 0) && [createScoutingButton('low-hab', 145, 100, 100, 260, 'LV-1', { onClick: function onClick() {
         return _this3.habClicked(1);
-      }, variant: hab.level === 1 ? 'contained' : 'outlined' }), createScoutingButton('top-mid-hab', 165, 0, 80, 65, 'LV-2', { onClick: function onClick() {
+      }, variant: hab.level === 1 ? 'contained' : 'outlined' }), createScoutingButton('top-mid-hab', 165, 0, 100, 65, 'LV-2', { onClick: function onClick() {
         return _this3.habClicked(2);
-      }, variant: hab.level === 2 ? 'contained' : 'outlined' }), createScoutingButton('bot-mid-hab', 320, 0, 80, 65, 'LV-2', { onClick: function onClick() {
+      }, variant: hab.level === 2 ? 'contained' : 'outlined' }), createScoutingButton('bot-mid-hab', 320, 0, 100, 65, 'LV-2', { onClick: function onClick() {
         return _this3.habClicked(2);
-      }, variant: hab.level === 2 ? 'contained' : 'outlined' }), isTele && createScoutingButton('high-hab', 230, 0, 80, 90, 'LV-3', { onClick: function onClick() {
+      }, variant: hab.level === 2 ? 'contained' : 'outlined' }), isTele && createScoutingButton('high-hab', 230, 0, 100, 90, 'LV-3', { onClick: function onClick() {
         return _this3.habClicked(3);
       }, variant: hab.level === 3 ? 'contained' : 'outlined' })];
 
-    var scoreButtons = (isAuto && mobilityDone || isTele) && cycle.gamePiece != undefined && [createScoutingButton('top-rocket-low', 50, 350, 50, 50, 'L', { variant: 'outlined' }), createScoutingButton('top-rocket-mid', 50, 400, 50, 50, 'M', { variant: 'outlined' }), createScoutingButton('top-rocket-high', 50, 450, 50, 50, 'H', { variant: 'outlined' }), createScoutingButton('bot-rocket-low', 450, 350, 50, 50, 'L', { variant: 'outlined' }), createScoutingButton('bot-rocket-mid', 450, 400, 50, 50, 'M', { variant: 'outlined' }), createScoutingButton('bot-rocket-high', 450, 450, 50, 50, 'H', { variant: 'outlined' }), createScoutingButton('cargo-top', 180, 425, 125, 50, '', { variant: 'outlined' }), createScoutingButton('cargo-front', 230, 335, 50, 90, '', { variant: 'outlined' }), createScoutingButton('cargo-bot', 320, 425, 125, 50, '', { variant: 'outlined' })];
+    var createScoringButton = function createScoringButton(key, top, left, width, height, text) {
+      var isAttempted = cycle.success === 'attempted' && cycle.score === key;
+      return createScoutingButton(key, top, left, width, height, text, { onClick: function onClick() {
+          return _this3.score(key);
+        }, variant: isAttempted ? 'contained' : 'outlined' });
+    };
 
-    return [].concat(_toConsumableArray(preloads), _toConsumableArray(mobilityButtons), _toConsumableArray(habButtons), _toConsumableArray(scoreButtons));
+    var scoreButtons = (isAuto && mobilityDone || isTele) && cycle.gamePiece != undefined && cycle.gamePiece != 'none' && [createScoringButton('top-rocket-low', 50, 450, 60, 60, 'L'), createScoringButton('top-rocket-mid', 50, 510, 60, 60, 'M'), createScoringButton('top-rocket-high', 50, 570, 60, 60, 'H'), createScoringButton('bot-rocket-low', 440, 450, 60, 60, 'L'), createScoringButton('bot-rocket-mid', 440, 510, 60, 60, 'M'), createScoringButton('bot-rocket-high', 440, 570, 60, 60, 'H'), createScoringButton('top-cargo', 180, 520, 125, 50, ''), createScoringButton('front-cargo', 230, 400, 55, 90, ''), createScoringButton('bot-cargo', 320, 520, 125, 50, '')];
+
+    var createPickupButton = function createPickupButton(key, top, left, width, height, text, primary, secondary) {
+      var isPickedUp = cycle.pickup === key;
+      var gamePiece = isPickedUp && cycle.gamePiece == primary ? secondary : primary;
+      var pickupProps = { onClick: function onClick() {
+          return _this3.pickup(gamePiece, key);
+        }, variant: isPickedUp ? 'contained' : 'outlined' };
+      return createScoutingButton(key, top, left, width, height, text, pickupProps);
+    };
+
+    var pickups = (isAuto && cycles.length > 0 || isTele) && [createPickupButton('top-hp', 25, 25, 150, 100, 'hp', 'hatch', 'cargo'), createPickupButton('bot-hp', 425, 25, 150, 100, 'hp', 'hatch', 'cargo'), createPickupButton('floor', 25, 225, 150, 500, 'floor', 'cargo', 'hatch')];
+
+    return [].concat(_toConsumableArray(preloads), _toConsumableArray(mobilityButtons), _toConsumableArray(habButtons), _toConsumableArray(scoreButtons), _toConsumableArray(pickups));
+  };
+
+  this.createInfoItem = function (primaryAsset, secondaryAsset, primary, secondary, tertiary, key) {
+    return React.createElement(
+      ListItem,
+      { alignItems: 'flex-start', key: key++ },
+      primaryAsset !== '' && React.createElement(Avatar, { className: 'padding-s', src: primaryAsset }),
+      secondaryAsset !== '' && React.createElement(Avatar, { className: 'padding-s', src: secondaryAsset }),
+      React.createElement(ListItemText, {
+        primary: primary,
+        secondary: React.createElement(
+          React.Fragment,
+          null,
+          React.createElement(
+            Typography,
+            { component: 'span', color: 'textPrimary' },
+            secondary
+          ),
+          tertiary
+        ) })
+    );
   };
 
   this.renderHabs = function () {
-    var scoutingSize = _this3.state.scoutingSize;
+    var habs = _this3.state.habs;
 
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (i) {
-      return React.createElement(
-        ListItem,
-        { alignItems: 'flex-start' },
-        React.createElement(
-          ListItemAvatar,
-          null,
-          React.createElement(Avatar, { alt: 'Remy Sharp', src: '' })
-        ),
-        React.createElement(ListItemText, {
-          primary: 'Brunch this weekend?',
-          secondary: React.createElement(
-            React.Fragment,
-            null,
-            React.createElement(
-              Typography,
-              { component: 'span', color: 'textPrimary' },
-              'Ali Connors'
-            ),
-            " — I'll be in your neighborhood doing errands this…"
-          )
-        })
-      );
+    var infoKey = 0;
+    return habs.map(function (hab) {
+      var habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success;
+      return _this3.createInfoItem('', '', 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++);
     });
   };
 
   this.renderCycles = function () {
-    var scoutingSize = _this3.state.scoutingSize;
+    var cycles = _this3.state.cycles;
 
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (i) {
-      return React.createElement(
-        ListItem,
-        { alignItems: 'flex-start' },
-        React.createElement(
-          ListItemAvatar,
-          null,
-          React.createElement(Avatar, { alt: 'Remy Sharp', src: '' })
-        ),
-        React.createElement(ListItemText, {
-          primary: 'Brunch this weekend?',
-          secondary: React.createElement(
-            React.Fragment,
-            null,
-            React.createElement(
-              Typography,
-              { component: 'span', color: 'textPrimary' },
-              'Ali Connors'
-            ),
-            " — I'll be in your neighborhood doing errands this…"
-          )
-        })
-      );
+    var infoKey = 0;
+    return [].concat(_toConsumableArray(cycles)).reverse().map(function (cycle) {
+      return _this3.createInfoItem(_this3.getGamePieceAsset(cycle.gamePiece), _this3.getScoringAreaAsset(cycle.score), cycle.score, cycle.pickup, cycle.success, infoKey++);
     });
   };
 };
