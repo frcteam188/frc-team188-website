@@ -4,8 +4,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
-
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
@@ -29,10 +27,6 @@ var _window$materialUi = window['material-ui'],
     Tab = _window$materialUi.Tab,
     Typography = _window$materialUi.Typography,
     withStyles = _window$materialUi.withStyles;
-
-var GameState = function GameState() {
-  _classCallCheck(this, GameState);
-};
 
 var Cycle = function Cycle(robot, match, matchPhase) {
   _classCallCheck(this, Cycle);
@@ -80,17 +74,14 @@ var ScoutingApp = function (_React$Component) {
 
     _this.state = {
       appBarHeight: 50,
-      scoutingSize: 550,
+      scoutingSize: 450,
       tabPosition: 2,
       matchNumber: matchNumber,
       teamNumber: teamNumber,
       station: station,
       flipped: flipped,
       color: station.includes('b') ? 'blue' : 'red',
-      scoutingBg: _this.getBackgroundAsset(station, flipped),
-      canTele: false,
       matchPhase: 'sandstorm', // sandstorm, tele
-      gamePiece: undefined, //none, hatch, cargo
       cycle: new Cycle(teamNumber, matchNumber, 'sandstorm'),
       hab: new Hab(teamNumber, matchNumber, 'sandstorm'),
       habs: [],
@@ -104,9 +95,7 @@ var ScoutingApp = function (_React$Component) {
     value: function render() {
       // console.log(this.state);
       var theme = this.createTheme();
-
-      _objectDestructuringEmpty(this.props);
-
+      var flipped = this.props.flipped;
       var _state = this.state,
           appBarHeight = _state.appBarHeight,
           scoutingSize = _state.scoutingSize,
@@ -114,14 +103,13 @@ var ScoutingApp = function (_React$Component) {
           station = _state.station,
           matchNumber = _state.matchNumber,
           tabPosition = _state.tabPosition,
-          scoutingBg = _state.scoutingBg,
-          canTele = _state.canTele,
           matchPhase = _state.matchPhase,
           cycle = _state.cycle,
           hab = _state.hab;
       var pickup = cycle.pickup,
           gamePiece = cycle.gamePiece,
           score = cycle.score;
+
 
       return React.createElement(
         MuiThemeProvider,
@@ -169,7 +157,7 @@ var ScoutingApp = function (_React$Component) {
             'div',
             { id: 'scouting-column', style: { height: scoutingSize } },
             this.renderButtons(),
-            React.createElement('img', { className: 'fill', src: scoutingBg })
+            React.createElement('img', { className: 'fill', src: this.getBackgroundAsset(station, flipped) })
           ),
           React.createElement('div', { className: 'clear' })
         )
@@ -291,18 +279,15 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.pickup = function (gamePiece, source) {
-    var _state5 = _this3.state,
-        matchPhase = _state5.matchPhase,
-        cycle = _state5.cycle;
+    var cycle = _this3.state.cycle;
 
-    var isAuto = matchPhase === 'sandstorm';
     _this3.setState({ cycle: Object.assign({}, cycle, { gamePiece: gamePiece, pickup: source, timer: _this3.getCurrTime() }) });
   };
 
   this.score = function (scoringArea) {
-    var _state6 = _this3.state,
-        cycle = _state6.cycle,
-        cycles = _state6.cycles;
+    var _state5 = _this3.state,
+        cycle = _state5.cycle,
+        cycles = _state5.cycles;
 
     var isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
     if (!isAttempted) {
@@ -318,14 +303,14 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderButtons = function () {
-    var _state7 = _this3.state,
-        scoutingSize = _state7.scoutingSize,
-        color = _state7.color,
-        matchPhase = _state7.matchPhase,
-        cycle = _state7.cycle,
-        cycles = _state7.cycles,
-        hab = _state7.hab,
-        habs = _state7.habs;
+    var _state6 = _this3.state,
+        scoutingSize = _state6.scoutingSize,
+        color = _state6.color,
+        matchPhase = _state6.matchPhase,
+        cycle = _state6.cycle,
+        cycles = _state6.cycles,
+        hab = _state6.hab,
+        habs = _state6.habs;
 
 
     var flipped = _this3.state.flipped ^ color === 'blue';
@@ -444,7 +429,7 @@ var ScoutingButton = function (_React$Component2) {
         flipped = props.flipped;
 
     _this2.state = {
-      left: flipped ? scoutingSize - (left + width) : left
+      left: flipped ? 650 - (left + width) : left
     };
     return _this2;
   }
@@ -457,17 +442,20 @@ var ScoutingButton = function (_React$Component2) {
           top = _props.top,
           width = _props.width,
           height = _props.height,
-          buttonProps = _props.buttonProps;
+          buttonProps = _props.buttonProps,
+          scoutingSize = _props.scoutingSize;
+
+      var yScaleFactor = scoutingSize / 550;
       var left = this.state.left;
 
       return React.createElement(
         Button,
         Object.assign({
           color: 'primary',
-          style: { top: top,
+          style: { top: top * yScaleFactor,
             left: left,
             width: width,
-            height: height,
+            height: height * yScaleFactor,
             minWidth: 0,
             borderWidth: 2,
             position: 'absolute',

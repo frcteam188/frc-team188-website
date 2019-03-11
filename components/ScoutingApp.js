@@ -19,9 +19,6 @@ const {
   withStyles,
 } = window['material-ui'];
 
-class GameState {
-  
-}
 class Cycle {
   constructor(robot, match, matchPhase){
     this.robot = robot;
@@ -78,17 +75,14 @@ class ScoutingApp extends React.Component {
     // console.log(props)
     this.state = {
       appBarHeight: 50,
-      scoutingSize: 550,
+      scoutingSize: 450,
       tabPosition : 2,
       matchNumber: matchNumber,
       teamNumber: teamNumber,
       station: station,
       flipped: flipped,
       color : station.includes('b') ? 'blue' : 'red',
-      scoutingBg: this.getBackgroundAsset(station, flipped),
-      canTele: false,
       matchPhase: 'sandstorm', // sandstorm, tele
-      gamePiece: undefined, //none, hatch, cargo
       cycle: new Cycle(teamNumber, matchNumber, 'sandstorm'),
       hab: new Hab(teamNumber, matchNumber, 'sandstorm'),
       habs: [],
@@ -140,8 +134,7 @@ class ScoutingApp extends React.Component {
   }
 
   pickup = (gamePiece, source) => {
-    const {matchPhase, cycle} = this.state;
-    const isAuto = matchPhase === 'sandstorm';
+    const {cycle} = this.state;
     this.setState({cycle: {...cycle, gamePiece: gamePiece, pickup: source, timer: this.getCurrTime()}});
   }
   
@@ -221,7 +214,7 @@ class ScoutingApp extends React.Component {
       createPickupButton('bot-hp', 425, 25, 150, 100, 'hp', 'hatch', 'cargo'),
       createPickupButton('floor', 25, 225, 150, 500, 'floor', 'cargo', 'hatch')];
 
-    return [ ...preloads, ...mobilityButtons, ...habButtons, ...scoreButtons, ...pickups];
+    return [...preloads, ...mobilityButtons, ...habButtons, ...scoreButtons, ...pickups];
   }
 
   createInfoItem = (assets, primary, secondary, tertiary, key) => {
@@ -260,10 +253,11 @@ class ScoutingApp extends React.Component {
   render() {
     // console.log(this.state);
     const theme = this.createTheme();
-    const {  } = this.props;
-    const {appBarHeight, scoutingSize, teamNumber, station, matchNumber, tabPosition, scoutingBg,
-          canTele, matchPhase, cycle, hab} = this.state;
+    const {flipped} = this.props;
+    const {appBarHeight, scoutingSize, teamNumber, station, matchNumber, tabPosition,
+      matchPhase, cycle, hab} = this.state;
     const {pickup, gamePiece, score} = cycle;
+    
     return <MuiThemeProvider theme={theme}>
         <AppBar position="static" style={{height: appBarHeight}}>
           <Tabs value={tabPosition} onChange={this.tabClicked}>
@@ -291,7 +285,7 @@ class ScoutingApp extends React.Component {
             </div>
             <div id='scouting-column' style={{height: scoutingSize}}>
               {this.renderButtons()}
-              <img className='fill' src={scoutingBg}/>
+              <img className='fill' src={this.getBackgroundAsset(station, flipped)}/>
             </div>
             <div className='clear'/>
           </div>}
@@ -329,21 +323,22 @@ class ScoutingButton extends React.Component {
     super(props)
     const {left, width, scoutingSize, flipped} = props;
     this.state = {
-      left: flipped ? scoutingSize - (left + width) : left
+      left: flipped ? 650 - (left + width) : left
     }
   }
   
   render() {
-    const{text, top, width, height, buttonProps} = this.props;
+    const{text, top, width, height, buttonProps, scoutingSize} = this.props;
+    const yScaleFactor = scoutingSize/550;
     const {left} = this.state;
     return (
       <Button 
         color='primary'
         style={
-          {top: top,
+          {top: top * yScaleFactor,
           left: left,
           width: width,
-          height: height,
+          height: height * yScaleFactor,
           minWidth: 0,
           borderWidth: 2,
           position: 'absolute',
