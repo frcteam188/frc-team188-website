@@ -119,7 +119,9 @@ var ScoutingApp = function (_React$Component) {
           matchPhase = _state.matchPhase,
           cycle = _state.cycle,
           hab = _state.hab;
-      var gamePiece = cycle.gamePiece;
+      var pickup = cycle.pickup,
+          gamePiece = cycle.gamePiece,
+          score = cycle.score;
 
       return React.createElement(
         MuiThemeProvider,
@@ -152,7 +154,9 @@ var ScoutingApp = function (_React$Component) {
                 { variant: 'h5', className: 'f-left', color: 'primary' },
                 teamNumber
               ),
-              React.createElement('img', { src: this.getGamePieceAsset(gamePiece), id: 'game-piece-img' })
+              React.createElement('img', { src: this.getScoringAreaAsset(score), id: 'game-piece-img' }),
+              React.createElement('img', { src: this.getGamePieceAsset(gamePiece), id: 'game-piece-img' }),
+              React.createElement('img', { src: this.getPickupAsset(pickup), id: 'game-piece-img' })
             ),
             React.createElement(
               List,
@@ -206,13 +210,19 @@ var ScoutingApp = function (_React$Component) {
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
+  this.getPickupAsset = function (pickup) {
+    var pickupArea = pickup && (pickup.includes('hp') ? 'hp' : pickup);
+    var assetMap = { floor: '/assets/pictures/floor.png', hp: '/assets/pictures/human.png', preload: '/assets/pictures/preload.png' };
+    return assetMap[pickupArea];
+  };
+
   this.getGamePieceAsset = function (gamePiece) {
     var assetMap = { none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg' };
     return assetMap[gamePiece];
   };
 
   this.getScoringAreaAsset = function (scoringArea) {
-    var scoringShip = scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship';
+    var scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship');
     var assetMap = { 'rocket_ship': '/assets/pictures/rocket_ship.jpg', 'cargo_ship': '/assets/pictures/cargo_ship.jpg' };
     return assetMap[scoringShip];
   };
@@ -228,10 +238,9 @@ var _initialiseProps = function _initialiseProps() {
           hab = _state2.hab,
           habs = _state2.habs;
 
-      var currTime = new Date().getTime();
       _this3.setState({
         matchPhase: 'tele',
-        cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: currTime }),
+        cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: _this3.getCurrTime() }),
         hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele')
       });
       if (habs.length == 0) {
@@ -248,7 +257,7 @@ var _initialiseProps = function _initialiseProps() {
     var hab = _this3.state.hab;
 
     hab.success = 'scored';
-    hab.time = new Date().getTime() - hab.timer;
+    hab.time = _this3.getCurrTime() - hab.timer;
     hab.timer = undefined;
     _this3.setState({ hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele'), habs: [hab] });
   };
@@ -269,13 +278,16 @@ var _initialiseProps = function _initialiseProps() {
     _this3.setState({ hab: Object.assign({}, hab, { level: level }) });
   };
 
+  this.getCurrTime = function () {
+    return new Date().getTime();
+  };
+
   this.startTimer = function () {
     var _state4 = _this3.state,
         cycle = _state4.cycle,
         hab = _state4.hab;
 
-    var currTime = new Date().getTime();
-    _this3.setState({ cycle: Object.assign({}, cycle, { timer: currTime }), hab: Object.assign({}, hab, { timer: currTime }) });
+    _this3.setState({ cycle: Object.assign({}, cycle, { timer: _this3.getCurrTime() }), hab: Object.assign({}, hab, { timer: _this3.getCurrTime() }) });
   };
 
   this.pickup = function (gamePiece, source) {
@@ -284,7 +296,7 @@ var _initialiseProps = function _initialiseProps() {
         cycle = _state5.cycle;
 
     var isAuto = matchPhase === 'sandstorm';
-    _this3.setState({ cycle: Object.assign({}, cycle, { gamePiece: gamePiece, pickup: source }) });
+    _this3.setState({ cycle: Object.assign({}, cycle, { gamePiece: gamePiece, pickup: source, timer: _this3.getCurrTime() }) });
   };
 
   this.score = function (scoringArea) {
@@ -298,6 +310,8 @@ var _initialiseProps = function _initialiseProps() {
     } else {
       var newCycle = new Cycle(_this3.props.robot, _this3.props.matchNumber, _this3.state.matchPhase);
       cycle.success = 'success';
+      cycle.time = _this3.getCurrTime() - cycle.timer;
+      cycle.timer = undefined;
       cycles.push(cycle);
       _this3.setState({ cycle: newCycle, cycles: cycles });
     }
@@ -373,12 +387,13 @@ var _initialiseProps = function _initialiseProps() {
     return [].concat(_toConsumableArray(preloads), _toConsumableArray(mobilityButtons), _toConsumableArray(habButtons), _toConsumableArray(scoreButtons), _toConsumableArray(pickups));
   };
 
-  this.createInfoItem = function (primaryAsset, secondaryAsset, primary, secondary, tertiary, key) {
+  this.createInfoItem = function (assets, primary, secondary, tertiary, key) {
     return React.createElement(
       ListItem,
       { alignItems: 'flex-start', key: key++ },
-      primaryAsset !== '' && React.createElement(Avatar, { className: 'padding-s', src: primaryAsset }),
-      secondaryAsset !== '' && React.createElement(Avatar, { className: 'padding-s', src: secondaryAsset }),
+      assets.map(function (asset) {
+        return React.createElement(Avatar, { className: 'padding-s', src: asset });
+      }),
       React.createElement(ListItemText, {
         primary: primary,
         secondary: React.createElement(
@@ -399,8 +414,8 @@ var _initialiseProps = function _initialiseProps() {
 
     var infoKey = 0;
     return habs.map(function (hab) {
-      var habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success;
-      return _this3.createInfoItem('', '', 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++);
+      var habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success + ': ' + (hab.time / 1000).toFixed(2);
+      return _this3.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++);
     });
   };
 
@@ -409,7 +424,8 @@ var _initialiseProps = function _initialiseProps() {
 
     var infoKey = 0;
     return [].concat(_toConsumableArray(cycles)).reverse().map(function (cycle) {
-      return _this3.createInfoItem(_this3.getGamePieceAsset(cycle.gamePiece), _this3.getScoringAreaAsset(cycle.score), cycle.score, cycle.pickup, cycle.success, infoKey++);
+      var cycleTime = (cycle.time / 1000).toFixed(2);
+      return _this3.createInfoItem([_this3.getPickupAsset(cycle.pickup), _this3.getGamePieceAsset(cycle.gamePiece), _this3.getScoringAreaAsset(cycle.score)], cycle.success, cycleTime, cycle.matchPhase, infoKey++);
     });
   };
 };

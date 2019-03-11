@@ -50,13 +50,19 @@ class Hab {
 
 class ScoutingApp extends React.Component {
 
+  getPickupAsset = (pickup) => {
+    const pickupArea = pickup && (pickup.includes('hp') ? 'hp' : pickup);
+    const assetMap = {floor: '/assets/pictures/floor.png', hp: '/assets/pictures/human.png', preload: '/assets/pictures/preload.png'}
+    return assetMap[pickupArea];
+  }
+
   getGamePieceAsset = (gamePiece) => {
     const assetMap = {none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg'};
     return assetMap[gamePiece];
   }
 
   getScoringAreaAsset = (scoringArea) => {
-    const scoringShip = scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship';
+    const scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship');
     const assetMap = {'rocket_ship': '/assets/pictures/rocket_ship.jpg', 'cargo_ship': '/assets/pictures/cargo_ship.jpg'}
     return assetMap[scoringShip];
   }
@@ -94,10 +100,9 @@ class ScoutingApp extends React.Component {
   tabClicked = (event, tabPosition) => {
     if (tabPosition == 3) {
       const {cycle, hab, habs} = this.state;
-      const currTime = (new Date()).getTime();
       this.setState({
         matchPhase: 'tele',
-        cycle: {...cycle, matchPhase: 'tele', timer: currTime},
+        cycle: {...cycle, matchPhase: 'tele', timer: this.getCurrTime()},
         hab: new Hab(this.props.teamNumber, this.props.matchNumber, 'tele'),
       });
       if (habs.length == 0) {
@@ -113,7 +118,7 @@ class ScoutingApp extends React.Component {
   mobilityClicked = () => {
     const {hab} = this.state;
     hab.success = 'scored';
-    hab.time = (new Date()).getTime() - hab.timer;
+    hab.time = this.getCurrTime() - hab.timer;
     hab.timer = undefined;
     this.setState({hab: new Hab(this.props.teamNumber, this.props.matchNumber, 'tele'), habs: [hab]});
   }
@@ -128,16 +133,16 @@ class ScoutingApp extends React.Component {
     this.setState({hab: {...hab, level: level}})
   }
 
+  getCurrTime = () => (new Date()).getTime();
   startTimer = () => {
     const {cycle, hab} = this.state;
-    const currTime = (new Date()).getTime();
-    this.setState({cycle: {...cycle, timer: currTime}, hab: {...hab, timer: currTime}})
+    this.setState({cycle: {...cycle, timer: this.getCurrTime()}, hab: {...hab, timer: this.getCurrTime()}})
   }
 
   pickup = (gamePiece, source) => {
     const {matchPhase, cycle} = this.state;
     const isAuto = matchPhase === 'sandstorm';
-    this.setState({cycle: {...cycle, gamePiece: gamePiece, pickup: source}});
+    this.setState({cycle: {...cycle, gamePiece: gamePiece, pickup: source, timer: this.getCurrTime()}});
   }
   
   score = (scoringArea) => {
@@ -148,6 +153,8 @@ class ScoutingApp extends React.Component {
     }else {
       const newCycle = new Cycle(this.props.robot, this.props.matchNumber, this.state.matchPhase);
       cycle.success = 'success';
+      cycle.time =  this.getCurrTime() - cycle.timer;
+      cycle.timer = undefined;
       cycles.push(cycle)
       this.setState({cycle: newCycle, cycles})
     }
@@ -217,10 +224,9 @@ class ScoutingApp extends React.Component {
     return [ ...preloads, ...mobilityButtons, ...habButtons, ...scoreButtons, ...pickups];
   }
 
-  createInfoItem = (primaryAsset, secondaryAsset, primary, secondary, tertiary, key) => {
+  createInfoItem = (assets, primary, secondary, tertiary, key) => {
     return  <ListItem alignItems='flex-start' key={key++}>
-      {primaryAsset !== '' && <Avatar className='padding-s' src={primaryAsset}/>}
-      {secondaryAsset !== '' && <Avatar className='padding-s' src={secondaryAsset}/>}
+      {assets.map(asset => <Avatar className='padding-s' src={asset}/>)}
       <ListItemText
         primary={primary}
         secondary={<React.Fragment>
@@ -234,15 +240,21 @@ class ScoutingApp extends React.Component {
     const {habs} = this.state;
     var infoKey = 0;
     return (habs.map(hab => {
-      const habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success;
-      return this.createInfoItem('', '', 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++)
+      const habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success + ': ' + (hab.time/1000).toFixed(2);
+      return this.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++)
     }));
   }
 
   renderCycles = () => {
     const {cycles} = this.state;
     var infoKey = 0;
-    return ([...cycles].reverse().map(cycle => this.createInfoItem(this.getGamePieceAsset(cycle.gamePiece), this.getScoringAreaAsset(cycle.score), cycle.score, cycle.pickup, cycle.success, infoKey++)));
+    return ([...cycles].reverse().map(cycle => {
+      const cycleTime = (cycle.time/1000).toFixed(2);
+      return this.createInfoItem(
+        [this.getPickupAsset(cycle.pickup), this.getGamePieceAsset(cycle.gamePiece), this.getScoringAreaAsset(cycle.score)],
+        cycle.success, cycleTime, cycle.matchPhase, infoKey++);
+    }));
+      
   }
 
   render() {
@@ -251,7 +263,7 @@ class ScoutingApp extends React.Component {
     const {  } = this.props;
     const {appBarHeight, scoutingSize, teamNumber, station, matchNumber, tabPosition, scoutingBg,
           canTele, matchPhase, cycle, hab} = this.state;
-    const {gamePiece} = cycle;
+    const {pickup, gamePiece, score} = cycle;
     return <MuiThemeProvider theme={theme}>
         <AppBar position="static" style={{height: appBarHeight}}>
           <Tabs value={tabPosition} onChange={this.tabClicked}>
@@ -259,8 +271,8 @@ class ScoutingApp extends React.Component {
             <Tab label={'Station: ' + station} disabled={true}/>
             <Tab label="Sandstorm" disabled={matchPhase !== 'sandstorm'}/>
             <Tab label="Tele" disabled={!this.canTele()}/>
-            <Tab label="Defence" />
-            <Tab label="Submit" />
+            <Tab label="Defence"/>
+            <Tab label="Submit"/>
           </Tabs>
         </AppBar>
         {(tabPosition === 2 || tabPosition == 3) &&
@@ -268,7 +280,9 @@ class ScoutingApp extends React.Component {
             <div id='info-column'>
               <div id='state-info' style={{borderColor: theme.palette.primary.main}}>
                 <Typography variant='h5' className='f-left' color='primary'>{teamNumber}</Typography>
+                <img src={this.getScoringAreaAsset(score)} id='game-piece-img'></img>
                 <img src={this.getGamePieceAsset(gamePiece)} id='game-piece-img'></img>
+                <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
               </div>
               <List style={{maxHeight: scoutingSize-100, overflow: 'auto'}}>
               {this.renderCycles()}
