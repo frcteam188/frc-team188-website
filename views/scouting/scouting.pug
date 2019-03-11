@@ -17,10 +17,25 @@ html
     script(src="https://unpkg.com/@material-ui/core/umd/material-ui.development.js" crossorigin='anonymous')
     script(src='/react-components/ScoutingApp.js')
   
+    script(type='text/javascript').
+      var elem = document.documentElement;
+      function openFullscreen() {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.mozRequestFullScreen) { /* Firefox */
+          elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE/Edge */
+          elem.msRequestFullscreen();
+        }
+      }
+
     #scouting_app.none
-    
+
     script(type='text/javascript').
       props = JSON.parse('!{JSON.stringify(props)}')
       window.onload = function(){
+        openFullscreen();
         ReactDOM.render(e(App, props), document.getElementById('scouting_app'));
       }
