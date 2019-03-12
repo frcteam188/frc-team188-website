@@ -17,6 +17,7 @@ var _window$materialUi = window['material-ui'],
     Button = _window$materialUi.Button,
     colors = _window$materialUi.colors,
     createMuiTheme = _window$materialUi.createMuiTheme,
+    Divider = _window$materialUi.Divider,
     Grid = _window$materialUi.Grid,
     List = _window$materialUi.List,
     ListItem = _window$materialUi.ListItem,
@@ -49,10 +50,17 @@ var Hab = function Hab(robot, match, matchPhase) {
   this.robot = robot;
   this.match = match;
   this.matchPhase = matchPhase;
-  this.level = undefined;
+  this.level = 0;
   this.success = undefined;
   this.timer = undefined;
   this.time = undefined;
+};
+
+var Defence = function Defence(robot, match, matchPhase) {
+  _classCallCheck(this, Defence);
+
+  this.type = undefined; // pin, drop piece 
+  this.success = undefined; // foul, success
 };
 
 var ScoutingApp = function (_React$Component) {
@@ -221,7 +229,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.tabClicked = function (event, tabPosition) {
-    if (tabPosition == 3) {
+    if (tabPosition == 3 && _this3.state.matchPhase !== 'tele') {
       var _state2 = _this3.state,
           cycle = _state2.cycle,
           hab = _state2.hab,
@@ -262,9 +270,24 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.habClicked = function (level) {
-    var hab = _this3.state.hab;
+    var _state4 = _this3.state,
+        matchPhase = _state4.matchPhase,
+        hab = _state4.hab,
+        habs = _state4.habs;
 
-    _this3.setState({ hab: Object.assign({}, hab, { level: level }) });
+    console.log(hab);
+    console.log(hab);
+    var isAttempted = hab.success === 'attempted' && hab.level === level;
+    var isTele = matchPhase === 'tele';
+    if (isTele && isAttempted) {
+      hab.success = 'scored';
+      hab.time = _this3.getCurrTime() - hab.timer;
+      hab.timer = undefined;
+      habs.push(hab);
+      _this3.setState({ habs: habs, hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele') });
+    } else {
+      _this3.setState({ hab: Object.assign({}, hab, { level: level, success: 'attempted', timer: isTele ? _this3.getCurrTime() : hab.timer }) });
+    }
   };
 
   this.getCurrTime = function () {
@@ -272,9 +295,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.startTimer = function () {
-    var _state4 = _this3.state,
-        cycle = _state4.cycle,
-        hab = _state4.hab;
+    var _state5 = _this3.state,
+        cycle = _state5.cycle,
+        hab = _state5.hab;
 
     _this3.setState({ cycle: Object.assign({}, cycle, { timer: _this3.getCurrTime() }), hab: Object.assign({}, hab, { timer: _this3.getCurrTime() }) });
   };
@@ -286,20 +309,24 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.score = function (scoringArea) {
-    var _state5 = _this3.state,
-        cycle = _state5.cycle,
-        cycles = _state5.cycles;
+    var _state6 = _this3.state,
+        cycle = _state6.cycle,
+        cycles = _state6.cycles;
 
     var isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
     if (!isAttempted && scoringArea !== 'dropped') {
       _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted' }) });
     } else {
       var newCycle = new Cycle(_this3.props.robot, _this3.props.matchNumber, _this3.state.matchPhase);
-      if (scoringArea !== 'dropped') {
+      if (scoringArea === 'dropped') {
+        if (cycle.success !== 'attempted') {
+          cycle.success = 'dropped';
+          cycle.score = 'dropped';
+        }
+      } else {
         cycle.success = 'success';
-      } else if (cycle.success !== 'attempted') {
-        cycle.success = 'dropped';cycle.score = 'dropped';
       }
+
       cycle.time = _this3.getCurrTime() - cycle.timer;
       cycle.timer = undefined;
       cycles.push(cycle);
@@ -308,9 +335,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.createDroppedButton = function () {
-    var _state6 = _this3.state,
-        scoutingSize = _state6.scoutingSize,
-        cycle = _state6.cycle;
+    var _state7 = _this3.state,
+        scoutingSize = _state7.scoutingSize,
+        cycle = _state7.cycle;
     var gamePiece = cycle.gamePiece;
 
     return (gamePiece == 'hatch' || gamePiece === 'cargo') && React.createElement(ScoutingButton, { top: 65, left: 5, width: 75, height: 40, scoutingSize: scoutingSize, text: 'Drop', buttonProps: { onClick: function onClick() {
@@ -319,14 +346,15 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.renderButtons = function () {
-    var _state7 = _this3.state,
-        scoutingSize = _state7.scoutingSize,
-        color = _state7.color,
-        matchPhase = _state7.matchPhase,
-        cycle = _state7.cycle,
-        cycles = _state7.cycles,
-        hab = _state7.hab,
-        habs = _state7.habs;
+    var _state8 = _this3.state,
+        scoutingSize = _state8.scoutingSize,
+        color = _state8.color,
+        tabPosition = _state8.tabPosition,
+        matchPhase = _state8.matchPhase,
+        cycle = _state8.cycle,
+        cycles = _state8.cycles,
+        hab = _state8.hab,
+        habs = _state8.habs;
 
 
     var flipped = _this3.state.flipped ^ color === 'blue';
@@ -385,16 +413,13 @@ var _initialiseProps = function _initialiseProps() {
 
     var pickups = (isAuto && cycles.length > 0 || isTele) && [createPickupButton('top-hp', 25, 25, 150, 100, 'hp', 'hatch', 'cargo'), createPickupButton('bot-hp', 425, 25, 150, 100, 'hp', 'hatch', 'cargo'), createPickupButton('floor', 25, 225, 150, 500, 'floor', 'cargo', 'hatch')];
 
-    return [].concat(_toConsumableArray(preloads), _toConsumableArray(mobilityButtons), _toConsumableArray(habButtons), _toConsumableArray(scoreButtons), _toConsumableArray(pickups));
+    return habs.length < 2 && [].concat(_toConsumableArray(preloads), _toConsumableArray(mobilityButtons), _toConsumableArray(habButtons), _toConsumableArray(scoreButtons), _toConsumableArray(pickups));
   };
 
   this.createInfoItem = function (assets, primary, secondary, tertiary, key) {
-    return React.createElement(
+    return [React.createElement(
       ListItem,
       { alignItems: 'flex-start', key: key++ },
-      assets.map(function (asset) {
-        return React.createElement(Avatar, { className: 'padding-s', src: asset });
-      }),
       React.createElement(ListItemText, {
         primary: primary,
         secondary: React.createElement(
@@ -406,8 +431,11 @@ var _initialiseProps = function _initialiseProps() {
             secondary
           ),
           tertiary
-        ) })
-    );
+        ) }),
+      assets.map(function (asset) {
+        return React.createElement(Avatar, { className: 'padding-s', src: asset });
+      })
+    ), React.createElement(Divider, { key: 'div' })];
   };
 
   this.renderHabs = function () {
@@ -415,7 +443,7 @@ var _initialiseProps = function _initialiseProps() {
 
     var infoKey = 0;
     return habs.map(function (hab) {
-      var habScored = (hab.matchPhase === 'tele' ? '' : 'mobility: ') + hab.success + ': ' + (hab.time / 1000).toFixed(2);
+      var habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
       return _this3.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++);
     });
   };
