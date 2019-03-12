@@ -14,15 +14,15 @@ body{
 }
 
 #state-info{
-  height: 75px;
-  padding: 16px;
+  height: 90px;
+  padding: 5px;
   border-radius: 3px;
   border: solid 2px;
 }
 
 #game-piece-img{
   height: 85%;
-  padding: 2%;
+  padding: 1%;
   border-radius: 15px;
   float: right;
 }

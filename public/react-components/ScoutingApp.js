@@ -136,12 +136,13 @@ var ScoutingApp = function (_React$Component) {
             { id: 'info-column' },
             React.createElement(
               'div',
-              { id: 'state-info', style: { borderColor: theme.palette.primary.main } },
+              { id: 'state-info', style: { borderColor: theme.palette.primary.main, position: 'relative' } },
               React.createElement(
                 Typography,
                 { variant: 'h5', className: 'f-left', color: 'primary' },
                 teamNumber
               ),
+              this.createDroppedButton(),
               React.createElement('img', { src: this.getScoringAreaAsset(score), id: 'game-piece-img' }),
               React.createElement('img', { src: this.getGamePieceAsset(gamePiece), id: 'game-piece-img' }),
               React.createElement('img', { src: this.getPickupAsset(pickup), id: 'game-piece-img' })
@@ -210,8 +211,8 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getScoringAreaAsset = function (scoringArea) {
-    var scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship');
-    var assetMap = { 'rocket_ship': '/assets/pictures/rocket_ship.jpg', 'cargo_ship': '/assets/pictures/cargo_ship.jpg' };
+    var scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : scoringArea.includes('cargo') ? 'cargo_ship' : 'dropped');
+    var assetMap = { rocket_ship: '/assets/pictures/rocket_ship.jpg', cargo_ship: '/assets/pictures/cargo_ship.jpg', dropped: '/assets/pictures/dropped.jpg' };
     return assetMap[scoringShip];
   };
 
@@ -290,11 +291,15 @@ var _initialiseProps = function _initialiseProps() {
         cycles = _state5.cycles;
 
     var isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
-    if (!isAttempted) {
+    if (!isAttempted && scoringArea !== 'dropped') {
       _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted' }) });
     } else {
       var newCycle = new Cycle(_this3.props.robot, _this3.props.matchNumber, _this3.state.matchPhase);
-      cycle.success = 'success';
+      if (scoringArea !== 'dropped') {
+        cycle.success = 'success';
+      } else if (cycle.success !== 'attempted') {
+        cycle.success = 'dropped';cycle.score = 'dropped';
+      }
       cycle.time = _this3.getCurrTime() - cycle.timer;
       cycle.timer = undefined;
       cycles.push(cycle);
@@ -302,15 +307,26 @@ var _initialiseProps = function _initialiseProps() {
     }
   };
 
-  this.renderButtons = function () {
+  this.createDroppedButton = function () {
     var _state6 = _this3.state,
         scoutingSize = _state6.scoutingSize,
-        color = _state6.color,
-        matchPhase = _state6.matchPhase,
-        cycle = _state6.cycle,
-        cycles = _state6.cycles,
-        hab = _state6.hab,
-        habs = _state6.habs;
+        cycle = _state6.cycle;
+    var gamePiece = cycle.gamePiece;
+
+    return (gamePiece == 'hatch' || gamePiece === 'cargo') && React.createElement(ScoutingButton, { top: 65, left: 5, width: 75, height: 40, scoutingSize: scoutingSize, text: 'Drop', buttonProps: { onClick: function onClick() {
+          return _this3.score('dropped');
+        }, variant: 'contained' } });
+  };
+
+  this.renderButtons = function () {
+    var _state7 = _this3.state,
+        scoutingSize = _state7.scoutingSize,
+        color = _state7.color,
+        matchPhase = _state7.matchPhase,
+        cycle = _state7.cycle,
+        cycles = _state7.cycles,
+        hab = _state7.hab,
+        habs = _state7.habs;
 
 
     var flipped = _this3.state.flipped ^ color === 'blue';

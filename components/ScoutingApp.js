@@ -59,8 +59,8 @@ class ScoutingApp extends React.Component {
   }
 
   getScoringAreaAsset = (scoringArea) => {
-    const scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : 'cargo_ship');
-    const assetMap = {'rocket_ship': '/assets/pictures/rocket_ship.jpg', 'cargo_ship': '/assets/pictures/cargo_ship.jpg'}
+    const scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : scoringArea.includes('cargo') ? 'cargo_ship' : 'dropped');
+    const assetMap = {rocket_ship: '/assets/pictures/rocket_ship.jpg', cargo_ship: '/assets/pictures/cargo_ship.jpg', dropped: '/assets/pictures/dropped.jpg'}
     return assetMap[scoringShip];
   }
   
@@ -141,16 +141,24 @@ class ScoutingApp extends React.Component {
   score = (scoringArea) => {
     const {cycle, cycles} = this.state;
     const isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
-    if (!isAttempted) {
+    if (!isAttempted && scoringArea !== 'dropped') {
       this.setState({cycle: {...cycle, score: scoringArea, success: 'attempted'}});
     }else {
       const newCycle = new Cycle(this.props.robot, this.props.matchNumber, this.state.matchPhase);
-      cycle.success = 'success';
+      if (scoringArea !== 'dropped') {cycle.success = 'success'}
+      else if (cycle.success !== 'attempted'){cycle.success = 'dropped'; cycle.score = 'dropped';}
       cycle.time =  this.getCurrTime() - cycle.timer;
       cycle.timer = undefined;
       cycles.push(cycle)
       this.setState({cycle: newCycle, cycles})
     }
+  }
+
+  createDroppedButton = () => {
+    const {scoutingSize, cycle} = this.state;
+    const {gamePiece} = cycle;
+    return (gamePiece == 'hatch' || gamePiece === 'cargo')
+      && <ScoutingButton {...{top: 65, left: 5, width: 75, height: 40, scoutingSize, text: 'Drop', buttonProps: {onClick: () => this.score('dropped'), variant: 'contained'}}}/>;
   }
 
   renderButtons = () => {
@@ -272,8 +280,9 @@ class ScoutingApp extends React.Component {
         {(tabPosition === 2 || tabPosition == 3) &&
           <div style={{height: scoutingSize, overflow: 'hidden'}}>
             <div id='info-column'>
-              <div id='state-info' style={{borderColor: theme.palette.primary.main}}>
+              <div id='state-info' style={{borderColor: theme.palette.primary.main, position: 'relative'}}>
                 <Typography variant='h5' className='f-left' color='primary'>{teamNumber}</Typography>
+                {this.createDroppedButton()}
                 <img src={this.getScoringAreaAsset(score)} id='game-piece-img'></img>
                 <img src={this.getGamePieceAsset(gamePiece)} id='game-piece-img'></img>
                 <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
