@@ -18,16 +18,14 @@ html
     script(src='/react-components/ScoutingApp.js')
   
     script(type='text/javascript').
-      var elem = document.documentElement;
-      function openFullscreen() {
-        if (elem.requestFullscreen) {
-          elem.requestFullscreen();
-        } else if (elem.mozRequestFullScreen) { /* Firefox */
-          elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-          elem.webkitRequestFullscreen();
-        } else if (elem.msRequestFullscreen) { /* IE/Edge */
-          elem.msRequestFullscreen();
+      document.fullscreenEnabled = document.fullscreenEnabled || document.mozFullScreenEnabled || document.documentElement.webkitRequestFullScreen;
+      function requestFullscreen(element) {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
         }
       }
 
@@ -36,6 +34,9 @@ html
     script(type='text/javascript').
       props = JSON.parse('!{JSON.stringify(props)}')
       window.onload = function(){
-        openFullscreen();
+        
+        if (document.fullscreenEnabled) {
+          requestFullscreen(document.documentElement);
+        }
         ReactDOM.render(e(App, props), document.getElementById('scouting_app'));
       }
