@@ -28,8 +28,6 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    // Match.getMatchData(req.query.matchNumber)
-    //   .then(sendResult(req, 'pitstrat', res), sendFailure(res));
     res.render('pitstrat',{'props': {
       'matchNumber' : 1
       }});

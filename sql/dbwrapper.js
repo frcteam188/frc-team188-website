@@ -1,6 +1,7 @@
 var exports = module.exports = {};
 
 var pg = require('pg');
+var squel = require("squel").useFlavour('postgres');
 
 var config = {
   host: 'ec2-184-72-249-88.compute-1.amazonaws.com',
@@ -11,6 +12,10 @@ var config = {
 };
 
 const TOURNAMENT_NAME='ryerson';
+const SCHEDULE = TOURNAMENT_NAME + '.schedule';
+const CYCLES = TOURNAMENT_NAME + '.cycle';
+const CLIMB = TOURNAMENT_NAME + '.climb';
+
 
 pg.defaults.ssl = true;
 var pool = new pg.Pool(config);
@@ -29,17 +34,17 @@ pool.on('error', function (err, client) {
 
 exports.getMatch = function(matchNumber, station, response){
   console.log("Getting Match: " + matchNumber + " for station: " + station);
-  var values = [parseInt(matchNumber)];
 
-  var query = "SELECT * FROM " + TOURNAMENT_NAME + ".schedule WHERE match = $1";
-  pool.query(query, values, function (err, res) {
+  var query = squel.select().from(SCHEDULE).where('match = ' + matchNumber).toParam();
+  pool.query(query.text, query.values, function (err, res) {
     if (err){
       console.log(err);
       response.send(err);
       return
     }
     const data = res.rows[0];
-    response.render('scouting', {'props': {
+    response.render('scouting', {'props': 
+    {
       'teamNumber': data[station],
       'matchNumber' : matchNumber,
       'station': station,
@@ -410,8 +415,7 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
 
 exports.submitAuto = function(auto){
   console.log("Submiting Auto");
-  var values = Object.keys(auto).map(key => auto[key])
-  var query = "INSERT INTO public.\"autoData\"(form_id, team_number, match_number, starting_pos, mobility, auto_ball_pickup, auto_high, auto_low, auto_gear_pickup, auto_pref_lift, auto_gear) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);";
+  
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);

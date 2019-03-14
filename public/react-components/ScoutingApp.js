@@ -132,7 +132,7 @@ var ScoutingApp = function (_React$Component) {
             React.createElement(Tab, { label: 'Station: ' + station, disabled: true }),
             React.createElement(Tab, { label: 'Sandstorm', disabled: matchPhase !== 'sandstorm' }),
             React.createElement(Tab, { label: 'Tele', disabled: !this.canTele() }),
-            React.createElement(Tab, { label: 'Defence' }),
+            React.createElement(Tab, { label: 'Defence', disabled: true }),
             React.createElement(Tab, { label: 'Submit' })
           )
         ),

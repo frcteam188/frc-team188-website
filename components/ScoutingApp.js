@@ -300,7 +300,7 @@ class ScoutingApp extends React.Component {
             <Tab label={'Station: ' + station} disabled={true}/>
             <Tab label="Sandstorm" disabled={matchPhase !== 'sandstorm'}/>
             <Tab label="Tele" disabled={!this.canTele()}/>
-            <Tab label="Defence"/>
+            <Tab label="Defence" disabled={true}/>
             <Tab label="Submit"/>
           </Tabs>
         </AppBar>
