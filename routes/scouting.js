@@ -5,24 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const pg = require('../sql/dbwrapper.js');
 
-const mongoose = require('mongoose');
-
-const Match = require('../models/Match')
-const MatchData = require('../models/MatchData')
-const Team = require('../models/Team')
-
-const mongoURI = process.env.MONGOURI ||
-
- 'mongodb://roland:Anderson'+
-                   '@scouting2018-shard-00-00-prx1p.mongodb.net:27017,'+
-                   'scouting2018-shard-00-01-prx1p.mongodb.net:27017,'+
-                   'scouting2018-shard-00-02-prx1p.mongodb.net:27017/'+
-                   'daly?replicaSet=Scouting2018-shard-0&ssl=true&authSource=admin'
-console.log(mongoURI);
-//'mongodb://localhost/scouting2018'
-
-mongoose.connect(mongoURI);
-
 
 routes.get('/', function(req, res){
 //  res.render('scouting');
@@ -36,7 +18,7 @@ routes.get('/', function(req, res){
       'flipped': false
       }});
   }else{
-    res.send('missing query: matchNumber or stationNumber');
+    res.send('missing query: matchNumber or station');
   }
 });
 
