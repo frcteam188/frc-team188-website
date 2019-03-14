@@ -4,13 +4,14 @@ const routes = Router();
 const jwt = require('jsonwebtoken');
 const pg = require('../sql/dbwrapper.js');
 
-
 routes.get('/', function(req, res){
 //  res.render('scouting');
   const {matchNumber, station} = req.query;
   console.log(req.query);
   if(matchNumber != undefined && station != undefined){
-    pg.getMatch(matchNumber, station, res);
+    pg.getMatch(matchNumber, station, res).then(result => {
+      res.render('scouting', result);
+    });
   }else{
     res.send('missing query: matchNumber or station');
   }

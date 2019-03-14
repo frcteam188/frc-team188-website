@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 
 var pg = require('pg');
-var squel = require("squel").useFlavour('postgres');
+const queries = require('./queries.js');
 
 var config = {
   host: 'ec2-184-72-249-88.compute-1.amazonaws.com',
@@ -10,12 +10,6 @@ var config = {
   password: 'f7b5f0d79b06f89bb93f6afbf3f6854713ad752083f8a4fc6f96882cd4fb99c2',
   database: 'dfs20llq1ohk4r',
 };
-
-const TOURNAMENT_NAME='ryerson';
-const SCHEDULE = TOURNAMENT_NAME + '.schedule';
-const CYCLES = TOURNAMENT_NAME + '.cycles';
-const HABS = TOURNAMENT_NAME + '.habs';
-
 
 pg.defaults.ssl = true;
 var pool = new pg.Pool(config);
@@ -35,67 +29,54 @@ exports.submitMatch = async function(matchData){
   const {station, teamNumber, matchNumber, cycles, habs} = matchData;
   console.log("Submiting Match: " + station + ', ' + matchNumber);
 
-  const stationStatusMap = {'r1': 'r1_status', 'r2': 'r2_status', 'r3': 'r3_status', 'b1': 'b1_status', 'b2': 'b2_status', 'b3': 'b3_status'}; // use map to prevent injection
-  const stationQuery = squel.update().table(SCHEDULE).set(stationStatusMap[station], 'submitted').where('match = ?', matchNumber).toParam();
-  const cyclesQuery = squel.insert().into(CYCLES).setFieldsRows(cycles).toParam();
-  const habsQuery = squel.insert().into(HABS).setFieldsRows(habs).toParam();
-  console.log(cyclesQuery.text);
   try {
-    let cyclesClear = await pool.query(squel.delete().from(CYCLES).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam()); // clear to avoid duplicate data
+    let cyclesClear = await pool.query(queries.clearCycles(matchNumber, teamNumber)); // clear to avoid duplicate data
     if (cycles.length > 0) {
-      let cyclesRes = await pool.query(cyclesQuery);
+      let cyclesRes = await pool.query(queries.insertCycles(cycles));
     }
-    let habsClear = await pool.query(squel.delete().from(HABS).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam());
+    let habsClear = await pool.query(queries.clearHabs(matchNumber, teamNumber));
     if (habs.length > 0) {
-      let habsRes = await pool.query(habsQuery);
+      let habsRes = await pool.query(queries.insertHabs(habs));
     }
-    let stationRes = await pool.query(stationQuery);
+    let stationRes = await pool.query(queries.updateMatchSubmitted(matchNumber, station));
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.getMatch = function(matchNumber, station, response){
+exports.getMatch = async function(matchNumber, station, response){
   console.log("Getting Match: " + matchNumber + " for station: " + station);
-
-  var query = squel.select().from(SCHEDULE).where('match = ' + matchNumber).toParam();
-  pool.query(query.text, query.values, function (err, res) {
-    if (err){
-      console.log(err);
-      response.send(err);
-      return
-    }
+  try {
+    let res = await pool.query(queries.getMatch(matchNumber));
     const data = res.rows[0];
-    response.render('scouting', {'props': 
+    return {'props': 
     {
       'teamNumber': data[station],
       'matchNumber' : matchNumber,
       'station': station,
       'flipped': false
-    }});
-  });
+    }};
+  }catch (err) {
+    console.log(err);
+  }
 }
 
-exports.getPitMatch = function(matchNumber, response){
+exports.getPitMatch = async function(matchNumber, response){
   console.log("Getting pit data for match: " + matchNumber);
-  var values = [parseInt(matchNumber)];
 
-  var query = "SELECT * FROM public.\"matchSchedule\" WHERE match_number = $1";
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-      response.send(err);
-      return
-    }
+  var query = sqeul
+    .select()
+    .from(CYCLES)
+    .where('match = ?', matchNumber)
+    .groupBy('robot')
+    .toParam();
+  try {
+    let result = await pool.query(query);
     var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
     var teamNumbers = [];
-    //console.log(res.rows[0]);
-
-    for(var station in stations){
-      teamNumbers.push(res.rows[0][stations[station]]);
-    }
-    getTeamData(teamNumbers, response, matchNumber);
-  });
+  }catch (err) {
+    console.log(err);
+  }
 };
 
 function getTeamData(teamNumbers, response, matchNumber){

@@ -318,14 +318,16 @@ var _initialiseProps = function _initialiseProps() {
         cycles = _state6.cycles;
 
     var isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
+    var level = scoringArea.includes('high') ? 3 : scoringArea.includes('mid') ? 2 : 1;
     if (!isAttempted && scoringArea !== 'dropped') {
-      _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted' }) });
+      _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted', level: level }) });
     } else {
       var newCycle = new Cycle(_this3.props.teamNumber, _this3.props.matchNumber, _this3.state.matchPhase);
       if (scoringArea === 'dropped') {
         if (cycle.success !== 'attempted') {
           cycle.success = 'dropped';
           cycle.score = 'dropped';
+          cycle.level = 0;
         }
       } else {
         cycle.success = 'success';

@@ -164,14 +164,16 @@ class ScoutingApp extends React.Component {
   score = (scoringArea) => {
     const {cycle, cycles} = this.state;
     const isAttempted = cycle.success === 'attempted' && cycle.score === scoringArea;
+    const level = scoringArea.includes('high') ? 3 : scoringArea.includes('mid') ? 2 : 1;
     if (!isAttempted && scoringArea !== 'dropped') {
-      this.setState({cycle: {...cycle, score: scoringArea, success: 'attempted'}});
+      this.setState({cycle: {...cycle, score: scoringArea, success: 'attempted', level}});
     }else {
       const newCycle = new Cycle(this.props.teamNumber, this.props.matchNumber, this.state.matchPhase);
       if (scoringArea === 'dropped') {
         if (cycle.success !== 'attempted'){
           cycle.success = 'dropped';
           cycle.score = 'dropped';
+          cycle.level = 0;
         }
       } else {
         cycle.success = 'success';
