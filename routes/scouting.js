@@ -16,6 +16,12 @@ routes.get('/', function(req, res){
   }
 });
 
+routes.post('/submitMatchData', function(req, res){
+  const matchData = req.body;
+  console.log(matchData);
+  req.query.api = 'true';
+  pg.submitMatch(req.body);
+});
 
 routes.get('/getTeamData', function(req, res){
   if(req.query.teamNumber != undefined){
@@ -57,12 +63,7 @@ routes.get('/viewTeam', function(req, res){
 //   }
 // });
 
-routes.post('/submitMatchData', function(req, res){
-  //const matchData = new MatchData(req.body);
-  req.query.api = 'true'
-  MatchData.saveOne(req.body)
-    .then(sendResult(req, '', res), sendFailure(res));
-});
+
 
 routes.post('/insertMatch', function(req, res){
   req.query.api = 'true'

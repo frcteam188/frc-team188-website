@@ -21,11 +21,11 @@ const {
 } = window['material-ui'];
 
 class Cycle {
-  constructor(robot, match, matchPhase) {
+  constructor(robot, match, phase) {
     this.robot = robot;
     this.match = match;
-    this.matchPhase =  matchPhase;
-    this.gamePiece = undefined;
+    this.phase =  phase;
+    this.piece = undefined;
     this.pickup = undefined;
     this.score = undefined;
     this.level = undefined;
@@ -35,10 +35,10 @@ class Cycle {
   }
 }
 class Hab {
-  constructor(robot, match, matchPhase) {
+  constructor(robot, match, phase) {
     this.robot = robot;
     this.match = match;
-    this.matchPhase = matchPhase;
+    this.phase = phase;
     this.level = 0;
     this.success = undefined;
     this.timer = undefined;
@@ -47,7 +47,7 @@ class Hab {
 }
 
 class Defence {
-  constructor(robot, match, matchPhase) {
+  constructor(robot, match, phase) {
     this.type = undefined; // pin, drop piece 
     this.success = undefined; // foul, success
   }
@@ -104,7 +104,7 @@ class ScoutingApp extends React.Component {
       const {cycle, hab, habs} = this.state;
       this.setState({
         matchPhase: 'tele',
-        cycle: {...cycle, matchPhase: 'tele', timer: this.getCurrTime()},
+        cycle: {...cycle, phase: 'tele', timer: this.getCurrTime()},
         hab: new Hab(this.props.teamNumber, this.props.matchNumber, 'tele'),
       });
       if (habs.length == 0) {
@@ -114,20 +114,23 @@ class ScoutingApp extends React.Component {
         this.setState({habs: [hab]});
       }
     }
+    if (tabPosition === 5) {
+      this.submitMatch();
+    }
     this.setState({tabPosition});
   }
 
   mobilityClicked = () => {
     const {hab} = this.state;
     hab.success = 'scored';
-    hab.time = this.getCurrTime() - hab.timer;
+    // hab.time = this.getCurrTime() - hab.timer;
     hab.timer = undefined;
     this.setState({hab: new Hab(this.props.teamNumber, this.props.matchNumber, 'tele'), habs: [hab]});
   }
 
   canTele = () => {
     const {matchPhase, cycle, hab, habs} = this.state;
-    return matchPhase == 'tele' || habs.length > 0 || (hab.level !== undefined && cycle.gamePiece != undefined && hab.timer !== undefined);
+    return matchPhase == 'tele' || habs.length > 0 || (hab.level !== undefined && cycle.piece != undefined && hab.timer !== undefined);
   }
 
   habClicked = (level) => {
@@ -138,7 +141,7 @@ class ScoutingApp extends React.Component {
     const isTele = matchPhase === 'tele';
     if (isTele && isAttempted) {
         hab.success = 'scored';
-        hab.time = this.getCurrTime() - hab.timer;
+        // hab.time = this.getCurrTime() - hab.timer;
         hab.timer = undefined;
         habs.push(hab);
         this.setState({habs: habs, hab: new Hab(this.props.teamNumber, this.props.matchNumber, 'tele')});
@@ -155,7 +158,7 @@ class ScoutingApp extends React.Component {
 
   pickup = (gamePiece, source) => {
     const {cycle} = this.state;
-    this.setState({cycle: {...cycle, gamePiece: gamePiece, pickup: source, timer: this.getCurrTime()}});
+    this.setState({cycle: {...cycle, piece: gamePiece, pickup: source, timer: this.getCurrTime()}});
   }
   
   score = (scoringArea) => {
@@ -164,7 +167,7 @@ class ScoutingApp extends React.Component {
     if (!isAttempted && scoringArea !== 'dropped') {
       this.setState({cycle: {...cycle, score: scoringArea, success: 'attempted'}});
     }else {
-      const newCycle = new Cycle(this.props.robot, this.props.matchNumber, this.state.matchPhase);
+      const newCycle = new Cycle(this.props.teamNumber, this.props.matchNumber, this.state.matchPhase);
       if (scoringArea === 'dropped') {
         if (cycle.success !== 'attempted'){
           cycle.success = 'dropped';
@@ -181,9 +184,30 @@ class ScoutingApp extends React.Component {
     }
   }
 
+
+
+  submitMatch = () => {
+    const {matchNumber, teamNumber, station, cycles, habs} = this.state;
+    fetch('/scouting/submitMatchData', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        matchNumber,
+        teamNumber,
+        station,
+        cycles,
+        habs
+      })
+    });    
+  }
+
+
   createDroppedButton = () => {
     const {scoutingSize, cycle} = this.state;
-    const {gamePiece} = cycle;
+    const gamePiece = cycle.piece;
     return (gamePiece == 'hatch' || gamePiece === 'cargo')
       && <ScoutingButton {...{top: 65, left: 5, width: 75, height: 40, scoutingSize, text: 'Drop', buttonProps: {onClick: () => this.score('dropped'), variant: 'contained'}}}/>;
   }
@@ -198,9 +222,9 @@ class ScoutingApp extends React.Component {
     const timerStarted = hab.timer !== undefined;
     const mobilityDone = habs.length > 0;
     
-    const carryingNone = cycle.gamePiece === 'none';
-    const carryingCargo = cycle.gamePiece === 'cargo';
-    const carryingHatch = cycle.gamePiece === 'hatch'; 
+    const carryingNone = cycle.piece === 'none';
+    const carryingCargo = cycle.piece === 'cargo';
+    const carryingHatch = cycle.piece === 'hatch'; 
     
     const createScoutingButton = (key, top, left, width, height, text, buttonProps) => {
       return <ScoutingButton {...{key, top, left, width, height, text, buttonProps, flipped, scoutingSize}}/>;
@@ -226,7 +250,7 @@ class ScoutingApp extends React.Component {
       return createScoutingButton(key, top, left, width, height, text, {onClick:() => this.score(key), variant:isAttempted?'contained':'outlined'})
     };
     
-    const scoreButtons = (isAuto && mobilityDone || isTele) && cycle.gamePiece != undefined && cycle.gamePiece != 'none'
+    const scoreButtons = (isAuto && mobilityDone || isTele) && cycle.piece != undefined && cycle.piece != 'none'
       && [createScoringButton('top-rocket-low', 50, 450, 60, 60, 'L'),
       createScoringButton('top-rocket-mid', 50, 510, 60, 60, 'M'),
       createScoringButton('top-rocket-high', 50, 570, 60, 60, 'H'),
@@ -239,7 +263,7 @@ class ScoutingApp extends React.Component {
 
     const createPickupButton = (key, top, left, width, height, text, primary, secondary) => {
       const isPickedUp = cycle.pickup === key;
-      const gamePiece = isPickedUp && cycle.gamePiece == primary ? secondary : primary;
+      const gamePiece = isPickedUp && cycle.piece == primary ? secondary : primary;
       const pickupProps = {onClick:() => this.pickup(gamePiece, key), variant:isPickedUp?'contained':'outlined'};
       return createScoutingButton(key, top, left, width, height, text, pickupProps);
     };
@@ -268,8 +292,8 @@ class ScoutingApp extends React.Component {
     const {habs} = this.state;
     if (habs.length <= index) return;
     const hab = habs[index]
-    const habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? (': ' + (hab.time/1000).toFixed(2)) : '');
-    return this.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, 0)
+    const habScored = (hab.phase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? (': ' + (hab.time/1000).toFixed(2)) : '');
+    return this.createInfoItem([], 'Level ' + hab.level, hab.phase, habScored, 0)
     
   }
 
@@ -279,8 +303,8 @@ class ScoutingApp extends React.Component {
     return ([...cycles].reverse().map(cycle => {
       const cycleTime = (cycle.time/1000).toFixed(2);
       return this.createInfoItem(
-        [this.getPickupAsset(cycle.pickup), this.getGamePieceAsset(cycle.gamePiece), this.getScoringAreaAsset(cycle.score)],
-        cycle.success, cycleTime, cycle.matchPhase, infoKey++);
+        [this.getPickupAsset(cycle.pickup), this.getGamePieceAsset(cycle.piece), this.getScoringAreaAsset(cycle.score)],
+        cycle.success, cycleTime, cycle.phase, infoKey++);
     }));
       
   }
@@ -291,7 +315,7 @@ class ScoutingApp extends React.Component {
     const {flipped} = this.props;
     const {appBarHeight, scoutingSize, teamNumber, station, matchNumber, tabPosition,
       matchPhase, cycle, hab} = this.state;
-    const {pickup, gamePiece, score} = cycle;
+    const {pickup, piece, score} = cycle;
     
     return <MuiThemeProvider theme={theme}>
         <AppBar position="static" style={{height: appBarHeight}}>
@@ -311,7 +335,7 @@ class ScoutingApp extends React.Component {
                 <Typography variant='h5' className='f-left' color='primary'>{teamNumber}</Typography>
                 {this.createDroppedButton()}
                 <img src={this.getScoringAreaAsset(score)} id='game-piece-img'></img>
-                <img src={this.getGamePieceAsset(gamePiece)} id='game-piece-img'></img>
+                <img src={this.getGamePieceAsset(piece)} id='game-piece-img'></img>
                 <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
               </div>
               <List style={{maxHeight: scoutingSize-100, overflow: 'auto'}}>

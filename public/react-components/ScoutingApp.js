@@ -29,13 +29,13 @@ var _window$materialUi = window['material-ui'],
     Typography = _window$materialUi.Typography,
     withStyles = _window$materialUi.withStyles;
 
-var Cycle = function Cycle(robot, match, matchPhase) {
+var Cycle = function Cycle(robot, match, phase) {
   _classCallCheck(this, Cycle);
 
   this.robot = robot;
   this.match = match;
-  this.matchPhase = matchPhase;
-  this.gamePiece = undefined;
+  this.phase = phase;
+  this.piece = undefined;
   this.pickup = undefined;
   this.score = undefined;
   this.level = undefined;
@@ -44,19 +44,19 @@ var Cycle = function Cycle(robot, match, matchPhase) {
   this.time = undefined;
 };
 
-var Hab = function Hab(robot, match, matchPhase) {
+var Hab = function Hab(robot, match, phase) {
   _classCallCheck(this, Hab);
 
   this.robot = robot;
   this.match = match;
-  this.matchPhase = matchPhase;
+  this.phase = phase;
   this.level = 0;
   this.success = undefined;
   this.timer = undefined;
   this.time = undefined;
 };
 
-var Defence = function Defence(robot, match, matchPhase) {
+var Defence = function Defence(robot, match, phase) {
   _classCallCheck(this, Defence);
 
   this.type = undefined; // pin, drop piece 
@@ -115,7 +115,7 @@ var ScoutingApp = function (_React$Component) {
           cycle = _state.cycle,
           hab = _state.hab;
       var pickup = cycle.pickup,
-          gamePiece = cycle.gamePiece,
+          piece = cycle.piece,
           score = cycle.score;
 
 
@@ -152,7 +152,7 @@ var ScoutingApp = function (_React$Component) {
               ),
               this.createDroppedButton(),
               React.createElement('img', { src: this.getScoringAreaAsset(score), id: 'game-piece-img' }),
-              React.createElement('img', { src: this.getGamePieceAsset(gamePiece), id: 'game-piece-img' }),
+              React.createElement('img', { src: this.getGamePieceAsset(piece), id: 'game-piece-img' }),
               React.createElement('img', { src: this.getPickupAsset(pickup), id: 'game-piece-img' })
             ),
             React.createElement(
@@ -238,7 +238,7 @@ var _initialiseProps = function _initialiseProps() {
 
       _this3.setState({
         matchPhase: 'tele',
-        cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: _this3.getCurrTime() }),
+        cycle: Object.assign({}, cycle, { phase: 'tele', timer: _this3.getCurrTime() }),
         hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele')
       });
       if (habs.length == 0) {
@@ -248,6 +248,9 @@ var _initialiseProps = function _initialiseProps() {
         _this3.setState({ habs: [hab] });
       }
     }
+    if (tabPosition === 5) {
+      _this3.submitMatch();
+    }
     _this3.setState({ tabPosition: tabPosition });
   };
 
@@ -255,7 +258,7 @@ var _initialiseProps = function _initialiseProps() {
     var hab = _this3.state.hab;
 
     hab.success = 'scored';
-    hab.time = _this3.getCurrTime() - hab.timer;
+    // hab.time = this.getCurrTime() - hab.timer;
     hab.timer = undefined;
     _this3.setState({ hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele'), habs: [hab] });
   };
@@ -267,7 +270,7 @@ var _initialiseProps = function _initialiseProps() {
         hab = _state3.hab,
         habs = _state3.habs;
 
-    return matchPhase == 'tele' || habs.length > 0 || hab.level !== undefined && cycle.gamePiece != undefined && hab.timer !== undefined;
+    return matchPhase == 'tele' || habs.length > 0 || hab.level !== undefined && cycle.piece != undefined && hab.timer !== undefined;
   };
 
   this.habClicked = function (level) {
@@ -282,7 +285,7 @@ var _initialiseProps = function _initialiseProps() {
     var isTele = matchPhase === 'tele';
     if (isTele && isAttempted) {
       hab.success = 'scored';
-      hab.time = _this3.getCurrTime() - hab.timer;
+      // hab.time = this.getCurrTime() - hab.timer;
       hab.timer = undefined;
       habs.push(hab);
       _this3.setState({ habs: habs, hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele') });
@@ -306,7 +309,7 @@ var _initialiseProps = function _initialiseProps() {
   this.pickup = function (gamePiece, source) {
     var cycle = _this3.state.cycle;
 
-    _this3.setState({ cycle: Object.assign({}, cycle, { gamePiece: gamePiece, pickup: source, timer: _this3.getCurrTime() }) });
+    _this3.setState({ cycle: Object.assign({}, cycle, { piece: gamePiece, pickup: source, timer: _this3.getCurrTime() }) });
   };
 
   this.score = function (scoringArea) {
@@ -318,7 +321,7 @@ var _initialiseProps = function _initialiseProps() {
     if (!isAttempted && scoringArea !== 'dropped') {
       _this3.setState({ cycle: Object.assign({}, cycle, { score: scoringArea, success: 'attempted' }) });
     } else {
-      var newCycle = new Cycle(_this3.props.robot, _this3.props.matchNumber, _this3.state.matchPhase);
+      var newCycle = new Cycle(_this3.props.teamNumber, _this3.props.matchNumber, _this3.state.matchPhase);
       if (scoringArea === 'dropped') {
         if (cycle.success !== 'attempted') {
           cycle.success = 'dropped';
@@ -335,27 +338,51 @@ var _initialiseProps = function _initialiseProps() {
     }
   };
 
-  this.createDroppedButton = function () {
+  this.submitMatch = function () {
     var _state7 = _this3.state,
-        scoutingSize = _state7.scoutingSize,
-        cycle = _state7.cycle;
-    var gamePiece = cycle.gamePiece;
+        matchNumber = _state7.matchNumber,
+        teamNumber = _state7.teamNumber,
+        station = _state7.station,
+        cycles = _state7.cycles,
+        habs = _state7.habs;
 
+    fetch('/scouting/submitMatchData', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        matchNumber: matchNumber,
+        teamNumber: teamNumber,
+        station: station,
+        cycles: cycles,
+        habs: habs
+      })
+    });
+  };
+
+  this.createDroppedButton = function () {
+    var _state8 = _this3.state,
+        scoutingSize = _state8.scoutingSize,
+        cycle = _state8.cycle;
+
+    var gamePiece = cycle.piece;
     return (gamePiece == 'hatch' || gamePiece === 'cargo') && React.createElement(ScoutingButton, { top: 65, left: 5, width: 75, height: 40, scoutingSize: scoutingSize, text: 'Drop', buttonProps: { onClick: function onClick() {
           return _this3.score('dropped');
         }, variant: 'contained' } });
   };
 
   this.renderButtons = function () {
-    var _state8 = _this3.state,
-        scoutingSize = _state8.scoutingSize,
-        color = _state8.color,
-        tabPosition = _state8.tabPosition,
-        matchPhase = _state8.matchPhase,
-        cycle = _state8.cycle,
-        cycles = _state8.cycles,
-        hab = _state8.hab,
-        habs = _state8.habs;
+    var _state9 = _this3.state,
+        scoutingSize = _state9.scoutingSize,
+        color = _state9.color,
+        tabPosition = _state9.tabPosition,
+        matchPhase = _state9.matchPhase,
+        cycle = _state9.cycle,
+        cycles = _state9.cycles,
+        hab = _state9.hab,
+        habs = _state9.habs;
 
 
     var flipped = _this3.state.flipped ^ color === 'blue';
@@ -364,9 +391,9 @@ var _initialiseProps = function _initialiseProps() {
     var timerStarted = hab.timer !== undefined;
     var mobilityDone = habs.length > 0;
 
-    var carryingNone = cycle.gamePiece === 'none';
-    var carryingCargo = cycle.gamePiece === 'cargo';
-    var carryingHatch = cycle.gamePiece === 'hatch';
+    var carryingNone = cycle.piece === 'none';
+    var carryingCargo = cycle.piece === 'cargo';
+    var carryingHatch = cycle.piece === 'hatch';
 
     var createScoutingButton = function createScoutingButton(key, top, left, width, height, text, buttonProps) {
       return React.createElement(ScoutingButton, { key: key, top: top, left: left, width: width, height: height, text: text, buttonProps: buttonProps, flipped: flipped, scoutingSize: scoutingSize });
@@ -401,11 +428,11 @@ var _initialiseProps = function _initialiseProps() {
         }, variant: isAttempted ? 'contained' : 'outlined' });
     };
 
-    var scoreButtons = (isAuto && mobilityDone || isTele) && cycle.gamePiece != undefined && cycle.gamePiece != 'none' && [createScoringButton('top-rocket-low', 50, 450, 60, 60, 'L'), createScoringButton('top-rocket-mid', 50, 510, 60, 60, 'M'), createScoringButton('top-rocket-high', 50, 570, 60, 60, 'H'), createScoringButton('bot-rocket-low', 440, 450, 60, 60, 'L'), createScoringButton('bot-rocket-mid', 440, 510, 60, 60, 'M'), createScoringButton('bot-rocket-high', 440, 570, 60, 60, 'H'), createScoringButton('top-cargo', 180, 520, 125, 50, ''), createScoringButton('front-cargo', 230, 400, 55, 90, ''), createScoringButton('bot-cargo', 320, 520, 125, 50, '')];
+    var scoreButtons = (isAuto && mobilityDone || isTele) && cycle.piece != undefined && cycle.piece != 'none' && [createScoringButton('top-rocket-low', 50, 450, 60, 60, 'L'), createScoringButton('top-rocket-mid', 50, 510, 60, 60, 'M'), createScoringButton('top-rocket-high', 50, 570, 60, 60, 'H'), createScoringButton('bot-rocket-low', 440, 450, 60, 60, 'L'), createScoringButton('bot-rocket-mid', 440, 510, 60, 60, 'M'), createScoringButton('bot-rocket-high', 440, 570, 60, 60, 'H'), createScoringButton('top-cargo', 180, 520, 125, 50, ''), createScoringButton('front-cargo', 230, 400, 55, 90, ''), createScoringButton('bot-cargo', 320, 520, 125, 50, '')];
 
     var createPickupButton = function createPickupButton(key, top, left, width, height, text, primary, secondary) {
       var isPickedUp = cycle.pickup === key;
-      var gamePiece = isPickedUp && cycle.gamePiece == primary ? secondary : primary;
+      var gamePiece = isPickedUp && cycle.piece == primary ? secondary : primary;
       var pickupProps = { onClick: function onClick() {
           return _this3.pickup(gamePiece, key);
         }, variant: isPickedUp ? 'contained' : 'outlined' };
@@ -444,8 +471,8 @@ var _initialiseProps = function _initialiseProps() {
 
     if (habs.length <= index) return;
     var hab = habs[index];
-    var habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
-    return _this3.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, 0);
+    var habScored = (hab.phase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
+    return _this3.createInfoItem([], 'Level ' + hab.level, hab.phase, habScored, 0);
   };
 
   this.renderCycles = function () {
@@ -454,7 +481,7 @@ var _initialiseProps = function _initialiseProps() {
     var infoKey = 0;
     return [].concat(_toConsumableArray(cycles)).reverse().map(function (cycle) {
       var cycleTime = (cycle.time / 1000).toFixed(2);
-      return _this3.createInfoItem([_this3.getPickupAsset(cycle.pickup), _this3.getGamePieceAsset(cycle.gamePiece), _this3.getScoringAreaAsset(cycle.score)], cycle.success, cycleTime, cycle.matchPhase, infoKey++);
+      return _this3.createInfoItem([_this3.getPickupAsset(cycle.pickup), _this3.getGamePieceAsset(cycle.piece), _this3.getScoringAreaAsset(cycle.score)], cycle.success, cycleTime, cycle.phase, infoKey++);
     });
   };
 };

@@ -13,8 +13,8 @@ var config = {
 
 const TOURNAMENT_NAME='ryerson';
 const SCHEDULE = TOURNAMENT_NAME + '.schedule';
-const CYCLES = TOURNAMENT_NAME + '.cycle';
-const CLIMB = TOURNAMENT_NAME + '.climb';
+const CYCLES = TOURNAMENT_NAME + '.cycles';
+const HABS = TOURNAMENT_NAME + '.habs';
 
 
 pg.defaults.ssl = true;
@@ -31,6 +31,29 @@ pool.on('error', function (err, client) {
   console.error('idle client error', err.message, err.stack)
 })
 
+exports.submitMatch = async function(matchData){
+  const {station, teamNumber, matchNumber, cycles, habs} = matchData;
+  console.log("Submiting Match: " + station + ', ' + matchNumber);
+
+  const stationStatusMap = {'r1': 'r1_status', 'r2': 'r2_status', 'r3': 'r3_status', 'b1': 'b1_status', 'b2': 'b2_status', 'b3': 'b3_status'}; // use map to prevent injection
+  const stationQuery = squel.update().table(SCHEDULE).set(stationStatusMap[station], 'submitted').where('match = ?', matchNumber).toParam();
+  const cyclesQuery = squel.insert().into(CYCLES).setFieldsRows(cycles).toParam();
+  const habsQuery = squel.insert().into(HABS).setFieldsRows(habs).toParam();
+  console.log(cyclesQuery.text);
+  try {
+    let cyclesClear = await pool.query(squel.delete().from(CYCLES).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam()); // clear to avoid duplicate data
+    if (cycles.length > 0) {
+      let cyclesRes = await pool.query(cyclesQuery);
+    }
+    let habsClear = await pool.query(squel.delete().from(HABS).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam());
+    if (habs.length > 0) {
+      let habsRes = await pool.query(habsQuery);
+    }
+    let stationRes = await pool.query(stationQuery);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 exports.getMatch = function(matchNumber, station, response){
   console.log("Getting Match: " + matchNumber + " for station: " + station);
@@ -413,15 +436,7 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
 //  response.send();
 }
 
-exports.submitAuto = function(auto){
-  console.log("Submiting Auto");
-  
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-    }
-  });
-};
+
 
 exports.insertMatch = function(match){
   var values = Object.keys(match).map(key => match[key])
@@ -432,18 +447,6 @@ exports.insertMatch = function(match){
     }
   });
 }
-
-exports.submitTele = function(tele){
-  console.log("Submiting Tele");
-  var values = Object.keys(tele).map(key => tele[key])
-
-  var query = "INSERT INTO public.\"teleData\"(form_id, team_number, match_number, pressure, ground_pickup, tele_high, tele_low, gears_acquired, gears_scored, pref_lift, hang, hang_duration, hang_davit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);";
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-    }
-  });
-};
 
 exports.query = function(query, response){
   console.log("TRYING QUERY : " + query);
@@ -461,15 +464,3 @@ exports.query = function(query, response){
     }
   });
 }
-
-exports.submitForm = function(form){
-  console.log("Submiting form");
-  var values = Object.keys(form).map(key => form[key]);
-
-  var query = "INSERT INTO public.\"formData\"(form_id, team_number, match_number, gear_bot, shot_bot, defend_bot) VALUES ($1, $2, $3, $4, $5, $6);";
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-    }
-  });
-};
