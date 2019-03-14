@@ -1,116 +1,28 @@
 doctype html
 html
   head
-    title Pit Strat
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no')
     link(rel='stylesheet', href='/assets/generated-css/stylesheet.css')
-    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-    script(src='/javascripts/jquery-3.0.0.min.js')
-
-  body.none.fill
-    //(style='background-image: url(assets/pictures/circuit.png);')#body
-
-
-    div.f-left(style='width:10%;')
-      p.grid-width=('#' + matchNumber)
-      p.grid-height.none='Click below to visit Team'
-      each team, teamNumber in summary
-        if (team.color == '#ba3248')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + team.teamNumber)=team.teamNumber
-      each team, teamNumber in summary
-        if (team.color == '#4286f4')
-          a.navbar-item.no-decor.center.grid-height.padding-s.text-on-primary(style='background: ' + team.color + ';' href='/scouting/viewTeam?teamNumber=' + team.teamNumber)=team.teamNumber
-
-    div.f-left(style='width: 90%')
-      div
-        each title, i in ['mPlayed', 'aPickup', 'aAttemp', 'aScored','tPickup','zones','own','scale', 'opp', 'exchange', 'hangAtt', 'hangSucc']
-          if (i < 1)
-            p.grid-width.f-left(style='background: orange')=title
-          if (i > 0 && i < 4)
-            p.grid-width.f-left(style='background: yellow')=title
-          if (i >= 4)
-            p.grid-width.f-left(style='background: green')=title
+    link#pagestyle(rel='stylesheet', href='../assets/generated-css/scouting.css')
+    title Pit Strat
+  script(src='/javascripts/jquery-3.0.0.min.js')
+  body.none
+    //- script(src="https://unpkg.com/react@16/umd/react.production.min.js", crossorigin='anonymous')
+    //- script(src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js", crossorigin='anonymous')
     
-        .clear
-        each team, teamNumber in summary
-            .no-decor.grid-height.padding-s
-            each val, field in team
-              if(field!='color'&&field!='teamNumber')
-                .no-decor.f-left.center.grid-item=val+''
-        .clear
-    .clear
-    //- 
-    //- div.f-left(style='width: 90%')
-    //-   div
-    //-     each title, i in names
-    //-       //- if (i <= 1)
-    //-       //-   p.grid-width.f-left(style='background: orange')=title
-    //-       //- if (i > 1 && i < 7)
-    //-       //-   p.grid-width.f-left(style='background: yellow')=title
-    //-       //- if (i >= 7)
-    //-       p.grid-width.f-left(style='background: green')=title
-    //-   .clear
-    //-   div
-    //-     each row, rowNumber in rows
-    //-       each val, index in row
-    //-        .no-decor.f-left.center.grid-item=val+''
-    //-       .clear
-    //-     .clear
-    //- 
-    div.margin-b
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber-1))
-        Prev Prev Match
+    script(src="https://unpkg.com/react@16/umd/react.development.js")
+    script(src="https://unpkg.com/react-dom@16/umd/react-dom.development.js")
+    script(src="https://kryogenix.org/code/browser/sorttable/sorttable.js")
+    script(src="https://unpkg.com/@material-ui/core/umd/material-ui.development.js" crossorigin='anonymous')
+    script(src='/react-components/PitStrat.js')
+  
 
-      a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=' + (matchNumber+1))
-        Next Next Match
 
-      //-
-      //- div.padding-b(style='background: yellow')
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=108')
-      //-     Match 1x8
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=207')
-      //-     Match 2x7
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=306')
-      //-     Match 3x6
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=405')
-      //-     Match 4x5
-      //-
-      //- div.padding-b(style='background: orange')
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=105')
-      //-     Match 1x5
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=104')
-      //-     Match 1x4
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=203')
-      //-     Match 2x3
-      //-   a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber=307')
-      //-     Match 3x7
+    #pit_strat.none
 
-      div.padding-b(style='border: red solid 5px; margin-top: 20px;')
-        each number, i in [9, 15, 24, 41, 56, 63, 79, 87, 101, 113]
-          a.navbar-item.no-decor.text-on-primary(href='/scouting/pitStrat?matchNumber='+number)
-            ='Match ' + number
-
-    style(type='text/css').
-      .grid-width{
-        width: 7%;
+    script(type='text/javascript').
+      props = JSON.parse('!{JSON.stringify(props)}')
+      window.onload = function(){
+        ReactDOM.render(e(App, props), document.getElementById('pit_strat'));
       }
-      .grid-height{
-        height: 40px;
-      }
-      .grid-item{
-        width: 7%;
-        height: 40px;
-      }
-      a{
-        background-color: #dddddd;
-        border: red;
-        height: 100px;
-        width: 150px;
-        padding: 3px 3px;
-        display: inline;
-        font-size: 16px;
-        margin: 5px 4px;
-        cursor: pointer;
-      }
-    script(src='scripts/material-components-web.js')
-    script.
-      mdc.autoInit()

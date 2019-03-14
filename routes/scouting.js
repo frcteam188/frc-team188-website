@@ -3,6 +3,8 @@ const Router = require('express').Router;
 const routes = Router();
 const jwt = require('jsonwebtoken');
 
+const pg = require('../sql/dbwrapper.js');
+
 const mongoose = require('mongoose');
 
 const Match = require('../models/Match')
@@ -50,8 +52,11 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    Match.getMatchData(req.query.matchNumber)
-      .then(sendResult(req, 'pitstrat', res), sendFailure(res));
+    // Match.getMatchData(req.query.matchNumber)
+    //   .then(sendResult(req, 'pitstrat', res), sendFailure(res));
+    res.render('pitstrat',{'props': {
+      'matchNumber' : 1
+      }});
   }
   else{
     res.send('missing query: matchNumber');

@@ -26,3 +26,10 @@ body{
   border-radius: 15px;
   float: right;
 }
+
+.table-icon{
+  float: left;
+  padding: 3%;
+  height: 35px;
+  border-radius: 15px;
+}
