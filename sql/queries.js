@@ -52,8 +52,7 @@ caseStationSubmited = station => {
 }
 exports.submittedMatchCount = squel
     .select()
-    .from(SCHEDULE).cross_join(TEAMS)
-    .
+    .from(SCHEDULE).cross_join(TEAMS);
 
 exports.getAverages = matchNumber => {
 
