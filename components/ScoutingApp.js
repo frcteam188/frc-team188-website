@@ -264,13 +264,13 @@ class ScoutingApp extends React.Component {
         </ListItem>, <Divider key='div'/>];
   }
 
-  renderHabs = () => {
+  renderHab = (index) => {
     const {habs} = this.state;
-    var infoKey = 0;
-    return (habs.map(hab => {
-      const habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? (': ' + (hab.time/1000).toFixed(2)) : '');
-      return this.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++)
-    }));
+    if (habs.length <= index) return;
+    const hab = habs[index]
+    const habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? (': ' + (hab.time/1000).toFixed(2)) : '');
+    return this.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, 0)
+    
   }
 
   renderCycles = () => {
@@ -315,8 +315,9 @@ class ScoutingApp extends React.Component {
                 <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
               </div>
               <List style={{maxHeight: scoutingSize-100, overflow: 'auto'}}>
+              {this.renderHab(1)}
               {this.renderCycles()}
-              {this.renderHabs()}
+              {this.renderHab(0)}
               </List>
             </div>
             <div id='scouting-column' style={{height: scoutingSize}}>
@@ -325,6 +326,7 @@ class ScoutingApp extends React.Component {
             </div>
             <div className='clear'/>
           </div>}
+
     </MuiThemeProvider>;
     };
   

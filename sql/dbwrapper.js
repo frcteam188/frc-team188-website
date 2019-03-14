@@ -10,6 +10,8 @@ var config = {
   database: 'dfs20llq1ohk4r',
 };
 
+const TOURNAMENT_NAME='ryerson';
+
 pg.defaults.ssl = true;
 var pool = new pg.Pool(config);
 pool.connect(function(err, client, done) {
@@ -29,21 +31,21 @@ exports.getMatch = function(matchNumber, station, response){
   console.log("Getting Match: " + matchNumber + " for station: " + station);
   var values = [parseInt(matchNumber)];
 
-  var query = "SELECT * FROM public.\"matchSchedule\" WHERE match_number = $1";
+  var query = "SELECT * FROM " + TOURNAMENT_NAME + ".schedule WHERE match = $1";
   pool.query(query, values, function (err, res) {
     if (err){
       console.log(err);
       response.send(err);
       return
     }
-
-    response.render('scouting',{
-      'teamNumber': res.rows[0][station],
-      'matchNumber' : res.rows[0]['match_number'],
-      'station': station
-      });
-
-    });
+    const data = res.rows[0];
+    response.render('scouting', {'props': {
+      'teamNumber': data[station],
+      'matchNumber' : matchNumber,
+      'station': station,
+      'flipped': false
+    }});
+  });
 }
 
 exports.getPitMatch = function(matchNumber, response){

@@ -158,8 +158,9 @@ var ScoutingApp = function (_React$Component) {
             React.createElement(
               List,
               { style: { maxHeight: scoutingSize - 100, overflow: 'auto' } },
+              this.renderHab(1),
               this.renderCycles(),
-              this.renderHabs()
+              this.renderHab(0)
             )
           ),
           React.createElement(
@@ -438,14 +439,13 @@ var _initialiseProps = function _initialiseProps() {
     ), React.createElement(Divider, { key: 'div' })];
   };
 
-  this.renderHabs = function () {
+  this.renderHab = function (index) {
     var habs = _this3.state.habs;
 
-    var infoKey = 0;
-    return habs.map(function (hab) {
-      var habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
-      return _this3.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, infoKey++);
-    });
+    if (habs.length <= index) return;
+    var hab = habs[index];
+    var habScored = (hab.matchPhase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
+    return _this3.createInfoItem([], 'Level ' + hab.level, hab.matchPhase, habScored, 0);
   };
 
   this.renderCycles = function () {
