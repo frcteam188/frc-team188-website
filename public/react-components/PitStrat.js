@@ -22,8 +22,14 @@ var _window$materialUi = window['material-ui'],
     ListItemAvatar = _window$materialUi.ListItemAvatar,
     ListItemText = _window$materialUi.ListItemText,
     MuiThemeProvider = _window$materialUi.MuiThemeProvider,
+    Paper = _window$materialUi.Paper,
     Tabs = _window$materialUi.Tabs,
     Tab = _window$materialUi.Tab,
+    Table = _window$materialUi.Table,
+    TableBody = _window$materialUi.TableBody,
+    TableCell = _window$materialUi.TableCell,
+    TableHead = _window$materialUi.TableHead,
+    TableRow = _window$materialUi.TableRow,
     Typography = _window$materialUi.Typography,
     withStyles = _window$materialUi.withStyles;
 
@@ -62,68 +68,70 @@ var PitStrat = function (_React$Component) {
       _this.setState({ tabPosition: tabPosition });
     };
 
-    _this.renderRows = function () {
+    _this.renderRows = function (th) {
+      var theme = th;
       var data = _this.state.data;
 
       var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
       return stations.map(function (station) {
         var team = data[station];
         return React.createElement(
-          'tr',
+          TableRow,
           { key: team.team },
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
+                color: 'white' } },
             team.team
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.matches
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.ssLevel
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.ssHatch
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.ssCargo
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.shipHatch
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.rocketHatch
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.shipCargo
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.rocketCargo
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.defense
           ),
           React.createElement(
-            'td',
-            null,
+            TableCell,
+            { id: 'table-cell' },
             team.hab
           )
         );
@@ -180,7 +188,7 @@ var PitStrat = function (_React$Component) {
           hab: 3
         },
         b1: {
-          team: 188,
+          team: 88,
           matches: 2,
           ssLevel: 1,
           ssHatch: 1,
@@ -193,7 +201,7 @@ var PitStrat = function (_React$Component) {
           hab: 3
         },
         b2: {
-          team: 610,
+          team: 910,
           matches: 2,
           ssLevel: 2,
           ssHatch: 0,
@@ -206,7 +214,7 @@ var PitStrat = function (_React$Component) {
           hab: 3
         },
         b3: {
-          team: 7885,
+          team: 785,
           matches: 2,
           ssLevel: 1,
           ssHatch: 1,
@@ -252,82 +260,86 @@ var PitStrat = function (_React$Component) {
           'div',
           { style: { height: 470 } },
           React.createElement(
-            'table',
-            { id: 'tb', className: 'sortable' },
+            Paper,
+            null,
             React.createElement(
-              'thead',
-              null,
+              Table,
+              { id: 'tb' },
               React.createElement(
-                'tr',
-                { style: { maxHeight: appBarHeight } },
+                TableHead,
+                null,
                 React.createElement(
-                  'th',
-                  null,
-                  'Team'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'Matches'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'Mobility'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.sandstorm }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.sandstorm }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.cargo_ship }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.cargo_ship }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.rocket_ship }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.rocket_ship }),
-                  React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'Cycles'
-                ),
-                React.createElement(
-                  'th',
-                  null,
-                  'Climb'
-                ),
-                React.createElement('div', { className: 'clear' })
+                  TableRow,
+                  { style: { maxHeight: appBarHeight } },
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    'Team'
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    'Matches'
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    'Mobility'
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.sandstorm }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.sandstorm }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.cargo_ship }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.cargo_ship }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.rocket_ship }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.hatch })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.rocket_ship }),
+                    React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    'Cycles'
+                  ),
+                  React.createElement(
+                    TableCell,
+                    { id: 'table-cell' },
+                    'Climb'
+                  ),
+                  React.createElement('div', { className: 'clear' })
+                )
+              ),
+              React.createElement(
+                TableBody,
+                null,
+                this.renderRows(theme)
               )
-            ),
-            React.createElement(
-              'tbody',
-              null,
-              this.renderRows()
             )
           ),
           React.createElement('div', { className: 'clear' })
