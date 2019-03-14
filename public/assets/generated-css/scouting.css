@@ -33,3 +33,11 @@ body{
   height: 35px;
   border-radius: 15px;
 }
+
+#table-cell{
+  padding: 10px;
+  text-align: right;
+}
+#tb{
+  min-width: 700px;
+}
