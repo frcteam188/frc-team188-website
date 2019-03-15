@@ -40,7 +40,7 @@ exports.insertMatch = match => squel
     .set('b3_status', 'none')
     .toParam();
 
-const getPreMatchAverages = matchNumber => {
+exports.getPreMatchAverages = matchNumber => {
     const text = 
 `SELECT * FROM 
 (SELECT 
@@ -65,11 +65,13 @@ FROM ryerson.cycles,
     WHEN b2=robot AND b2_status='submitted' THEN 1 
     WHEN b3=robot AND b3_status='submitted' THEN 1 
     END) AS sub_count
-    FROM ryerson.schedule, ryerson.teams
-    WHERE (r1=robot OR r2=robot OR r3=robot OR b1=robot OR b2=robot OR b3=robot) AND match=1
+    FROM (ryerson.schedule NATURAL JOIN (SELECT ARRAY[r1, r2, r3, b1, b2, b3] AS robots FROM ryerson.schedule WHERE MATCH = $1) AS robot_list), ryerson.teams
+    WHERE (r1=robot OR r2=robot OR r3=robot OR b1=robot OR b2=robot OR b3=robot) AND robot=ANY(robots)
     GROUP BY robot) AS match_count
  WHERE robot=number GROUP BY robot) AS robot_cycles
  `
+    values = [matchNumber];
+    return {text, values};
 }
 
 // const getExpressionAND = conditions => {

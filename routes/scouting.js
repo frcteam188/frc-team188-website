@@ -35,9 +35,12 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    res.render('pitstrat',{'props': {
-      'matchNumber' : 1
-      }});
+    pg.getPitMatch(req.query.matchNumber).then(response => {
+      console.log(response);
+      res.render('pitstrat', {'props': 
+        response
+      });
+    })
   }
   else{
     res.send('missing query: matchNumber');
