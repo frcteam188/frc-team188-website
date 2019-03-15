@@ -22,7 +22,25 @@ exports.insertCycles = cycles => squel.insert().into(CYCLES).setFieldsRows(cycle
 exports.clearHabs = (matchNumber, teamNumber) => squel.delete().from(HABS).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam();
 exports.insertHabs =  habs => squel.insert().into(HABS).setFieldsRows(habs).toParam();
 
-const getPreMatchAverages = matchNumber => {
+exports.insertMatch = match => squel
+    .insert()
+    .into(SCHEDULE)
+    .set('match', match.number)
+    .set('r1', match.r1)
+    .set('r2', match.r2)
+    .set('r3', match.r3)
+    .set('b1', match.b1)
+    .set('b2', match.b2)
+    .set('b3', match.b3)
+    .set('r1_status', 'none')
+    .set('r2_status', 'none')
+    .set('r3_status', 'none')
+    .set('b1_status', 'none')
+    .set('b2_status', 'none')
+    .set('b3_status', 'none')
+    .toParam();
+
+exports.getPreMatchAverages = matchNumber => {
     const text = 
 `SELECT * FROM 
 (SELECT 
@@ -47,11 +65,13 @@ FROM ryerson.cycles,
     WHEN b2=robot AND b2_status='submitted' THEN 1 
     WHEN b3=robot AND b3_status='submitted' THEN 1 
     END) AS sub_count
-    FROM ryerson.schedule, ryerson.teams
-    WHERE (r1=robot OR r2=robot OR r3=robot OR b1=robot OR b2=robot OR b3=robot) AND match=1
+    FROM (ryerson.schedule NATURAL JOIN (SELECT ARRAY[r1, r2, r3, b1, b2, b3] AS robots FROM ryerson.schedule WHERE MATCH = $1) AS robot_list), ryerson.teams
+    WHERE (r1=robot OR r2=robot OR r3=robot OR b1=robot OR b2=robot OR b3=robot) AND robot=ANY(robots)
     GROUP BY robot) AS match_count
  WHERE robot=number GROUP BY robot) AS robot_cycles
  `
+    values = [matchNumber];
+    return {text, values};
 }
 
 // const getExpressionAND = conditions => {

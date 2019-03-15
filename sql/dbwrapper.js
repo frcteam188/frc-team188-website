@@ -81,6 +81,7 @@ exports.getTeam = async function(teamNumber, response){
   console.log("Getting cycles for team: " + teamNumber);
   try {
     let res = await pool.query(queries.getCycles(teamNumber));
+    console.log(JSON.stringify(res))
     const data = res.rows;
     return {'props': 
     {
@@ -127,19 +128,38 @@ exports.getMatch = async function(matchNumber, station, response){
   }
 }
 
+const getStation = (robot, schedule) => {
+  console.log(schedule);
+  for (let key in schedule){
+    console.log(key);
+    if(schedule[key] === robot) return key;
+  }
+}
+
 exports.getPitMatch = async function(matchNumber, response){
   console.log("Getting pit data for match: " + matchNumber);
 
-  var query = sqeul
-    .select()
-    .from(CYCLES)
-    .where('match = ?', matchNumber)
-    .groupBy('robot')
-    .toParam();
   try {
-    let result = await pool.query(query);
+    let averageResult = await pool.query(queries.getPreMatchAverages(matchNumber));
+    let scheduleResult = await pool.query(queries.getMatch(matchNumber));
+    let schedule = scheduleResult.rows[0];
+    console.log()
+    var result = averageResult.rows.map(row => {return {
+      'robot': row.robot,
+      'station': getStation(row.robot, schedule),
+      'mobility': row.mobility,
+      'sandstorm_hatch': row.sandstorm_hatch,
+      'sandstorm_cargo': row.sandstorm_cargo,
+      'cargo_hatch': row.cargo_hatch,
+      'cargo_cargo': row.cargo_cargo,
+      'rocket_hatch': row.rocket_hatch,
+      'rocket_cargo': row.rocket_cargo,
+      'climb': row.climb
+      }
+    });
     var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
     var teamNumbers = [];
+    return result;
   }catch (err) {
     console.log(err);
   }
@@ -485,14 +505,12 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
 
 
 
-exports.insertMatch = function(match){
+exports.insertMatch = async function(match){
   var values = Object.keys(match).map(key => match[key])
-  var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-    }
-  });
+  // var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  console.log(match);
+  console.log(queries.insertMatch(match))
+  return pool.query(queries.insertMatch(match));
 }
 
 exports.query = function(query, response){

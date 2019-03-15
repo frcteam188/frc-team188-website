@@ -35,9 +35,14 @@ routes.get('/getTeamData', function(req, res){
 
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
-    res.render('pitstrat',{'props': {
-      'matchNumber' : 1
+    pg.getPitMatch(req.query.matchNumber).then(response => {
+      console.log(response);
+      res.render('pitstrat', {'props': 
+      {
+        'matchNumber': req.query.matchNumber,
+        'data': response
       }});
+    })
   }
   else{
     res.send('missing query: matchNumber');
@@ -88,7 +93,7 @@ routes.get('/viewTeam', function(req, res){
 routes.post('/insertMatch', function(req, res){
   req.query.api = 'true'
   if(req.body != undefined){
-    Match.saveOne(req.body)
+    pg.insertMatch(req.body)
       .then(sendResult(req, '', res), sendFailure(res));
   }
   else{
