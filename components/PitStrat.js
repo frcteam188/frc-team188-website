@@ -89,7 +89,8 @@ class PitStrat extends React.Component {
         <TableCell id='table-cell'>{team.cargo_cargo}</TableCell>
         <TableCell id='table-cell'>{team.rocket_hatch}</TableCell>
         <TableCell id='table-cell'>{team.rocket_cargo}</TableCell>
-=        <TableCell id='table-cell'>{team.climb}</TableCell>
+        <TableCell id='table-cell'>average</TableCell>
+        <TableCell id='table-cell'>{team.climb}</TableCell>
       </TableRow>);
     });
   }

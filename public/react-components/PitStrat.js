@@ -303,7 +303,11 @@ var _initialiseProps = function _initialiseProps() {
           { id: 'table-cell' },
           team.rocket_cargo
         ),
-        '=        ',
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          'average'
+        ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
