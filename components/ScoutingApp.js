@@ -114,9 +114,9 @@ class ScoutingApp extends React.Component {
         this.setState({habs: [hab]});
       }
     }
-    if (tabPosition === 5) {
-      this.submitMatch();
-    }
+    // if (tabPosition === 5) {
+    //   this.submitMatch();
+    // }
     this.setState({tabPosition});
   }
 
@@ -190,22 +190,34 @@ class ScoutingApp extends React.Component {
 
   submitMatch = () => {
     const {matchNumber, teamNumber, station, cycles, habs} = this.state;
+    const formKey = matchNumber+':'+teamNumber;
+    const matchData = {
+      matchNumber,
+      teamNumber,
+      station,
+      cycles,
+      habs
+    };
+    window.sessionStorage.setItem(formKey, JSON.stringify(matchData));
+    window.localStorage.setItem(formKey, JSON.stringify(matchData));
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        matchNumber,
-        teamNumber,
-        station,
-        cycles,
-        habs
-      })
-    });    
+      body: JSON.stringify(matchData)
+    }).then(response => {
+      var url = 'scouting?matchNumber='+(parseInt(matchNumber)+1)+'&station='+station;
+      window.location.href=url;
+    }); 
+    
   }
 
+  renderSubmitPage = () => {
+    const {scoutingSize} = this.state;
+    return <ScoutingButton {...{top: 300, left: 300, width: 150, height: 75, scoutingSize, text: 'Submit', buttonProps: {onClick: () => this.submitMatch(), variant: 'contained'}}}/>;
+  }
 
   createDroppedButton = () => {
     const {scoutingSize, cycle} = this.state;
@@ -352,6 +364,11 @@ class ScoutingApp extends React.Component {
             </div>
             <div className='clear'/>
           </div>}
+          {(tabPosition == 5) &&
+            <div>
+              {this.renderSubmitPage()}
+            </div>
+          }
 
     </MuiThemeProvider>;
     };

@@ -170,6 +170,11 @@ var ScoutingApp = function (_React$Component) {
             React.createElement('img', { className: 'fill', src: this.getBackgroundAsset(station, flipped) })
           ),
           React.createElement('div', { className: 'clear' })
+        ),
+        tabPosition == 5 && React.createElement(
+          'div',
+          null,
+          this.renderSubmitPage()
         )
       );
     }
@@ -248,9 +253,9 @@ var _initialiseProps = function _initialiseProps() {
         _this3.setState({ habs: [hab] });
       }
     }
-    if (tabPosition === 5) {
-      _this3.submitMatch();
-    }
+    // if (tabPosition === 5) {
+    //   this.submitMatch();
+    // }
     _this3.setState({ tabPosition: tabPosition });
   };
 
@@ -348,20 +353,35 @@ var _initialiseProps = function _initialiseProps() {
         cycles = _state7.cycles,
         habs = _state7.habs;
 
+    var formKey = matchNumber + ':' + teamNumber;
+    var matchData = {
+      matchNumber: matchNumber,
+      teamNumber: teamNumber,
+      station: station,
+      cycles: cycles,
+      habs: habs
+    };
+    window.sessionStorage.setItem(formKey, JSON.stringify(matchData));
+    window.localStorage.setItem(formKey, JSON.stringify(matchData));
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        matchNumber: matchNumber,
-        teamNumber: teamNumber,
-        station: station,
-        cycles: cycles,
-        habs: habs
-      })
+      body: JSON.stringify(matchData)
+    }).then(function (response) {
+      var url = 'scouting?matchNumber=' + (parseInt(matchNumber) + 1) + '&station=' + station;
+      window.location.href = url;
     });
+  };
+
+  this.renderSubmitPage = function () {
+    var scoutingSize = _this3.state.scoutingSize;
+
+    return React.createElement(ScoutingButton, { top: 300, left: 300, width: 150, height: 75, scoutingSize: scoutingSize, text: 'Submit', buttonProps: { onClick: function onClick() {
+          return _this3.submitMatch();
+        }, variant: 'contained' } });
   };
 
   this.createDroppedButton = function () {

@@ -21,7 +21,7 @@ routes.post('/submitMatchData', function(req, res){
   const matchData = req.body;
   console.log(matchData);
   req.query.api = 'true';
-  pg.submitMatch(req.body);
+  pg.submitMatch(req.body).then(res.send(200));
 });
 
 routes.get('/getTeamData', function(req, res){
