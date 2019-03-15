@@ -259,7 +259,7 @@ var _initialiseProps = function _initialiseProps() {
         { key: team.robot },
         React.createElement(
           TableCell,
-          { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
+          { id: 'table-cell', style: { backgroundColor: team.station.includes('r') ? theme.palette.primary.main : theme.palette.secondary.main,
               color: 'white' } },
           team.robot
         ),

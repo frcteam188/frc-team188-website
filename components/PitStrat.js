@@ -79,7 +79,7 @@ class PitStrat extends React.Component {
     return data.map(team => {
      return (
       <TableRow key={team.robot} >
-        <TableCell id='table-cell' style={{backgroundColor:theme.palette.primary.main,
+        <TableCell id='table-cell' style={{backgroundColor:team.station.includes('r') ? theme.palette.primary.main : theme.palette.secondary.main,
            color:'white'}}>{team.robot}</TableCell>
         <TableCell id='table-cell'>{team.station}</TableCell>
         <TableCell id='table-cell'>{team.mobility}</TableCell>
