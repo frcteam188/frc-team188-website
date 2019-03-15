@@ -38,8 +38,10 @@ routes.get('/pitStrat', function(req, res){
     pg.getPitMatch(req.query.matchNumber).then(response => {
       console.log(response);
       res.render('pitstrat', {'props': 
-        response
-      });
+      {
+        'matchNumber': req.query.matchNumber,
+        'data': response
+      }});
     })
   }
   else{
