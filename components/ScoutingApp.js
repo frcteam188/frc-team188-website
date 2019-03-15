@@ -114,9 +114,9 @@ class ScoutingApp extends React.Component {
         this.setState({habs: [hab]});
       }
     }
-    if (tabPosition === 5) {
-      this.submitMatch();
-    }
+    // if (tabPosition === 5) {
+    //   this.submitMatch();
+    // }
     this.setState({tabPosition});
   }
 
@@ -188,24 +188,53 @@ class ScoutingApp extends React.Component {
 
 
 
-  submitMatch = () => {
+  submitMatch = (useKey=undefined) => {
     const {matchNumber, teamNumber, station, cycles, habs} = this.state;
+    const formKey = matchNumber+':'+teamNumber;
+    const matchData = useKey !== undefined 
+      ? window.localStorage.getItem(useKey)
+      : JSON.stringify({
+        matchNumber,
+        teamNumber,
+        station,
+        cycles,
+        habs
+      });
+    window.sessionStorage.setItem(formKey,matchData);
+    window.localStorage.setItem(formKey, matchData);
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        matchNumber,
-        teamNumber,
-        station,
-        cycles,
-        habs
-      })
-    });    
+      body: matchData
+    }).then(response => {
+      if(useKey === undefined) {
+        var url = 'scouting?matchNumber='+(parseInt(matchNumber)+1)+'&station='+station;
+        window.location.href=url;
+      }
+    }); 
+    
   }
 
+  renderSubmitPage = () => {
+    const {scoutingSize} = this.state;
+    const buttons = [];
+    for (var i = 0; i < window.localStorage.length; i++) {
+      const formKey = window.localStorage.key(i) 
+      const rowCount = 8, x = i%rowCount, y = Math.floor(i/rowCount)+1;
+      buttons.push(
+      <ScoutingButton {...{top: 80*y, left: x*100+20, scoutingSize, text: formKey, key: formKey,
+        buttonProps: {id:'prev-match-button', onClick: () => this.submitMatch(formKey), variant: 'contained'}}}/>
+      );
+    }
+  return [
+    ...buttons,
+    <ScoutingButton {...{top: 450, left: 750, width: 150, height: 75, scoutingSize, text: 'Submit', key: 'submit', buttonProps: {onClick: () => this.submitMatch(), variant: 'contained'}}}/>
+  ];
+
+  }
 
   createDroppedButton = () => {
     const {scoutingSize, cycle} = this.state;
@@ -340,7 +369,7 @@ class ScoutingApp extends React.Component {
                 <img src={this.getGamePieceAsset(piece)} id='game-piece-img'></img>
                 <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
               </div>
-              <List style={{maxHeight: scoutingSize-100, overflow: 'auto'}}>
+              <List style={{width: '100%', maxHeight: scoutingSize-100, overflow: 'auto'}}>
               {this.renderHab(1)}
               {this.renderCycles()}
               {this.renderHab(0)}
@@ -352,6 +381,11 @@ class ScoutingApp extends React.Component {
             </div>
             <div className='clear'/>
           </div>}
+          {(tabPosition == 5) &&
+            <div>
+              {this.renderSubmitPage()}
+            </div>
+          }
 
     </MuiThemeProvider>;
     };

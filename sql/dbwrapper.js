@@ -50,8 +50,7 @@ exports.getMatch = async function(matchNumber, station, response){
     let res = await pool.query(queries.getMatch(matchNumber));
     const data = res.rows[0];
     return {'props': 
-    {
-      'teamNumber': data[station],
+    { 'teamNumber': data[station],
       'matchNumber' : matchNumber,
       'station': station,
       'flipped': false

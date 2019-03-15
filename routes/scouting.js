@@ -16,6 +16,26 @@ routes.get('/', function(req, res){
     res.send('missing query: matchNumber or station');
   }
 });
+<<<<<<< HEAD
+=======
+
+routes.post('/submitMatchData', function(req, res){
+  const matchData = req.body;
+  console.log(matchData);
+  req.query.api = 'true';
+  pg.submitMatch(req.body).then(res.send(200));
+});
+
+routes.get('/getTeamData', function(req, res){
+  if(req.query.teamNumber != undefined){
+    MatchData.getTeam(req.query.teamNumber)
+      .then(sendResult(req, 'teamview', res), sendFailure(res));
+  }else{
+    res.send('missing query: teamNumber')
+  }
+});
+
+>>>>>>> 7f18e5ac5194b5b7dc6338a5da28381bb746bc4e
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
     res.render('pitstrat',{'props': {

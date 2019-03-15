@@ -157,7 +157,7 @@ var ScoutingApp = function (_React$Component) {
             ),
             React.createElement(
               List,
-              { style: { maxHeight: scoutingSize - 100, overflow: 'auto' } },
+              { style: { width: '100%', maxHeight: scoutingSize - 100, overflow: 'auto' } },
               this.renderHab(1),
               this.renderCycles(),
               this.renderHab(0)
@@ -170,6 +170,11 @@ var ScoutingApp = function (_React$Component) {
             React.createElement('img', { className: 'fill', src: this.getBackgroundAsset(station, flipped) })
           ),
           React.createElement('div', { className: 'clear' })
+        ),
+        tabPosition == 5 && React.createElement(
+          'div',
+          null,
+          this.renderSubmitPage()
         )
       );
     }
@@ -248,9 +253,9 @@ var _initialiseProps = function _initialiseProps() {
         _this3.setState({ habs: [hab] });
       }
     }
-    if (tabPosition === 5) {
-      _this3.submitMatch();
-    }
+    // if (tabPosition === 5) {
+    //   this.submitMatch();
+    // }
     _this3.setState({ tabPosition: tabPosition });
   };
 
@@ -341,6 +346,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.submitMatch = function () {
+    var useKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
     var _state7 = _this3.state,
         matchNumber = _state7.matchNumber,
         teamNumber = _state7.teamNumber,
@@ -348,20 +354,53 @@ var _initialiseProps = function _initialiseProps() {
         cycles = _state7.cycles,
         habs = _state7.habs;
 
+    var formKey = matchNumber + ':' + teamNumber;
+    var matchData = useKey !== undefined ? window.localStorage.getItem(useKey) : JSON.stringify({
+      matchNumber: matchNumber,
+      teamNumber: teamNumber,
+      station: station,
+      cycles: cycles,
+      habs: habs
+    });
+    window.sessionStorage.setItem(formKey, matchData);
+    window.localStorage.setItem(formKey, matchData);
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        matchNumber: matchNumber,
-        teamNumber: teamNumber,
-        station: station,
-        cycles: cycles,
-        habs: habs
-      })
+      body: matchData
+    }).then(function (response) {
+      if (useKey === undefined) {
+        var url = 'scouting?matchNumber=' + (parseInt(matchNumber) + 1) + '&station=' + station;
+        window.location.href = url;
+      }
     });
+  };
+
+  this.renderSubmitPage = function () {
+    var scoutingSize = _this3.state.scoutingSize;
+
+    var buttons = [];
+
+    var _loop = function _loop() {
+      var formKey = window.localStorage.key(i);
+      var rowCount = 8,
+          x = i % rowCount,
+          y = Math.floor(i / rowCount) + 1;
+      buttons.push(React.createElement(ScoutingButton, { top: 80 * y, left: x * 100 + 20, scoutingSize: scoutingSize, text: formKey, key: formKey,
+        buttonProps: { id: 'prev-match-button', onClick: function onClick() {
+            return _this3.submitMatch(formKey);
+          }, variant: 'contained' } }));
+    };
+
+    for (var i = 0; i < window.localStorage.length; i++) {
+      _loop();
+    }
+    return [].concat(buttons, [React.createElement(ScoutingButton, { top: 450, left: 750, width: 150, height: 75, scoutingSize: scoutingSize, text: 'Submit', key: 'submit', buttonProps: { onClick: function onClick() {
+          return _this3.submitMatch();
+        }, variant: 'contained' } })]);
   };
 
   this.createDroppedButton = function () {
