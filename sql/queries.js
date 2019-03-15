@@ -31,11 +31,10 @@ const SCHEDULE = TOURNAMENT_NAME + '.schedule';
 const CYCLES = TOURNAMENT_NAME + '.cycles';
 const HABS = TOURNAMENT_NAME + '.habs';
 const TEAMS = TOURNAMENT_NAME + '.teams';
+const stationStatusMap = {'r1': 'r1_status', 'r2': 'r2_status', 'r3': 'r3_status', 'b1': 'b1_status', 'b2': 'b2_status', 'b3': 'b3_status'}; // use map to prevent injection
+exports.getMatch = matchNumber => squel.select().from(SCHEDULE).where('match = ?', matchNumber).toParam();
 
-exports.getMatch = matchNumber => squel.select().from(SCHEDULE).where('match = ' + matchNumber).toParam();
-  
 exports.updateMatchSubmitted = (matchNumber, station) => {
-    const stationStatusMap = {'r1': 'r1_status', 'r2': 'r2_status', 'r3': 'r3_status', 'b1': 'b1_status', 'b2': 'b2_status', 'b3': 'b3_status'}; // use map to prevent injection
     return squel.update().table(SCHEDULE).set(stationStatusMap[station], 'submitted').where('match = ?', matchNumber).toParam();
 }
 exports.clearCycles = (matchNumber, teamNumber) => squel.delete().from(CYCLES).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam();
@@ -43,17 +42,30 @@ exports.insertCycles = cycles => squel.insert().into(CYCLES).setFieldsRows(cycle
 
 exports.clearHabs = (matchNumber, teamNumber) => squel.delete().from(HABS).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam();
 exports.insertHabs =  habs => squel.insert().into(HABS).setFieldsRows(habs).toParam();
-
-// count = cases => {
-//     return 'COUNT(' cases.map()
-// }
-
-caseStationSubmited = station => {
+stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3']
+const robotInMatch = () => {
+    var temp = squel.expr();
+    stations.forEach(station=>temp = temp.or(station + '=robot'));
+    console.log(temp.toString());
+    return temp.toString();
 }
+const robotMatchSubmitted = () => {
+    var temp = squel.case();
+    stations.forEach(station=>temp = temp.when(station + '=robot and '+ stationStatusMap[station] + '=\'submitted\'').then(1));
+    return temp.toString();
+}
+const match_count = 
+
 exports.submittedMatchCount = squel
     .select()
-    .from(SCHEDULE).cross_join(TEAMS);
-
+    .field('robot AS number')
+    .field('COUNT(' + robotMatchSubmitted() + ')', 'sub_count')
+    .from(SCHEDULE).cross_join(TEAMS)
+    .where(robotInMatch())
+    .group('robot').toParam();
+    
 exports.getAverages = matchNumber => {
 
 }
+
+console.log(match_count.text)
