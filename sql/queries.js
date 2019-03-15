@@ -22,6 +22,24 @@ exports.insertCycles = cycles => squel.insert().into(CYCLES).setFieldsRows(cycle
 exports.clearHabs = (matchNumber, teamNumber) => squel.delete().from(HABS).where('match = ?', matchNumber).where('robot = ?', teamNumber).toParam();
 exports.insertHabs =  habs => squel.insert().into(HABS).setFieldsRows(habs).toParam();
 
+exports.insertMatch = match => squel
+    .insert()
+    .into(SCHEDULE)
+    .set('match', match.number)
+    .set('r1', match.r1)
+    .set('r2', match.r2)
+    .set('r3', match.r3)
+    .set('b1', match.b1)
+    .set('b2', match.b2)
+    .set('b3', match.b3)
+    .set('r1_status', 'none')
+    .set('r2_status', 'none')
+    .set('r3_status', 'none')
+    .set('b1_status', 'none')
+    .set('b2_status', 'none')
+    .set('b3_status', 'none')
+    .toParam();
+
 const getPreMatchAverages = matchNumber => {
     const text = 
 `SELECT * FROM 

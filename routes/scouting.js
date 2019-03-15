@@ -69,7 +69,7 @@ routes.get('/viewTeam', function(req, res){
 routes.post('/insertMatch', function(req, res){
   req.query.api = 'true'
   if(req.body != undefined){
-    Match.saveOne(req.body)
+    pg.insertMatch(req.body)
       .then(sendResult(req, '', res), sendFailure(res));
   }
   else{

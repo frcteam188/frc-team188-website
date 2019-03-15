@@ -418,14 +418,12 @@ function sendTeamData(teamData, response, auto, doneQueries, summary, teamNumber
 
 
 
-exports.insertMatch = function(match){
+exports.insertMatch = async function(match){
   var values = Object.keys(match).map(key => match[key])
-  var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
-  pool.query(query, values, function (err, res) {
-    if (err){
-      console.log(err);
-    }
-  });
+  // var query = "INSERT INTO public.\"matchSchedule\"(match_number, r1, r2, r3, b1, b2, b3) VALUES ($1, $2, $3, $4, $5, $6, $7);";
+  console.log(match);
+  console.log(queries.insertMatch(match))
+  return pool.query(queries.insertMatch(match));
 }
 
 exports.query = function(query, response){
