@@ -96,7 +96,7 @@ class TeamView extends React.Component {
     }));
   }
   createInfoItem = (assets, primary, secondary, tertiary, key) => {
-    return  [<ListItem style={{maxWidth: 400}} alignItems='flex-start' key={key++}>
+    return  [<ListItem className='pitView-list-item' style={{maxWidth: 400}} alignItems='flex-start' key={key++}>
       <ListItemText
         primary={primary}
         secondary={<React.Fragment>
@@ -115,6 +115,15 @@ class TeamView extends React.Component {
     return this.createInfoItem([], 'Level ' + hab.level, hab.phase, habScored, 0)
     
   }
+
+  renderMatches = () => {
+    const {data} = this.state;
+    data.sort((a, b) => {
+        return a.id - b.id;
+    });
+    var infoKey = 0;
+
+  }
   render() {
     const theme = this.createTheme();
     const {appBarHeight, teamNumber, tabPosition, scoutingSize} = this.state;
@@ -131,22 +140,13 @@ class TeamView extends React.Component {
         {(tabPosition === 0) &&
           <div style={{height: scoutingSize, float: 'left'}}>
             <Paper>
-                <List style={{maxHeight: 475, overflow: 'auto'}}>
+                <List className="pitStratList" style={{}}>
                 {this.renderCycles()}
+                {this.renderMatches()}
                 </List>
             </Paper>
             <div className='clear'/>
           </div>}
-          {/* {(tabPosition === 1) && 
-            <div style={{height: 470}}>
-              renderTeams('red')
-            </div>
-          }
-          {(tabPosition === 2) && 
-            <div style={{height: 470}}>
-              renderTeams('blue')
-            </div>
-          } */}
     </MuiThemeProvider>;
     };
   

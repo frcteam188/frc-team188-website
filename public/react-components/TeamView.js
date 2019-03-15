@@ -111,8 +111,9 @@ var TeamView = function (_React$Component) {
             null,
             React.createElement(
               List,
-              { style: { maxHeight: 475, overflow: 'auto' } },
-              this.renderCycles()
+              { className: 'pitStratList', style: {} },
+              this.renderCycles(),
+              this.renderMatches()
             )
           ),
           React.createElement('div', { className: 'clear' })
@@ -195,7 +196,7 @@ var _initialiseProps = function _initialiseProps() {
   this.createInfoItem = function (assets, primary, secondary, tertiary, key) {
     return [React.createElement(
       ListItem,
-      { style: { maxWidth: 400 }, alignItems: 'flex-start', key: key++ },
+      { className: 'pitView-list-item', style: { maxWidth: 400 }, alignItems: 'flex-start', key: key++ },
       React.createElement(ListItemText, {
         primary: primary,
         secondary: React.createElement(
@@ -221,6 +222,15 @@ var _initialiseProps = function _initialiseProps() {
     var hab = habs[index];
     var habScored = (hab.phase === 'tele' ? 'climb: ' : 'mobility: ') + hab.success + (hab.time ? ': ' + (hab.time / 1000).toFixed(2) : '');
     return _this3.createInfoItem([], 'Level ' + hab.level, hab.phase, habScored, 0);
+  };
+
+  this.renderMatches = function () {
+    var data = _this3.state.data;
+
+    data.sort(function (a, b) {
+      return a.id - b.id;
+    });
+    var infoKey = 0;
   };
 };
 

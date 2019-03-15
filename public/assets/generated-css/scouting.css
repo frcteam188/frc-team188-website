@@ -41,3 +41,30 @@ body{
 #tb{
   min-width: 700px;
 }
+
+.pitView-list-item{
+  /* height: 100px; */
+  width: 100px;
+  display: inline-block;
+  flex: 0 0 auto;
+  border-right: solid 1px;
+  /* transform: rotate(-90deg); */
+}
+.pitStratList{
+  /* position: absolute;
+  top: 0px;
+  left: 0px; */
+  width: 960px;
+  height: 100px;
+	overflow-x: auto;
+	/* overflow-y: hidden;
+  white-space: nowrap; */
+  text-align: center;
+  display: flex;
+  flex-wrap:  nowrap;
+
+  /* transform: rotate(90deg); */
+  /* height: 960px; */
+  /* width: 150px; */
+  /* overflow-x: scroll */
+}
