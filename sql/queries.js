@@ -68,4 +68,6 @@ exports.getAverages = matchNumber => {
 
 }
 
+exports.getCycles = (teamNumber) => squel.select().from(CYCLES).where('robot = ?', teamNumber).toParam();
+
 console.log(match_count.text)

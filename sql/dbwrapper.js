@@ -78,6 +78,73 @@ exports.getPitMatch = async function(matchNumber, response){
     console.log(err);
   }
 };
+exports.getTeam = async function(teamNumber, response){
+  console.log("Getting cycles for team: " + teamNumber);
+  try {
+    let res = await pool.query(queries.getCycles(teamNumber));
+    const data = res.rows;
+    return {'props': 
+    {
+      'data': data,
+      'teamNumber' : teamNumber
+    }};
+  }catch (err) {
+    console.log(err);
+  }
+};
+exports.submitMatch = async function(matchData){
+  const {station, teamNumber, matchNumber, cycles, habs} = matchData;
+  console.log("Submiting Match: " + station + ', ' + matchNumber);
+
+  try {
+    let cyclesClear = await pool.query(queries.clearCycles(matchNumber, teamNumber)); // clear to avoid duplicate data
+    if (cycles.length > 0) {
+      let cyclesRes = await pool.query(queries.insertCycles(cycles));
+    }
+    let habsClear = await pool.query(queries.clearHabs(matchNumber, teamNumber));
+    if (habs.length > 0) {
+      let habsRes = await pool.query(queries.insertHabs(habs));
+    }
+    let stationRes = await pool.query(queries.updateMatchSubmitted(matchNumber, station));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.getMatch = async function(matchNumber, station, response){
+  console.log("Getting Match: " + matchNumber + " for station: " + station);
+  try {
+    let res = await pool.query(queries.getMatch(matchNumber));
+    const data = res.rows[0];
+    return {'props': 
+    {
+      'teamNumber': data[station],
+      'matchNumber' : matchNumber,
+      'station': station,
+      'flipped': false
+    }};
+  }catch (err) {
+    console.log(err);
+  }
+}
+
+exports.getPitMatch = async function(matchNumber, response){
+  console.log("Getting pit data for match: " + matchNumber);
+
+  var query = sqeul
+    .select()
+    .from(CYCLES)
+    .where('match = ?', matchNumber)
+    .groupBy('robot')
+    .toParam();
+  try {
+    let result = await pool.query(query);
+    var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
+    var teamNumbers = [];
+  }catch (err) {
+    console.log(err);
+  }
+};
 
 function getTeamData(teamNumbers, response, matchNumber){
   var summary = {};

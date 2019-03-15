@@ -16,23 +16,6 @@ routes.get('/', function(req, res){
     res.send('missing query: matchNumber or station');
   }
 });
-
-routes.post('/submitMatchData', function(req, res){
-  const matchData = req.body;
-  console.log(matchData);
-  req.query.api = 'true';
-  pg.submitMatch(req.body);
-});
-
-routes.get('/getTeamData', function(req, res){
-  if(req.query.teamNumber != undefined){
-    MatchData.getTeam(req.query.teamNumber)
-      .then(sendResult(req, 'teamview', res), sendFailure(res));
-  }else{
-    res.send('missing query: teamNumber')
-  }
-});
-
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
     res.render('pitstrat',{'props': {
@@ -43,6 +26,25 @@ routes.get('/pitStrat', function(req, res){
     res.send('missing query: matchNumber');
   }
 });
+
+routes.get('/teamView', function(req, res){
+  if(req.query.teamNumber != undefined){
+    pg.getTeam(req.query.teamNumber, res).then(result => {
+      res.render('teamview', result)
+    })
+  }else{
+    res.send('missing query: teamNumber')
+  }
+});
+
+routes.post('/submitMatchData', function(req, res){
+  const matchData = req.body;
+  console.log(matchData);
+  req.query.api = 'true';
+  pg.submitMatch(req.body);
+});
+
+
 
 routes.get('/viewTeam', function(req, res){
   if(req.query.teamNumber != undefined){
