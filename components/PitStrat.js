@@ -74,22 +74,22 @@ class PitStrat extends React.Component {
   renderRows = (th) => {
     const theme = th;
     const {data} = this.state;
-    var stations = ['r1','r2','r3','b1','b2','b3']
+    // var stations = ['r1','r2','r3','b1','b2','b3']\
+    console.log(data[0])
     return data.map(team => {
-      return (
-      <TableRow key={team.team} >
+     return (
+      <TableRow key={team.robot} >
         <TableCell id='table-cell' style={{backgroundColor:theme.palette.primary.main,
-           color:'white'}}>{team.team}</TableCell>
-        <TableCell id='table-cell'>{team.matches}</TableCell>
-        <TableCell id='table-cell'>{team.ssLevel}</TableCell>
-        <TableCell id='table-cell'>{team.ssHatch}</TableCell>
-        <TableCell id='table-cell'>{team.ssCargo}</TableCell>
-        <TableCell id='table-cell'>{team.shipHatch}</TableCell>
-        <TableCell id='table-cell'>{team.rocketHatch}</TableCell>
-        <TableCell id='table-cell'>{team.shipCargo}</TableCell>
-        <TableCell id='table-cell'>{team.rocketCargo}</TableCell>
-        <TableCell id='table-cell'>{team.defense}</TableCell>
-        <TableCell id='table-cell'>{team.hab}</TableCell>
+           color:'white'}}>{team.robot}</TableCell>
+        <TableCell id='table-cell'>{team.station}</TableCell>
+        <TableCell id='table-cell'>{team.mobility}</TableCell>
+        <TableCell id='table-cell'>{team.sandstorm_hatch}</TableCell>
+        <TableCell id='table-cell'>{team.sandstorm_cargo}</TableCell>
+        <TableCell id='table-cell'>{team.cargo_hatch}</TableCell>
+        <TableCell id='table-cell'>{team.cargo_cargo}</TableCell>
+        <TableCell id='table-cell'>{team.rocket_hatch}</TableCell>
+        <TableCell id='table-cell'>{team.rocket_cargo}</TableCell>
+=        <TableCell id='table-cell'>{team.climb}</TableCell>
       </TableRow>);
     });
   }

@@ -250,67 +250,64 @@ var _initialiseProps = function _initialiseProps() {
   this.renderRows = function (th) {
     var theme = th;
     var data = _this3.state.data;
+    // var stations = ['r1','r2','r3','b1','b2','b3']\
 
-    var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
+    console.log(data[0]);
     return data.map(function (team) {
       return React.createElement(
         TableRow,
-        { key: team.team },
+        { key: team.robot },
         React.createElement(
           TableCell,
           { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
               color: 'white' } },
-          team.team
+          team.robot
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.matches
+          team.station
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.ssLevel
+          team.mobility
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.ssHatch
+          team.sandstorm_hatch
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.ssCargo
+          team.sandstorm_cargo
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.shipHatch
+          team.cargo_hatch
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.rocketHatch
+          team.cargo_cargo
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.shipCargo
+          team.rocket_hatch
         ),
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.rocketCargo
+          team.rocket_cargo
         ),
+        '=        ',
         React.createElement(
           TableCell,
           { id: 'table-cell' },
-          team.defense
-        ),
-        React.createElement(
-          TableCell,
-          { id: 'table-cell' },
-          team.hab
+          team.climb
         )
       );
     });
