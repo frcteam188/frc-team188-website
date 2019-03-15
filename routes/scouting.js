@@ -44,6 +44,25 @@ routes.get('/pitStrat', function(req, res){
   }
 });
 
+routes.get('/teamView', function(req, res){
+  if(req.query.teamNumber != undefined){
+    pg.getTeam(req.query.teamNumber, res).then(result => {
+      res.render('teamview', result)
+    })
+  }else{
+    res.send('missing query: teamNumber')
+  }
+});
+
+routes.post('/submitMatchData', function(req, res){
+  const matchData = req.body;
+  console.log(matchData);
+  req.query.api = 'true';
+  pg.submitMatch(req.body);
+});
+
+
+
 routes.get('/viewTeam', function(req, res){
   if(req.query.teamNumber != undefined){
     Team.getMatches(req.query.teamNumber)

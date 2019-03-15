@@ -8,6 +8,10 @@ const {
   colors,
   createMuiTheme,
   Divider,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+  ExpandMoreIcon,
   Grid,
   List,
   ListItem,
@@ -44,6 +48,28 @@ class PitStrat extends React.Component {
       tabPosition : 0,
       matchNumber: matchNumber,
       color : 'red',
+      alliance_data : {
+        red:{
+          r1:{
+            team : 188,
+            matches : {
+              match: 1,
+              cycles : [
+                piece ='cargo',
+                pickup = 'floor',
+                score = 'top-cargo',
+                level = 1,
+                success = 'success',
+                time = '1458'
+              ]
+              
+            }
+          }
+        },
+        blue:{
+
+        }
+      },
       data : {
         r1: {
           team : 188,
@@ -168,10 +194,11 @@ class PitStrat extends React.Component {
         <TableCell id='table-cell'>{team.hab}</TableCell>
       </TableRow>);
     });
-
-    
   }
 
+  // renderTeams = (alliance) => {
+    
+  // }
   
   render() {
     const theme = this.createTheme();
@@ -182,8 +209,8 @@ class PitStrat extends React.Component {
         <AppBar position="static" style={{height: appBarHeight}}>
           <Tabs value={tabPosition} onChange={this.tabClicked}>
             <Tab label={'Match: ' + matchNumber} />
-            <Tab label="Red"/>
-            <Tab label="Blue"/>
+            <Tab label="Red" disabled={true}/>
+            <Tab label="Blue" disabled={true}/>
           </Tabs>
         </AppBar>
         {(tabPosition === 0) &&
@@ -213,6 +240,16 @@ class PitStrat extends React.Component {
             </Paper>
             <div className='clear'/>
           </div>}
+          {/* {(tabPosition === 1) && 
+            <div style={{height: 470}}>
+              renderTeams('red')
+            </div>
+          }
+          {(tabPosition === 2) && 
+            <div style={{height: 470}}>
+              renderTeams('blue')
+            </div>
+          } */}
     </MuiThemeProvider>;
     };
   

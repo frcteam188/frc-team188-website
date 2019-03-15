@@ -16,6 +16,10 @@ var _window$materialUi = window['material-ui'],
     colors = _window$materialUi.colors,
     createMuiTheme = _window$materialUi.createMuiTheme,
     Divider = _window$materialUi.Divider,
+    ExpansionPanel = _window$materialUi.ExpansionPanel,
+    ExpansionPanelSummary = _window$materialUi.ExpansionPanelSummary,
+    ExpansionPanelDetails = _window$materialUi.ExpansionPanelDetails,
+    ExpandMoreIcon = _window$materialUi.ExpandMoreIcon,
     Grid = _window$materialUi.Grid,
     List = _window$materialUi.List,
     ListItem = _window$materialUi.ListItem,
@@ -147,6 +151,19 @@ var PitStrat = function (_React$Component) {
       tabPosition: 0,
       matchNumber: matchNumber,
       color: 'red',
+      alliance_data: {
+        red: {
+          r1: {
+            team: 188,
+            matches: {
+              match: 1,
+              cycles: [piece = 'cargo', pickup = 'floor', score = 'top-cargo', level = 1, success = 'success', time = '1458']
+
+            }
+          }
+        },
+        blue: {}
+      },
       data: {
         r1: {
           team: 188,
@@ -233,6 +250,12 @@ var PitStrat = function (_React$Component) {
 
   _createClass(PitStrat, [{
     key: 'render',
+
+
+    // renderTeams = (alliance) => {
+
+    // }
+
     value: function render() {
       var theme = this.createTheme();
       var _state = this.state,
@@ -252,8 +275,8 @@ var PitStrat = function (_React$Component) {
             Tabs,
             { value: tabPosition, onChange: this.tabClicked },
             React.createElement(Tab, { label: 'Match: ' + matchNumber }),
-            React.createElement(Tab, { label: 'Red' }),
-            React.createElement(Tab, { label: 'Blue' })
+            React.createElement(Tab, { label: 'Red', disabled: true }),
+            React.createElement(Tab, { label: 'Blue', disabled: true })
           )
         ),
         tabPosition === 0 && React.createElement(

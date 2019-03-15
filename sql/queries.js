@@ -143,5 +143,9 @@ FROM ryerson.cycles,
 //     //     FROM ryerson.habs GROUP BY robot) AS robot_habs
 // }
 
+exports.getCycles = (teamNumber) => squel.select().from(CYCLES).where('robot = ?', teamNumber).toParam();
+
+
+// console.log(match_count.text)
 // console.log(exports.getSubmittedMatchCount().text)
 // console.log(exports.getPreMatchAverages(1).text)
