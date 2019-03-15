@@ -27,6 +27,10 @@ body{
   float: right;
 }
 
+#prev-match-button{
+  float: right;
+}
+
 .table-icon{
   float: left;
   padding: 3%;

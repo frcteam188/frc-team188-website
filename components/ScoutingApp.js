@@ -188,35 +188,52 @@ class ScoutingApp extends React.Component {
 
 
 
-  submitMatch = () => {
+  submitMatch = (useKey=undefined) => {
     const {matchNumber, teamNumber, station, cycles, habs} = this.state;
     const formKey = matchNumber+':'+teamNumber;
-    const matchData = {
-      matchNumber,
-      teamNumber,
-      station,
-      cycles,
-      habs
-    };
-    window.sessionStorage.setItem(formKey, JSON.stringify(matchData));
-    window.localStorage.setItem(formKey, JSON.stringify(matchData));
+    const matchData = useKey !== undefined 
+      ? window.localStorage.getItem(useKey)
+      : JSON.stringify({
+        matchNumber,
+        teamNumber,
+        station,
+        cycles,
+        habs
+      });
+    window.sessionStorage.setItem(formKey,matchData);
+    window.localStorage.setItem(formKey, matchData);
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(matchData)
+      body: matchData
     }).then(response => {
-      var url = 'scouting?matchNumber='+(parseInt(matchNumber)+1)+'&station='+station;
-      window.location.href=url;
+      if(useKey === undefined) {
+        var url = 'scouting?matchNumber='+(parseInt(matchNumber)+1)+'&station='+station;
+        window.location.href=url;
+      }
     }); 
     
   }
 
   renderSubmitPage = () => {
     const {scoutingSize} = this.state;
-    return <ScoutingButton {...{top: 300, left: 300, width: 150, height: 75, scoutingSize, text: 'Submit', buttonProps: {onClick: () => this.submitMatch(), variant: 'contained'}}}/>;
+    const buttons = [];
+    for (var i = 0; i < window.localStorage.length; i++) {
+      const formKey = window.localStorage.key(i) 
+      const rowCount = 8, x = i%rowCount, y = Math.floor(i/rowCount)+1;
+      buttons.push(
+      <ScoutingButton {...{top: 80*y, left: x*100+20, scoutingSize, text: formKey, key: formKey,
+        buttonProps: {id:'prev-match-button', onClick: () => this.submitMatch(formKey), variant: 'contained'}}}/>
+      );
+    }
+  return [
+    ...buttons,
+    <ScoutingButton {...{top: 450, left: 750, width: 150, height: 75, scoutingSize, text: 'Submit', key: 'submit', buttonProps: {onClick: () => this.submitMatch(), variant: 'contained'}}}/>
+  ];
+
   }
 
   createDroppedButton = () => {

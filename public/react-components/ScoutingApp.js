@@ -346,6 +346,7 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.submitMatch = function () {
+    var useKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
     var _state7 = _this3.state,
         matchNumber = _state7.matchNumber,
         teamNumber = _state7.teamNumber,
@@ -354,34 +355,52 @@ var _initialiseProps = function _initialiseProps() {
         habs = _state7.habs;
 
     var formKey = matchNumber + ':' + teamNumber;
-    var matchData = {
+    var matchData = useKey !== undefined ? window.localStorage.getItem(useKey) : JSON.stringify({
       matchNumber: matchNumber,
       teamNumber: teamNumber,
       station: station,
       cycles: cycles,
       habs: habs
-    };
-    window.sessionStorage.setItem(formKey, JSON.stringify(matchData));
-    window.localStorage.setItem(formKey, JSON.stringify(matchData));
+    });
+    window.sessionStorage.setItem(formKey, matchData);
+    window.localStorage.setItem(formKey, matchData);
     fetch('/scouting/submitMatchData', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(matchData)
+      body: matchData
     }).then(function (response) {
-      var url = 'scouting?matchNumber=' + (parseInt(matchNumber) + 1) + '&station=' + station;
-      window.location.href = url;
+      if (useKey === undefined) {
+        var url = 'scouting?matchNumber=' + (parseInt(matchNumber) + 1) + '&station=' + station;
+        window.location.href = url;
+      }
     });
   };
 
   this.renderSubmitPage = function () {
     var scoutingSize = _this3.state.scoutingSize;
 
-    return React.createElement(ScoutingButton, { top: 300, left: 300, width: 150, height: 75, scoutingSize: scoutingSize, text: 'Submit', buttonProps: { onClick: function onClick() {
+    var buttons = [];
+
+    var _loop = function _loop() {
+      var formKey = window.localStorage.key(i);
+      var rowCount = 8,
+          x = i % rowCount,
+          y = Math.floor(i / rowCount) + 1;
+      buttons.push(React.createElement(ScoutingButton, { top: 80 * y, left: x * 100 + 20, scoutingSize: scoutingSize, text: formKey, key: formKey,
+        buttonProps: { id: 'prev-match-button', onClick: function onClick() {
+            return _this3.submitMatch(formKey);
+          }, variant: 'contained' } }));
+    };
+
+    for (var i = 0; i < window.localStorage.length; i++) {
+      _loop();
+    }
+    return [].concat(buttons, [React.createElement(ScoutingButton, { top: 450, left: 750, width: 150, height: 75, scoutingSize: scoutingSize, text: 'Submit', key: 'submit', buttonProps: { onClick: function onClick() {
           return _this3.submitMatch();
-        }, variant: 'contained' } });
+        }, variant: 'contained' } })]);
   };
 
   this.createDroppedButton = function () {
