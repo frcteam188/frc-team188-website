@@ -16,8 +16,6 @@ routes.get('/', function(req, res){
     res.send('missing query: matchNumber or station');
   }
 });
-<<<<<<< HEAD
-=======
 
 routes.post('/submitMatchData', function(req, res){
   const matchData = req.body;
@@ -35,7 +33,6 @@ routes.get('/getTeamData', function(req, res){
   }
 });
 
->>>>>>> 7f18e5ac5194b5b7dc6338a5da28381bb746bc4e
 routes.get('/pitStrat', function(req, res){
   if(req.query.matchNumber != undefined){
     res.render('pitstrat',{'props': {
