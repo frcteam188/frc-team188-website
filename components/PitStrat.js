@@ -40,7 +40,7 @@ const ScoringAreaAsset =
 class PitStrat extends React.Component {
   constructor(props) {
     super(props);
-    const {matchNumber} = this.props;
+    const {matchNumber, data} = this.props;
     // console.log(props)
     this.state = {
       appBarHeight: 50,
@@ -48,108 +48,7 @@ class PitStrat extends React.Component {
       tabPosition : 0,
       matchNumber: matchNumber,
       color : 'red',
-      alliance_data : {
-        red:{
-          r1:{
-            team : 188,
-            matches : {
-              match: 1,
-              cycles : [
-                piece ='cargo',
-                pickup = 'floor',
-                score = 'top-cargo',
-                level = 1,
-                success = 'success',
-                time = '1458'
-              ]
-              
-            }
-          }
-        },
-        blue:{
-
-        }
-      },
-      data : {
-        r1: {
-          team : 188,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch : 1,
-          ssCargo: 1,
-          rocketHatch: 1,
-          rocketCargo: 2,
-          shipHatch: 1,
-          shipCargo: 2,
-          defense : '-',
-          hab: 3
-        },
-        r2: {
-          team : 610,
-          matches: 2,
-          ssLevel: 2,
-          ssHatch : 0,
-          ssCargo: 1,
-          rocketHatch: 3,
-          rocketCargo: 2,
-          shipHatch: 5,
-          shipCargo: 2,
-          defense : '-',
-          hab: 3
-        },
-        r3: {
-          team : 7885,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch : 1,
-          ssCargo: 0,
-          rocketHatch: 0,
-          rocketCargo: 2,
-          shipHatch: 0,
-          shipCargo: 2,
-          defense : 0,
-          hab: 3
-        },
-        b1: {
-          team : 88,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch : 1,
-          ssCargo: 1,
-          rocketHatch: 1,
-          rocketCargo: 2,
-          shipHatch: 1,
-          shipCargo: 2,
-          defense : '-',
-          hab: 3
-        },
-        b2: {
-          team :910,
-          matches: 2,
-          ssLevel: 2,
-          ssHatch : 0,
-          ssCargo: 1,
-          rocketHatch: 3,
-          rocketCargo: 2,
-          shipHatch: 5,
-          shipCargo: 2,
-          defense : '-',
-          hab: 3
-        },
-        b3: {
-          team : 785,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch : 1,
-          ssCargo: 0,
-          rocketHatch: 0,
-          rocketCargo: 2,
-          shipHatch: 0,
-          shipCargo: 2,
-          defense : 0,
-          hab: 3
-        },
-      }
+      data : data
     };
   }
 
@@ -176,8 +75,7 @@ class PitStrat extends React.Component {
     const theme = th;
     const {data} = this.state;
     var stations = ['r1','r2','r3','b1','b2','b3']
-    return stations.map(station => {
-      const team = data[station];
+    return data.map(team => {
       return (
       <TableRow key={team.team} >
         <TableCell id='table-cell' style={{backgroundColor:theme.palette.primary.main,
@@ -210,7 +108,7 @@ class PitStrat extends React.Component {
           <Tabs value={tabPosition} onChange={this.tabClicked}>
             <Tab label={'Match: ' + matchNumber} />
             <Tab label="Red" disabled={true}/>
-            <Tab label="Blue" disabled={true}/>
+            <Tab label="Blue" />
           </Tabs>
         </AppBar>
         {(tabPosition === 0) &&

@@ -50,99 +50,11 @@ var PitStrat = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (PitStrat.__proto__ || Object.getPrototypeOf(PitStrat)).call(this, props));
 
-    _this.tabClicked = function (event, tabPosition) {
-      if (tabPosition == 3 && _this.state.matchPhase !== 'tele') {
-        var _this$state = _this.state,
-            cycle = _this$state.cycle,
-            hab = _this$state.hab,
-            habs = _this$state.habs;
+    _initialiseProps.call(_this);
 
-        _this.setState({
-          matchPhase: 'tele',
-          cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: _this.getCurrTime() }),
-          hab: new Hab(_this.props.teamNumber, _this.props.matchNumber, 'tele')
-        });
-        if (habs.length == 0) {
-          hab.success = 'none';
-          hab.time = undefined;
-          hab.timer = undefined;
-          _this.setState({ habs: [hab] });
-        }
-      }
-      _this.setState({ tabPosition: tabPosition });
-    };
-
-    _this.renderRows = function (th) {
-      var theme = th;
-      var data = _this.state.data;
-
-      var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
-      return stations.map(function (station) {
-        var team = data[station];
-        return React.createElement(
-          TableRow,
-          { key: team.team },
-          React.createElement(
-            TableCell,
-            { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
-                color: 'white' } },
-            team.team
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.matches
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.ssLevel
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.ssHatch
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.ssCargo
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.shipHatch
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.rocketHatch
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.shipCargo
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.rocketCargo
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.defense
-          ),
-          React.createElement(
-            TableCell,
-            { id: 'table-cell' },
-            team.hab
-          )
-        );
-      });
-    };
-
-    var matchNumber = _this.props.matchNumber;
+    var _this$props = _this.props,
+        matchNumber = _this$props.matchNumber,
+        data = _this$props.data;
     // console.log(props)
 
     _this.state = {
@@ -151,99 +63,7 @@ var PitStrat = function (_React$Component) {
       tabPosition: 0,
       matchNumber: matchNumber,
       color: 'red',
-      alliance_data: {
-        red: {
-          r1: {
-            team: 188,
-            matches: {
-              match: 1,
-              cycles: [piece = 'cargo', pickup = 'floor', score = 'top-cargo', level = 1, success = 'success', time = '1458']
-
-            }
-          }
-        },
-        blue: {}
-      },
-      data: {
-        r1: {
-          team: 188,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch: 1,
-          ssCargo: 1,
-          rocketHatch: 1,
-          rocketCargo: 2,
-          shipHatch: 1,
-          shipCargo: 2,
-          defense: '-',
-          hab: 3
-        },
-        r2: {
-          team: 610,
-          matches: 2,
-          ssLevel: 2,
-          ssHatch: 0,
-          ssCargo: 1,
-          rocketHatch: 3,
-          rocketCargo: 2,
-          shipHatch: 5,
-          shipCargo: 2,
-          defense: '-',
-          hab: 3
-        },
-        r3: {
-          team: 7885,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch: 1,
-          ssCargo: 0,
-          rocketHatch: 0,
-          rocketCargo: 2,
-          shipHatch: 0,
-          shipCargo: 2,
-          defense: 0,
-          hab: 3
-        },
-        b1: {
-          team: 88,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch: 1,
-          ssCargo: 1,
-          rocketHatch: 1,
-          rocketCargo: 2,
-          shipHatch: 1,
-          shipCargo: 2,
-          defense: '-',
-          hab: 3
-        },
-        b2: {
-          team: 910,
-          matches: 2,
-          ssLevel: 2,
-          ssHatch: 0,
-          ssCargo: 1,
-          rocketHatch: 3,
-          rocketCargo: 2,
-          shipHatch: 5,
-          shipCargo: 2,
-          defense: '-',
-          hab: 3
-        },
-        b3: {
-          team: 785,
-          matches: 2,
-          ssLevel: 1,
-          ssHatch: 1,
-          ssCargo: 0,
-          rocketHatch: 0,
-          rocketCargo: 2,
-          shipHatch: 0,
-          shipCargo: 2,
-          defense: 0,
-          hab: 3
-        }
-      }
+      data: data
     };
     return _this;
   }
@@ -276,7 +96,7 @@ var PitStrat = function (_React$Component) {
             { value: tabPosition, onChange: this.tabClicked },
             React.createElement(Tab, { label: 'Match: ' + matchNumber }),
             React.createElement(Tab, { label: 'Red', disabled: true }),
-            React.createElement(Tab, { label: 'Blue', disabled: true })
+            React.createElement(Tab, { label: 'Blue' })
           )
         ),
         tabPosition === 0 && React.createElement(
@@ -401,6 +221,101 @@ var PitStrat = function (_React$Component) {
 
   return PitStrat;
 }(React.Component);
+
+var _initialiseProps = function _initialiseProps() {
+  var _this3 = this;
+
+  this.tabClicked = function (event, tabPosition) {
+    if (tabPosition == 3 && _this3.state.matchPhase !== 'tele') {
+      var _state2 = _this3.state,
+          cycle = _state2.cycle,
+          hab = _state2.hab,
+          habs = _state2.habs;
+
+      _this3.setState({
+        matchPhase: 'tele',
+        cycle: Object.assign({}, cycle, { matchPhase: 'tele', timer: _this3.getCurrTime() }),
+        hab: new Hab(_this3.props.teamNumber, _this3.props.matchNumber, 'tele')
+      });
+      if (habs.length == 0) {
+        hab.success = 'none';
+        hab.time = undefined;
+        hab.timer = undefined;
+        _this3.setState({ habs: [hab] });
+      }
+    }
+    _this3.setState({ tabPosition: tabPosition });
+  };
+
+  this.renderRows = function (th) {
+    var theme = th;
+    var data = _this3.state.data;
+
+    var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
+    return data.map(function (team) {
+      return React.createElement(
+        TableRow,
+        { key: team.team },
+        React.createElement(
+          TableCell,
+          { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
+              color: 'white' } },
+          team.team
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.matches
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.ssLevel
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.ssHatch
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.ssCargo
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.shipHatch
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.rocketHatch
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.shipCargo
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.rocketCargo
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.defense
+        ),
+        React.createElement(
+          TableCell,
+          { id: 'table-cell' },
+          team.hab
+        )
+      );
+    });
+  };
+};
 
 var teamRow = function (_React$Component2) {
   _inherits(teamRow, _React$Component2);
