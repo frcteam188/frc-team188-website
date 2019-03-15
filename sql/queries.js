@@ -50,12 +50,12 @@ exports.getPreMatchAverages = matchNumber => {
     FROM ryerson.habs GROUP BY robot) AS robot_habs
 NATURAL JOIN
   (SELECT robot,    
-    COUNT(CASE WHEN piece='hatch' AND phase='sandstorm' THEN 1 END)/AVG(sub_count) AS sandstorm_hatch,
-    COUNT(CASE WHEN piece='cargo' AND phase='sandstorm' THEN 1 END)/AVG(sub_count) AS sandstorm_cargo,
-    COUNT(CASE WHEN piece='hatch' AND score~'cargo' THEN 1 END)/AVG(sub_count) AS cargo_hatch,
-    COUNT(CASE WHEN piece='cargo' AND score~'cargo' THEN 1 END)/AVG(sub_count) AS cargo_cargo,
-    COUNT(CASE WHEN piece='hatch' AND score~'rocket' THEN 1 END)/AVG(sub_count) AS rocket_hatch,
-    COUNT(CASE WHEN piece='cargo' AND score~'rocket' THEN 1 END)/AVG(sub_count) AS rocket_cargo
+    ROUND(COUNT(CASE WHEN piece='hatch' AND phase='sandstorm' THEN 1 END)/AVG(sub_count), 2) AS sandstorm_hatch,
+    ROUND(COUNT(CASE WHEN piece='cargo' AND phase='sandstorm' THEN 1 END)/AVG(sub_count), 2) AS sandstorm_cargo,
+    ROUND(COUNT(CASE WHEN piece='hatch' AND score~'cargo' THEN 1 END)/AVG(sub_count), 2) AS cargo_hatch,
+    ROUND(COUNT(CASE WHEN piece='cargo' AND score~'cargo' THEN 1 END)/AVG(sub_count), 2) AS cargo_cargo,
+    ROUND(COUNT(CASE WHEN piece='hatch' AND score~'rocket' THEN 1 END)/AVG(sub_count), 2) AS rocket_hatch,
+    ROUND(COUNT(CASE WHEN piece='cargo' AND score~'rocket' THEN 1 END)/AVG(sub_count), 2) AS rocket_cargo
 FROM ryerson.cycles, 
 (SELECT robot AS number, COUNT(CASE 
     WHEN r1=robot AND r1_status='submitted' THEN 1 
