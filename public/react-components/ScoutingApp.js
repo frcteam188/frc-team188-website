@@ -157,7 +157,7 @@ var ScoutingApp = function (_React$Component) {
             ),
             React.createElement(
               List,
-              { style: { maxHeight: scoutingSize - 100, overflow: 'auto' } },
+              { style: { width: '100%', maxHeight: scoutingSize - 100, overflow: 'auto' } },
               this.renderHab(1),
               this.renderCycles(),
               this.renderHab(0)

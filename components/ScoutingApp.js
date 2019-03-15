@@ -369,7 +369,7 @@ class ScoutingApp extends React.Component {
                 <img src={this.getGamePieceAsset(piece)} id='game-piece-img'></img>
                 <img src={this.getPickupAsset(pickup)} id='game-piece-img'></img>
               </div>
-              <List style={{maxHeight: scoutingSize-100, overflow: 'auto'}}>
+              <List style={{width: '100%', maxHeight: scoutingSize-100, overflow: 'auto'}}>
               {this.renderHab(1)}
               {this.renderCycles()}
               {this.renderHab(0)}
