@@ -122,11 +122,6 @@ var PitStrat = function (_React$Component) {
                   React.createElement(
                     TableCell,
                     { id: 'table-cell' },
-                    'Matches'
-                  ),
-                  React.createElement(
-                    TableCell,
-                    { id: 'table-cell' },
                     'Mobility'
                   ),
                   React.createElement(
@@ -164,11 +159,6 @@ var PitStrat = function (_React$Component) {
                     { id: 'table-cell' },
                     React.createElement('img', { className: 'table-icon', src: ScoringAreaAsset.rocket_ship }),
                     React.createElement('img', { className: 'table-icon', src: GamePieceAsset.cargo })
-                  ),
-                  React.createElement(
-                    TableCell,
-                    { id: 'table-cell' },
-                    'Cycles'
                   ),
                   React.createElement(
                     TableCell,
@@ -259,14 +249,9 @@ var _initialiseProps = function _initialiseProps() {
         { key: team.robot },
         React.createElement(
           TableCell,
-          { id: 'table-cell', style: { backgroundColor: theme.palette.primary.main,
+          { id: 'table-cell', style: { backgroundColor: team.station.includes('r') ? theme.palette.primary.main : theme.palette.secondary.main,
               color: 'white' } },
           team.robot
-        ),
-        React.createElement(
-          TableCell,
-          { id: 'table-cell' },
-          team.station
         ),
         React.createElement(
           TableCell,
@@ -302,11 +287,6 @@ var _initialiseProps = function _initialiseProps() {
           TableCell,
           { id: 'table-cell' },
           team.rocket_cargo
-        ),
-        React.createElement(
-          TableCell,
-          { id: 'table-cell' },
-          'average'
         ),
         React.createElement(
           TableCell,

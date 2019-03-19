@@ -79,9 +79,9 @@ class PitStrat extends React.Component {
     return data.map(team => {
      return (
       <TableRow key={team.robot} >
-        <TableCell id='table-cell' style={{backgroundColor:theme.palette.primary.main,
+        <TableCell id='table-cell' style={{backgroundColor:team.station.includes('r') ? theme.palette.primary.main : theme.palette.secondary.main,
            color:'white'}}>{team.robot}</TableCell>
-        <TableCell id='table-cell'>{team.station}</TableCell>
+        {/* <TableCell id='table-cell'>{team.station}</TableCell> */}
         <TableCell id='table-cell'>{team.mobility}</TableCell>
         <TableCell id='table-cell'>{team.sandstorm_hatch}</TableCell>
         <TableCell id='table-cell'>{team.sandstorm_cargo}</TableCell>
@@ -89,7 +89,7 @@ class PitStrat extends React.Component {
         <TableCell id='table-cell'>{team.cargo_cargo}</TableCell>
         <TableCell id='table-cell'>{team.rocket_hatch}</TableCell>
         <TableCell id='table-cell'>{team.rocket_cargo}</TableCell>
-        <TableCell id='table-cell'>average</TableCell>
+        {/* <TableCell id='table-cell'>average</TableCell> */}
         <TableCell id='table-cell'>{team.climb}</TableCell>
       </TableRow>);
     });
@@ -119,7 +119,7 @@ class PitStrat extends React.Component {
                 <TableHead  >
                   <TableRow  style={{maxHeight: appBarHeight}}>
                     <TableCell id='table-cell'>Team</TableCell>
-                    <TableCell id='table-cell'>Matches</TableCell>
+                    {/* <TableCell id='table-cell'>Matches</TableCell> */}
                     <TableCell id='table-cell'>Mobility</TableCell>
                     <TableCell id='table-cell'><img className='table-icon' src={ScoringAreaAsset.sandstorm}/><img className='table-icon' src={GamePieceAsset.hatch}/></TableCell>
                     <TableCell id='table-cell'><img className='table-icon' src={ScoringAreaAsset.sandstorm}/><img className='table-icon' src={GamePieceAsset.cargo}/></TableCell>
@@ -127,7 +127,7 @@ class PitStrat extends React.Component {
                     <TableCell id='table-cell'><img className='table-icon' src={ScoringAreaAsset.cargo_ship}/><img className='table-icon' src={GamePieceAsset.cargo}/></TableCell>
                     <TableCell id='table-cell'><img className='table-icon' src={ScoringAreaAsset.rocket_ship}/><img className='table-icon' src={GamePieceAsset.hatch}/></TableCell>
                     <TableCell id='table-cell'><img className='table-icon' src={ScoringAreaAsset.rocket_ship}/><img className='table-icon' src={GamePieceAsset.cargo}/></TableCell>
-                    <TableCell id='table-cell'>Cycles</TableCell>
+                    {/* <TableCell id='table-cell'>Cycles</TableCell> */}
                     <TableCell id='table-cell'>Climb</TableCell>
                     <div className='clear'/>
                   </TableRow>

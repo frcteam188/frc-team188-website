@@ -156,6 +156,8 @@ exports.getPitMatch = async function(matchNumber, response){
       'rocket_cargo': row.rocket_cargo,
       'climb': row.climb
       }
+    }).sort((a,b)=> {
+      return a.station < b.station;
     });
     var stations = ['r1', 'r2', 'r3', 'b1', 'b2', 'b3'];
     var teamNumbers = [];
