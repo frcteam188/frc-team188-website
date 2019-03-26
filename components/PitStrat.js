@@ -30,12 +30,13 @@ const {
   withStyles,
 } = window['material-ui'];
 
+const SCOUTING_ASSETS = '/assets/pictures/scouting2019/';
 const PickupAsset =  
-  {floor: '/assets/pictures/floor.png', hp: '/assets/pictures/human.png', preload: '/assets/pictures/preload.png'} ;
+  {floor: SCOUTING_ASSETS +'floor.png', hp: SCOUTING_ASSETS+ 'human.png', preload: SCOUTING_ASSETS + 'preload.png'};
 const GamePieceAsset = 
-  {none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg'};
+  {none: SCOUTING_ASSETS + 'no_game_piece.jpg', hatch: SCOUTING_ASSETS + 'hatch.png', cargo: SCOUTING_ASSETS + 'cargo.png'};
 const ScoringAreaAsset = 
-  {rocket_ship: '/assets/pictures/rocket_ship.jpg', cargo_ship: '/assets/pictures/cargo_ship.jpg', sandstorm: '/assets/pictures/sandstorm.jpeg'};
+  {rocket_ship: SCOUTING_ASSETS + 'red_rocket_ship.png', cargo_ship: SCOUTING_ASSETS + 'red_cargo_ship.png', dropped: SCOUTING_ASSETS + 'dropped.png'}
 
 class PitStrat extends React.Component {
   constructor(props) {

@@ -38,9 +38,10 @@ var _window$materialUi = window['material-ui'],
     withStyles = _window$materialUi.withStyles;
 
 
-var PickupAsset = { floor: '/assets/pictures/floor.png', hp: '/assets/pictures/human.png', preload: '/assets/pictures/preload.png' };
-var GamePieceAsset = { none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg' };
-var ScoringAreaAsset = { rocket_ship: '/assets/pictures/rocket_ship.jpg', cargo_ship: '/assets/pictures/cargo_ship.jpg', sandstorm: '/assets/pictures/sandstorm.jpeg' };
+var SCOUTING_ASSETS = '/assets/pictures/scouting2019/';
+var PickupAsset = { floor: SCOUTING_ASSETS + 'floor.png', hp: SCOUTING_ASSETS + 'human.png', preload: SCOUTING_ASSETS + 'preload.png' };
+var GamePieceAsset = { none: SCOUTING_ASSETS + 'no_game_piece.jpg', hatch: SCOUTING_ASSETS + 'hatch.png', cargo: SCOUTING_ASSETS + 'cargo.png' };
+var ScoringAreaAsset = { rocket_ship: SCOUTING_ASSETS + 'red_rocket_ship.png', cargo_ship: SCOUTING_ASSETS + 'red_cargo_ship.png', dropped: SCOUTING_ASSETS + 'dropped.png' };
 
 var PitStrat = function (_React$Component) {
   _inherits(PitStrat, _React$Component);

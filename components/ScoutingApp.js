@@ -52,30 +52,31 @@ class Defence {
     this.success = undefined; // foul, success
   }
 }
-
+const SCOUTING_ASSETS = '/assets/pictures/scouting2019/';
 class ScoutingApp extends React.Component {
 
   getPickupAsset = (pickup) => {
     const pickupArea = pickup && (pickup.includes('hp') ? 'hp' : pickup);
-    const assetMap = {floor: '/assets/pictures/floor.png', hp: '/assets/pictures/human.png', preload: '/assets/pictures/preload.png'}
+    const assetMap = {floor: SCOUTING_ASSETS +'floor.png', hp: SCOUTING_ASSETS+ 'human.png', preload: SCOUTING_ASSETS + 'preload.png'}
     return assetMap[pickupArea];
   }
 
   getGamePieceAsset = (gamePiece) => {
-    const assetMap = {none: '/assets/pictures/no_game_piece.jpg', hatch: '/assets/pictures/hatch.jpg', cargo: '/assets/pictures/cargo.jpg'};
+    const assetMap = {none: SCOUTING_ASSETS + 'no_game_piece.jpg', hatch: SCOUTING_ASSETS + 'hatch.png', cargo: SCOUTING_ASSETS + 'cargo.png'};
     return assetMap[gamePiece];
   }
 
   getScoringAreaAsset = (scoringArea) => {
     const scoringShip = scoringArea && (scoringArea.includes('rocket') ? 'rocket_ship' : scoringArea.includes('cargo') ? 'cargo_ship' : 'dropped');
-    const assetMap = {rocket_ship: '/assets/pictures/rocket_ship.jpg', cargo_ship: '/assets/pictures/cargo_ship.jpg', dropped: '/assets/pictures/dropped.jpg'}
+    const colorPrefix = this.props.station.includes('b') ? 'blue_' : 'red_';
+    const assetMap = {rocket_ship: SCOUTING_ASSETS + colorPrefix + 'rocket_ship.png', cargo_ship: SCOUTING_ASSETS + colorPrefix + 'cargo_ship.png', dropped: SCOUTING_ASSETS + 'dropped.png'}
     return assetMap[scoringShip];
   }
   
   getBackgroundAsset = (station, flipped) => {
     return station.includes('b') 
-            ? flipped ? '/assets/pictures/scouting_blue_left.png' : '/assets/pictures/scouting_blue_right.png'
-            : flipped ? '/assets/pictures/scouting_red_right.png' : '/assets/pictures/scouting_red_left.png';
+            ? flipped ? SCOUTING_ASSETS + 'scouting_blue_left.png' : SCOUTING_ASSETS + 'scouting_blue_right.png'
+            : flipped ? SCOUTING_ASSETS + 'scouting_red_right.png' : SCOUTING_ASSETS + 'scouting_red_left.png';
   }
   constructor(props) {
     super(props);
