@@ -47,7 +47,7 @@ exports.getPreMatchAverages = matchNumber => {
     robot,
     MAX(CASE WHEN phase='sandstorm' AND success='scored' THEN level END) AS mobility,
     MAX(CASE WHEN phase='tele' AND success='scored' THEN level END) AS climb
-    FROM ryerson.habs GROUP BY robot) AS robot_habs
+    FROM dcmp.habs GROUP BY robot) AS robot_habs
 NATURAL JOIN
   (SELECT robot,    
     ROUND(COUNT(CASE WHEN piece='hatch' AND phase='sandstorm' THEN 1 END)/AVG(sub_count), 2) AS sandstorm_hatch,
@@ -56,7 +56,7 @@ NATURAL JOIN
     ROUND(COUNT(CASE WHEN piece='cargo' AND score~'cargo' THEN 1 END)/AVG(sub_count), 2) AS cargo_cargo,
     ROUND(COUNT(CASE WHEN piece='hatch' AND score~'rocket' THEN 1 END)/AVG(sub_count), 2) AS rocket_hatch,
     ROUND(COUNT(CASE WHEN piece='cargo' AND score~'rocket' THEN 1 END)/AVG(sub_count), 2) AS rocket_cargo
-FROM ryerson.cycles, 
+FROM dcmp.cycles, 
 (SELECT robot AS number, COUNT(CASE 
     WHEN r1=robot AND r1_status='submitted' THEN 1 
     WHEN r2=robot AND r2_status='submitted' THEN 1 
@@ -65,7 +65,7 @@ FROM ryerson.cycles,
     WHEN b2=robot AND b2_status='submitted' THEN 1 
     WHEN b3=robot AND b3_status='submitted' THEN 1 
     END) AS sub_count
-    FROM (ryerson.schedule NATURAL JOIN (SELECT ARRAY[r1, r2, r3, b1, b2, b3] AS robots FROM ryerson.schedule WHERE MATCH = $1) AS robot_list), ryerson.teams
+    FROM (dcmp.schedule NATURAL JOIN (SELECT ARRAY[r1, r2, r3, b1, b2, b3] AS robots FROM dcmp.schedule WHERE MATCH = $1) AS robot_list), dcmp.teams
     WHERE (r1=robot OR r2=robot OR r3=robot OR b1=robot OR b2=robot OR b3=robot) AND robot=ANY(robots)
     GROUP BY robot) AS match_count
  WHERE robot=number GROUP BY robot) AS robot_cycles
@@ -142,7 +142,7 @@ FROM ryerson.cycles,
 //     //     robot,
 //     //     MAX(CASE WHEN phase='sandstorm' AND success='scored' THEN level END) AS mobility,
 //     //     MAX(CASE WHEN phase='tele' AND success='scored' THEN level END) AS climb
-//     //     FROM ryerson.habs GROUP BY robot) AS robot_habs
+//     //     FROM dcmp.habs GROUP BY robot) AS robot_habs
 // }
 
 exports.getCycles = (teamNumber) => squel.select().from(CYCLES).where('robot = ?', teamNumber).toParam();
