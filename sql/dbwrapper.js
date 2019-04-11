@@ -53,7 +53,7 @@ exports.getMatch = async function(matchNumber, station, response){
     { 'teamNumber': data[station],
       'matchNumber' : matchNumber,
       'station': station,
-      'flipped': false
+      'flipped': true
     }};
   }catch (err) {
     console.log(err);
