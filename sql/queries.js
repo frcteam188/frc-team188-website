@@ -1,6 +1,6 @@
 const squel = require("squel").useFlavour('postgres');
 
-const TOURNAMENT_NAME='ryerson';
+const TOURNAMENT_NAME='dcmp';
 const SCHEDULE = TOURNAMENT_NAME + '.schedule';
 const CYCLES = TOURNAMENT_NAME + '.cycles';
 const HABS = TOURNAMENT_NAME + '.habs';
