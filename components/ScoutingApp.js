@@ -80,8 +80,8 @@ class ScoutingApp extends React.Component {
   }
   constructor(props) {
     super(props);
-    const {matchNumber, teamNumber, station, flipped} = this.props;
-    // console.log(props)
+    const {matchNumber, teamNumber, station} = this.props;
+    console.log(this.props)
     this.state = {
       appBarHeight: 50,
       scoutingSize: 475,
@@ -89,7 +89,7 @@ class ScoutingApp extends React.Component {
       matchNumber: matchNumber,
       teamNumber: teamNumber,
       station: station,
-      flipped: flipped,
+      flipped: true,
       color : station.includes('b') ? 'blue' : 'red',
       matchPhase: 'sandstorm', // sandstorm, tele
       cycle: new Cycle(teamNumber, matchNumber, 'sandstorm'),
@@ -344,7 +344,7 @@ class ScoutingApp extends React.Component {
   render() {
     // console.log(this.state);
     const theme = this.createTheme();
-    const {flipped} = this.props;
+    const {flipped} = this.state;
     const {appBarHeight, scoutingSize, teamNumber, station, matchNumber, tabPosition,
       matchPhase, cycle, hab} = this.state;
     const {pickup, piece, score} = cycle;

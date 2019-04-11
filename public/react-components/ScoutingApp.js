@@ -78,10 +78,9 @@ var ScoutingApp = function (_React$Component) {
     var _this$props = _this.props,
         matchNumber = _this$props.matchNumber,
         teamNumber = _this$props.teamNumber,
-        station = _this$props.station,
-        flipped = _this$props.flipped;
-    // console.log(props)
+        station = _this$props.station;
 
+    console.log(_this.props);
     _this.state = {
       appBarHeight: 50,
       scoutingSize: 475,
@@ -89,7 +88,7 @@ var ScoutingApp = function (_React$Component) {
       matchNumber: matchNumber,
       teamNumber: teamNumber,
       station: station,
-      flipped: flipped,
+      flipped: true,
       color: station.includes('b') ? 'blue' : 'red',
       matchPhase: 'sandstorm', // sandstorm, tele
       cycle: new Cycle(teamNumber, matchNumber, 'sandstorm'),
@@ -105,7 +104,7 @@ var ScoutingApp = function (_React$Component) {
     value: function render() {
       // console.log(this.state);
       var theme = this.createTheme();
-      var flipped = this.props.flipped;
+      var flipped = this.state.flipped;
       var _state = this.state,
           appBarHeight = _state.appBarHeight,
           scoutingSize = _state.scoutingSize,

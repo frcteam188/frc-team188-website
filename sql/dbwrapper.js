@@ -52,8 +52,7 @@ exports.getMatch = async function(matchNumber, station, response){
     return {'props': 
     { 'teamNumber': data[station],
       'matchNumber' : matchNumber,
-      'station': station,
-      'flipped': true
+      'station': station
     }};
   }catch (err) {
     console.log(err);
