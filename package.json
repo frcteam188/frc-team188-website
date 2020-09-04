@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "node-sass": "^4.8.2",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.17.2"
   }
 }
