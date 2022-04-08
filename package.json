@@ -24,7 +24,7 @@
     "jade": "^1.11.0",
     "jsonwebtoken": "^7.4.3",
     "material-components-web": "^0.1.1",
-    "moment": "^2.21.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.0.10",
     "node": "^9.8.0",
     "pg": "6.1.2",
