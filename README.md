@@ -26,6 +26,7 @@ Live versions of the branches in this repository can be found at the following l
 - [ ] Design the footer
 - [ ] Add a site map to the footer
 - [ ] ...add more through the README.md file, please do not remove any tasks
+- [ ] Merge all PRs created by dependabot for outdated dependencies.
 
 # Installation
 ### Required:
